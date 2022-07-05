@@ -1027,3 +1027,142 @@ org.eclipse.core.runtime.CoreException: Could not load the Tomcat server configu
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:03:40.853
 !MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:08:32.670
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:08:32.671
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:22.642
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:22.643
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:56.296
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:56.297
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:59.517
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:11:59.519
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:19.807
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:19.807
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:25.328
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:25.329
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:39.100
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:39.101
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:47.734
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:12:47.735
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:24.597
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:24.599
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:28.483
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:28.485
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.core.resources 4 0 2022-07-05 15:13:32.587
+!MESSAGE Error occurred while reading master table file
+!STACK 0
+java.nio.charset.MalformedInputException: Input length = 1
+	at java.base/java.nio.charset.CoderResult.throwException(CoderResult.java:274)
+	at java.base/sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:352)
+	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:188)
+	at java.base/java.io.InputStreamReader.read(InputStreamReader.java:185)
+	at java.base/java.io.BufferedReader.fill(BufferedReader.java:161)
+	at java.base/java.io.BufferedReader.readLine(BufferedReader.java:326)
+	at java.base/java.io.BufferedReader.readLine(BufferedReader.java:392)
+	at java.base/java.nio.file.Files.readAllLines(Files.java:3398)
+	at org.eclipse.core.internal.resources.SaveManager.getBadSequenceNumberErrorMessage(SaveManager.java:1609)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1590)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1143)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:55)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 4 2 2022-07-05 15:13:32.588
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 2, new: 1). Location: /Users/gimbeomjun/Documents/GitHub/sweetPea/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resourcesTimestamps and tree sequence numbers from file:
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:66)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1591)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1143)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:55)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.wst.validation 4 0 2022-07-05 15:13:46.392
+!MESSAGE OperationCanceledException
+!STACK 0
+org.eclipse.core.runtime.OperationCanceledException: 
+	at org.eclipse.wst.validation.internal.FilterUtil.checkCanceled(FilterUtil.java:76)
+	at org.eclipse.wst.validation.internal.FilterUtil.filterOut(FilterUtil.java:374)
+	at org.eclipse.wst.validation.internal.FilterUtil.filterOut(FilterUtil.java:433)
+	at org.eclipse.wst.validation.internal.FilterUtil$2.visit(FilterUtil.java:631)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:67)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:77)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:77)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:77)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:77)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:56)
+	at org.eclipse.wst.validation.internal.FilterUtil.loadDeltas(FilterUtil.java:647)
+	at org.eclipse.wst.validation.internal.operations.ValidationOperation.loadFileDeltas(ValidationOperation.java:547)
+	at org.eclipse.wst.validation.internal.operations.ValidationOperation.getFileDeltas(ValidationOperation.java:519)
+	at org.eclipse.wst.validation.internal.operations.ValidationOperation.preValidate(ValidationOperation.java:791)
+	at org.eclipse.wst.validation.internal.operations.ValidationOperation.run(ValidationOperation.java:653)
+	at org.eclipse.wst.validation.internal.operations.ValidationBuilder.build(ValidationBuilder.java:192)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:860)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:232)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:281)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:334)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:337)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:392)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:417)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:161)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:255)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:46.503
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:46.504
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:48.731
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2022-07-05 15:13:48.733
+!MESSAGE Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
