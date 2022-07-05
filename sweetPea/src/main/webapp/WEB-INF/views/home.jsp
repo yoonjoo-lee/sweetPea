@@ -3,13 +3,17 @@
 <html>
 <head>
 	<title>Home</title>
+	<script src="resources/js/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function(){
+			$("#header").load("resources/article/header.jsp");
+		});
+	</script>
 </head>
 <body>
-<h1>
-	Hello world!  modify modidididididididididididiidididididfy
-	anjanajnajn
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<article>
+	<header id="header"></header>
+	
+</article>
 </body>
 </html>
