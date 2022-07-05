@@ -12,8 +12,9 @@
 </head>
 <body>
 <article>
-	<header id="header"></header>
+	<header id="header">header</header>
 	
 </article>
+
 </body>
 </html>
