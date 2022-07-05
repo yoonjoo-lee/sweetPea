@@ -1,5 +1,8 @@
 package pea.board.service;
 
-public class UserServiceImple {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserServiceImple implements UserService{
 
 }

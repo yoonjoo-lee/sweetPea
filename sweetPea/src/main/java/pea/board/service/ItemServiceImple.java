@@ -1,5 +1,8 @@
 package pea.board.service;
 
-public class ItemServiceImple {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ItemServiceImple implements ItemService{
 
 }
