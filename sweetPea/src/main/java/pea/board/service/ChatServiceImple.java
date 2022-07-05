@@ -1,5 +1,8 @@
 package pea.board.service;
 
-public class ChatServiceImple {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ChatServiceImple implements ChatService{
 
 }

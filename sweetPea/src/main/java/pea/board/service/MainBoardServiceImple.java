@@ -1,5 +1,8 @@
 package pea.board.service;
 
-public class MainBoardServiceImple {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MainBoardServiceImple implements MainBoardService{
 
 }
