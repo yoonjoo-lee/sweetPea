@@ -28,10 +28,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">아이템상점</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">선물하기</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">결제/충전</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">커뮤니티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">고객센터</a></li>
                         <li class="nav-item"><a class="nav-link" href="user/login.do">로그인</a></li>
                     </ul>
                 </div>
@@ -39,11 +40,11 @@
         </nav>
         <!-- Masthead-->
         <header class="masthead">
-            <div class="container">
+            <!-- <div class="container">
                 <div class="masthead-subheading">0705</div>
                 <div class="masthead-heading text-uppercase">완두콩</div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-            </div>
+            </div> -->
         </header>
 </body>
 </html>
