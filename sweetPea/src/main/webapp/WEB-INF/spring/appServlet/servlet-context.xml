@@ -22,8 +22,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="pea.board.controller" />
-	<!-- <context:component-scan base-package="pea.board.service" />
-	<context:component-scan base-package="pea.board.dao" /> -->
+	<context:component-scan base-package="pea.board.service" />
+	<context:component-scan base-package="pea.board.dao" />
 	
 	
 	

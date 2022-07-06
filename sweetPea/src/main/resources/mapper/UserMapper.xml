@@ -5,4 +5,12 @@
  
 <mapper namespace="pea.board.mapper.UserMapper">
 
+	<select id="login" parameterType="userVo" resultType="userVo">
+		SELECT *
+		 FROM pea_user
+		WHERE id=#{id}
+			AND pwd=#{pwd}
+	</select>
+
+
 </mapper>
