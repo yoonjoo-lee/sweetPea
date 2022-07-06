@@ -1,7 +1,7 @@
 package pea.board.vo;
 
 public class UserVo {
-	private int iudx;
+	private int uidx;
 	private String id;
 	private String pwd;
 	private String name;
@@ -20,10 +20,10 @@ public class UserVo {
 	
 	
 	public int getIudx() {
-		return iudx;
+		return uidx;
 	}
-	public void setIudx(int iudx) {
-		this.iudx = iudx;
+	public void setIudx(int uidx) {
+		this.uidx = uidx;
 	}
 	public String getId() {
 		return id;
