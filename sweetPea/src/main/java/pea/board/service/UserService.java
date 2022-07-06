@@ -1,5 +1,7 @@
 package pea.board.service;
 
-public interface UserService {
+import pea.board.vo.UserVo;
 
+public interface UserService {
+	UserVo login(UserVo vo);
 }
