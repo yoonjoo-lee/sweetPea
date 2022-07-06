@@ -7,12 +7,14 @@
 	<script>
 		$(function(){
 			$("#header").load("resources/article/header.jsp");
+			$("#nav").load("resources/article/nav.jsp");
 		});
 	</script>
 </head>
 <body>
 <article>
 	<header id="header">header</header>
+	<header id="nav">header</header>
 	
 </article>
 
