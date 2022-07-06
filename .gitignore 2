@@ -1,0 +1,14 @@
+/.metadata/
+sweetPea/.classpath
+sweetPea/.classpath
+sweetPea/.settings/org.eclipse.jdt.apt.core.prefs
+sweetPea/.settings/org.eclipse.wst.common.component
+sweetPea/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+sweetPea/target/m2e-wtp/web-resources/META-INF/maven/pea.board/controller/pom.properties
+sweetPea/.classpath
+sweetPea/.settings/org.eclipse.jdt.core.prefs
+sweetPea/.settings/org.eclipse.wst.common.component
+sweetPea/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+sweetPea/target/m2e-wtp/web-resources/META-INF/maven/pea.board/controller/pom.properties
+sweetPea/.classpath
+*.class
