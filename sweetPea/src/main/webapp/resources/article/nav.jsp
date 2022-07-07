@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,53 +9,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<style type="text/css">
-	.loginBox{
-		display: none;
-	}
-	div.banner{
-		background-image: url("<%=request.getContextPath()%>/resources/images/banner2.png");
-		width: 100%;
-		height: 10rem;
-		border: 1px solid black;
-		display: block;
-		background-repeat: no-repeat;
-		background-attachment: scroll;
-		background-position: center center;
-		background-size: cover;
-	}
-	@media (min-width: 992px){
-		.loginBox{
-			display: inline-block;
-			width: 20%;
-			height: 10rem;
-			border: 1px solid black;
-		}
-		div.banner{
-			width: 77%;
-			float: right;
-			height: 10rem;
-			display: inline-block;
-		}
-	}
-	
-	.cameleon{
-		background-image: url("<%=request.getContextPath()%>/resources/images/camelon.png");
-		background-repeat: no-repeat;
-		background-attachment: scroll;
-		background-position: center center;
-		background-size: cover;
-		margin-top: 10%;
-		width: 100%;
-		height: 40%;
-		
-	}
-</style>
+<link href="resources/css/nav.css" rel="stylesheet" />
+<style type="text/css"></style>
 </head>
 <body>
 	<div>
 		<div class="loginBox">
-			<div class="logout cameleon"></div>
+			<!-- 로그인 상태 -->
+			<c:if test="${login != null}">
+				<div class="login-top">
+					<span>${login.name}님</span>
+					<input type="button" onclick="location.href='user/logout.do'" value="로그아웃">
+				</div>
+			</c:if>
+			<!-- 로그인 상태 끝 -->
+			<!-- 로그아웃 상태 -->
+			<c:if test="${login == null}">
+				<div class="login">
+					<div class="cameleon"></div>
+					<input type="button" class="login-button" onclick="location.href='user/login.do'" value="로그인">
+					<div class="logout-bottom">
+						<span><a href="user/join.do">회원가입</a></span>
+						<span>
+							<a href="user/findId.do">아이디</a> /
+							<a href="user/findPwd.do">비밀번호 찾기</a>
+						</span>
+					</div>
+				</div>
+			</c:if>
+			<!-- 로그아웃 상태 끝 -->
 		</div>
 		<div class="banner"></div>
 	</div>

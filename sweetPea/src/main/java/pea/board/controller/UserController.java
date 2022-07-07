@@ -144,6 +144,18 @@ public class UserController {
 		return "user/findId";
 	}
 	
+	//
+	//
+	/* 아이디확인 */
+	//
+	//
+	@ResponseBody
+	@RequestMapping(value="/user/idCheck.do", produces = "application/json;charset=utf8")
+	public int idCheck(String id) {
+		
+		return userService.idCheck2(id);
+	}
+	
 	
 	//
 	//

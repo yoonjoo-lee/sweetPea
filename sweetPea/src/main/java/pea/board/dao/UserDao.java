@@ -28,4 +28,14 @@ public class UserDao {
 		
 		return result;
 	}
+	
+	public int idCheck2(String id) {
+		String checkId = sqlSession.selectOne("pea.board.mapper.UserMapper.idCheck2",id);
+		if(checkId==null) {
+			return 0;
+		}else {
+			return 1;
+		}
+		
+	}
 }
