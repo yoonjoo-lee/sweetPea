@@ -37,12 +37,24 @@
 		}
 	}
 	
-	
+	.cameleon{
+		background-image: url("<%=request.getContextPath()%>/resources/images/camelon.png");
+		background-repeat: no-repeat;
+		background-attachment: scroll;
+		background-position: center center;
+		background-size: cover;
+		margin-top: 10%;
+		width: 100%;
+		height: 40%;
+		
+	}
 </style>
 </head>
 <body>
 	<div>
-		<div class="loginBox"></div>
+		<div class="loginBox">
+			<div class="logout cameleon"></div>
+		</div>
 		<div class="banner"></div>
 	</div>
 </body>
