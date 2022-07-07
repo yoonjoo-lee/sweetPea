@@ -21,6 +21,21 @@
 					<span>${login.name}님</span>
 					<input type="button" onclick="location.href='user/logout.do'" value="로그아웃">
 				</div>
+				<div class="login-center">
+					<div class="profile"></div>
+					<div class="info">
+						<ul>
+							<li>today</li>
+							<li>new</li>
+							<li>친구신청</li>
+							<li>쪽지</li>
+							<li>완두콩 <input type="button" value="충전"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="login-bottom">
+					<input type="button" value="미니홈피 가기">
+				</div>
 			</c:if>
 			<!-- 로그인 상태 끝 -->
 			<!-- 로그아웃 상태 -->
