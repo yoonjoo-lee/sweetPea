@@ -13,4 +13,32 @@
 	</select>
 
 
+	<select id="idCheck" parameterType="userVo" resultType="userVo">
+		SELECT id 
+		FROM mysql.pea_user
+		WHERE id=#{id}
+	</select>
+	
+	<select id="join" parameterType="userVo">
+		INSET INTO pea_user(
+				  id
+				, pwd
+				, name
+				, birth
+				, phone
+				, email
+				, addr
+				
+		)VALUES(
+				  #{id}
+				, #{pwd}
+				, #{name}
+				, #{birth}
+				, #{phone}
+				, #{email}
+				, #{addr} 
+		)
+	
+	</select>
+
 </mapper>
