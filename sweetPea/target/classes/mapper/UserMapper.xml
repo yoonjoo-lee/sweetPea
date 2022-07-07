@@ -15,12 +15,12 @@
 
 	<select id="idCheck" parameterType="userVo" resultType="userVo">
 		SELECT id 
-		FROM mysql.pea_user
+		FROM pea_user
 		WHERE id=#{id}
 	</select>
 	
-	<select id="join" parameterType="userVo">
-		INSET INTO pea_user(
+	<insert id="insert" parameterType="userVo">
+		INSERT INTO pea_user(
 				  id
 				, pwd
 				, name
@@ -28,7 +28,8 @@
 				, phone
 				, email
 				, addr
-				
+				, gender
+				, ip
 		)VALUES(
 				  #{id}
 				, #{pwd}
@@ -37,8 +38,11 @@
 				, #{phone}
 				, #{email}
 				, #{addr} 
+				, 'W'
+				, "123.123.123.123"
 		)
 	
-	</select>
+	</insert>
 
+	
 </mapper>
