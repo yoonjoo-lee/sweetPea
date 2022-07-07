@@ -74,6 +74,10 @@ function join(){
 		$('#email').blur();
 		$('#email').focus();
 		return;
+	}else{
+		fm.action = "<%=request.getContextPath()%>/user/join.do";
+		fm.method = "post";
+		fm.submit;
 	}
 }
 
@@ -82,7 +86,49 @@ function join(){
 </head>
 <body>
 <form method="post" action="join.do" name="fm">
-	<input type="text" name="id" id="id" placeholder="아이디"><input type="button" onclick="idCheck()" value="중복체크" ><br>
+	<input type="text" name="id" id="id" placeholder="아이디">
+	<span></span>
+	<script>
+		if($('#id').val()==""){
+			$('#id').blur(function(){
+			$('#id').next('span').text('아이디를 입력하세요');
+			$('#id').next('span').css('color','red');
+			})
+		}else{
+			
+			$.ajax({
+				url="idchek.do",
+				type="get",
+				data="id="+$('#id').val(),
+				success: function(data){
+					if($("#id").val()==data.id){
+						$('#id').next("span").text('중복된 아이디입니다.');
+						$('#id').next('span').css('color','red');
+					}else{
+						$('#id').next('span').text('사용가능한 아이디입니다.');
+						$('#id').next('span').css('color','green');
+					}
+				}
+					
+					
+/* 					$('#id').blur(function(){
+					let 
+					if(value==0){
+						$('#id').next("span").text('중복된 아이디입니다.');
+						$('#id').next('span').css('color','red');
+					}else if($('#id').val()==""){
+						$('#id').next('span').text('아이디를 입력하세요');
+						$('#id').next('span').css('color','red');
+					}else if($('#id').val()!="") {
+						$('#id').next('span').text('사용가능한 아이디입니다.');
+						$('#id').next('span').css('color','green');
+					}
+				}) */
+			})
+		}
+	</script>
+	<!-- <input type="button" onclick="idCheck()" value="중복체크" > -->
+	<br>
 	<input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br>
 	<input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br>
 	

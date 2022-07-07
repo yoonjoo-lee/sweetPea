@@ -19,10 +19,10 @@ public class UserVo {
 	
 	
 	
-	public int getIudx() {
+	public int getUidx() {
 		return uidx;
 	}
-	public void setIudx(int uidx) {
+	public void setUidx(int uidx) {
 		this.uidx = uidx;
 	}
 	public String getId() {

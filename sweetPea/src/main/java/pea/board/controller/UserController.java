@@ -3,7 +3,9 @@ package pea.board.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,13 @@ public class UserController {
 	@Autowired
 	private MailSendService mailService;
 	
+	
+	//
+	//
+	/* 로그인 */
+	//
+	//
+	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
 	public String login(){
 		
@@ -30,13 +39,31 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
-	public String login(UserVo vo, Model model) {
+	public String login(UserVo vo,HttpServletRequest request, HttpSession session) {
 		UserVo user = userService.login(vo);
 		
-		
-		model.addAttribute("user", user);
-		
-		return "redirect:/";
+		if(user != null) {
+			
+			session = request.getSession();
+			
+			
+			// 세션에 담을 로그인 객체 생성해서 가져오기 
+			UserVo login = new UserVo();
+			login.setUidx(user.getUidx());
+			login.setId(user.getId());
+			login.setName(user.getName());
+			login.setProfile(user.getProfile());
+			
+			
+			session.setAttribute("login", login);
+			
+			
+			return "redirect:/";
+			
+		}else {
+			
+			return "redirect:/user/login.do";
+		}
 	}
 	
 	@RequestMapping(value="/user/join.do", method=RequestMethod.GET)
@@ -51,6 +78,30 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	
+	
+	//
+	//
+	/* 로그아웃 */
+	//
+	//
+	
+	@RequestMapping(value="/user/logout.do")
+	public String logout(HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		session.invalidate();
+		
+		return "redirect:/";
+		
+	}
+	
+	
+	//
+	//
+	/* 회원가입 */
+	//
+	//
 	
 	@RequestMapping(value="/user/join.do", method=RequestMethod.POST)// throws 는 오류가 나면은 그 때 행해라는 걸로 일단 생각해라. 나중에 더  빡세게 공부해라.
 	public void join(UserVo vo, HttpServletResponse response) throws IOException {
@@ -79,12 +130,26 @@ public class UserController {
 		}
 	}
 	
+	
+	//
+	//
+	/* 아이디찾기 */
+	//
+	//
+	
 	@RequestMapping(value="/user/findId.do", method=RequestMethod.GET)
 	public String findId() {
 		
 		
 		return "user/findId";
 	}
+	
+	
+	//
+	//
+	/* 이메일인증  */
+	//
+	//
 	
 	@RequestMapping(value="/user/mailCheck.do")
 	@ResponseBody
