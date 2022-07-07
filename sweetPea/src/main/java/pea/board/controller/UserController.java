@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,8 +89,8 @@ public class UserController {
 	@RequestMapping(value="/user/mailCheck.do")
 	@ResponseBody
 	public String mailCheck(String email) {
-		System.out.println("�씠硫� �씤利� �슂泥� ");
-		System.out.println("�슂泥� �씠硫�:"+email);
+		System.out.println("mailcheck");
+		System.out.println("email"+email);
 		
 		return mailService.joinEmail(email);
 	}
