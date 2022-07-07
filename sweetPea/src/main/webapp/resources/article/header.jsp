@@ -37,8 +37,8 @@
                         	<a class="nav-link" href="mainboard/community.do">커뮤니티</a>
                         </div>
                         <div class="optionList">
-                        	<div class="optionListItem"><a class="nav-link">자유</a></div>
-                        	<div class="optionListItem"><a class="nav-link">유머</a></div>
+                        	<div class="optionListItem"><a class="nav-link" href="mainboard/list.do">자유</a></div>
+                        	<div class="optionListItem"><a class="nav-link" href="mainboard/list.do">유머</a></div>
                         </div>
                         </div>
                         </li>
