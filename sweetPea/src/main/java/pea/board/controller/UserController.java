@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,19 +46,27 @@ public class UserController {
 		return "user/join";
 		
 	}
+	@RequestMapping(value="/user/home.do")
+	public String home() {
 	
+		
+		return "redirect:/";
+	}
 	
 	@RequestMapping(value="/user/join.do", method=RequestMethod.POST)// throws 는 오류가 나면은 그 때 행해라는 걸로 일단 생각해라. 나중에 더  빡세게 공부해라.
 	public void join(UserVo vo, HttpServletResponse response) throws IOException {
 		UserVo id = userService.idCheck(vo);
 		PrintWriter pw = response.getWriter();
+		System.out.println(id);
+		
+		System.out.println(pw);
 		response.setContentType("text/html;charset=utf-8");
 		if(id == null) {
 			int result =userService.inserUser(vo);
 			if(result == 1) {
 				System.out.println("회원가입 성공");
 				
-				pw.append("<script>alert('축하합니다.');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 list.do로 보내라.
+				pw.append("<script>alert('축하합니다.');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 				pw.flush(); //화면에 쓰는 곳이다.
 				
 			}else {
@@ -65,7 +74,7 @@ public class UserController {
 			}
 		}else {
 			
-			pw.append("<script>alert('중복된 아이디입니다.');location.href='join.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 list.do로 보내라.
+			pw.append("<script>alert('중복된 아이디입니다.');location.href='join.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush(); //화면에 쓰는 곳이다.
 		
 		}
@@ -86,5 +95,9 @@ public class UserController {
 		
 		return mailService.joinEmail(email);
 	}
+	
+	
+	
+	
 	
 }
