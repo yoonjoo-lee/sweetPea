@@ -15,22 +15,16 @@
 <body>
 	<div>
 		<div class="loginBox">
-			<c:if test="${user != null}">
-				아이디 : ${user.id}
-				이름 : ${user.name}
-				<div class="logout">
-					<div class="cameleon"></div>
-					<input type="button" class="login-button" onclick="location.href='user/login.do'" value="로그인">
-					<div class="logout-bottom">
-						<span><a href="user/join.do">회원가입</a></span>
-						<span>
-							<a href="user/findId.do">아이디</a> /
-							<a href="user/findPwd.do">비밀번호 찾기</a>
-						</span>
-					</div>
+			<!-- 로그인 상태 -->
+			<c:if test="${login != null}">
+				<div class="login-top">
+					<span>${login.name}님</span>
+					<input type="button" onclick="location.href='user/logout.do'" value="로그아웃">
 				</div>
 			</c:if>
-			<c:if test="${user == null}">
+			<!-- 로그인 상태 끝 -->
+			<!-- 로그아웃 상태 -->
+			<c:if test="${login == null}">
 				<div class="login">
 					<div class="cameleon"></div>
 					<input type="button" class="login-button" onclick="location.href='user/login.do'" value="로그인">
@@ -43,6 +37,7 @@
 					</div>
 				</div>
 			</c:if>
+			<!-- 로그아웃 상태 끝 -->
 		</div>
 		<div class="banner"></div>
 	</div>

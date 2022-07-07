@@ -17,12 +17,12 @@ div.banner{
 @media (min-width: 1050px){
 	.loginBox{
 		display: inline-block;
-		width: 25%;
+		width: 20%;
 		height: 10rem;
 		border: 1px solid black;
 	}
 	div.banner{
-		width: 72%;
+		width: 77%;
 		float: right;
 		height: 10rem;
 		display: inline-block;
@@ -61,4 +61,15 @@ div.banner{
 .logout-bottom a{
 	text-decoration: none;
 	color: inherit;
+}
+
+.login-top{
+	font-size: 0.1em;
+	margin-top: 2em;
+}
+.login-top>span{
+	float: left;
+}
+.login-top>input{
+	float: right;	
 }
