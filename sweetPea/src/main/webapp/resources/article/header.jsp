@@ -31,8 +31,14 @@
                         <li class="nav-item"><a class="nav-link" href="#services">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">결제/충전</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">커뮤니티</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">고객센터</a></li>
+                        <li class="nav-item">
+                        <select>
+                        <a class="nav-link" href="mainboard/community.do"><option>커뮤니티</option></a>
+                        <option>자유</option>
+                        <option>유머</option>
+                        </select>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="mainboard/service.do">고객센터</a></li>
                         <li class="nav-item"><a class="nav-link" href="user/login.do">로그인</a></li>
                     </ul>
                 </div>
