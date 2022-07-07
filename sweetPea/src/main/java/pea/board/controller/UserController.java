@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.UserService;
 import pea.board.vo.UserVo;
@@ -19,6 +20,8 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	private MailSendService mailService;
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
 	public String login(){
@@ -66,6 +69,22 @@ public class UserController {
 			pw.flush(); //화면에 쓰는 곳이다.
 		
 		}
+	}
+	
+	@RequestMapping(value="/user/findId.do", method=RequestMethod.GET)
+	public String findId() {
+		
+		
+		return "user/findId";
+	}
+	
+	@RequestMapping(value="/user/mailCheck.do")
+	@ResponseBody
+	public String mailCheck(String email) {
+		System.out.println("�씠硫� �씤利� �슂泥� ");
+		System.out.println("�슂泥� �씠硫�:"+email);
+		
+		return mailService.joinEmail(email);
 	}
 	
 }
