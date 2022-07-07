@@ -54,7 +54,7 @@ function join(){
 		$('#name').focus();
 		return;
 		
-	}else if($('#gender').val()==""{
+	}else if($('#gender').val()==""){
 		$('#gender').focus();
 		$('#gender').blur();
 		$('#gender').focus();
@@ -89,19 +89,17 @@ function join(){
 	<input type="text" name="id" id="id" placeholder="아이디">
 	<span></span>
 	<script>
+	$('#id').blur(function(){
 		if($('#id').val()==""){
-			$('#id').blur(function(){
 			$('#id').next('span').text('아이디를 입력하세요');
 			$('#id').next('span').css('color','red');
-			})
 		}else{
-			
 			$.ajax({
-				url="idchek.do",
-				type="get",
-				data="id="+$('#id').val(),
+				url:"idCheck.do",
+				type:"get",
+				data:"id="+$('#id').val(),
 				success: function(data){
-					if($("#id").val()==data.id){
+					if(data==1){
 						$('#id').next("span").text('중복된 아이디입니다.');
 						$('#id').next('span').css('color','red');
 					}else{
@@ -109,6 +107,12 @@ function join(){
 						$('#id').next('span').css('color','green');
 					}
 				}
+			});
+		}
+	});
+		
+			
+			
 					
 					
 /* 					$('#id').blur(function(){
@@ -124,8 +128,6 @@ function join(){
 						$('#id').next('span').css('color','green');
 					}
 				}) */
-			})
-		}
 	</script>
 	<!-- <input type="button" onclick="idCheck()" value="중복체크" > -->
 	<br>
