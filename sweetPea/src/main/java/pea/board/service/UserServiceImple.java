@@ -17,4 +17,16 @@ public class UserServiceImple implements UserService{
 		return userDao.login(vo);
 	}
 
+	@Override
+	public UserVo idCheck(UserVo vo) {
+		return userDao.idCheck(vo);
+	}
+
+	@Override
+	public int inserUser(UserVo vo) {
+		int result = userDao.insert(vo);
+		
+		return result;
+	}
+
 }

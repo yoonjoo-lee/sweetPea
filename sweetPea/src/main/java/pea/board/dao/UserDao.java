@@ -15,4 +15,17 @@ public class UserDao {
 	public UserVo login(UserVo vo) {
 		return sqlSession.selectOne("pea.board.mapper.UserMapper.login",vo);
 	}
+	
+	
+	public UserVo idCheck(UserVo vo) {
+		
+		return sqlSession.selectOne("pea.board.mapper.UserMapper.idCheck",vo);
+	}
+	
+	public int insert(UserVo vo) {
+		
+		int result = sqlSession.insert("pea.board.mapper.UserMapper.insert",vo);
+		
+		return result;
+	}
 }
