@@ -33,7 +33,7 @@ function idCheck(){
 */
 function join(){
 	let fm = document.frm;
-	if($("id").val()== ""){
+	if($("#id").val()== ""){
 		$('#id').focus();
 		$('#id').blur();
 		$('#id').focus();
@@ -85,14 +85,15 @@ function join(){
 </script>
 </head>
 <body>
-<form method="post" action="join.do" name="fm">
-	<input type="text" name="id" id="id" placeholder="아이디">
+<form name="frm">
+	<input type="text" name="id" id="id" placeholder="아이디"><br>
 	<span></span>
+	
 	<script>
 	$('#id').blur(function(){
 		if($('#id').val()==""){
-			$('#id').next('span').text('아이디를 입력하세요');
-			$('#id').next('span').css('color','red');
+			$('#id').next().next('span').text('아이디를 입력하세요');
+			$('#id').next().next('span').css('color','red');
 		}else{
 			$.ajax({
 				url:"idCheck.do",
@@ -100,11 +101,11 @@ function join(){
 				data:"id="+$('#id').val(),
 				success: function(data){
 					if(data==1){
-						$('#id').next("span").text('중복된 아이디입니다.');
-						$('#id').next('span').css('color','red');
+						$('#id').next().next("span").text('중복된 아이디입니다.');
+						$('#id').next().next('span').css('color','red');
 					}else{
-						$('#id').next('span').text('사용가능한 아이디입니다.');
-						$('#id').next('span').css('color','green');
+						$('#id').next().next('span').text('사용가능한 아이디입니다.');
+						$('#id').next().next('span').css('color','green');
 					}
 				}
 			});
@@ -132,26 +133,110 @@ function join(){
 	<!-- <input type="button" onclick="idCheck()" value="중복체크" > -->
 	<br>
 	<input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br>
+	<span></span><br>
 	<input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br>
-	
+	<span></span><br>
+		<script>
+	$("#pwd").blur(function(){
+		if($("#pwd").val() == ""){
+			$("#pwd").next().next("span").text("비밀번호를 입력하세요");
+			$("#pwd").next().next("span").css("color","red");
+		}else if($("#pwd").val() != $("#pwd2").val()){
+			$("#pwd").next().next("span").text("비밀번호 확인필요");
+			$("#pwd").next().next("span").css("color","red");			
+		}else{
+			$("#pwd").next().next("span").text("비밀번호 일치");
+			$("#pwd").next().next("span").css("color","green");
+		}
+	});
+	$("#pwd2").blur(function(){
+		if($("#pwd2").val() == ""){
+			$("#pwd2").next().next("span").text("비밀번호 확인을 입력하세요");
+			$("#pwd2").next().next("span").css("color","red");
+		}else if($("#pwd").val() != $("#pwd2").val()){
+			$("#pwd").next().next("span").text("비밀번호 확인필요");
+			$("#pwd").next().next("span").css("color","red");
+			$("#pwd2").next().next("span").text("");
+		}else if($("#pwd").val() == $("#pwd2").val()){
+			$("#pwd").next().next("span").text("비밀번호 일치");
+			$("#pwd").next().next("span").css("color","green");
+			$("#pwd2").next().next("span").text("");
+		}	
+	});
+	</script>
 	<input type="text" name="name" id="name" placeholder="이름">
-	<select name="gneder" id="gender">
+	
+	<select name="gender" id="gender">
 		<option value="">성별</option>
 		<option value="M">남자</option>
 		<option value="W">여자</option>
 	</select>
+	<br>
+	<span></span>
+	<span></span>
+		<script>
+	$('#name').blur(function(){
+		if($('#name').val()==""){
+			$('#name').next().next().next('span').text("이름을 입력하세요.");
+			$('#name').next().next().next('span').css('color','red');
+		}else{
+			$('#name').next().next().next('span').text("이름 입력 완료");
+			$('#name').next().next().next('span').css('color','green')
+		}
+	})
+	$('#gender').mousedown(function(){
+		if($('#gender').val()==""){
+			$('#gender').next().next().next('span').text("성별을 선택하세요.");
+			$('#gender').next().next().next('span').css('color','red');
+		}else{
+			$('#gender').next().next().next('span').text("선택완료");
+			$('#gender').next().next().next('span').css('color','green');
+		}
+	})
+	</script>
 <!-- 	<input type="radio" name="gender" id="gender" value="M" checked>남자
 	<input type="radio" name="gender" id="gender" value="F">여자 -->
 	<br>
-	<input type="text" name="birth" id="birth" placeholder="생년월일"><br>
-	<input type="text" name="phone" id="phone" placeholder="연락처"><br>
+	<input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
+	<span></span><br>
+	<script>
+		$('#birth').blur(function(){
+			if($('#birth').val()==""){
+				$('#birth').next().next('span').text('생년월일을 입력하세요');
+				$('#birth').next().next('span').css('color','red');
+			}else{
+				$('#birth').next().next('span').text('입력완료');
+				$('#birth').next().next('span').css('color','green');
+			}
+		})
+		
+	</script>
+	<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
+	<span></span><br>
+	<script>
+		$('#phone').blur(function(){
+			if($('#phone').val()==""){
+				$('#phone').next().next('span').text('연락처를 입력하세요');
+				$('#phone').next().next('span').css('color','red');
+			}else {
+				$('#phone').next().next('span').text('입력완료');
+				$('#phone').next().next('span').css('color','green');
+			}
+		})
+	</script>
 	<input type="text" name="email" id="email" placeholder="이메일">
 	<input type="button" id="mailCheckBtn" value="인증번호 받기" ><br>
-	<input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled">
+	<input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br>
 	<span id="mail-check-warn"></span><br>
 	<input type="" name="addr" placeholder="주소"><input type="button" value="검색"><br>
-	<input type="submit" value="회원가입" >
+	<br>
+	<input type="button" value="회원가입" onclick="join()" >
 </form>
+
+
+
+
+
 
 
 <script type="text/javascript">
