@@ -5,4 +5,16 @@
  
 <mapper namespace="pea.board.mapper.MainBoardMapper">
 
+<!-- <insert id="write" parameterType="boardVo">
+	INSERT INTO pea_board(
+		  title
+		, content
+		, uidx
+	) VALUES(
+		  #{title}
+		, #{content}
+		, #{uidx}
+	)
+</insert> -->
+
 </mapper>

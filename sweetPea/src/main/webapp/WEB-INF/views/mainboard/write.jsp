@@ -23,6 +23,24 @@
 .advance .tagify__tag{
     --tag-hover: var(--tag-bg);
 }
+
+#title-box{ 
+    width:100%; 
+    display:flex; 
+    justify-content: center;
+}
+
+#title{ 
+    width:100%; 
+    height:40px; 
+    border:1px #D8D8D8 solid; 
+    border-radius: 5px; 
+    margin:0; 
+    padding:0 10px; 
+    margin-bottom:10px; 
+    font-family: 'Apple SD Gothic Neo';
+    font-size:14px; 
+}
 </style>
 
 </head>
@@ -32,8 +50,15 @@ mainboard 작성
 
 <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'>
 
-
+<form action="" method="post">
+<div id="title-box">
+	<input id="title" name="title" placeholder="제목을 입력해 주세요">
+</div>
 <textarea id="summernote" name="content"></textarea>
+<input type="hidden" name="uidx" value=>
+<button type="submit">작성</button>
+</form>
+
 <script>
 $(document).ready(function () {
     $('#summernote').summernote({
