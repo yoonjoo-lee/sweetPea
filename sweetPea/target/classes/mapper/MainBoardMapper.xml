@@ -5,4 +5,34 @@
  
 <mapper namespace="pea.board.mapper.MainBoardMapper">
 
+<insert id="write" parameterType="MainBoardVo">
+	INSERT INTO pea_board(
+		  title
+		, content
+		, uidx
+		, ip
+		, category
+	) VALUES(
+		  #{title}
+		, #{content}
+		, #{uidx}
+		, #{ip}
+		, #{category}
+	)
+</insert>
+
+<select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
+	select b.* 
+		 from pea_board b, pea_user u
+		where b.uidx=u.uidx
+		and category=#{category}
+		<if test='searchType != null and searchType.equals("title")'>
+	 		AND b.title like concat('%',#{searchValue},'%')
+	 	</if>
+	 	<if test='searchType != null and searchType.equals("contentWriter")'>
+	 		AND b.content like concat('%',#{searchValue},'%')
+	 		OR u.name like concat('%',#{searchValue},'%')
+	 	</if>
+</select>
+
 </mapper>

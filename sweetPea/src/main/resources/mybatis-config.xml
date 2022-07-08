@@ -16,6 +16,7 @@
         <typeAlias type="pea.board.vo.MiniroomBoardVo" alias="MiniroomBoardVo"/>
         <typeAlias type="pea.board.vo.ReportVo" alias="ReportVo"/>
         <typeAlias type="pea.board.vo.UserVo" alias="UserVo"/>
+        <typeAlias type="pea.board.vo.SearchVo" alias="SearchVo"/>
     </typeAliases>
 
 </configuration>
