@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%int category = Integer.parseInt(request.getParameter("category"));%>
+<%=category%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,15 +49,17 @@
 
 <body>
 mainboard 작성
-
+${category }
 <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'>
 
 <form action="" method="post">
 <div id="title-box">
-	<input id="title" name="title" placeholder="제목을 입력해 주세요">
+	<input style="ime-mode:disabled;"id="title" name="title" placeholder="제목을 입력해 주세요">
 </div>
+
 <textarea id="summernote" name="content"></textarea>
-<input type="hidden" name="uidx" value=>
+<input type="hidden" name="category" value=${category }>
+
 <button type="submit">작성</button>
 </form>
 
