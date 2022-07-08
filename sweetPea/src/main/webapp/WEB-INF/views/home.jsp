@@ -16,6 +16,7 @@
 		#view{
 			width: 60%;
 			margin: 0 auto;
+			margin-bottom: 15em;
 		}
 		#footer{
 			width: 100%;

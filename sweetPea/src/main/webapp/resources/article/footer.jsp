@@ -9,7 +9,9 @@
 <meta name="author" content="" />
 <style type="text/css">
 	.footer-box{
-	
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		padding: 0.2em 0; 
 	}
 	.footer-ul{
 		text-align: center;
@@ -24,7 +26,17 @@
 		font-size: 0.6erm;
 		text-decoration: none;
 	}
-	
+	.footer-logo{
+		background-image: url("<%=request.getContextPath()%>/resources/images/camelon.png");
+		width: 20%;
+		height: 10rem;
+		border-rigth: 1px solid black;
+		display: inline-block;
+		background-repeat: no-repeat;
+		background-attachment: scroll;
+		background-position: center center;
+		background-size: cover;
+	}
 </style>
 </head>
 <body>
@@ -36,5 +48,6 @@
              <li><a class="footer-link" href="#team">기타문의</a></li>
          </ul>
      </div>
+     <div class="footer-logo"></div>
 </body>
 </html>
