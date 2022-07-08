@@ -32,9 +32,9 @@ public class MailSendService {
 			System.out.println("joinMmail로 이멜 들어옴"+email);
 			String setFrom = "yjcandoit@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
 			String toMail = email;
-			String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목 
+			String title = "환영합니다! SweetPea 회원 가입 인증 이메일 입니다."; // 이메일 제목 
 			String content = 
-					"홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
+					"스위피를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
 	                "<br><br>" + 
 				    "인증 번호는 " + authNumber + "입니다." + 
 				    "<br>" + 

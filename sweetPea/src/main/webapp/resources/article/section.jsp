@@ -34,7 +34,8 @@
 		background-position: center center;
 		background-size: cover;
 	}
-	
+	#view{
+	}
 </style>
 </head>
 <body>
