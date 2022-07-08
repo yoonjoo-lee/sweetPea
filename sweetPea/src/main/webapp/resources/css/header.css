@@ -98,19 +98,24 @@ abbr[data-bs-original-title] {
           text-decoration-skip-ink: none;
 }
 
-ol,
+/* ol,
 ul {
   padding-left: 2rem;
+} */
+.navbar-nav, nav-item{
+	padding-left: 2rem;
+	margin-top: 0;
+  margin-bottom: 1rem;
 }
 
-ol,
+/* ol,
 ul,
 dl {
   margin-top: 0;
   margin-bottom: 1rem;
-}
+} */
 
-ol ol,
+/* ol ol,
 ul ul,
 ol ul,
 ul ol {
@@ -159,7 +164,7 @@ sub {
 sup {
   top: -0.5em;
 }
-
+ */
 a {
   color: #ffc800;
   text-decoration: underline;
