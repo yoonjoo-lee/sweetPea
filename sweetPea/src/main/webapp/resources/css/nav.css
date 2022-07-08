@@ -1,5 +1,6 @@
 @charset "UTF-8";
-
+#nav{
+}
 .loginBox{
 		display: none;
 }
@@ -14,7 +15,7 @@ div.banner{
 	background-position: center center;
 	background-size: cover;
 }
-@media (min-width: 1050px){
+@media (min-width: 1200px){
 	.loginBox{
 		display: inline-block;
 		width: 20%;
@@ -65,11 +66,46 @@ div.banner{
 
 .login-top{
 	font-size: 0.1em;
-	margin-top: 2em;
+	margin-top: 3em;
+	height: 20%;
 }
 .login-top>span{
 	float: left;
+	font-size: 9em;
+	margin-left: 1em;
+	color: silver;
 }
 .login-top>input{
 	float: right;	
+	margin-right: 3em;
+}
+.login-center{
+	height: 55%;
+}
+.login-bottom{
+	height: 22%;
+}
+.login-center div{
+	display: inline-block;
+	height: 85%;
+}
+.profile{
+	height: 85%;
+	border: 1px solid black;
+	width: 40%;
+	margin-left: 5%;
+}
+.info{
+	width: 50%;
+}
+.info ul{
+	list-style: none;
+	font-size: 0.05em;
+	padding: 0;
+}
+.login-bottom>input{
+	width: 85%;
+	display: block;
+	margin: 0 auto;
+	font-size: 0.8em;
 }
