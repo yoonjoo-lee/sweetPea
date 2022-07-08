@@ -14,15 +14,16 @@
 	</script>
 	<style type="text/css">
 		#view{
-			width: 60%;
+			width: 60vw;
 			margin: 0 auto;
 			margin-bottom: 15em;
 		}
 		#footer{
-			width: 100%;
+			width: 100vw;
 			bottom: 0;
 			left: 0;
 			position: absolute;
+			height: 10vh;
 		}
 	</style>
 </head>
