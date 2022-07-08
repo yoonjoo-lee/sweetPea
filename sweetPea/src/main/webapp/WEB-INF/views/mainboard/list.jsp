@@ -5,12 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    
 </head>
-
 <body>
-커뮤니티
-<a href="write.do">작성하기</a>
+리스트(커뮤니티/고객센터)
 
 </body>
 </html>

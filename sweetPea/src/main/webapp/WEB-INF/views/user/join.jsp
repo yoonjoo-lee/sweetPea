@@ -184,7 +184,9 @@ function join(){
 			$('#name').next().next().next('span').css('color','green')
 		}
 	})
+  
 	$('#gender').on('change',function(){
+
 		if($('#gender').val()==""){
 			$('#gender').next().next().next('span').text("성별을 선택하세요.");
 			$('#gender').next().next().next('span').css('color','red');

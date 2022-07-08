@@ -8,6 +8,3 @@ sweetPea/.classpath
 sweetPea/src/main/java/pea/board/controller/UserController.java
 sweetPea/target/m2e-wtp/web-resources/META-INF/maven/pea.board/controller/pom.properties
 sweetPea/target/m2e-wtp/web-resources/META-INF/maven/pea.board/controller/pom.properties
-sweetPea/src/main/webapp/resources/article/nav.jsp
-sweetPea/target/classes/pea/board/controller/UserController.class
-sweetPea/target/m2e-wtp/web-resources/META-INF/maven/pea.board/controller/pom.properties
