@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<link href="resources/css/nav.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
 <style type="text/css"></style>
 </head>
 <body>
