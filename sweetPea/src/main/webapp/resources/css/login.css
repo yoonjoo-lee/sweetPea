@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.box{
+	width: 25%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+.afterBox{
+	display: none;
+	width: 25%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#img{
+	width: 40%;
+	height: 40%;
+	margin: 0 auto;
+	display: block;
+}
+form>input,form>button{
+	width: 60%;
+	height: 2.5em;
+	margin: 0.8em auto ;
+	display: block;
+}
+.subBox{text-align: center;}
+.subBox>a{
+	text-decoration: none;
+	color: inherit;
+	font-size: 0.7em;
+	
+}
+.subBox>a:nth-child(2) {
+	margin: 0 0.8em;
+}
