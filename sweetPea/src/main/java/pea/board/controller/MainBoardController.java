@@ -135,21 +135,32 @@ public class MainBoardController {
 		return "mainboard/view";
 	}
 	
+	
+	//보드리스트 ajax로 가져가기 (comunity, service) 
 	@ResponseBody
 	@RequestMapping(value="mainboard/boardList.do", produces = "application/json;charset=utf8")
-	public List<MainBoardVo> boardList(PagingVo vo, int bidx){
-		vo.setCategory(bidx);
+	public List<MainBoardVo> boardList(PagingVo vo, int category){
+		vo.setCategory(category);
 		vo.setList(1); //커뮤니티에서 불러올 경우 개수 제한 두기 위해 (개수제한둘경우 lists=>1) 
 		vo.setStart(1);
 		vo.setEnd(5);
-		System.out.println("bidx"+bidx+"category"+vo.getCategory());
+		System.out.println("bidx"+category+"category"+vo.getCategory());
 		System.out.println(vo);
 		return mainboardService.list(vo);
 	}
 	
+	@RequestMapping(value="mainboard/modify.do", method=RequestMethod.GET)
+	public String modify(int bidx, Model model) {
+		MainBoardVo vo = mainboardService.view(bidx);
+		model.addAttribute("vo", vo);
+		return "mainboard/modify";
+	}
 	
-	
-	
+	@RequestMapping(value="mainboard/modify.do", method=RequestMethod.POST)
+	public String modify() {
+		
+		return "redirect:/";
+	}
 	
 	
 	

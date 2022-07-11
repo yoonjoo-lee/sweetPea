@@ -32,6 +32,9 @@
 <header id="header"></header>
 <div id="view">
 <h2>커뮤니티</h2>
+<h4>공지게시판</h4>
+<div id="boardList1">
+</div>
 <h4>자유게시판</h4>
 <div id="boardList2">
 </div>
@@ -45,7 +48,7 @@
 <script>
 $(document).ready(function(){
 	$.ajax({
-		url:"boardList.do?bidx=2",
+		url:"boardList.do?category=1",
 		type:"get",
 		success:function(data){
 			var html ="";
@@ -61,7 +64,37 @@ $(document).ready(function(){
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
 				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?="+data[i].bidx+"'>"+data[i].title+"</a></td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
+				html+="<td>"+data[i].name+"</td>";
+				html+="</tr>";
+			}
+			html += "</tbody>";
+			html += "</table>";
+			
+			$("#boardList1").html(html);
+		}
+	});
+})
+
+$(document).ready(function(){
+	$.ajax({
+		url:"boardList.do?category=2",
+		type:"get",
+		success:function(data){
+			var html ="";
+			html += "<table border='1' width='1000' height='300'>";
+			html += "<thead>";
+			html += "<tr>";
+			html += "<th>글번호</th>";
+			html += "<th>제목</th>";
+			html += "<th>작성자</th>";
+			html += "</tr>";
+			html += "</thead>";
+			html += "<tbody>";
+			for(var i=0; i<data.length;i++){
+				html+="<tr>";
+				html+="<td>"+data[i].bidx+"</td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
@@ -75,7 +108,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$.ajax({
-		url:"boardList.do?bidx=3",
+		url:"boardList.do?category=3",
 		type:"get",
 		success:function(data){
 			var html ="";
@@ -91,7 +124,7 @@ $(document).ready(function(){
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
 				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='javascript:view.do("+data[i].bidx+");'>"+data[i].title+"</a></td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}

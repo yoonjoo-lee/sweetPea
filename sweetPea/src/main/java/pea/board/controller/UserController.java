@@ -53,6 +53,7 @@ public class UserController {
 			login.setId(user.getId());
 			login.setName(user.getName());
 			login.setProfile(user.getProfile());
+			login.setPea_super(user.getPea_super());
 			
 			
 			session.setAttribute("login", login);
@@ -187,6 +188,7 @@ public class UserController {
 		session = request.getSession();
 		session.setAttribute("findId", id);
 		System.out.println(session.getAttribute("findId"));
+		System.out.println("email"+email);
 		return id;
 	}
 	
