@@ -73,7 +73,7 @@
 	
 	<button type="button" id="mailCheckBtn">인증번호 받기</button><br>
 	<input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br>
-	<span id="mail-check-warn"></span><br>
+	<span id="mail-check-warn"></span>
 	<input type="button" id="idCheckBtn" value="아이디 찾기" disabled="disabled">
 	
 </div>
@@ -96,12 +96,11 @@ $('#mailCheckBtn').click(function() {
 					type : 'get',
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 					success : function (data) {
-						/* console.log("data : " +  data); */
 						checkInput.attr('disabled',false);
 						$('#idCheckBtn').attr('disabled',false);
 						code =data;
 						alert('인증번호가 전송되었습니다.')
-					}			
+					}
 				}); // end ajax	
 			}
 		}

@@ -23,19 +23,20 @@
 	<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="home.do"><img src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" alt="..." /></a>
+                <a class="navbar-brand header-a" href="home.do"><img src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">아이템상점</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">선물하기</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">결제/충전</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="#services">아이템상점</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="#about">결제/충전</a></li>
                         <li class="nav-item nav-hover">
-                        	<a class="nav-link" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
+                        	<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
                         	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
+
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=1">　공지　</a></li>
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=2">　자유　</a></li>
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=3">　유머　</a></li>
@@ -48,11 +49,12 @@
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=5">　Q&A　</a></li>
                         	</ul>
                         </li>
+
                         <c:if test="${login != null}">
-                        	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
+                        	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>
                         <c:if test="${login == null}">
-                        	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/login.do">로그인</a></li>
+                        	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/login.do">로그인</a></li>
                         </c:if>
                     </ul>
                 </div>
