@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+#joinBox{
+	width: 25%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#img{
+	width: 40%;
+	height: 40%;
+	margin: 0 auto;
+	display: block;
+}
+form>input{
+	width: 100%;
+	margin: 0.2em 0;
+	height: 2.7em;
+	font-size: 1em;
+}
+form>span{
+	font-size: 0.8em;
+}
+#gender{
+	width: 100%;
+	margin: 0.2em 0;
+	height: 2.2em;
+	font-size: 1em;
+}
+#email{width: 71%;}
+#mailCheckBtn{
+	width:26%;
+	height: 2.5em;
+	font-size: 0.7em;
+	border-radius: 2em;
+}
