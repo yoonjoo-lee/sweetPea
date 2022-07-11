@@ -36,11 +36,18 @@
                         <li class="nav-item nav-hover">
                         	<a class="nav-link" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
                         	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
+                        		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=1">　공지　</a></li>
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=2">　자유　</a></li>
                         		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=3">　유머　</a></li>
                         	</ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/service.do">고객센터</a></li>
+                        <li class="nav-item nav-hover">
+                        	<a class="nav-link" href="<%=request.getContextPath()%>/mainboard/service.do">고객센터</a>
+                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
+                        		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=4">　FAQ　</a></li>
+                        		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=5">　Q&A　</a></li>
+                        	</ul>
+                        </li>
                         <c:if test="${login != null}">
                         	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>

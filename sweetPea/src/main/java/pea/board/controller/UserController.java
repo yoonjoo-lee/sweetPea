@@ -53,6 +53,7 @@ public class UserController {
 			login.setId(user.getId());
 			login.setName(user.getName());
 			login.setProfile(user.getProfile());
+			login.setPea_super(user.getPea_super());
 			
 			
 			session.setAttribute("login", login);

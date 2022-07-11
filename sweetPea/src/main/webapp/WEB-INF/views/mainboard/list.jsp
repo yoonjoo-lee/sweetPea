@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -38,11 +39,20 @@
 <header id="header"></header>
 <br>
 	<div id="view">
+<c:if test="${searchVo.category == 1}">
+	<h2>공지게시판</h2>
+</c:if>
 <c:if test="${searchVo.category == 2}">
 	<h2>자유게시판</h2>
 </c:if>
 <c:if test="${searchVo.category == 3}">
 	<h2>유머게시판</h2>
+</c:if>
+<c:if test="${searchVo.category == 4}">
+	<h2>자주 묻는 질문</h2>
+</c:if>
+<c:if test="${searchVo.category == 5}">
+	<h2>Q&A</h2>
 </c:if>
 
 
@@ -97,8 +107,8 @@
 					<tr onclick="location.href='view.do?bidx=${vo.bidx }'">
 						<%-- <td><a href="content.do?bidx=${vo.bidx }">${vo.title }</a></td> --%>
 						<%-- <td>${vo.name }</td> --%>
+						<td>${vo.bidx }</td>
 						<td>${vo.title }</td>
-						<td>${vo.content }</td>
 						<td>${vo.name }</td>
 						<td>${vo.datetime }</td>
 						
@@ -128,12 +138,14 @@
 		</c:if>
 </div>
 
-
+<!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
+<c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
 <a href="write.do?category=${category }">작성하기</a>
+</c:if>
 
-<br>
-	</div>
-	<br>
+
+</div>
+
 	<!-- <footer id="footer"></footer> -->
 </body>
 </html>

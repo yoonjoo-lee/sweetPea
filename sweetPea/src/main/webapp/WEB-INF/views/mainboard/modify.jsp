@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page session="true" %>
-    <!-- jstl 사용하기 위해서는 아래 taglib 구문 넣어줘야함 -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -30,10 +26,11 @@
 			position: absolute;
 		}
 </style>
+</head>
 <body>
 <header id="header"></header>
 <div id="view">
-
+<form action="modify" method="post">
 <table border="1">
 		<tbody>
 			<tr>
@@ -41,7 +38,7 @@
 					제목
 				</td>
 				<td>
-					${vo.title }
+					<input type="text" name="subject" value="${vo.title }">
 				</td>
 			</tr>
 			<tr>
@@ -49,7 +46,8 @@
 					내용
 				</td>
 				<td>
-					${vo.content }
+					<textarea name="content">${vo.content }</textarea>
+					
 				</td>
 			</tr>
 			<tr>
@@ -68,15 +66,13 @@
 					${vo.datetime }
 				</td>
 			</tr>
-			
 		</tbody>
 	</table>
-	<c:if test="${login.uidx eq vo.uidx }">
-		<button onclick="location.href='modify.do?bidx=${vo.bidx }'">수정</button>
-		<button onclick="location.href='delete.do'">삭제</button>
-	</c:if>
-	<button onclick="location.href='login.do'">목록</button>
-</div>
-
+	<button type="submit">수정</button>
+	<button type="reset">취소</button>
+	<input type="hidden" name="bidx" value=${vo.bidx }>
+	<!-- <button onclick="location.href='login.do'">목록</button> -->
+</form>
+</div>	
 </body>
-</html>
+</html>	
