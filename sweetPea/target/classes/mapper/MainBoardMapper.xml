@@ -22,10 +22,12 @@
 </insert>
 
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
-	select b.* 
+		SELECT  A.* 
+		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
 		 from pea_board b, pea_user u
 		where b.uidx=u.uidx
 		and category=#{category}
+		and (@rownum:=0)=0
 		<if test='searchType != null and searchType.equals("title")'>
 	 		AND b.title like concat('%',#{searchValue},'%')
 	 	</if>
@@ -33,6 +35,22 @@
 	 		AND b.content like concat('%',#{searchValue},'%')
 	 		OR u.name like concat('%',#{searchValue},'%')
 	 	</if>
+	 	<if test="list == 1">
+	 		LIMIT 5
+	 	</if>
+	 	) A  WHERE rn BETWEEN #{start} AND #{end};
+</select>
+
+<select id="view" parameterType="int" resultType="MainBoardVo">
+	SELECT b.*,u.name
+	 FROM pea_board b, pea_user u
+	WHERE b.uidx = u.uidx
+	AND b.bidx = #{bidx}
+</select>
+
+<select id="countBoard" resultType="int">
+	SELECT COUNT(*) 
+	 FROM pea_board
 </select>
 
 </mapper>

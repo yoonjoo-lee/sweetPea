@@ -23,4 +23,11 @@ public class MainBoardDao {
 		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectAll", searchVo);
 	}
 	
+	public MainBoardVo view(int bidx) {
+		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.view", bidx);
+	}
+	
+	public int countBoard() {
+		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.countBoard");
+	}
 }

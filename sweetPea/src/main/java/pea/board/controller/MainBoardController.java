@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MainBoardService;
 import pea.board.vo.MainBoardVo;
+import pea.board.vo.PagingVo;
 import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
 
@@ -37,16 +40,39 @@ public class MainBoardController {
 	}
 	
 	@RequestMapping(value="mainboard/list.do")
-	public String list(int category, Model model, SearchVo searchVo) {
-		model.addAttribute("category", category);
-		searchVo.setCategory(category);
-		List<MainBoardVo> list= mainboardService.list(searchVo);
+	public String list(int category, Model model, SearchVo searchVo, PagingVo vo
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		System.out.println("category:"+category+"searchVo"+searchVo);
+//		System.out.println(searchVo.getStart()+"스타트");
+		
+		int total = mainboardService.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		System.out.println("여기 nowPage:"+nowPage+", cntPerPage:"+cntPerPage+",total"+total);
+		vo = new PagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+//		searchVo.setTotal(total);
+//		searchVo.setNowPage(Integer.parseInt(nowPage));
+//		searchVo.setCntPerPage(Integer.parseInt(cntPerPage));
+		
+		model.addAttribute("paging", vo);
+		
+		model.addAttribute("category", category);
+		vo.setCategory(category);
+		List<MainBoardVo> list= mainboardService.list(vo);
+		
+		System.out.println("category:"+category+"vo"+vo);
+		System.out.println("searchType:"+vo.getSearchType()+",SearchValue"+vo.getSearchValue()+",Category"+vo.getCategory()+",list"+vo.getList());
 		System.out.println("list:"+list);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("searchVo", searchVo);
+		model.addAttribute("searchVo", vo);
 		return "mainboard/list";
 	}
 	
@@ -99,4 +125,37 @@ public class MainBoardController {
 		
 		//return "mainboard/write";
 	}
+	
+	//각 보드 (content)
+	@RequestMapping(value="mainboard/view.do")
+	public String view(int bidx, Model model) {
+		MainBoardVo vo = mainboardService.view(bidx);
+		model.addAttribute("vo", vo);
+		
+		return "mainboard/view";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainboard/boardList.do", produces = "application/json;charset=utf8")
+	public List<MainBoardVo> boardList(PagingVo vo, int bidx){
+		vo.setCategory(bidx);
+		vo.setList(1); //커뮤니티에서 불러올 경우 개수 제한 두기 위해 (개수제한둘경우 lists=>1) 
+		vo.setStart(1);
+		vo.setEnd(5);
+		System.out.println("bidx"+bidx+"category"+vo.getCategory());
+		System.out.println(vo);
+		return mainboardService.list(vo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

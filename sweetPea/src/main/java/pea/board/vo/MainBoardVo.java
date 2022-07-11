@@ -1,6 +1,6 @@
 package pea.board.vo;
 
-public class MainBoardVo {
+public class MainBoardVo extends UserVo{
 	
 	
 	private int bidx;
