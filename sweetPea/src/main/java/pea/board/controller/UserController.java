@@ -180,7 +180,10 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/user/idExistCheck.do", produces = "application/json;charset=utf8")
 	public String idExistCheck(String name, String email, HttpServletRequest request, HttpSession session) {
+		System.out.println("name : "+name);
+		System.out.println("email : "+email);
 		UserVo vo = new UserVo();
+		
 		vo.setName(name);
 		vo.setEmail(email);
 		String id = userService.idExistCheck(vo);

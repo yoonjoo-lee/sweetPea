@@ -87,6 +87,7 @@ $('#mailCheckBtn').click(function() {
 	$.ajax({
 		type: 'get',
 		url: pjtPath + '/user/idExistCheck.do?name='+name+'&email='+email,
+		dataType: 'text',
 		success: function(data){
 			if(data == ""){
 				alert("이름과 이메일이 일치하는 아이디가 없습니다.");
