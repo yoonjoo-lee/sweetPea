@@ -25,4 +25,14 @@ public class MainBoardServiceImple implements MainBoardService{
 		return mainboardDao.selectAll(searchVo);
 	}
 
+	@Override
+	public MainBoardVo view(int bidx) {
+		return mainboardDao.view(bidx);
+	}
+
+	@Override
+	public int countBoard() {
+		return mainboardDao.countBoard();
+	}
+
 }

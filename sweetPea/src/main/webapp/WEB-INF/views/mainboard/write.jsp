@@ -44,10 +44,10 @@
     font-size:14px; 
 }
 </style>
-
 </head>
 
 <body>
+
 mainboard 작성
 ${category }
 <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'>

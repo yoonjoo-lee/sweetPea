@@ -1,11 +1,18 @@
 package pea.board.vo;
 
-public class SearchVo {
+public class SearchVo{
 	
 	private String searchType;
 	private String searchValue;
 	private int category;
+	private int list;
 	
+	public int getList() {
+		return list;
+	}
+	public void setList(int list) {
+		this.list = list;
+	}
 	public int getCategory() {
 		return category;
 	}
