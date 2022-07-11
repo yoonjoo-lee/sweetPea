@@ -34,4 +34,9 @@ public class UserServiceImple implements UserService{
 		return userDao.idCheck2(id);
 	}
 
+	@Override
+	public String idExistCheck(UserVo vo) {
+		return userDao.idExistCheck(vo);
+	}
+
 }

@@ -10,7 +10,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="resources/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -23,7 +23,7 @@
 	<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="resources/assets/img/navbar-logo.svg" alt="..." /></a>
+                <a class="navbar-brand" href="home.do"><img src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -33,23 +33,19 @@
                         <li class="nav-item"><a class="nav-link" href="#services">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">결제/충전</a></li>
-                        <li class="nav-item">
-                        <div class="select">
-                        <div class="option">
-                        	<a class="nav-link" href="mainboard/community.do">커뮤니티</a>
-                        </div>
-                        <div class="optionList">
-                        	<div class="optionListItem"><a class="nav-link" href="mainboard/list.do?category=2">자유</a></div>
-                        	<div class="optionListItem"><a class="nav-link" href="mainboard/list.do?category=3">유머</a></div>
-                        </div>
-                        </div>
+                        <li class="nav-item nav-hover">
+                        	<a class="nav-link" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
+                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
+                        		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=2">　자유　</a></li>
+                        		<li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=3">　유머　</a></li>
+                        	</ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="mainboard/service.do">고객센터</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/service.do">고객센터</a></li>
                         <c:if test="${login != null}">
-                        	<li class="nav-item"><a class="nav-link" href="user/logout.do">로그아웃</a></li>
+                        	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>
                         <c:if test="${login == null}">
-                        	<li class="nav-item"><a class="nav-link" href="user/login.do">로그인</a></li>
+                        	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/login.do">로그인</a></li>
                         </c:if>
                     </ul>
                 </div>
@@ -66,7 +62,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="resources/js/header.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/js/header.js"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

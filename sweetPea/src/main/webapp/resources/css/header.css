@@ -244,7 +244,7 @@ button:focus:not(:focus-visible) {
   outline: 0;
 }
 
-input,
+
 button,
 select,
 optgroup,
@@ -11269,10 +11269,10 @@ p {
 
 @media (min-width: 992px) {
   #mainNav {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
     border: none;
-    background-color: transparent;
+    background-color: #52C3BD;
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
@@ -11280,7 +11280,8 @@ p {
     transition: font-size 0.3s ease-in-out;
   }
   #mainNav .navbar-brand img {
-    height: 2rem;
+    height: 3rem;
+    width: 8rem;
     transition: height 0.3s ease-in-out;
   }
   #mainNav.navbar-shrink {
@@ -11347,18 +11348,24 @@ header.masthead .masthead-heading {
   }
 }
 
-
-
-/* 셀렉트 박스 (div로 표현) 가리기 */
-.optionList{
-  visibility: hidden;
+/* nav 커뮤니티 리스트 가리기/나타내기 */
+.nav-list {
+	list-style: none;
+	display: none; 
+	position: absolute;
+	padding: 0;
+	background-color: #212529;
+	width: inherit;
+	
 }
-
-/* 마우스 대면 셀렉트 박스(div로 표현) 나타내기 */
-.select:hover .optionList {
-  opacity: 1;
-  visibility: visible;
-} 
+@media (min-width: 768px) {
+	.nav-list{
+		background-color: #52C3BD;
+	}
+}
+.nav-hover:hover .nav-list{
+	display: block;
+}
 
 
 
