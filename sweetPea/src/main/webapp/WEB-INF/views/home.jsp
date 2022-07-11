@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>SweetPea</title>
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){
@@ -18,13 +18,7 @@
 			margin: 0 auto;
 			margin-bottom: 15em;
 		}
-		#footer{
-			width: 100vw;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-			height: 10vh;
-		}
+		
 	</style>
 </head>
 <body>
