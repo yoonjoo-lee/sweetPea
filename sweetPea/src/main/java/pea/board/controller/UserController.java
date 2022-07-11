@@ -188,6 +188,7 @@ public class UserController {
 		session = request.getSession();
 		session.setAttribute("findId", id);
 		System.out.println(session.getAttribute("findId"));
+		System.out.println("email"+email);
 		return id;
 	}
 	

@@ -88,10 +88,12 @@ $('#mailCheckBtn').click(function() {
 		type: 'get',
 		url: pjtPath + '/user/idExistCheck.do?name='+name+'&email='+email,
 		success: function(data){
+			
 			if(data == ""){
 				alert("이름과 이메일이 일치하는 아이디가 없습니다.");
 				return;
 			}else{
+				alert(data);
 				$.ajax({
 					type : 'get',
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
