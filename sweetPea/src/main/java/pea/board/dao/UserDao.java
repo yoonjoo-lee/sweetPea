@@ -36,6 +36,14 @@ public class UserDao {
 		}else {
 			return 1;
 		}
-		
+	}
+	
+	public String idExistCheck(UserVo vo) {
+		String id = sqlSession.selectOne("pea.board.mapper.UserMapper.idExistCheck",vo);
+		if(id == null) {
+			return null;
+		}else {
+			return id;
+		}
 	}
 }

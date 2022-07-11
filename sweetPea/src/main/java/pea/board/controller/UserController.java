@@ -172,7 +172,39 @@ public class UserController {
 		return mailService.joinEmail(email);
 	}
 	
+	//
+	//
+	/* 아이디 존재여부 확인 */
+	//
+	//
+	@ResponseBody
+	@RequestMapping(value="/user/idExistCheck.do", produces = "application/json;charset=utf8")
+	public String idExistCheck(String name, String email, HttpServletRequest request, HttpSession session) {
+		UserVo vo = new UserVo();
+		vo.setName(name);
+		vo.setEmail(email);
+		String id = userService.idExistCheck(vo);
+		session = request.getSession();
+		session.setAttribute("findId", id);
+		System.out.println(session.getAttribute("findId"));
+		return id;
+	}
 	
+	
+	
+	
+	//
+	//
+	/* 비밀번호 찾기  */
+	//
+	//
+	
+	@RequestMapping(value="/user/findPwd.do", method=RequestMethod.GET)
+	public String findPwd() {
+		
+		
+		return "user/findPwd";
+	}
 	
 	
 	

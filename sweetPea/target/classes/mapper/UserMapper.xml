@@ -49,6 +49,12 @@
 		)
 	
 	</insert>
-
+	
+	<select id="idExistCheck" parameterType="userVo" resultType="string">
+		SELECT id 
+		FROM pea_user
+		WHERE email=#{email}
+		  AND name=#{name}
+	</select>
 	
 </mapper>

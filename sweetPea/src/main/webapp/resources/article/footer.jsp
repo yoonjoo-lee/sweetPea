@@ -7,39 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<style type="text/css">
-	.footer-box{
-		border-top: 1px solid black;
-		border-bottom: 1px solid black;
-		padding: 0.2vh 0;
-		 
-	}
-	.footer-ul{
-		text-align: center;
-		width: 100%;
-		list-style: none;
-		margin: 0.5vh 0;
-	}
-	.footer-ul>li{
-		margin-right: 2vw;
-		display: inline-block;
-	}
-	.footer-link{
-		font-size: 0.8vw;
-		text-decoration: none;
-	}
-	.footer-logo{
-		background-image: url("<%=request.getContextPath()%>/resources/images/camelon.png");
-		width: 15vw;
-		height: 10vw;
-		margin: 0 10vw;
-		display: inline-block;
-		background-repeat: no-repeat;
-		background-attachment: scroll;
-		background-position: center center;
-		background-size: cover;
-	}
-</style>
+<link href="<%=request.getContextPath()%>/resources/css/footer.css" rel="stylesheet" />
 </head>
 <body>
 	<div class="footer-box">
