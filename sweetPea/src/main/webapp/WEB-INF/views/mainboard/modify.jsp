@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<!--  jQuery, bootstrap -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -13,6 +21,8 @@
 		$("#section").load("<%= request.getContextPath()%>/resources/article/section.jsp");
 		$("#footer").load("<%= request.getContextPath()%>/resources/article/footer.jsp");
 	});
+	
+	
 </script>
 <style type="text/css">
 		#view{
@@ -30,7 +40,11 @@
 <body>
 <header id="header"></header>
 <div id="view">
-<form action="modify" method="post">
+
+
+
+
+<form action="modify.do" method="post">
 <table border="1">
 		<tbody>
 			<tr>
@@ -38,7 +52,7 @@
 					제목
 				</td>
 				<td>
-					<input type="text" name="subject" value="${vo.title }">
+					<input type="text" name="title" value="${vo.title }">
 				</td>
 			</tr>
 			<tr>
@@ -46,8 +60,7 @@
 					내용
 				</td>
 				<td>
-					<textarea name="content">${vo.content }</textarea>
-					
+					<textarea id="summernote" name="content">${vo.content }</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -71,8 +84,20 @@
 	<button type="submit">수정</button>
 	<button type="reset">취소</button>
 	<input type="hidden" name="bidx" value=${vo.bidx }>
+	<input type="hidden" name="category" value=${vo.category }>
+	
+
 	<!-- <button onclick="location.href='login.do'">목록</button> -->
 </form>
 </div>	
+<script>
+$(document).ready(function () {
+    $('#summernote').summernote({
+        placeholder: '내용을 작성하세요',
+        height: 400,
+        maxHeight: 400
+    });
+});
+</script>
 </body>
 </html>	

@@ -3,13 +3,20 @@ package pea.board.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MainBoardService;
 import pea.board.vo.MainBoardVo;
+import pea.board.vo.MainCommentVo;
 import pea.board.vo.PagingVo;
 import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
@@ -29,22 +37,23 @@ public class MainBoardController {
 	@Autowired
 	MainBoardService mainboardService;
 
+	// 커뮤니티 페이지 이동
 	@RequestMapping(value="mainboard/community.do")
 	public String community() {
 		return "mainboard/community";
 	}
 	
+	// 고객센터 페이지 이동
 	@RequestMapping(value="mainboard/service.do")
 	public String service() {
 		return "mainboard/service";
 	}
 	
+	//보드 리스트 이동과 불러오기 
 	@RequestMapping(value="mainboard/list.do")
 	public String list(int category, Model model, SearchVo searchVo, PagingVo vo
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		
-//		System.out.println(searchVo.getStart()+"스타트");
 		
 		int total = mainboardService.countBoard();
 		if (nowPage == null && cntPerPage == null) {
@@ -55,11 +64,8 @@ public class MainBoardController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "5";
 		}
-		System.out.println("여기 nowPage:"+nowPage+", cntPerPage:"+cntPerPage+",total"+total);
+		
 		vo = new PagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-//		searchVo.setTotal(total);
-//		searchVo.setNowPage(Integer.parseInt(nowPage));
-//		searchVo.setCntPerPage(Integer.parseInt(cntPerPage));
 		
 		model.addAttribute("paging", vo);
 		
@@ -67,17 +73,14 @@ public class MainBoardController {
 		vo.setCategory(category);
 		List<MainBoardVo> list= mainboardService.list(vo);
 		
-		System.out.println("category:"+category+"vo"+vo);
-		System.out.println("searchType:"+vo.getSearchType()+",SearchValue"+vo.getSearchValue()+",Category"+vo.getCategory()+",list"+vo.getList());
-		System.out.println("list:"+list);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", vo);
+		model.addAttribute("category", category);
+		
 		return "mainboard/list";
 	}
 	
-	
-	
+	// 보드 write 후 home으로 이동
 	@RequestMapping(value="mainboard/home.do")
 	public String home() {
 		
@@ -88,9 +91,11 @@ public class MainBoardController {
 	@RequestMapping(value="mainboard/gowrite.do", method=RequestMethod.GET)
 	public String gowrite(int category, Model model) {
 		model.addAttribute("category", category);
+		
 		return "mainboard/write";
 	}
 	
+	// 보드 작성하기 
 	@RequestMapping(value="mainboard/gowrite.do", method=RequestMethod.POST)
 	public String gowrite(int category, MainBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
 		session = request.getSession();
@@ -115,7 +120,7 @@ public class MainBoardController {
 		
 		UserVo login = (UserVo)session.getAttribute("login");
 		if (login==null) {
-			pw.append("<script>alert('GO TO LOGIN .');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.append("<script>alert('로그인 후 작성 가능합니다.');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush();
 		}else {
 			pw.append("<script>location.href='gowrite.do?category="+category+"';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
@@ -123,14 +128,17 @@ public class MainBoardController {
 		}
 		System.out.println("login uinx"+ login.getUidx());
 		
-		//return "mainboard/write";
 	}
 	
 	//각 보드 (content)
 	@RequestMapping(value="mainboard/view.do")
-	public String view(int bidx, Model model) {
+	public String view(int bidx, Model model,HttpServletRequest request, HttpSession session) {
 		MainBoardVo vo = mainboardService.view(bidx);
 		model.addAttribute("vo", vo);
+		
+		session = request.getSession();
+		session.setAttribute("bidx", bidx);
+		
 		
 		return "mainboard/view";
 	}
@@ -142,31 +150,87 @@ public class MainBoardController {
 	public List<MainBoardVo> boardList(PagingVo vo, int category){
 		vo.setCategory(category);
 		vo.setList(1); //커뮤니티에서 불러올 경우 개수 제한 두기 위해 (개수제한둘경우 lists=>1) 
-		vo.setStart(1);
-		vo.setEnd(5);
-		System.out.println("bidx"+category+"category"+vo.getCategory());
-		System.out.println(vo);
+
 		return mainboardService.list(vo);
 	}
 	
+	//수정페이지 이동
 	@RequestMapping(value="mainboard/modify.do", method=RequestMethod.GET)
 	public String modify(int bidx, Model model) {
 		MainBoardVo vo = mainboardService.view(bidx);
 		model.addAttribute("vo", vo);
+		
 		return "mainboard/modify";
 	}
 	
+	//보드 수정
 	@RequestMapping(value="mainboard/modify.do", method=RequestMethod.POST)
-	public String modify() {
+	public String modify(MainBoardVo vo) throws UnknownHostException {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		int result = mainboardService.modify(vo);
 		
-		return "redirect:/";
+		return "redirect:/mainboard/list.do?category="+vo.getCategory();
 	}
 	
+	@RequestMapping(value="mainboard/delete.do")
+	public String delete(int bidx, int category) {
+		int result = mainboardService.delete(bidx);
+		
+		return "redirect:/mainboard/list.do?category="+category;
+	}
 	
+	//보드 댓글 작성 ajax
+	@ResponseBody
+	@RequestMapping(value="mainboard/addComment.do")
+	public String addComment(MainCommentVo vo,HttpServletRequest request, HttpSession session) throws UnknownHostException {
+		session = request.getSession();
+		UserVo login = (UserVo)session.getAttribute("login");
+		vo.setUidx(login.getUidx());
+		vo.setWriter(login.getName());
+		vo.setUidx(login.getUidx());
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		mainboardService.writeReply(vo);
+		
+		return "success";
+	}
 	
-	
-	
+	//보드 댓글 리스트 불러오기 ajax
+	@ResponseBody
+	@RequestMapping(value="mainboard/commentList.do", produces="application/json; charset=utf8")
+	public ResponseEntity commentList(MainCommentVo vo,HttpServletRequest request) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+        ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		
+        List<MainCommentVo> list= mainboardService.selectComment(vo);
+        
+        if(list.size() > 0) {
+        	for(int i = 0; i < list.size(); i++) {
+        		HashMap hm = new HashMap();
+        		hm.put("cidx", list.get(i).getCidx());
+        		hm.put("content", list.get(i).getContent());
+        		hm.put("writer", list.get(i).getWriter());
+        		hm.put("uidx", list.get(i).getUidx());
+        		
+        		hmlist.add(hm);
+        	}
+        }
+        
+        JSONArray json = new JSONArray(hmlist);
+		return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
+	}
 	
 	
 	
 }
+
+
+
+
+
+
+
+
+

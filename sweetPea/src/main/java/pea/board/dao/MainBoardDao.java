@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.vo.MainBoardVo;
+import pea.board.vo.MainCommentVo;
 import pea.board.vo.SearchVo;
 
 @Repository
@@ -30,4 +31,21 @@ public class MainBoardDao {
 	public int countBoard() {
 		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.countBoard");
 	}
+	
+	public int modify(MainBoardVo vo) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.modify", vo);
+	}
+	
+	public int delete(int bidx) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.delete", bidx);
+	}
+	
+	public int writeReply(MainCommentVo vo) {
+		return sqlSession.insert("pea.board.mapper.MainBoardMapper.writeReply", vo);
+	}
+	
+	public List<MainCommentVo> selectComment(MainCommentVo vo){
+		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectComment",vo);
+	}
+	
 }
