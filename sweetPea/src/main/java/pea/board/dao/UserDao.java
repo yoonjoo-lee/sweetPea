@@ -46,4 +46,21 @@ public class UserDao {
 			return id;
 		}
 	}
+	
+	public int pwdExistCheck(UserVo vo) {
+		String check = sqlSession.selectOne("pea.board.mapper.UserMapper.pwdExistCheck",vo);
+		if(check == null) {
+			return 0;
+		}else {
+			return Integer.parseInt(check);
+		}
+	}
+	
+	public int changePwd(UserVo vo) {
+		return sqlSession.update("pea.board.mapper.UserMapper.changePwd",vo);
+	}
+	
+	public UserVo userIdx(int uidx) {
+		return sqlSession.selectOne("pea.board.mapper.UserMapper.userIdx",uidx);
+	}
 }

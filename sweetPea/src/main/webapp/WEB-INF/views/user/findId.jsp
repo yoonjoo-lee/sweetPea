@@ -8,50 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.box{
-		width: 25%;
-		margin: 0 auto;
-		margin-bottom: 15em;
-	}
-	.afterBox{
-		display: none;
-		width: 25%;
-		margin: 0 auto;
-		margin-bottom: 15em;
-	}
-	#img{
-		width: 40%;
-		height: 40%;
-		margin: 0 auto;
-		display: block;
-	}
-	h3{font-size: 1.5em;}
-	h4{font-size: 1em;}
-	input{
-		width: 60%;
-		height: 2.5em;
-		margin: 0.8em 0 ;
-		
-	}
-	#mail-check-warn{
-		font-size: 0.8em;
-	}
-	.getId{
-		color: green;
-		font-weight: bold;
-	}
-	.afterBox>input,.afterBox>a{
-		width: 25%;
-		margin: 0 auto;
-		font-size: 0.8em;
-		text-decoration: none;
-		color: inherit;
-	}
-	.afterBox input{
-		margin-left: 4.5em;
-	}
-</style>
+<link href="<%=request.getContextPath()%>/resources/css/findId.css" rel="stylesheet" />
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -81,7 +38,7 @@
 $('#mailCheckBtn').click(function() {
 	const name = $('#name').val(); // 이름
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!
-	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+	const checkInput = $('.mail-check-input'); // 인증번호 입력하는곳 
 	var pjtPath = '<%= request.getContextPath()%>';
 	
 	$.ajax({
@@ -94,7 +51,7 @@ $('#mailCheckBtn').click(function() {
 				alert("이름과 이메일이 일치하는 아이디가 없습니다.");
 				return;
 			}else{
-				alert(data);
+				id = data;
 				$.ajax({
 					type : 'get',
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
@@ -131,13 +88,12 @@ $('.mail-check-input').blur(function () {
 	}
 });
 
-$("#idCheckBtn").click(function(){
+$("#changeBtn").click(function(){
 	const inputCode = $(".mail-check-input").val();
 	
 	if(inputCode === code){
 		$(".box").attr("style","display:none");
 		$(".afterBox").attr("style","display:block");
-		$(".getId").html(${findId});
 	}else{
 		alert("인증번호를 확인하세요");
 		return;
@@ -151,7 +107,7 @@ $("#idCheckBtn").click(function(){
 	<h3>스위피 아이디는 <span class="getId"></span>입니다.</h3>
 	<a href="findPwd.do">패스워드 찾기</a> |
 	<a href="login.do">로그인</a>
-	<input type="button" id="idCheckBtn" value="홈" onclick="location.href='home.do'">
+	<input type="button" id="homeBtn" value="홈" onclick="location.href='home.do'">
 </div>
 <br>
 <footer id="footer"></footer>

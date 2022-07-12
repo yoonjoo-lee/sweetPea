@@ -49,15 +49,15 @@ div.banner{
 	font-size: 0.5em;
 }
 .logout-bottom>span{
-	font-size: 0.05em;
+	font-size: 0.02vw;
 	margin-bottom: 2em;
 }
 .logout-bottom>span:first-child {
-	margin-left: 3em;
+	margin-left: 0.5vw;
 	float: left;
 }
 .logout-bottom>span:last-child {
-	margin-right: 3em;
+	margin-right: 0.5vw;
 	float: right;
 }
 .logout-bottom a{
