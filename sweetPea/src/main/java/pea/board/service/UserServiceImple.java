@@ -39,4 +39,19 @@ public class UserServiceImple implements UserService{
 		return userDao.idExistCheck(vo);
 	}
 
+	@Override
+	public int pwdExistCheck(UserVo vo) {
+		return userDao.pwdExistCheck(vo);
+	}
+
+	@Override
+	public int changePwd(UserVo vo) {
+		return userDao.changePwd(vo);
+	}
+
+	@Override
+	public UserVo userIdx(int uidx) {
+		return userDao.userIdx(uidx);
+	}
+
 }
