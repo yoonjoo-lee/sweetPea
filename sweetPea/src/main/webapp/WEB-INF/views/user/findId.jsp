@@ -87,6 +87,7 @@ $('#mailCheckBtn').click(function() {
 	$.ajax({
 		type: 'get',
 		url: pjtPath + '/user/idExistCheck.do?name='+name+'&email='+email,
+		dataType: 'text',
 		success: function(data){
 			
 			if(data == ""){
