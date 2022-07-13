@@ -89,7 +89,7 @@ function deletecheck(){
 		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
 	} 
 	
-}
+};
 </script>
 </body>
 </html>

@@ -115,6 +115,7 @@ $(function(){
  * 댓글 불러오기(Ajax)
  */
 function getCommentList(){
+	var uidx = ${login.uidx}
     $.ajax({
         type:'GET',
         url : "commentList.do",
@@ -127,16 +128,16 @@ function getCommentList(){
             var cCnt = data.length;
             
             if(data.length > 0){
-            	
-            	
                 for(i=0; i<data.length; i++){
                     html += "<div>";
                     html += "<div><table class='table'><h6><strong>"+data[i].writer+"</strong></h6>";
                     html += data[i].content + "<tr><td></td></tr>";
-                    if (data[i].uidx == ${login.uidx}){
-	                	html += "<div style='float:right'><a href='#' class='btn btn-success btn-sm' >수정</a>&nbsp";
-	                    html += "<a href='#' class='btn btn-success btn-sm '>삭제</a></div>";
-                    }
+                    if (uidx != null){
+	                	if (data[i].uidx == uidx){
+		                	html += "<div style='float:right'><a href='#' class='btn btn-success btn-sm' >수정</a>&nbsp";
+		                    html += "<a href='#' class='btn btn-success btn-sm '>삭제</a></div>";
+	                    }
+                	}
                     html += "</table></div>";
                     html += "</div>";
                 }
@@ -159,7 +160,7 @@ function getCommentList(){
        }
         
     });
-}
+};
  
 </script>
 </body>
