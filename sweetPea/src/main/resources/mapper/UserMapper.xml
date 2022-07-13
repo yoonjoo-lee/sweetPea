@@ -44,17 +44,37 @@
 				, #{phone}
 				, #{email}
 				, #{addr} 
-				, 'W'
-				, "123.123.123.123"
+				, #{gender}
+				, #{ip}
 		)
 	
 	</insert>
 	
 	<select id="idExistCheck" parameterType="userVo" resultType="string">
 		SELECT id 
-		FROM pea_user
-		WHERE email=#{email}
-		  AND name=#{name}
+		  FROM pea_user
+		 WHERE email=#{email}
+		   AND name=#{name}
+	</select>
+	
+	<select id="pwdExistCheck" parameterType="userVo" resultType="string">
+		SELECT uidx 
+		  FROM pea_user
+		 WHERE email=#{email}
+		   AND id=#{id}
+	</select>
+	
+	<update id="changePwd" parameterType="userVo">
+		UPDATE pea_user
+		   SET pwd = #{pwd}
+		 WHERE uidx = #{uidx}
+	</update>
+	
+	<select id="userIdx" parameterType="int" resultType="userVo">
+		SELECT name
+			 , id
+		  FROM pea_user
+		 WHERE uidx = #{uidx}
 	</select>
 	
 </mapper>

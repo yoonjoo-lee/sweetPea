@@ -16,6 +16,7 @@
 		$("#nav").load("<%= request.getContextPath()%>/resources/article/nav.jsp");
 		$("#section").load("<%= request.getContextPath()%>/resources/article/section.jsp");
 		$("#footer").load("<%= request.getContextPath()%>/resources/article/footer.jsp");
+		$("#reply").load("<%= request.getContextPath()%>/resources/article/reply.jsp");
 	});
 </script>
 <style type="text/css">
@@ -33,7 +34,6 @@
 <body>
 <header id="header"></header>
 <div id="view">
-
 <table border="1">
 		<tbody>
 			<tr>
@@ -49,7 +49,8 @@
 					내용
 				</td>
 				<td>
-					${vo.content }
+						${vo.content}
+					<%-- <textarea id="summernote" readonly>${vo.content }</textarea> --%>
 				</td>
 			</tr>
 			<tr>
@@ -73,10 +74,22 @@
 	</table>
 	<c:if test="${login.uidx eq vo.uidx }">
 		<button onclick="location.href='modify.do?bidx=${vo.bidx }'">수정</button>
-		<button onclick="location.href='delete.do'">삭제</button>
+		<button onclick=deletecheck()>삭제</button>
 	</c:if>
-	<button onclick="location.href='login.do'">목록</button>
+	<button onclick="location.href='list.do?category=${vo.category }'">목록</button>
+	<div id="reply">
+	
+	</div>
 </div>
+<script>
 
+function deletecheck(){
+	var check = confirm("정말로 삭제하시겠습니까?");	
+	if (check){
+		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
+	} 
+	
+}
+</script>
 </body>
 </html>

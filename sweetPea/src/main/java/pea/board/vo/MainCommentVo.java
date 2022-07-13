@@ -1,6 +1,6 @@
 package pea.board.vo;
 
-public class MainCommentVo {
+public class MainCommentVo extends UserVo{
 	
 	
 	private int cidx;

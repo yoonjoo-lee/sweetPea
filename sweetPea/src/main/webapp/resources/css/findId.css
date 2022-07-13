@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.box{
+	width: 25%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+.afterBox{
+	display: none;
+	width: 25%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#img{
+	width: 40%;
+	height: 40%;
+	margin: 0 auto;
+	display: block;
+}
+h3{font-size: 1.5em;}
+h4{font-size: 1em;}
+input{
+	width: 60%;
+	height: 2.5em;
+	margin: 0.8em 0 ;
+	
+}
+#mail-check-warn{
+	font-size: 0.8em;
+}
+.getId{
+	color: green;
+	font-weight: bold;
+}
+.afterBox>input,.afterBox>a{
+	width: 25%;
+	margin: 0 auto;
+	font-size: 0.8em;
+	text-decoration: none;
+	color: inherit;
+}
+.afterBox input{
+	margin-left: 4.5em;
+}
+#idCheckBtn{
+	display: block;
+}

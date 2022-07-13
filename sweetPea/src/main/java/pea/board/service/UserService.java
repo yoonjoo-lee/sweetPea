@@ -8,4 +8,7 @@ public interface UserService {
 	int idCheck2(String id);
 	int inserUser(UserVo vo);
 	String idExistCheck(UserVo vo);
+	int pwdExistCheck(UserVo vo);
+	int changePwd(UserVo vo);
+	UserVo userIdx(int uidx);
 }

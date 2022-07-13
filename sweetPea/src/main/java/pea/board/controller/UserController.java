@@ -2,6 +2,7 @@ package pea.board.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,8 +57,7 @@ public class UserController {
 			
 			
 			session.setAttribute("login", login);
-			
-			
+			session.setAttribute("uidx", user.getUidx());
 			return "redirect:/";
 			
 		}else {
@@ -106,7 +105,11 @@ public class UserController {
 	
 	@RequestMapping(value="/user/join.do", method=RequestMethod.POST)// throws 는 오류가 나면은 그 때 행해라는 걸로 일단 생각해라. 나중에 더  빡세게 공부해라.
 	public void join(UserVo vo, HttpServletResponse response) throws IOException {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
 		UserVo id = userService.idCheck(vo);
+        
 		PrintWriter pw = response.getWriter();
 		System.out.println(id);
 		
@@ -175,7 +178,7 @@ public class UserController {
 	
 	//
 	//
-	/* 아이디 존재여부 확인 */
+	/* 아이디 존재여부 확인(아이디찾기) */
 	//
 	//
 	@ResponseBody
@@ -192,22 +195,57 @@ public class UserController {
 		return id;
 	}
 	
+	//
+	//
+	/* 아이디 존재여부 확인(비밀번호찾기) */
+	//
+	//
+	@ResponseBody
+	@RequestMapping(value="/user/pwdExistCheck.do", produces = "application/json;charset=utf8")
+	public int pwdExistCheck(String id, String email) {
+		UserVo vo = new UserVo();
+		vo.setId(id);
+		vo.setEmail(email);
+		int uidx = userService.pwdExistCheck(vo);
+		System.out.println(uidx);
+		return uidx;
+	}
 	
 	
 	
 	//
 	//
-	/* 비밀번호 찾기  */
+	/* 비밀번호 변경  */
 	//
 	//
 	
 	@RequestMapping(value="/user/findPwd.do", method=RequestMethod.GET)
 	public String findPwd() {
-		
-		
 		return "user/findPwd";
 	}
 	
+	@RequestMapping(value="/user/changePwd.do", method=RequestMethod.GET)
+	public void changePwd(int uidx, String pwd, HttpServletResponse response) throws IOException {
+		UserVo vo = new UserVo();
+		vo.setUidx(uidx);
+		vo.setPwd(pwd);
+		
+		int value = userService.changePwd(vo);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		if(value == 1) {
+			pw.append("<script>alert('비밀번호 변경 완료');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush(); //화면에 쓰는 곳이다.
+		}else {
+			pw.append("<script>alert('예기치 않은 오류 발생');location.href='findPwd.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush(); //화면에 쓰는 곳이다.
+		}
+	}
+	
+	@RequestMapping(value="/user/myPage.do", method=RequestMethod.GET)
+	public String myPage() {
+		return "user/myPage";
+	}
 	
 	
 }
