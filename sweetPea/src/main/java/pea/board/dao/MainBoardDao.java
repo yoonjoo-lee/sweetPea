@@ -48,4 +48,11 @@ public class MainBoardDao {
 		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectComment",vo);
 	}
 	
+	public int modifyReply(MainCommentVo vo) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.modifyReply", vo);
+	}
+	
+	public int deleteReply(int cidx) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.deleteReply", cidx);
+	}
 }

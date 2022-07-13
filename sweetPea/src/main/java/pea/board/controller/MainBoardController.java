@@ -197,6 +197,49 @@ public class MainBoardController {
 		return "success";
 	}
 	
+	//보드 대댓글 작성 ajax
+		@ResponseBody
+		@RequestMapping(value="mainboard/addComminComm.do")
+		public String addComminComm(MainCommentVo vo,HttpServletRequest request, HttpSession session) throws UnknownHostException {
+			session = request.getSession();
+			UserVo login = (UserVo)session.getAttribute("login");
+			System.out.println("bidx:"+vo.getBidx()+"name: "+login.getName()+"content:"+vo.getContent());
+			vo.setUidx(login.getUidx());
+			vo.setWriter(login.getName());
+			vo.setOrigincidx(vo.getCidx());
+			String ip = InetAddress.getLocalHost().getHostAddress();
+			vo.setIp(ip);
+			vo.setDepth(1);
+			
+			mainboardService.writeReply(vo);
+			
+			return "success";
+		}
+	
+	//보드 댓글 수정 ajax
+	@ResponseBody
+	@RequestMapping(value="mainboard/modifyComment.do")
+	public String modifyComment(MainCommentVo vo) throws UnknownHostException {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		mainboardService.modifyReply(vo);	//예외 처리하기
+		
+		return "success";
+	}
+	
+	//댓글 삭제 
+	@ResponseBody
+	@RequestMapping(value="mainboard/deleteComment.do")
+	public String deleteComment(int cidx) {
+		int result = mainboardService.deleteReply(cidx);
+		if (result==1) {
+			return "success";
+		} else {
+			return "삭제에 실패하였습니다.";
+		}
+	}
+	
 	//보드 댓글 리스트 불러오기 ajax
 	@ResponseBody
 	@RequestMapping(value="mainboard/commentList.do", produces="application/json; charset=utf8")
@@ -213,6 +256,9 @@ public class MainBoardController {
         		hm.put("content", list.get(i).getContent());
         		hm.put("writer", list.get(i).getWriter());
         		hm.put("uidx", list.get(i).getUidx());
+        		hm.put("depth", list.get(i).getDepth());
+        		hm.put("origincidx", list.get(i).getOrigincidx());
+        		hm.put("datetime", list.get(i).getDatetime());
         		
         		hmlist.add(hm);
         	}

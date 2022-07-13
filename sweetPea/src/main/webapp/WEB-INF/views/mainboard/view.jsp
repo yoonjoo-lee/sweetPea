@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -34,7 +35,7 @@
 <body>
 <header id="header"></header>
 <div id="view">
-<table border="1">
+<table class="table table-sm">
 		<tbody>
 			<tr>
 				<td>
@@ -89,7 +90,7 @@ function deletecheck(){
 		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
 	} 
 	
-}
+};
 </script>
 </body>
 </html>
