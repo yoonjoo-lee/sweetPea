@@ -54,4 +54,14 @@ public class UserServiceImple implements UserService{
 		return userDao.userIdx(uidx);
 	}
 
+	@Override
+	public int pwdCheck(UserVo vo) {
+		return userDao.pwdCheck(vo);
+	}
+
+	@Override
+	public int delId(int uidx) {
+		return userDao.delId(uidx);
+	}
+
 }

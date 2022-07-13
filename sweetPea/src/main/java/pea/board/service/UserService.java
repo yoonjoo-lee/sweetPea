@@ -11,4 +11,6 @@ public interface UserService {
 	int pwdExistCheck(UserVo vo);
 	int changePwd(UserVo vo);
 	UserVo userIdx(int uidx);
+	int pwdCheck(UserVo vo);
+	int delId(int uidx);
 }

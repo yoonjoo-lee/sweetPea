@@ -12,6 +12,8 @@ public class UserDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	private static final String namespace = "pea.board.mapper.UserMapper";
+	
 	public UserVo login(UserVo vo) {
 		return sqlSession.selectOne("pea.board.mapper.UserMapper.login",vo);
 	}
@@ -62,5 +64,18 @@ public class UserDao {
 	
 	public UserVo userIdx(int uidx) {
 		return sqlSession.selectOne("pea.board.mapper.UserMapper.userIdx",uidx);
+	}
+	
+	public int pwdCheck(UserVo vo) {
+		String check = sqlSession.selectOne(namespace+".pwdCheck",vo);
+		if(check == null) {
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	
+	public int delId(int uidx) {
+		return sqlSession.update(namespace+".delId",uidx);
 	}
 }

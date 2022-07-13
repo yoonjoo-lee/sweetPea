@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
 <head>
 	<title>SweetPea</title>
@@ -25,7 +25,7 @@
 			float: right;
 		}
 		#myIframe{
-			width: 96%;
+			width: 100%;
 			height: 100%;
 			display: block;
 			margin: 0 auto;			
@@ -39,7 +39,7 @@
 	<div id="view">
 	<nav id="nav"></nav>
 	<section id="section">
-		<iframe id="myIframe" src="<%=request.getContextPath()%>/resources/myPage/myIdx.jsp"></iframe>
+		<iframe id="myIframe" src="myPage-idx.do?uidx=${login.uidx}"></iframe>
 	</section>
 	</div>
 	<br>
