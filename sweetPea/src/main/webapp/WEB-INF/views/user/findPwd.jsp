@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -108,11 +109,10 @@ $('#mailCheckBtn').click(function() {
 	const id = $("#id").val();
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!
 	const checkInput = $('.mail-check-input'); // 인증번호 입력하는곳 
-	var pjtPath = '<%= request.getContextPath()%>';
 	
 	$.ajax({
 		type: 'get',
-		url: pjtPath + '/user/pwdExistCheck.do?id='+id+'&email='+email,
+		url: pjtPath + '<%= request.getContextPath()%>/user/pwdExistCheck.do?id='+id+'&email='+email,
 		dataType: 'text',
 		success: function(data){
 			if(data == 0){

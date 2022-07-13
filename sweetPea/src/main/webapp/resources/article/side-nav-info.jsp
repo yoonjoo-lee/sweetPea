@@ -124,10 +124,11 @@
 	<div class="categoryBox">
 		<h3>마이 페이지</h3>
 		<ul>
-			<li><a onclick="info('<%=request.getContextPath()%>/resources/myPage/myIdx.jsp')">정보수정</a></li>
-			<li><a>프로필 변경</a></li>
+			<li><a onclick="info('myPage-modify.do?uidx=${login.uidx}')">정보 수정</a></li>
+			<li><a onclick="info('myPage-changePwd.do?uidx=${login.uidx}')">비밀번호 수정</a></li>
+			<li><a onclick="info('myPage-profile.do')">프로필 변경</a></li>
 			<li><a>신청 글 보기</a></li>
-			<li><a>회원 탈퇴</a></li>
+			<li><a onclick="info('myPage-del.do')">회원 탈퇴</a></li>
 			<li><a>보유아이템 및 결제내역</a></li>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">

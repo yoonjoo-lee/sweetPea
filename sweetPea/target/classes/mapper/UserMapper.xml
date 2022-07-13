@@ -71,10 +71,22 @@
 	</update>
 	
 	<select id="userIdx" parameterType="int" resultType="userVo">
-		SELECT name
-			 , id
+		SELECT *
 		  FROM pea_user
 		 WHERE uidx = #{uidx}
 	</select>
+	
+	<select id="pwdCheck" parameterType="userVo" resultType="string">
+		SELECT uidx
+		  FROM pea_user
+		 WHERE uidx = #{uidx}
+		   AND pwd = #{pwd}
+	</select>
+	
+	<update id="delId" parameterType="int">
+		UPDATE pea_user
+		   SET delyn = 'Y'
+		 WHERE uidx = #{uidx}
+	</update>
 	
 </mapper>
