@@ -56,4 +56,14 @@ public class MainBoardServiceImple implements MainBoardService{
 		return mainboardDao.selectComment(vo);
 	}
 
+	@Override
+	public int modifyReply(MainCommentVo vo) {
+		return mainboardDao.modifyReply(vo);
+	}
+
+	@Override
+	public int deleteReply(int cidx) {
+		return mainboardDao.deleteReply(cidx);
+	}
+
 }

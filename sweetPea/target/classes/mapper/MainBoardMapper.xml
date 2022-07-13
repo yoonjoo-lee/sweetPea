@@ -81,13 +81,20 @@
 		,ip
 		,origincidx
 		,uidx
+		,depth
 	) VALUES(
 		 #{bidx}
 		,#{content}
 		,#{writer}
 		,#{ip}
-		,(SELECT max(cidx) from pea_comment c)
+		<if test="depth==1">
+			,#{cidx}
+		</if>
+		<if test="depth!=1">
+			,(SELECT max(cidx)+1 from pea_comment c)
+		</if>
 		,#{uidx}
+		,#{depth}
 	)
 </insert>
 
@@ -95,7 +102,23 @@
 	SELECT * 
 	 FROM pea_comment 
 	WHERE bidx=#{bidx}
+	AND delyn='N'
+	ORDER BY origincidx,cidx
 </select>
+
+<update id="modifyReply" parameterType="MainCommentVo">
+	UPDATE pea_comment
+	 SET content=#{content}
+	 	,datetime=NOW()
+	 	,ip=#{ip}
+	WHERE cidx=#{cidx}
+</update>
+
+<update id="deleteReply" parameterType="int">
+	UPDATE pea_comment
+	 SET delyn='Y'
+	WHERE cidx=#{cidx}
+</update>
 
 </mapper>
 
