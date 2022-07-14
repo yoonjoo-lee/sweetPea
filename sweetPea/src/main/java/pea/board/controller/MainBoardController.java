@@ -55,7 +55,8 @@ public class MainBoardController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = mainboardService.countBoard();
+		int total = mainboardService.countBoard(category);
+		System.out.println("tota:"+ total);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -72,6 +73,8 @@ public class MainBoardController {
 		model.addAttribute("category", category);
 		vo.setCategory(category);
 		List<MainBoardVo> list= mainboardService.list(vo);
+		
+		System.out.println(vo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", vo);

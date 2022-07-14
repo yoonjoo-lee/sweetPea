@@ -53,9 +53,10 @@
 	AND b.bidx = #{bidx}
 </select>
 
-<select id="countBoard" resultType="int">
+<select id="countBoard" parameterType="int" resultType="int">
 	SELECT COUNT(*) 
 	 FROM pea_board
+	 WHERE category=#{category}
 </select>
 
 <update id="modify" parameterType="MainBoardVo">

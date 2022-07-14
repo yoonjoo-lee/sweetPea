@@ -32,8 +32,8 @@ public class MainBoardServiceImple implements MainBoardService{
 	}
 
 	@Override
-	public int countBoard() {
-		return mainboardDao.countBoard();
+	public int countBoard(int category) {
+		return mainboardDao.countBoard(category);
 	}
 
 	@Override
