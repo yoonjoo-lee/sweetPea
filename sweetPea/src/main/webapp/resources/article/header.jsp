@@ -53,13 +53,12 @@
 
     text-indent: 10px;
     line-height: 55px;
-    background: #52C3BD;
     margin: 0;
     height: 55px;
     width: 90px;
     color: #fff;
 }
- .list dd {
+.list dd {
 
     text-indent: 10px;
     line-height: 55px;
@@ -92,10 +91,13 @@
     margin: 0;
 }
 
+
 /* Individual styles */
 
-.maki dt {opacity: 1;}
-.maki dd, .maki a { background: steelblue; }
+.maki dt {opacity: 1;} 
+/* .maki dt { background: #52C3BD; } */
+
+ .maki dd, .maki a { background: steelblue; }
 
 .maki a:hover { background: steelblue; }
 /* steelblue   #52C3BD*/
@@ -576,8 +578,8 @@ if ( $.fn.makisu.enabled ) {
                         <li class="nav-item"><a class="nav-link header-a" href="#services">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#about">결제/충전</a></li>
-                        <span class="toggle" ><li class="nav-item nav-hover">
-                        		<dt ><a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a></dt>
+                        <span class="toggle" ><li class="nav-item" >
+                        		<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
                         	<dl class="list maki" >
                         		<dd><a href="<%=request.getContextPath()%>/mainboard/list.do?category=1">　공지　</a></dd>
                         		<dd><a href="<%=request.getContextPath()%>/mainboard/list.do?category=2">　자유　</a></dd>

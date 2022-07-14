@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 </head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -24,18 +23,22 @@
 	}
 </script>
 <style type="text/css">
-		#view{
-			width: 60%;
-			margin: 0 auto;
-		}
-		#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-		}
+#view{
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#footer{
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}
 		
-
+.searchDiv{
+	float: left;
+	padding-right: 5px;
+}
 
 
 table {
@@ -123,7 +126,7 @@ a {
 
 <header id="header"></header>
 <br>
-	<div id="view">
+<div id="view">
 <c:if test="${searchVo.category == 1}">
 	<h2>공지게시판</h2>
 </c:if>
@@ -143,7 +146,7 @@ a {
 
 <!-- 페이징 옵션 선택 -->
 <div style="float: right;">
-	<select id="cntPerPage" name="sel" onchange="selChange()">
+	<select  class="form-select" id="cntPerPage" name="sel" onchange="selChange()">
 		<option value="5"
 			<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
 		<option value="10"
@@ -160,15 +163,15 @@ a {
 	
 <!-- 검색 -->	
 <form method="get" action="list.do">
-		<select name="searchType">
+		<div class="searchDiv"><select  class="form-select" name="searchType">
 			<option value="title" <c:if test="${!empty SearchVo.searchType and SearchVo.searchType eq 'title' }">selected</c:if>>제목</option>
 			<option value="contentWriter" <c:if test="${!empty SearchVo.searchType and SearchVo.searchType eq 'contentWriter' }">selected</c:if>>내용+작성자</option>
-		</select>
-		<input type="text" name="searchValue" <c:if test="${!empty SearchVo.searchValue}">value="${SearchVo.searchValue }"</c:if>>
-		<input type="hidden" name="category" value=${category }>
-		<input type="submit" value="검색">
+		</select></div>
+		<div class="searchDiv"><input class="form-control" style="width:200px" type="text" name="searchValue" <c:if test="${!empty SearchVo.searchValue}">value="${SearchVo.searchValue }"</c:if>></div>
+		<div class="searchDiv"><input type="hidden" name="category" value=${category }></div>
+		<div class="searchDiv"><input type="submit"  class="btn btn-secondary" value="검색"></div>
 </form>
-
+<br><br>
 
 총 ${list.size()}건이 조회되었습니다.
 <!-- 리스트 테이블 -->
@@ -203,8 +206,9 @@ a {
 		</tbody>
 </table>
 
+<br>
 <!-- 페이징 -->
-<div style="display: block; text-align: center;">		
+<%-- <div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
 			<a href="list.do?category=2&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
@@ -221,16 +225,40 @@ a {
 		<c:if test="${paging.endPage != paging.lastPage}">
 			<a href="list.do?category=2&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
+</div>  --%>
+
+<!-- 페이징 -->
+<div style="margin-left:38%">
+	<ul class="pagination">		
+		<c:if test="${paging.startPage != 1 }">
+			<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		</c:if>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage }">
+					<li class="page-item  active"><b class="page-link">${p }</b></li>
+				</c:when>
+				<c:when test="${p != paging.nowPage }">
+					<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		</c:if>
+	</ul>
 </div>
+
 
 <!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
 <c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
-<a href="write.do?category=${category }">작성하기</a>
+<button style="float:right" class="btn btn-secondary" onclick="location.href='write.do?category=${category }'">작성하기</button>
 </c:if>
 
 
 </div>
-
+<br>
+<footer id="footer"></footer>
 	<!-- <footer id="footer"></footer> -->
 </body>
 </html>

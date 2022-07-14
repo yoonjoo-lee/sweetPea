@@ -25,16 +25,18 @@
 	
 </script>
 <style type="text/css">
-		#view{
-			width: 60%;
-			margin: 0 auto;
-		}
-		#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-		}
+#view{
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#footer{
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	
+}
 </style>
 </head>
 <body>
@@ -90,6 +92,8 @@
 	<!-- <button onclick="location.href='login.do'">목록</button> -->
 </form>
 </div>	
+<br>
+<footer id="footer"></footer>
 <script>
 $(document).ready(function () {
     $('#summernote').summernote({

@@ -21,58 +21,44 @@
 	});
 </script>
 <style type="text/css">
-		#view{
-			width: 60%;
-			margin: 0 auto;
-		}
-		#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-		}
+#view{
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#footer{
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	
+}
 </style>
 <body>
 <header id="header"></header>
+<br>
 <div id="view">
+<div style="border:1px solid grey">
 <table class="table table-sm">
 		<tbody>
 			<tr>
+				
 				<td>
-					제목
-				</td>
-				<td>
-					${vo.title }
+					<h3>${vo.title }</h3>
+					<b>${vo.name }</b>&nbsp ${vo.datetime }
 				</td>
 			</tr>
-			<tr>
-				<td>
-					내용
-				</td>
-				<td>
+			<tr  style="height:300px">
+				<td >
 						${vo.content}
 					<%-- <textarea id="summernote" readonly>${vo.content }</textarea> --%>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					작성자
-				</td>
-				<td>
-					${vo.name }
-				</td>
-			</tr>
-			<tr>
-				<td>
-					작성일
-				</td>
-				<td>
-					${vo.datetime }
-				</td>
-			</tr>
+			
 			
 		</tbody>
 	</table>
+</div>
 	<c:if test="${login.uidx eq vo.uidx }">
 		<button onclick="location.href='modify.do?bidx=${vo.bidx }'">수정</button>
 		<button onclick=deletecheck()>삭제</button>
@@ -82,6 +68,8 @@
 	
 	</div>
 </div>
+<br>
+<footer id="footer"></footer>
 <script>
 
 function deletecheck(){
