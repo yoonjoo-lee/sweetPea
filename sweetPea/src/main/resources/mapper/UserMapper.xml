@@ -7,22 +7,17 @@
 
 	<select id="login" parameterType="userVo" resultType="userVo">
 		SELECT *
-		 FROM pea_user
-		WHERE id=#{id}
-			AND pwd=#{pwd}
-	</select>
-
-
-	<select id="idCheck" parameterType="userVo" resultType="userVo">
-		SELECT id 
-		FROM pea_user
-		WHERE id=#{id}
+		  FROM pea_user
+		 WHERE id = #{id}
+		   AND pwd = #{pwd}
+		   AND delyn = 'N'
 	</select>
 	
-	<select id="idCheck2" parameterType="string" resultType="string">
+	<select id="idCheck" parameterType="string" resultType="string">
 		SELECT id 
-		FROM pea_user
-		WHERE id=#{id}
+		  FROM pea_user
+		 WHERE id = #{id}
+		   AND delyn = 'N'
 	</select>
 	
 	<insert id="insert" parameterType="userVo">
@@ -55,6 +50,7 @@
 		  FROM pea_user
 		 WHERE email=#{email}
 		   AND name=#{name}
+		   AND delyn = 'N'
 	</select>
 	
 	<select id="pwdExistCheck" parameterType="userVo" resultType="string">

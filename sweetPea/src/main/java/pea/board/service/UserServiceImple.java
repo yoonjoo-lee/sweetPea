@@ -18,10 +18,10 @@ public class UserServiceImple implements UserService{
 	}
 
 	@Override
-	public UserVo idCheck(UserVo vo) {
-		return userDao.idCheck(vo);
+	public int idCheck(String id) {
+		return userDao.idCheck(id);
 	}
-
+	
 	@Override
 	public int inserUser(UserVo vo) {
 		int result = userDao.insert(vo);
@@ -29,10 +29,7 @@ public class UserServiceImple implements UserService{
 		return result;
 	}
 
-	@Override
-	public int idCheck2(String id) {
-		return userDao.idCheck2(id);
-	}
+	
 
 	@Override
 	public String idExistCheck(UserVo vo) {

@@ -72,7 +72,6 @@ $(async function(){
 					});
 				window.location.reload();
 			}else{
-				
 				$(".afterCheckBox").attr("style","display:block");
 			}
 		}
@@ -80,7 +79,7 @@ $(async function(){
 });
 </script>
 <script>
-async function changePwd(){
+function changePwd(){
 	if($('#pwd').val()=="" || ($('#pwd2').val() != "" && $("#span-pwd").css("color")=="rgb(255, 0, 0)")){
 		$('#pwd').focus();
 		$('#pwd').blur();
@@ -94,13 +93,6 @@ async function changePwd(){
 	}
 	const pwd = $("#pwd").val();
 	
-	await Swal.fire({
-		icon: 'success',
-		title: '변경 완료',
-		showConfirmButton: false,
-		timer:2000,
-		position: 'top'
-	});
 	window.parent.location.href="<%=request.getContextPath()%>/user/changePwd.do?uidx="+${login.uidx}+"&pwd="+pwd;
 	
 	
