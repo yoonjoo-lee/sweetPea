@@ -11,6 +11,11 @@
 <meta name="author" content="" />
 <link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
 <style type="text/css"></style>
+<script>
+		$(function(){
+			$(".banner").load("resources/article/nav-banner.jsp");
+		});
+	</script>
 </head>
 <body>
 	<div>

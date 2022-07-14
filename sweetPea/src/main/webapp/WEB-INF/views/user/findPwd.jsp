@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SweetPea</title>
 
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -63,7 +63,7 @@
 	#idCheckBtn{
 		display: block;
 	}
-	span{
+	.box>span{
 		font-size: 0.7em;
 	}
 </style>
@@ -93,7 +93,7 @@
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<h3>비밀번호 찾기</h3>
 	<h4>비밀번호를 찾고자 하는 아이디를 입력해 주세요</h4>
-	<input type="text" name="id" id="id" placeholder="아이디"><br>
+	<input type="text" name="id" id="id" placeholder="아이디">
 	<h4>회원정보에 등록한 이메일 인증</h4>
 	<input type="text" name="email" id="email" placeholder="이메일">
 	<button type="button" id="mailCheckBtn">인증번호 받기</button><br>
@@ -112,22 +112,36 @@ $('#mailCheckBtn').click(function() {
 	
 	$.ajax({
 		type: 'get',
-		url: pjtPath + '<%= request.getContextPath()%>/user/pwdExistCheck.do?id='+id+'&email='+email,
+		url: '<%= request.getContextPath()%>/user/pwdExistCheck.do?id='+id+'&email='+email,
 		dataType: 'text',
-		success: function(data){
+		success: async function(data){
 			if(data == 0){
-				alert("아이디와 이메일이 일치하는 정보가 없습니다.");
+				await Swal.fire({
+				      title: '실패',
+				      text: '아이디와 이메일이 일치하는 정보가 없습니다.',
+				      icon: 'error'
+			    });
 				return;
 			}else{
 				uidx = data;
+				Swal.fire({
+				      text: '인증번호 전송중...',
+				      didOpen: () => {
+				    	    Swal.showLoading()
+			    	  },
+			    	  backdrop: false
+			    });
 				$.ajax({
 					type : 'get',
-					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-					success : function (data) {
+					url : '<%=request.getContextPath()%>/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+					success : async function (data) {
 						checkInput.attr('disabled',false);
 						$('#changeBtn').attr('disabled',false);
 						code =data;
-						alert('인증번호가 전송되었습니다.')
+						await Swal.fire({
+						      text: '인증번호가 전송되었습니다.',
+						      icon: 'success',
+					    });
 					}
 				}); // end ajax	
 			}

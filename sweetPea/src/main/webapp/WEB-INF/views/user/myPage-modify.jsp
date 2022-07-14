@@ -38,16 +38,17 @@
 		font-size: 1em;
 		width: 100%;
 		height: 2em;
-		border: 1px solid black;
 		margin: 1em 0;
 		display: block;
 	}
 	.inputIdx>p{
 		display: inline-block;
 		margin: 0.3em 0.8em;
+		width: 14%;
+		text-align: right;
 	}
-	.inputIdx>input{
-		border: 0;
+	.inputIdx>input[type=text],.inputIdx>select{
+		border: 1px soild black;
 		padding: 0;
 		height: 85%;
 		width: 60%;
@@ -111,6 +112,12 @@
 					<option value="W">여자</option>
 				</select>
 			</div>
+			<c:if test="${vo.gender.equals('M')}">
+				<script>$("#gender").val("M").prop("selected",true)</script>
+			</c:if>
+			<c:if test="${vo.gender.equals('W')}">
+				<script>$("#gender").val("W").prop("selected",true)</script>
+			</c:if>
 			<div class = "inputIdx">
 				<p>생년월일 :</p>
 				<input type="text" name="birth" value="${vo.birth}">

@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SweetPea</title>
 <link href="<%=request.getContextPath()%>/resources/css/findId.css" rel="stylesheet" />
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(function(){
 		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
@@ -45,21 +46,34 @@ $('#mailCheckBtn').click(function() {
 		type: 'get',
 		url: pjtPath + '/user/idExistCheck.do?name='+name+'&email='+email,
 		dataType: 'text',
-		success: function(data){
-			
+		success: async function(data){
 			if(data == ""){
-				alert("이름과 이메일이 일치하는 아이디가 없습니다.");
+				await Swal.fire({
+				      title: '실패',
+				      text: '이름과 이메일이 일치하는 아이디가 없습니다.',
+				      icon: 'error',
+			    });
 				return;
 			}else{
 				id = data;
+				Swal.fire({
+				      text: '인증번호 전송중...',
+				      didOpen: () => {
+				    	    Swal.showLoading()
+			    	  },
+			    	  backdrop: false
+			    });
 				$.ajax({
 					type : 'get',
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-					success : function (data) {
+					success : async function (data) {
 						checkInput.attr('disabled',false);
 						$('#idCheckBtn').attr('disabled',false);
 						code =data;
-						alert('인증번호가 전송되었습니다.')
+						await Swal.fire({
+						      text: '인증번호가 전송되었습니다.',
+						      icon: 'success',
+					    });
 					}
 				}); // end ajax	
 			}
@@ -88,12 +102,13 @@ $('.mail-check-input').blur(function () {
 	}
 });
 
-$("#changeBtn").click(function(){
+$("#idCheckBtn").click(function(){
 	const inputCode = $(".mail-check-input").val();
 	
 	if(inputCode === code){
 		$(".box").attr("style","display:none");
 		$(".afterBox").attr("style","display:block");
+		$(".getId").text(id);
 	}else{
 		alert("인증번호를 확인하세요");
 		return;
