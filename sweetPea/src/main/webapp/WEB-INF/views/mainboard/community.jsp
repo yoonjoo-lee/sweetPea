@@ -19,12 +19,14 @@
 		#view{
 			width: 60%;
 			margin: 0 auto;
+			margin-bottom: 15em;
 		}
 		#footer{
 			width: 100%;
 			bottom: 0;
 			left: 0;
 			position: absolute;
+			
 		}
 		
 		
@@ -130,9 +132,8 @@ a {
 <div id="boardList3">
 </div>
 </div>
-</body>
-
-
+<br>
+<footer id="footer"></footer>
 <script>
 $(document).ready(function(){
 	$.ajax({
@@ -230,4 +231,5 @@ $(document).ready(function(){
 	});
 })
 </script>
+</body>
 </html>
