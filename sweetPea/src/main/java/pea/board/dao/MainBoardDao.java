@@ -28,8 +28,8 @@ public class MainBoardDao {
 		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.view", bidx);
 	}
 	
-	public int countBoard() {
-		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.countBoard");
+	public int countBoard(int category) {
+		return sqlSession.selectOne("pea.board.mapper.MainBoardMapper.countBoard", category);
 	}
 	
 	public int modify(MainBoardVo vo) {

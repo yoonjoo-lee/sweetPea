@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 /**
  * Oscuro: #283035
@@ -101,7 +102,7 @@ body {
 
 
 .comments-list li {
-	margin-bottom: 15px;
+	/* margin-bottom: 15px; */
 	display: block;
 	position: relative;
 }
@@ -159,12 +160,13 @@ body {
  * Caja del Comentario
  ---------------------------*/
 .comments-list .comment-box {
-	width: 680px;
+	width: 650px;
 	float: right;
 	position: relative;
 	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
 	-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
 	box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+	display: inline-block;
 }
 
 .comments-list .comment-box:before, .comments-list .comment-box:after {
@@ -187,7 +189,8 @@ body {
 }
 
 .reply-list .comment-box {
-	width: 610px;
+	width: 40em;
+/* 	width: 610px; */
 }
 .comment-box .comment-head {
 	background: #FCFCFC;
@@ -247,7 +250,7 @@ body {
 
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
 .comment-box .comment-name.by-author:after {
-	content: 'autor';
+	/* content: 'autor'; */
 	background: #03658c;
 	color: #FFF;
 	font-size: 12px;
@@ -274,6 +277,23 @@ body {
 	.reply-list .comment-box {
 		width: 320px;
 	}
+}
+
+.fa-reply, .fa-heart, .fa-bars{
+	float: right;
+	margin-left: 0.3em;
+	color: #6d7273;
+}
+
+.dropdown-menu {
+    padding: 0.1rem 0;
+}
+    
+.dropdown-item {
+    padding: 0.05rem 1rem;
+}
+.btn-group, .btn-group-vertical {
+    float: right;
 }
 </style>
 </head>
@@ -330,10 +350,25 @@ function fn_comment(bidx){
         type:'POST',
         url : "addComment.do",
         data:$("#commentForm").serialize(),
-        success : function(data){
+        success : async function(data){
             if(data=="success")
             {
-            	alert('등록완료');
+            	const Toast = Swal.mixin({
+            		  toast: true,
+            		  position: 'top-end',
+            		  showConfirmButton: false,
+            		  timer: 1000,
+            		  timerProgressBar: true,
+            		 /*  didOpen: (toast) => {
+            		    toast.addEventListener('mouseenter', Swal.stopTimer)
+            		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+            		  } */
+            		})
+
+            		await Toast.fire({
+            		  icon: 'success',
+            		  title: '작성 완료!'
+            		})
                 getCommentList();
                 $("#comment").val("");
             }
@@ -505,20 +540,32 @@ function getCommentList(){
             
             if(data.length > 0){
                 for(i=0; i<data.length; i++){
+                	html += "<div id='cidx"+data[i].cidx+"'>";
                 	html += "<div class='comments-container'>";
                 	html += "<ul id='comments-list' class='comments-list'>";
                 	if (data[i].depth!=1){	
               		html += "<li><div class='comment-main-level'>";
       				html += "<div class='comment-avatar'><img src='' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
-       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-reply'></i><i class='fa fa-heart'></i></div>";
+       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
+       				if (uidx != null){
+	       				if (data[i].depth==1){
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")'><i class='fa fa-reply' ></i></div>";
+	       				}else{
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")'></i>";
+	       				}
+       				}
+      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'><li style='font-size:12px'><a class='dropdown-item' href='#'>수정</a></li><li style='font-size:12px'><a class='dropdown-item' href='#'>삭제</a></li></ul></div></div>";
+       				
+       				
+       			
        				html += "<div class='comment-content'>";
        				html += data[i].content+"</div></div></div>";
                 	}
                 	else{
        				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
-       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-reply'></i><i class='fa fa-heart'></i></div><div class='comment-content'>";
+       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i><i class='fa fa-reply'></i></div><div class='comment-content'>";
        				html += data[i].content+"</div></div></li>";
        				html += "</ul></li>";
                 	}

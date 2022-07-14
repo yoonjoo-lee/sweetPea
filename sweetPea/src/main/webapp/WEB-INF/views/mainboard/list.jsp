@@ -118,9 +118,13 @@ a {
   td {
     border-bottom: 1px solid #e5e5e5;
   }
-  
-  
-  }
+}
+.myPaging {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+}
 </style>
 <body>
 
@@ -208,9 +212,9 @@ a {
 
 <br>
 <!-- 페이징 -->
-<%-- <div style="display: block; text-align: center;">		
+<%--  <div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="list.do?category=2&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="list.do?category=${searchVo.category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -218,20 +222,20 @@ a {
 					<b>${p }</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="list.do?category=2&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+					<a href="list.do?category=${searchVo.category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="list.do?category=2&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a href="list.do?category=${searchVo.category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
-</div>  --%>
+</div>   --%>
 
 <!-- 페이징 -->
-<div style="margin-left:38%">
-	<ul class="pagination">		
+<div>
+	<ul class="myPaging">		
 		<c:if test="${paging.startPage != 1 }">
-			<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+			<li class="page-item"><a class="page-link" href="list.do?category=${searchVo.category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -239,12 +243,12 @@ a {
 					<li class="page-item  active"><b class="page-link">${p }</b></li>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+					<li class="page-item"><a class="page-link" href="list.do?category=${searchVo.category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<li class="page-item"><a class="page-link" href="list.do?category=2&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+			<li class="page-item"><a class="page-link" href="list.do?category=${searchVo.category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 		</c:if>
 	</ul>
 </div>

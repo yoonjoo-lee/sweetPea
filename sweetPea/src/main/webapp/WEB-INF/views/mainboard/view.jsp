@@ -64,9 +64,10 @@
 		<button onclick=deletecheck()>삭제</button>
 	</c:if>
 	<button onclick="location.href='list.do?category=${vo.category }'">목록</button>
-	<div id="reply">
 	
-	</div>
+	<c:if test="${vo.category != 1}">
+		<div id="reply"></div>	
+	</c:if>
 </div>
 <br>
 <footer id="footer"></footer>
