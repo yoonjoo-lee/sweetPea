@@ -34,27 +34,31 @@ public class UserController {
 	private MailSendService mailService;
 	
 	private String uploadFolder;
+	
+	@RequestMapping(value="/user/home.do")
+	public String home() {
+		return "redirect:/";
+	}
+	
 	//
 	//
 	/* 로그인 */
 	//
 	//
-	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
 	public String login(){
-		
 		return "user/login";
 	}
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
-	public String login(UserVo vo,HttpServletRequest request, HttpSession session) {
+	public void login(UserVo vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		UserVo user = userService.login(vo);
-		String del = user.getDelyn();
-		if(user != null && del.equals("N")) {
-			
+		
+		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html;charset=utf-8");
+		
+		if(user != null) {
 			session = request.getSession();
-			
-			
 			// 세션에 담을 로그인 객체 생성해서 가져오기 
 			UserVo login = new UserVo();
 			login.setUidx(user.getUidx());
@@ -63,89 +67,92 @@ public class UserController {
 			login.setProfile(user.getProfile());
 			login.setPea_super(user.getPea_super());
 			
-			
 			session.setAttribute("login", login);
-			return "redirect:/";
-			
+			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
+			/* return "redirect:/"; */
 		}else {
-			
-			return "redirect:/user/login.do";
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'error',"
+					+ "title: '로그인 실패',"
+					+ "text: '아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다',"
+					+ "position: 'top'"
+					+ "});"
+					+ "location.href='login.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush(); //화면에 쓰는 곳이다.
+			/* return "redirect:/user/login.do"; */
 		}
 	}
-	
-	@RequestMapping(value="/user/join.do", method=RequestMethod.GET)
-	public String join(UserVo vo) {
-		
-		return "user/join";
-		
-	}
-	@RequestMapping(value="/user/home.do")
-	public String home() {
-	
-		
-		return "redirect:/";
-	}
-	
-	
 	//
 	//
 	/* 로그아웃 */
 	//
 	//
-	
 	@RequestMapping(value="/user/logout.do")
 	public String logout(HttpServletRequest request, HttpSession session) {
-		
 		session = request.getSession();
 		session.invalidate();
 		
 		return "redirect:/";
-		
 	}
-	
 	
 	//
 	//
 	/* 회원가입 */
 	//
 	//
+	@RequestMapping(value="/user/join.do", method=RequestMethod.GET)
+	public String join(UserVo vo) {
+		return "user/join";
+	}
 	
 	@RequestMapping(value="/user/join.do", method=RequestMethod.POST)// throws 는 오류가 나면은 그 때 행해라는 걸로 일단 생각해라. 나중에 더  빡세게 공부해라.
 	public void join(UserVo vo, HttpServletResponse response) throws IOException {
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 		
-		UserVo id = userService.idCheck(vo);
-        
 		PrintWriter pw = response.getWriter();
-		System.out.println(id);
-		
-		System.out.println(pw);
 		response.setContentType("text/html;charset=utf-8");
-		if(id == null) {
-			int result =userService.inserUser(vo);
-			if(result == 1) {
-				System.out.println("회원가입 성공");
-				
-				pw.append("<script>alert('축하합니다.');location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-				pw.flush(); //화면에 쓰는 곳이다.
-				
-			}else {
-				System.out.println("회원가입 실패");
-			}
-		}else {
-			
-			pw.append("<script>alert('중복된 아이디입니다.');location.href='join.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-			pw.flush(); //화면에 쓰는 곳이다.
 		
+		int result =userService.inserUser(vo);
+		if(result == 1) {
+			System.out.println("회원가입 성공");
+			
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'success',"
+					+ "title: '회원가입 완료',"
+					+ "text: '축하합니다',"
+					+ "position: 'top'"
+					+ "});"
+					+ "location.href='home.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
+			
+		}else {
+			System.out.println("회원가입 실패");
+			pw.append("<script>alert('알수없는 오류.');location.href='join.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush(); //화면에 쓰는 곳이다.
 		}
 	}
 	
+	//
+	/* 아이디확인 */
+	//
+	@ResponseBody
+	@RequestMapping(value="/user/idCheck.do", produces = "application/json;charset=utf8")
+	public int idCheck(String id) {
+		return userService.idCheck(id);
+	}
 	
 	//
-	//
 	/* 아이디찾기 */
-	//
 	//
 	
 	@RequestMapping(value="/user/findId.do", method=RequestMethod.GET)
@@ -155,17 +162,7 @@ public class UserController {
 		return "user/findId";
 	}
 	
-	//
-	//
-	/* 아이디확인 */
-	//
-	//
-	@ResponseBody
-	@RequestMapping(value="/user/idCheck.do", produces = "application/json;charset=utf8")
-	public int idCheck(String id) {
-		
-		return userService.idCheck2(id);
-	}
+	
 	
 	
 	//
@@ -241,8 +238,16 @@ public class UserController {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		if(value == 1) {
-			pw.append("<script>location.href='home.do'</script>");
-			pw.flush(); //화면에 쓰는 곳이다.
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'success',"
+					+ "title: '비밀번호 변경 완료'"
+					+ "});"
+					+ "location.href='home.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
 		}else {
 			pw.append("<script>alert('예기치 않은 오류 발생');location.href='findPwd.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush(); //화면에 쓰는 곳이다.

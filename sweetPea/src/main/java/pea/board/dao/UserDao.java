@@ -15,30 +15,23 @@ public class UserDao {
 	private static final String namespace = "pea.board.mapper.UserMapper";
 	
 	public UserVo login(UserVo vo) {
-		return sqlSession.selectOne("pea.board.mapper.UserMapper.login",vo);
+		return sqlSession.selectOne(namespace+".login",vo);
 	}
 	
-	
-	public UserVo idCheck(UserVo vo) {
-		
-		return sqlSession.selectOne("pea.board.mapper.UserMapper.idCheck",vo);
-	}
-	
-	public int insert(UserVo vo) {
-		
-		int result = sqlSession.insert("pea.board.mapper.UserMapper.insert",vo);
-		
-		return result;
-	}
-	
-	public int idCheck2(String id) {
-		String checkId = sqlSession.selectOne("pea.board.mapper.UserMapper.idCheck2",id);
+	public int idCheck(String id) {
+		String checkId = sqlSession.selectOne(namespace+".idCheck",id);
 		if(checkId==null) {
 			return 0;
 		}else {
 			return 1;
 		}
 	}
+	
+	public int insert(UserVo vo) {
+		return sqlSession.insert(namespace+".insert",vo);
+	}
+	
+	
 	
 	public String idExistCheck(UserVo vo) {
 		String id = sqlSession.selectOne("pea.board.mapper.UserMapper.idExistCheck",vo);
