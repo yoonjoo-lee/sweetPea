@@ -61,4 +61,14 @@ public class UserServiceImple implements UserService{
 		return userDao.delId(uidx);
 	}
 
+	@Override
+	public int userEmailCheck(UserVo vo) {
+		return userDao.userEmailCheck(vo);
+	}
+
+	@Override
+	public int idxModify(UserVo vo) {
+		return userDao.idxModify(vo);
+	}
+
 }
