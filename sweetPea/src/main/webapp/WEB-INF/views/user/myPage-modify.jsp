@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 	#img{
@@ -18,21 +19,9 @@
 	h4,h5{
 		text-align: center;
 	}
-	.inputBox,.checkPwdBox{
+	.inputBox{
 		width: 60%;
 		margin: 0 auto;
-	}
-	.checkPwdBox>input{
-		display: block;
-		width: 60%;
-		height: 2em;
-		margin: 0.8em auto;
-		text-indent: 0.5em;
-	}
-	.checkPwdBox>input[type=button]{
-		width: 62%;
-		height: 2.5em;
-		margin: 0.8em auto;
 	}
 	.inputIdx,.inputBox>input{
 		font-size: 1em;
@@ -41,7 +30,7 @@
 		margin: 1em 0;
 		display: block;
 	}
-	.inputIdx>p{
+	.inputIdx>p,.inputBox>p{
 		display: inline-block;
 		margin: 0.3em 0.8em;
 		width: 14%;
@@ -53,9 +42,21 @@
 		height: 85%;
 		width: 60%;
 		font-size: 1em;
+		text-indent: 0.2em;
 	}
 	.afterCheckBox{
 		display: none;
+	}
+	.inputBox>span{
+		font-size: 0.8em;
+		display: inline-block;
+		margin: 0.2em 0.2em;
+	}
+	#btn{
+		width: 61%;
+		height: 2em;
+		display: block;
+		margin: 0 auto;
 	}
 </style>
 <script>
@@ -92,6 +93,43 @@
 		});
 	});
 </script>
+<script>
+		function sample5_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                var addr = data.address; // 최종 주소 변수
+	                // 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById("addr").value = addr;
+	            }
+	        }).open();
+	    }
+</script>
+<script>
+	function change(){
+		if($("#span-email").css("color")=="rgb(255, 0, 0)"){
+			$('#email').focus();
+			$('#email').blur();
+			$('#email').focus();
+			return;
+		}
+		Swal.fire({
+			  title: '변경사항을 저장하시겠습니까?',
+			  showCancelButton: true,
+			  confirmButtonText: '저장',
+			  cancelButtonText: '취소',
+			}).then((result) => {
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.isConfirmed) {
+			    $("#frm").attr("action","<%=request.getContextPath()%>/user/myPage-modify.do?uidx="+${login.uidx});
+				$("#frm").attr("method","post");
+				$("#frm").submit();
+			  }
+			})
+		
+	}
+	
+
+</script>	
 </head>
 <body>
 	<br><br><br>
@@ -99,10 +137,11 @@
 		<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 		<h4>회원 정보 수정</h4>
 		<br>
+		<form id="frm">
 		<div class="inputBox">
 			<div class = "inputIdx">
 				<p>이름 :</p>
-				<input type="text" name="name" value="${vo.name}">
+				<input type="text" id="name" name="name" value="${vo.name}">
 			</div>
 			<div class = "inputIdx">
 				<p>성별 :</p>
@@ -120,76 +159,122 @@
 			</c:if>
 			<div class = "inputIdx">
 				<p>생년월일 :</p>
-				<input type="text" name="birth" value="${vo.birth}">
+				<input type="text" id="birth" name="birth" value="${vo.birth}">
 			</div>
 			<div class = "inputIdx">
 				<p>Phone :</p>
-				<input type="text" name="phone" value="${vo.phone}">
+				<input type="text" id="phone" name="phone" value="${vo.phone}">
 			</div>
 			<div class = "inputIdx">
 				<p>이메일 :</p>
-				<input type="text" name="email" value="${vo.email}">
+				<input type="text" id="email" name="email" value="${vo.email}">
+				<input type="button" style="height: 2.2em" id="mailCheckBtn" onclick="mailCheck()" value="인증번호 받기"><br>
 			</div>
+			<div class = "inputIdx" style="margin-bottom: 0;">
+				<p></p>
+				<input type="text" class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled">
+			</div>
+			<p></p><span id="span-email"></span>
 			<div class = "inputIdx">
 				<p>주소 :</p>
 				<input type="text" name="addr" id="addr" value="${vo.addr}">
+				<input type="button" style="height: 2.2em" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 			</div>
-			<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-			<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+				<input type="button" onclick="change()" id="btn" value="변경">
 		</div>
+			
+		</form>
 	</div>
 	
-	
-	
-	
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3239a3373f05b6e77a023666bc916273&libraries=services"></script>
-	<script>
-	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-	        mapOption = {
-	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-	            level: 5 // 지도의 확대 레벨
-	        };
-	
-	    //지도를 미리 생성
-	    var map = new daum.maps.Map(mapContainer, mapOption);
-	    //주소-좌표 변환 객체를 생성
-	    var geocoder = new daum.maps.services.Geocoder();
-	    //마커를 미리 생성
-	    var marker = new daum.maps.Marker({
-	        position: new daum.maps.LatLng(37.537187, 127.005476),
-	        map: map
-	    });
-	
-	
-	    function sample5_execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                var addr = data.address; // 최종 주소 변수
-	
-	                // 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById("addr").value = addr;
-	                // 주소로 상세 정보를 검색
-	                geocoder.addressSearch(data.address, function(results, status) {
-	                    // 정상적으로 검색이 완료됐으면
-	                    if (status === daum.maps.services.Status.OK) {
-	
-	                        var result = results[0]; //첫번째 결과의 값을 활용
-	
-	                        // 해당 주소에 대한 좌표를 받아서
-	                        var coords = new daum.maps.LatLng(result.y, result.x);
-	                        // 지도를 보여준다.
-	                        mapContainer.style.display = "block";
-	                        map.relayout();
-	                        // 지도 중심을 변경한다.
-	                        map.setCenter(coords);
-	                        // 마커를 결과값으로 받은 위치로 옮긴다.
-	                        marker.setPosition(coords)
-	                    }
-	                });
-	            }
-	        }).open();
-	    }
-	</script>
 </body>
+<script type="text/javascript">
+function mailCheck() {
+	const email = $('#email').val(); // 이메일 주소값 얻어오기!
+	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+	var pjtPath = '<%= request.getContextPath()%>';
+	$.ajax({
+		type: 'get',
+		url: pjtPath + '/user/userEmailCheck.do?email='+email+'&uidx='+${login.uidx},
+		success: async function(data){
+			if(data == 1){
+				await Swal.fire({
+				      text: '이미 인증한 이메일입니다.',
+				      icon: 'error',
+			    });
+			}else{
+				Swal.fire({
+				      text: '인증번호 전송중...',
+				      didOpen: () => {
+				    	    Swal.showLoading()
+			  	  },
+			  	backdrop: false
+			  	});
+				$.ajax({
+					type : 'get',
+					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+					success : async function (data) {
+						checkInput.attr('disabled',false);
+						code =data;
+						await Swal.fire({
+						      text: '인증번호가 전송되었습니다.',
+						      icon: 'success',
+					    });
+					}			
+				});
+			}
+		}  
+	})
+} // end send eamil
+// 인증번호 비교 
+// blur -> focus가 벗어나는 경우 발생
+$('.mail-check-input').blur(function () {
+	const inputCode = $(this).val();
+	const $resultMsg = $('#span-email');
+	
+	if(inputCode === code){
+		$resultMsg.text('인증번호가 일치합니다.');
+		$resultMsg.css('color','green');
+		$('#mail-Check-Btn').attr('disabled',true);
+		$('#userEamil1').attr('readonly',true);
+		$('#userEamil2').attr('readonly',true);
+		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	}else{
+		$resultMsg.text('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+		$resultMsg.css('color','red');
+	}
+});
+</script>
+<script>
+	$("#name").blur(function(){
+		if($("#name").val() == ""){
+			$("#name").val('${vo.name}');
+		}
+	});
+	$("#gender").blur(function(){
+		if($("#gender").val() == ""){
+			$("#gender").val('${vo.gender}');
+		}
+	});
+	$("#birth").blur(function(){
+		if($("#birth").val() == ""){
+			$("#birth").val('${vo.birth}');
+		}
+	});
+	$("#phone").blur(function(){
+		if($("#phone").val() == ""){
+			$("#phone").val('${vo.phone}');
+		}
+	});
+	$("#email").blur(function(){
+		if($("#email").val() == ""){
+			$("#email").val('${vo.email}');
+		}
+	});
+	$("#addr").blur(function(){
+		if($("#addr").val() == ""){
+			$("#addr").val('${vo.addr}');
+		}
+	});
+</script>
 </html>

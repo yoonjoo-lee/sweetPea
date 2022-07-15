@@ -275,6 +275,29 @@ public class UserController {
 		return "user/myPage-modify";
 	}
 	
+	@RequestMapping(value="/user/myPage-modify.do", method=RequestMethod.POST)
+	public void modifyIdx(UserVo vo, HttpServletResponse response) throws IOException {
+		int result = userService.idxModify(vo);
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		if(result == 1) {
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'success',"
+					+ "title: '저장 완료'"
+					+ "});"
+					+ "window.parent.location.href='home.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
+		}else {
+			pw.append("<script>alert('예기치 않은 오류 발생');location.href='findPwd.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush(); //화면에 쓰는 곳이다.
+		}
+	}
+	
 	@RequestMapping(value="/user/myPage-changePwd.do", method=RequestMethod.GET)
 	public String changePwd(int uidx, Model model) {
 		UserVo vo = userService.userIdx(uidx);
@@ -310,26 +333,31 @@ public class UserController {
 		return "user/myPage-profile";
 	}
 	
-	@RequestMapping(value="/user/profile.do", method=RequestMethod.POST)
-	public String profile(@RequestParam("profileImgUrl") MultipartFile multipartFile, RedirectAttributes redirectAttributes, int uidx) {
-		UserVo vo = userService.userIdx(uidx);
-		String imageFileName = uidx + "_" + multipartFile.getOriginalFilename();
-		Path imageFilePath = Paths.get(uploadFolder + imageFileName);
-		
-		if(multipartFile.getSize() != 0) {
-			try {
-				if(vo.getProfile() != null) {
-					File file = new File(uploadFolder + vo.getProfile());
-					file.delete();
-				}
-				Files.write(imageFilePath,multipartFile.getBytes());
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			vo.setProfile(imageFileName);
-		}
-		
-		return "user/myPage-profile";
+	/*
+	 * @RequestMapping(value="/user/upload.do", method=RequestMethod.POST) public
+	 * String profile(@RequestParam("profileImgUrl") MultipartFile multipartFile,
+	 * RedirectAttributes redirectAttributes, int uidx) { UserVo vo =
+	 * userService.userIdx(uidx); String imageFileName = uidx + "_" +
+	 * multipartFile.getOriginalFilename(); Path imageFilePath =
+	 * Paths.get(uploadFolder + imageFileName);
+	 * 
+	 * if(multipartFile.getSize() != 0) { try { if(vo.getProfile() != null) { File
+	 * file = new File(uploadFolder + vo.getProfile()); file.delete(); }
+	 * Files.write(imageFilePath,multipartFile.getBytes()); }catch (Exception e) {
+	 * e.printStackTrace(); } vo.setProfile(imageFileName); }
+	 * 
+	 * return "user/myPage-profile"; }
+	 */
+	
+	/* 회원정보 수정 - 동일한 이메일 체크(인증 반복 불필요) */
+	@ResponseBody
+	@RequestMapping(value="/user/userEmailCheck.do", produces = "application/json;charset=utf8")
+	public int userEmailCheck(int uidx, String email) {
+		UserVo vo = new UserVo();
+		vo.setUidx(uidx);
+		vo.setEmail(email);
+		return userService.userEmailCheck(vo);
 	}
+	
 	
 }

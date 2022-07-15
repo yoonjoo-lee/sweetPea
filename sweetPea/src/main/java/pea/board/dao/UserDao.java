@@ -31,8 +31,6 @@ public class UserDao {
 		return sqlSession.insert(namespace+".insert",vo);
 	}
 	
-	
-	
 	public String idExistCheck(UserVo vo) {
 		String id = sqlSession.selectOne("pea.board.mapper.UserMapper.idExistCheck",vo);
 		if(id == null) {
@@ -70,5 +68,18 @@ public class UserDao {
 	
 	public int delId(int uidx) {
 		return sqlSession.update(namespace+".delId",uidx);
+	}
+	
+	public int userEmailCheck(UserVo vo) {
+		String check = sqlSession.selectOne(namespace+".userEmailCheck",vo);
+		if(check == null) {
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+	
+	public int idxModify(UserVo vo) {
+		return sqlSession.update(namespace+".idxModify",vo);
 	}
 }
