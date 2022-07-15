@@ -1,12 +1,12 @@
 package pea.board.vo;
 
-public class ReportVo {
+public class ReportVo extends MainBoardVo{
 
 	
 	private int ridx;
 	private int bidx;
 	private int reply;
-	private String troll;
+	private int troll;
 	private int report;
 	private int rbidx;
 	private int rcidx;
@@ -31,10 +31,10 @@ public class ReportVo {
 	public void setReply(int reply) {
 		this.reply = reply;
 	}
-	public String getTroll() {
+	public int getTroll() {
 		return troll;
 	}
-	public void setTroll(String troll) {
+	public void setTroll(int troll) {
 		this.troll = troll;
 	}
 	public int getReport() {

@@ -35,7 +35,9 @@ ul {
 
 body {
 	font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
-	background: #dee1e3;
+	/* background: #dee1e3; */
+	/* background: #dcdcdc; */
+	background: #fff; 
 }
 
 /** ====================
@@ -43,7 +45,8 @@ body {
  =======================*/
 .comments-container {
 	/* margin: 60px auto 15px; */
-	width: 768px;
+	/* width: 768px; */
+	width: 55rem; 
 }
 
 .comments-container h1 {
@@ -69,7 +72,7 @@ body {
 	content: '';
 	width: 2px;
 	height: 100%;
-	background: #c7cacb;
+	background: #fff;
 	position: absolute;
 	left: 32px;
 	top: 0;
@@ -78,12 +81,13 @@ body {
 .comments-list:after {
 	content: '';
 	position: absolute;
-	background: #c7cacb;
+	background: #fff;
 	bottom: 0;
 	left: 27px;
 	width: 7px;
 	height: 7px;
-	border: 3px solid #dee1e3;
+	border: 3px solid #fff;
+	/* border: 3px solid #dee1e3; */
 	-webkit-border-radius: 50%;
 	-moz-border-radius: 50%;
 	border-radius: 50%;
@@ -133,9 +137,9 @@ body {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+ 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2); 
 	overflow: hidden;
 }
 
@@ -160,7 +164,8 @@ body {
  * Caja del Comentario
  ---------------------------*/
 .comments-list .comment-box {
-	width: 650px;
+	/* width: 650px; */
+	width: 48em;
 	float: right;
 	position: relative;
 	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
@@ -177,7 +182,8 @@ body {
 	display: block;
 	border-width: 10px 12px 10px 0;
 	border-style: solid;
-	border-color: transparent #FCFCFC;
+	/* border-color: transparent #FCFCFC; */
+	border-color: transparent #dcdcdc;
 	top: 8px;
 	left: -11px;
 }
@@ -189,11 +195,12 @@ body {
 }
 
 .reply-list .comment-box {
-	width: 40em;
+	width: 46rem;
 /* 	width: 610px; */
 }
 .comment-box .comment-head {
-	background: #FCFCFC;
+	/* background: #52C3BD; */
+ 	background: #dcdcdc; 
 	padding: 10px 12px;
 	border-bottom: 1px solid #E5E5E5;
 	overflow: hidden;
@@ -246,6 +253,8 @@ body {
 	-webkit-border-radius: 0 0 4px 4px;
 	-moz-border-radius: 0 0 4px 4px;
 	border-radius: 0 0 4px 4px;
+	border-left: 1px solid #dcdcdc;
+	border-right: 1px solid #dcdcdc;
 }
 
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
@@ -310,7 +319,7 @@ body {
                 <table class="table">                    
                     <tr>
                         <td>
-                            <textarea style="width: 1100px" rows="3" cols="30" id="comment" name="content" placeholder="댓글을 입력하세요"></textarea>
+                            <textarea  class='form-control' id="comment" name="content" placeholder="댓글을 입력하세요"></textarea>
                             <br>
                             <div>
                             	<c:if test="${login != null }">
@@ -329,6 +338,8 @@ body {
         <input type="hidden" id="b_code" name="bidx" value="${bidx }" />        
     </form>
 </div>
+
+
 
 
 <div class="container">
@@ -390,10 +401,26 @@ function addComminComm(bidx){
         type:'POST',
         url : "addComminComm.do",
         data:$("#commInCommForm").serialize(),
-        success : function(data){
+        success : async function(data){
             if(data=="success")
             {
-            	alert('등록완료');
+            	const Toast = Swal.mixin({
+          		  toast: true,
+          		  position: 'top-end',
+          		  showConfirmButton: false,
+          		  timer: 1000,
+          		  timerProgressBar: true,
+          		 /*  didOpen: (toast) => {
+          		    toast.addEventListener('mouseenter', Swal.stopTimer)
+          		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+          		  } */
+          		})
+
+          		await Toast.fire({
+          		  icon: 'success',
+          		  title: '답글 작성 완료!'
+          		})
+          		
                 getCommentList();
                 $("#comment").val("");
             }
@@ -550,22 +577,46 @@ function getCommentList(){
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				if (uidx != null){
 	       				if (data[i].depth==1){
-	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")'><i class='fa fa-reply' ></i></div>";
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
 	       				}else{
-	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")'></i>";
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
 	       				}
+	       				if (data[i].uidx == uidx){
+		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
+		      				html += "<li style='font-size:12px'><a class='dropdown-item' onClick='editComment(" + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")' href='#'>수정</a></li>";
+		      				html += "<li style='font-size:12px'><a class='dropdown-item' onClick='deleteComment(" + data[i].cidx + ")' href='#'>삭제</a></li></div>";
+       					}
        				}
-      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'><li style='font-size:12px'><a class='dropdown-item' href='#'>수정</a></li><li style='font-size:12px'><a class='dropdown-item' href='#'>삭제</a></li></ul></div></div>";
        				
        				
+       				html += "</div>";
        			
        				html += "<div class='comment-content'>";
-       				html += data[i].content+"</div></div></div>";
+       				html += data[i].content+"</ul></div></div></div>";
                 	}
                 	else{
        				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
-       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i><i class='fa fa-reply'></i></div><div class='comment-content'>";
+       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
+       				
+       				if (uidx != null){
+	       				if (data[i].depth==1){
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
+	       				}else{
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
+	       				}
+	       				if (data[i].uidx == uidx){
+		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
+		      				html += "<li style='font-size:12px'><a class='dropdown-item' onClick='editComment(" + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\")' href='#'>수정</a></li>";
+		      				html += "<li style='font-size:12px'><a class='dropdown-item' onClick='deleteComment(" + data[i].cidx + ")' href='#'>삭제</a></li></div>";
+       					}
+       				}
+       				
+       				
+       				html += "</div>";
+       			
+       				html += "<div class='comment-content'>";
+       				
        				html += data[i].content+"</div></div></li>";
        				html += "</ul></li>";
                 	}
@@ -628,15 +679,23 @@ function editComment(cidx, writer, content){
 	var html = "";
 	html += "<form id='modifyForm' method='post'>";
 	html += "<div id='cidx"+cidx+"'>";
-    html += "<div><table class='table'><h6><strong>"+writer+"</strong></h6>";
-    html += "<textarea name='content' rows='3' cols='91'>"+content + "</textarea><tr><td></td></tr>";
-    html += "<div style='float:right'><a onClick='fn_modify("+cidx+")' class='btn btn-success btn-sm '>저장</a>&nbsp";
-    html += "<a onClick='getCommentList()' class='btn btn-success btn-sm '>취소</a></div>";
+	
+	html += "<div class='comments-container'>";
+	html += "<ul id='comments-list' class='comments-list'>";
+	html += "<li><div class='comment-main-level'><div><table class='table'>";
+	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='' alt=''></div></td>";
+
+
+    html += "<td><textarea class='form-control'  style='height:100px;' name='content'>"+content + "</textarea></td></tr>";
+	
+    html += "<tr><td>"+writer+"</td>"
+    html += "<td><div><a onClick='fn_modify("+cidx+")' class='btn btn-success btn-sm '>저장</a>&nbsp";
+    html += "<a onClick='getCommentList()' class='btn btn-success btn-sm '>취소</a></div></td></tr>";
     html += "</table></div>";
     html += "</div>";
     html += "<input type='hidden' id='cidx' name='cidx' value='"+cidx+"' />";
-    html += "</form>";
-    
+    html += "</div></ul></li>"
+    html += "</form>"; 
     
     $('#cidx' + cidx).replaceWith(html);		
     $('#cidx' + cidx + ' #content').focus();
@@ -646,21 +705,34 @@ function editComment(cidx, writer, content){
  * 대댓글 작성 폼
  */
  
- function commentInComment(cidx, origincidx, writer, content){
+ function commentInComment(cidx, origincidx, writer, content, datetime){
 	 	var bidx = ${bidx };
 	 console.log(cidx, writer, content, bidx);
 		var html = "";
 		html += "<form id='commInCommForm' method='post'>";
-		html += "<div style='padding-left:80px' id='cidx"+cidx+"'>";
+		
+		/* html += "<div style='padding-left:80px' id='cidx"+cidx+"'>";
 	    html += "<div><table class='table'><h6><strong>"+writer+"</strong></h6>";
 	    html += content + "<tr><td></td></tr>";
 	    html += "<div style='float:right'><a onClick='fn_modify("+cidx+")' class='btn btn-success btn-sm '>저장</a>&nbsp";
 	    html += "<a onClick='getCommentList()' class='btn btn-success btn-sm '>취소</a></div>";
 	    html += "</table></div>";
-	    html += "</div>";
+	    html += "</div>"; */
+	    
+	    html += "<div id='cidx"+cidx+"'>";
+	    html += "<div class='comments-container'>";
+	    html += "<ul id='comments-list' class='comments-list'>";
+  		html += "<li><div class='comment-main-level'>";
+		html += "<div class='comment-avatar'><img src='' alt=''></div>";
+		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + writer + "</a></h6>";
+		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
+		html += "</div><div class='comment-content'>";
+		html += content+"</div></div>";
+		html += "</div></div>";
+	    
 	    html += "<input type='hidden' id='cidx' name='cidx' value='"+origincidx+"' />";
-	    html += "<div style='padding-left:80px'><table class='table'><tr><td>";
-	    html += "<textarea style='width: 1100px' rows='3' cols='30' id='comment' name='content' placeholder='댓글을 입력하세요'></textarea><br>";
+	    html += "<div style='padding-left:6.8em'><table class='table'><tr><td>";
+	    html += "<textarea  class='form-control' style='height:100px;' id='comment' name='content' placeholder='댓글을 입력하세요'></textarea><br>";
 	    html += "<div><a href='#' onClick='addComminComm("+bidx+")' class='btn pull-right btn-success'>등록</a></div>";
 	    html += "</td></tr></table></div>";
 	    html += "<input type='hidden' id='bidx' name='bidx' value='"+bidx+"' />";
