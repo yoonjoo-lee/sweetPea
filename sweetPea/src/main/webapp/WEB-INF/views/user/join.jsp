@@ -299,7 +299,6 @@
 
 
 <script type="text/javascript">
-$('')
 
 $('#mailCheckBtn').click(function() {
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!

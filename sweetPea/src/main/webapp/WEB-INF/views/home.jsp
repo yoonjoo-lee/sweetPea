@@ -1,13 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
+<%-- <%@ include file="../views/header.jsp"%> --%>
 <html>
 <head>
 	<title>SweetPea</title>
 	<script src="resources/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){
-			$("#header").load("resources/article/header.jsp");
-			$("#nav").load("resources/article/nav.jsp");
+			$("#header").load("resources/article/header.jsp"); 
+			$("#nav").load("resources/article/nav.jsp"); 
 			$("#section").load("resources/article/section.jsp");
 			$("#footer").load("resources/article/footer.jsp");
 		});
@@ -34,6 +35,5 @@
 	<footer id="footer"></footer>
 	
 </article>
-
 </body>
 </html>
