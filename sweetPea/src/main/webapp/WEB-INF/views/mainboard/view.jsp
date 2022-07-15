@@ -45,7 +45,7 @@
 				
 				<td>
 					<h3>${vo.title }</h3>
-					<b>${vo.name }</b>&nbsp ${vo.datetime }
+					<b>${vo.name } </b>&nbsp ${vo.datetime }
 				</td>
 			</tr>
 			<tr  style="height:300px">
@@ -59,15 +59,23 @@
 		</tbody>
 	</table>
 </div>
+
+
+<br>
 	<c:if test="${login.uidx eq vo.uidx }">
-		<button onclick="location.href='modify.do?bidx=${vo.bidx }'">수정</button>
-		<button onclick=deletecheck()>삭제</button>
+		<button class="btn btn-sm btn-secondary" onclick="location.href='modify.do?bidx=${vo.bidx }'">수정</button>
+		<button class="btn btn-sm btn-secondary" onclick=deletecheck()>삭제</button>
 	</c:if>
-	<button onclick="location.href='list.do?category=${vo.category }'">목록</button>
+	<c:if test="${login != null}">
+		<button class="btn btn-sm btn-secondary" onclick="reportfn()">신고</button>
+	</c:if>
+	<button class="btn btn-sm btn-secondary "  onclick="location.href='list.do?category=${vo.category }'">목록</button>
+	
 	
 	<c:if test="${vo.category != 1}">
 		<div id="reply"></div>	
 	</c:if>
+
 </div>
 <br>
 <footer id="footer"></footer>
@@ -79,7 +87,123 @@ function deletecheck(){
 		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
 	} 
 	
-};
+}
+
+async function reportfn(){
+   /* const login = '${login.name}'; */
+   const { value: formValues } = await Swal.fire({
+        title: '신고',
+        html:
+         '<form id="frm">'+
+          '<textarea id="content" name="content" class="swal2-input" rows=6 cols=30></textarea>' +
+          '<select id="report" name="report" class="swal2-input" style="width:22rem">'+
+          '<option value="1">욕설/비방</option>'+
+          '<option value="2">악성루머</option>'+
+          '<option value="3">광고글도배</option>'+
+          '<option value="4">기타</option>'+
+          '<input type="hidden" name="title" value="신고">'+
+          '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
+          '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
+          '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
+          '</form>',
+        focusConfirm: false,
+        backdrop: false,
+        showCancelButton: true,
+        preConfirm: () => {
+          return [
+            document.getElementById('content').value,
+            document.getElementById('report').value,
+            
+          ]
+        }
+      })
+      if (formValues) {
+          await Swal.fire({
+          	text: '신고완료',
+          });
+          const sw1 = $("#content").val();
+          const sw2 = $("#report").val();
+          alert(sw1,sw2);
+        }
+      
+      
+          $("#frm").attr("action","report.do?bidx="+${vo.bidx});
+          $("#frm").attr("method","POST");
+          $("#frm").submit();
+      
+      
+      
+}
+/* 
+
+async function reportfn(){
+	const { value: formValues } = await Swal.fire({
+		  title: 'Multiple inputs',
+		  html:
+		    '<input id="swal-input1" class="swal2-input">' +
+		    '<input id="swal-input2" class="swal2-input">',
+		  focusConfirm: false,
+		  preConfirm: () => {
+		    return [
+		      document.getElementById('swal-input1').value,
+		      document.getElementById('swal-input2').value
+		    ]
+		  }
+		})
+
+		if (formValues) {
+		  Swal.fire(JSON.stringify(formValues))
+		}
+	
+	const { value: text } = await Swal.fire({
+		  input: 'textarea',
+		  inputLabel: 'Message',
+		  inputPlaceholder: 'Type your message here...',
+		  inputAttributes: {
+		    'aria-label': 'Type your message here'
+		  },
+		  showCancelButton: true
+		})
+		
+
+		if (text) {
+		  Swal.fire(text)
+		}
+	
+	const { value: fruit } = await Swal.fire({
+	  title: 'Select field validation',
+	  input: 'select',
+	  inputOptions: {
+	    'Fruits': {
+	      apples: 'Apples',
+	      bananas: 'Bananas',
+	      grapes: 'Grapes',
+	      oranges: 'Oranges'
+	    },
+	    'Vegetables': {
+	      potato: 'Potato',
+	      broccoli: 'Broccoli',
+	      carrot: 'Carrot'
+	    },
+	    'icecream': 'Ice cream'
+	  },
+	  inputPlaceholder: 'Select a fruit',
+	  showCancelButton: true,
+	  inputValidator: (value) => {
+	    return new Promise((resolve) => {
+	      if (value === 'oranges') {
+	        resolve()
+	      } else {
+	        resolve('You need to select oranges :)')
+	      }
+	    })
+	  }
+	})
+
+	if (fruit) {
+	  Swal.fire(`You selected: ${fruit}`)
+	}
+} */
 </script>
 </body>
 </html>

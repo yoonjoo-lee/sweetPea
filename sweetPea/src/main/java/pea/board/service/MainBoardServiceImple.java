@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pea.board.dao.MainBoardDao;
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
+import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
 
 @Service
@@ -64,6 +65,11 @@ public class MainBoardServiceImple implements MainBoardService{
 	@Override
 	public int deleteReply(int cidx) {
 		return mainboardDao.deleteReply(cidx);
+	}
+
+	@Override
+	public int writeReport(ReportVo vo) {
+		return mainboardDao.writeReport(vo);
 	}
 
 }

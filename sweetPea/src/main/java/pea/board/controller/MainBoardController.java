@@ -28,6 +28,7 @@ import pea.board.service.MainBoardService;
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
 import pea.board.vo.PagingVo;
+import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
 
@@ -271,7 +272,50 @@ public class MainBoardController {
 		return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
 	}
 	
+	//신고
+	@RequestMapping(value="mainboard/report", method=RequestMethod.POST)
+	public void report(ReportVo vo, HttpServletResponse response) throws IOException {
+		vo.setCategory(6); //신고유형 카테고리: 6
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		PrintWriter pw = response.getWriter();
+		
+		System.out.println("title"+vo.getTitle()+"content"+vo.getContent()+"category:"+vo.getCategory()+"troll:"+vo.getTroll()+"report"+ vo.getReport());
+		System.out.println("bidx:" +vo.getBidx());
+		int rbidx = vo.getRbidx();
+		int result = mainboardService.writeReport(vo);
+		vo.setRbidx(rbidx);
+		
+		if (result==1) {
+//			pw.append("<script>alert('신고 완료');'</script>");
+			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
+			pw.flush();
+		} else {
+			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
+			pw.flush();
+		}
+		
+//		return "redirect:/mainboard/view.do?bidx="+vo.getRbidx();
+	}
 	
+	/*
+	 * //보드write 페이지 이동 (로그인 검열)
+	 * 
+	 * @RequestMapping(value="mainboard/write.do") public void write(int category,
+	 * HttpServletResponse response, HttpServletRequest request, HttpSession
+	 * session) throws IOException { session = request.getSession(); PrintWriter pw
+	 * = response.getWriter();
+	 * 
+	 * UserVo login = (UserVo)session.getAttribute("login"); if (login==null) {
+	 * pw.append("<script>alert('로그인 후 작성 가능합니다.');location.href='home.do'</script>"
+	 * ); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }else {
+	 * pw.append("<script>location.href='gowrite.do?category="+category+
+	 * "';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }
+	 * System.out.println("login uinx"+ login.getUidx());
+	 * 
+	 * }
+	 */
 	
 }
 

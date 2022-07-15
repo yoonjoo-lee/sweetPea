@@ -5,6 +5,8 @@
  
 <mapper namespace="pea.board.mapper.MainBoardMapper">
 
+<!-- 메인보드 -->
+<!-- 게시물 작성 -->
 <insert id="write" parameterType="MainBoardVo">
 	INSERT INTO pea_board(
 		  title
@@ -21,6 +23,7 @@
 	)
 </insert>
 
+<!-- 게시물 글 목록 조회-->
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
@@ -46,19 +49,23 @@
 	 	</if>
 </select>
 
-<select id="view" parameterType="int" resultType="MainBoardVo">
-	SELECT b.*,u.name
-	 FROM pea_board b, pea_user u
-	WHERE b.uidx = u.uidx
-	AND b.bidx = #{bidx}
-</select>
-
+<!-- 페이징을 위한 총 글의 개수 구하기 -->
 <select id="countBoard" parameterType="int" resultType="int">
 	SELECT COUNT(*) 
 	 FROM pea_board
 	 WHERE category=#{category}
 </select>
 
+<!-- 게시물 각 글 조회-->
+<select id="view" parameterType="int" resultType="MainBoardVo">
+	SELECT b.*,u.name, u.uidx
+	 FROM pea_board b, pea_user u
+	WHERE b.uidx = u.uidx
+	AND b.bidx = #{bidx}
+</select>
+
+
+<!-- 게시물 수정 -->
 <update id="modify" parameterType="MainBoardVo">
 	UPDATE pea_board
 	 SET title=#{title}
@@ -68,12 +75,18 @@
 	 WHERE bidx=#{bidx}
 </update>
 
+<!-- 게시물 삭제 -->
 <update id="delete" parameterType="int">
 	UPDATE pea_board 
 	 SET delyn='Y' 
 	WHERE bidx=#{bidx}
 </update>
 
+
+
+
+<!-- 메인 보드 댓글 -->
+<!-- 댓글 작성 -->
 <insert id="writeReply" parameterType="MainCommentVo">
 	INSERT INTO pea_comment(
 		 bidx
@@ -99,6 +112,7 @@
 	)
 </insert>
 
+<!-- 댓글 모두 조회 -->
 <select id="selectComment" parameterType="MainCommentVo" resultType="MainCommentVo">
 	SELECT * 
 	 FROM pea_comment 
@@ -107,6 +121,7 @@
 	ORDER BY origincidx,cidx
 </select>
 
+<!-- 댓글 수정 -->
 <update id="modifyReply" parameterType="MainCommentVo">
 	UPDATE pea_comment
 	 SET content=#{content}
@@ -115,11 +130,62 @@
 	WHERE cidx=#{cidx}
 </update>
 
+<!-- 댓글 삭제 -->
 <update id="deleteReply" parameterType="int">
 	UPDATE pea_comment
 	 SET delyn='Y'
 	WHERE cidx=#{cidx}
 </update>
+
+
+
+<!-- 신고 테이블 -->
+<!-- 신고 게시물 작성 -->
+<insert id="writeReport" parameterType="ReportVo">
+<![CDATA[
+	INSERT INTO pea_board(
+		  title
+		, content
+		, uidx
+		, ip
+		, category
+	) VALUES(
+		  #{title}
+		, #{content}
+		, #{uidx}
+		, #{ip}
+		, #{category}
+	) 
+	]]>
+	<selectKey resultType="int" keyProperty="bidx" order="AFTER">
+	SELECT MAX(bidx) FROM pea_board
+	</selectKey>
+	
+</insert>
+
+<insert id="writeReport2" parameterType="ReportVo">
+	INSERT INTO pea_report(
+		  bidx
+		, troll
+		, report
+		<if test="rbidx != null">
+		, rbidx
+		</if>
+		<if test="rcidx != null">
+		, rcidx
+		</if>
+	) VALUES(
+		  #{bidx}
+		, #{troll}
+		, #{report}
+		<if test="rbidx != null">
+		, #{rbidx}
+		</if>
+		<if test="rcidx != null">
+		, #{rcidx}
+		</if>
+	)
+</insert>
 
 </mapper>
 
