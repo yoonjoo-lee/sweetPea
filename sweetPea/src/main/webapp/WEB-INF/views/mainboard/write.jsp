@@ -83,7 +83,7 @@ ${category }
 <textarea id="summernote" name="content"></textarea>
 <input type="hidden" name="category" value=${category }>
 
-<button type="submit">작성</button>
+<button type="submit">작성dd</button>
 </form>
 </div>
 <br>
