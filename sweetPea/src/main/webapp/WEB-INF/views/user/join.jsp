@@ -7,6 +7,7 @@
 <title>join</title>
 <script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
 <link href="<%=request.getContextPath()%>/resources/css/join.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(function(){
 		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
@@ -81,12 +82,10 @@
 	<form name="frm" >
 		<input type="text" name="id" id="id" placeholder="아이디" ><br>
 		<span id="span-id"></span>
-		<script type="text/javascript">
+		<script>
 			$('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
 			/* $('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[ㄱ-ㅎ|ㅏ-|가-힣|!-/|:-@|[-`|{-~]/g,"") );}); */
-		</script>
-
-		<script>
+				
 			$('#id').blur(function(){
 				if($('#id').val()==""){
 					$('#span-id').text('아이디를 입력하세요');
@@ -110,11 +109,11 @@
 			});
 		</script>
 		<br>
+		
 		<input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br>
 		<span id="span-pwd"></span><br>
 		<input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br>
 		<span id="span-pwd2"></span><br>
-
 		<script>
 			$("#pwd").blur(function(){
 				if($("#pwd").val() == ""){
@@ -143,8 +142,9 @@
 				}	
 			});
 		</script>
-		<input type="text" name="name" id="name" placeholder="이름" >
-		<br><span id="span-name"></span><br>
+		
+		<input type="text" name="name" id="name" placeholder="이름" ><br>
+		<span id="span-name"></span><br>
 		<script type="text/javascript">
 			$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 		</script>
@@ -168,7 +168,6 @@
 			})
 		  
 			$('#gender').on('change',function(){
-		
 				if($('#gender').val()==""){
 					$('#span-gender').text("성별을 선택하세요.");
 					$('#span-gender').css('color','red');
@@ -178,8 +177,6 @@
 				}
 			})
 		</script>
-	<!-- 	<input type="radio" name="gender" id="gender" value="M" checked>남자
-		<input type="radio" name="gender" id="gender" value="F">여자 -->
 		<br>
 		<input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외" ><br>
 		<span id="span-birth"></span><br>
@@ -302,22 +299,28 @@
 
 
 <script type="text/javascript">
-$('')
-
-
 
 $('#mailCheckBtn').click(function() {
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!
 	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
 	var pjtPath = '<%= request.getContextPath()%>';
-	
+	Swal.fire({
+	      text: '인증번호 전송중...',
+	      didOpen: () => {
+	    	    Swal.showLoading()
+  	  },
+  	backdrop: false
+  	});
 	$.ajax({
 		type : 'get',
 		url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-		success : function (data) {
+		success : async function (data) {
 			checkInput.attr('disabled',false);
 			code =data;
-			alert('인증번호가 전송되었습니다.')
+			await Swal.fire({
+			      text: '인증번호가 전송되었습니다.',
+			      icon: 'success',
+		    });
 		}			
 	}); // end ajax
 }); // end send eamil

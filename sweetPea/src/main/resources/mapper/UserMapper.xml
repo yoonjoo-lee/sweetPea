@@ -7,22 +7,17 @@
 
 	<select id="login" parameterType="userVo" resultType="userVo">
 		SELECT *
-		 FROM pea_user
-		WHERE id=#{id}
-			AND pwd=#{pwd}
-	</select>
-
-
-	<select id="idCheck" parameterType="userVo" resultType="userVo">
-		SELECT id 
-		FROM pea_user
-		WHERE id=#{id}
+		  FROM pea_user
+		 WHERE id = #{id}
+		   AND pwd = #{pwd}
+		   AND delyn = 'N'
 	</select>
 	
-	<select id="idCheck2" parameterType="string" resultType="string">
+	<select id="idCheck" parameterType="string" resultType="string">
 		SELECT id 
-		FROM pea_user
-		WHERE id=#{id}
+		  FROM pea_user
+		 WHERE id = #{id}
+		   AND delyn = 'N'
 	</select>
 	
 	<insert id="insert" parameterType="userVo">
@@ -55,6 +50,7 @@
 		  FROM pea_user
 		 WHERE email=#{email}
 		   AND name=#{name}
+		   AND delyn = 'N'
 	</select>
 	
 	<select id="pwdExistCheck" parameterType="userVo" resultType="string">
@@ -71,10 +67,39 @@
 	</update>
 	
 	<select id="userIdx" parameterType="int" resultType="userVo">
-		SELECT name
-			 , id
+		SELECT *
 		  FROM pea_user
 		 WHERE uidx = #{uidx}
 	</select>
 	
+	<select id="pwdCheck" parameterType="userVo" resultType="string">
+		SELECT uidx
+		  FROM pea_user
+		 WHERE uidx = #{uidx}
+		   AND pwd = #{pwd}
+	</select>
+	
+	<update id="delId" parameterType="int">
+		UPDATE pea_user
+		   SET delyn = 'Y'
+		 WHERE uidx = #{uidx}
+	</update>
+	
+	<select id="userEmailCheck" parameterType="userVo" resultType="string">
+		SELECT uidx
+		  FROM pea_user
+		 WHERE uidx = #{uidx}
+		   AND email = #{email}
+	</select>
+	
+	<update id="idxModify" parameterType="userVo">
+		UPDATE pea_user
+		   SET name   =	#{name}
+		   	 , gender = #{gender}
+		   	 , birth  =	#{birth}
+		   	 , phone  =	#{phone}
+		   	 , email  =	#{email}
+		   	 , addr   =	#{addr}
+		 WHERE uidx   =	#{uidx}
+	</update>
 </mapper>

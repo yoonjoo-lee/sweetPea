@@ -28,6 +28,7 @@ import pea.board.service.MainBoardService;
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
 import pea.board.vo.PagingVo;
+import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
 
@@ -55,7 +56,8 @@ public class MainBoardController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		int total = mainboardService.countBoard();
+		int total = mainboardService.countBoard(category);
+		System.out.println("tota:"+ total);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -72,6 +74,8 @@ public class MainBoardController {
 		model.addAttribute("category", category);
 		vo.setCategory(category);
 		List<MainBoardVo> list= mainboardService.list(vo);
+		
+		System.out.println(vo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", vo);
@@ -197,6 +201,49 @@ public class MainBoardController {
 		return "success";
 	}
 	
+	//보드 대댓글 작성 ajax
+		@ResponseBody
+		@RequestMapping(value="mainboard/addComminComm.do")
+		public String addComminComm(MainCommentVo vo,HttpServletRequest request, HttpSession session) throws UnknownHostException {
+			session = request.getSession();
+			UserVo login = (UserVo)session.getAttribute("login");
+			System.out.println("bidx:"+vo.getBidx()+"name: "+login.getName()+"content:"+vo.getContent());
+			vo.setUidx(login.getUidx());
+			vo.setWriter(login.getName());
+			vo.setOrigincidx(vo.getCidx());
+			String ip = InetAddress.getLocalHost().getHostAddress();
+			vo.setIp(ip);
+			vo.setDepth(1);
+			
+			mainboardService.writeReply(vo);
+			
+			return "success";
+		}
+	
+	//보드 댓글 수정 ajax
+	@ResponseBody
+	@RequestMapping(value="mainboard/modifyComment.do")
+	public String modifyComment(MainCommentVo vo) throws UnknownHostException {
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		mainboardService.modifyReply(vo);	//예외 처리하기
+		
+		return "success";
+	}
+	
+	//댓글 삭제 
+	@ResponseBody
+	@RequestMapping(value="mainboard/deleteComment.do")
+	public String deleteComment(int cidx) {
+		int result = mainboardService.deleteReply(cidx);
+		if (result==1) {
+			return "success";
+		} else {
+			return "삭제에 실패하였습니다.";
+		}
+	}
+	
 	//보드 댓글 리스트 불러오기 ajax
 	@ResponseBody
 	@RequestMapping(value="mainboard/commentList.do", produces="application/json; charset=utf8")
@@ -213,6 +260,9 @@ public class MainBoardController {
         		hm.put("content", list.get(i).getContent());
         		hm.put("writer", list.get(i).getWriter());
         		hm.put("uidx", list.get(i).getUidx());
+        		hm.put("depth", list.get(i).getDepth());
+        		hm.put("origincidx", list.get(i).getOrigincidx());
+        		hm.put("datetime", list.get(i).getDatetime());
         		
         		hmlist.add(hm);
         	}
@@ -222,7 +272,50 @@ public class MainBoardController {
 		return new ResponseEntity(json.toString(), responseHeaders, HttpStatus.CREATED);
 	}
 	
+	//신고
+	@RequestMapping(value="mainboard/report", method=RequestMethod.POST)
+	public void report(ReportVo vo, HttpServletResponse response) throws IOException {
+		vo.setCategory(6); //신고유형 카테고리: 6
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		PrintWriter pw = response.getWriter();
+		
+		System.out.println("title"+vo.getTitle()+"content"+vo.getContent()+"category:"+vo.getCategory()+"troll:"+vo.getTroll()+"report"+ vo.getReport());
+		System.out.println("bidx:" +vo.getBidx());
+		int rbidx = vo.getRbidx();
+		int result = mainboardService.writeReport(vo);
+		vo.setRbidx(rbidx);
+		
+		if (result==1) {
+//			pw.append("<script>alert('신고 완료');'</script>");
+			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
+			pw.flush();
+		} else {
+			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
+			pw.flush();
+		}
+		
+//		return "redirect:/mainboard/view.do?bidx="+vo.getRbidx();
+	}
 	
+	/*
+	 * //보드write 페이지 이동 (로그인 검열)
+	 * 
+	 * @RequestMapping(value="mainboard/write.do") public void write(int category,
+	 * HttpServletResponse response, HttpServletRequest request, HttpSession
+	 * session) throws IOException { session = request.getSession(); PrintWriter pw
+	 * = response.getWriter();
+	 * 
+	 * UserVo login = (UserVo)session.getAttribute("login"); if (login==null) {
+	 * pw.append("<script>alert('로그인 후 작성 가능합니다.');location.href='home.do'</script>"
+	 * ); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }else {
+	 * pw.append("<script>location.href='gowrite.do?category="+category+
+	 * "';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }
+	 * System.out.println("login uinx"+ login.getUidx());
+	 * 
+	 * }
+	 */
 	
 }
 

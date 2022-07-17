@@ -21,7 +21,28 @@
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 	
+	<script>
+	$(function(){
+		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
+		$("#nav").load("<%= request.getContextPath()%>/resources/article/nav.jsp");
+		$("#section").load("<%= request.getContextPath()%>/resources/article/section.jsp");
+		$("#footer").load("<%= request.getContextPath()%>/resources/article/footer.jsp");
+	});
+	</script>
 <style>
+#view{
+	width: 60%;
+	margin: 0 auto;
+	margin-bottom: 15em;
+}
+#footer{
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	
+}
+
 .advance .tagify__tag{
     --tag-hover: var(--tag-bg);
 }
@@ -47,7 +68,9 @@
 </head>
 
 <body>
-
+<header id="header"></header>
+<br>
+<div id="view">
 mainboard 작성
 ${category }
 <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'>
@@ -60,8 +83,12 @@ ${category }
 <textarea id="summernote" name="content"></textarea>
 <input type="hidden" name="category" value=${category }>
 
-<button type="submit">작성</button>
+<button type="submit">작dd성dd</button>
 </form>
+</div>
+<br>
+<footer id="footer"></footer>
+
 
 <script>
 $(document).ready(function () {
