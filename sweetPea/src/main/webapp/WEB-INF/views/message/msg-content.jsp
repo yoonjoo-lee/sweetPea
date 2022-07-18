@@ -10,7 +10,10 @@
 <style>
 	h3,ul{
 		text-align: center;
-		margin-bottom: 0;
+		margin: 0;
+	}
+	h3{
+		margin-bottom: 0.3em;
 	}
 	ul{
 		list-style-type: none;	
@@ -40,9 +43,19 @@
 		float: right;
 		margin-left: 0.5em;
 	}
+	img{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 1.5em;
+		height: 1.5em;
+		margin: 0.5em;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
+<img alt="뒤로가기" src="<%=request.getContextPath()%>/resources/images/reply_message_icon.png" onclick="location.href='main.do?uidx='+${login.uidx}">
 <h3>쪽지내용</h3>
 <div>
 	<ul class="header-ul">

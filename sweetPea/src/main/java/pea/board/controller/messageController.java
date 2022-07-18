@@ -2,7 +2,11 @@ package pea.board.controller;
 
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,14 +74,17 @@ public class messageController {
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
-	public String write(MessageVo vo){
-		
+	public void write(MessageVo vo, HttpServletResponse response) throws IOException{
+		int uidx = vo.getUidx();
 		int result = messageService.writeMessage(vo);
 		if(result == 1) {
-			return "message/msg-main";
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter pw = response.getWriter();
+				pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+				pw.append("<script>location.href='main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+				pw.flush();
 		}
-		else
-		return "message/msg-write";
+		
 	}
 	
 	
