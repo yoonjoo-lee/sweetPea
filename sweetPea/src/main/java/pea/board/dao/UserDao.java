@@ -82,4 +82,8 @@ public class UserDao {
 	public int idxModify(UserVo vo) {
 		return sqlSession.update(namespace+".idxModify",vo);
 	}
+	
+	public int profileUpload(UserVo vo) {
+		return sqlSession.update(namespace+".profileUpload", vo);
+	}
 }

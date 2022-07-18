@@ -102,4 +102,10 @@
 		   	 , addr   =	#{addr}
 		 WHERE uidx   =	#{uidx}
 	</update>
+	
+	<update id="profileUpload" parameterType="userVo">
+		UPDATE pea_user
+		 SET profile = #{profile}
+		WHERE uidx = #{uidx}
+	</update>
 </mapper>

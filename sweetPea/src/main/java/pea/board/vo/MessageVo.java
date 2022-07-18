@@ -1,6 +1,6 @@
 package pea.board.vo;
 
-public class MessageVo {
+public class MessageVo extends UserVo{
 	
 	private int midx;
 	private int uidx;
@@ -8,8 +8,21 @@ public class MessageVo {
 	private String content;
 	private String datetime;
 	private String delyn;
+	private String writer;
+	private String view_check;
 	
-	
+	public String getView_check() {
+		return view_check;
+	}
+	public void setView_check(String view_check) {
+		this.view_check = view_check;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public int getMidx() {
 		return midx;
 	}

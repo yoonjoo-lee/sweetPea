@@ -66,6 +66,7 @@ public class UserController {
 			login.setName(user.getName());
 			login.setProfile(user.getProfile());
 			login.setPea_super(user.getPea_super());
+			login.setProfile(user.getProfile());
 			
 			session.setAttribute("login", login);
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
@@ -330,8 +331,56 @@ public class UserController {
 	
 	@RequestMapping(value="/user/myPage-profile.do", method=RequestMethod.GET)
 	public String myPage_profile() {
+		
 		return "user/myPage-profile";
 	}
+	
+	@RequestMapping(value="/user/profileUpload.do", method=RequestMethod.POST)
+	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IllegalStateException, IOException {
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/profile");
+		System.out.println(path);
+		
+		session = request.getSession(); //uidx가져오기 위함
+		UserVo login = (UserVo)session.getAttribute("login");
+		login.setProfile(file.getOriginalFilename()); //프로필 넣기 위함
+		System.out.println("file:"+file+ ", uidx:" + login.getUidx());
+		userService.profileUpload(login);
+		
+		session.setAttribute("login", login);
+		
+		
+		File dir = new File(path);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		if(!file.getOriginalFilename().isEmpty()) {
+			file.transferTo(new File(path, file.getOriginalFilename()));
+		}else {
+			
+		}
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'success',"
+					+ "title: '변경 완료',"
+					+ "position: 'top'"
+					+ "});"
+					+ "window.parent.location.href='myPage.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
+		
+		/* return "user/myPage-profile"; */
+	}
+	
+	
+	
+	
+	
 	
 	/* 회원정보 수정 - 동일한 이메일 체크(인증 반복 불필요) */
 	@ResponseBody
