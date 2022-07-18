@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="pea.board.mapper.MessageMapper">
+
+<!-- 메인보드 -->
+<!-- 게시물 작성 -->
+<insert id="writeMessage" parameterType="MessageVo">
+	INSERT INTO pea_message(
+		  title
+		, content
+		, uidx
+		, writer
+	) VALUES(
+		  #{title}
+		, #{content}
+		, #{uidx}
+		, #{writer}
+	)
+</insert>
+
+<!-- 쪽지함 페이징용 uidx에 따른 쪽지 총 합 -->
+<select id="countMessage" parameterType="int" resultType="int">
+	SELECT COUNT(*) 
+	 FROM pea_message
+	 WHERE uidx = #{uidx}
+	   AND delyn = 'N'
+</select>
+
+<select id="selectAll" parameterType="SearchVo" resultType="MessageVo">
+	SELECT	A.* 
+	  FROM	(SELECT @rownum:=@rownum+1 AS rn
+	  			  , b.*
+	  			  , u.name
+			   FROM pea_message b
+			   	  , pea_user u
+			  WHERE b.uidx = u.uidx
+	  			AND (@rownum:=0) = 0
+ 	 			AND b.delyn = 'N'
+		 	) A 
+ 	<if test="list == 1">
+ 	 WHERE rn LIMIT 5;
+ 	</if>
+ 	<if test="list != 1">
+ 	 WHERE rn BETWEEN #{start} AND #{end};
+ 	</if>
+</select>
+
+<select id="content" parameterType="int" resultType="MessageVo">
+	SELECT *
+	  FROM pea_message
+	 WHERE midx = #{midx}
+</select>
+
+<update id="viewCheck" parameterType="int">
+	UPDATE pea_message
+	   SET view_check = 'Y'
+	 WHERE midx = #{midx}
+</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
