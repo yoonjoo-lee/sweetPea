@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -572,7 +573,7 @@ function getCommentList(){
                 	html += "<ul id='comments-list' class='comments-list'>";
                 	if (data[i].depth!=1){	
               		html += "<li><div class='comment-main-level'>";
-      				html += "<div class='comment-avatar'><img src='' alt=''></div>";
+      				html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				if (uidx != null){
@@ -595,7 +596,7 @@ function getCommentList(){
        				html += data[i].content+"</ul></div></div></div>";
                 	}
                 	else{
-       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='' alt=''></div>";
+       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				
@@ -676,6 +677,7 @@ function getCommentList(){
  */
 function editComment(cidx, writer, content){
 	console.log(cidx, writer, content);
+	var profile ="${login.profile}" ;
 	var html = "";
 	html += "<form id='modifyForm' method='post'>";
 	html += "<div id='cidx"+cidx+"'>";
@@ -683,7 +685,7 @@ function editComment(cidx, writer, content){
 	html += "<div class='comments-container'>";
 	html += "<ul id='comments-list' class='comments-list'>";
 	html += "<li><div class='comment-main-level'><div><table class='table'>";
-	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='' alt=''></div></td>";
+	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div></td>";
 
 
     html += "<td><textarea class='form-control'  style='height:100px;' name='content'>"+content + "</textarea></td></tr>";
@@ -707,7 +709,8 @@ function editComment(cidx, writer, content){
  
  function commentInComment(cidx, origincidx, writer, content, datetime){
 	 	var bidx = ${bidx };
-	 console.log(cidx, writer, content, bidx);
+	 	var profile ="${login.profile}" ;
+	 	console.log(cidx, origincidx, writer, content, datetime);
 		var html = "";
 		html += "<form id='commInCommForm' method='post'>";
 		
@@ -723,7 +726,7 @@ function editComment(cidx, writer, content){
 	    html += "<div class='comments-container'>";
 	    html += "<ul id='comments-list' class='comments-list'>";
   		html += "<li><div class='comment-main-level'>";
-		html += "<div class='comment-avatar'><img src='' alt=''></div>";
+		html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div>";
 		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + writer + "</a></h6>";
 		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
 		html += "</div><div class='comment-content'>";

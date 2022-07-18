@@ -14,4 +14,5 @@ public interface UserService {
 	int delId(int uidx);
 	int userEmailCheck(UserVo vo);
 	int idxModify(UserVo vo);
+	int profileUpload(UserVo vo);
 }

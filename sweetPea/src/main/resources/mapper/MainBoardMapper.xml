@@ -114,11 +114,12 @@
 
 <!-- 댓글 모두 조회 -->
 <select id="selectComment" parameterType="MainCommentVo" resultType="MainCommentVo">
-	SELECT * 
-	 FROM pea_comment 
-	WHERE bidx=#{bidx}
-	AND delyn='N'
-	ORDER BY origincidx,cidx
+	SELECT c.*, u.profile 
+	 FROM pea_comment c JOIN pea_user u
+	 ON c.uidx = u.uidx
+	WHERE c.bidx=#{bidx}
+	AND c.delyn='N'
+	ORDER BY c.origincidx,c.cidx
 </select>
 
 <!-- 댓글 수정 -->

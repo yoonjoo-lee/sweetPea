@@ -263,6 +263,7 @@ public class MainBoardController {
         		hm.put("depth", list.get(i).getDepth());
         		hm.put("origincidx", list.get(i).getOrigincidx());
         		hm.put("datetime", list.get(i).getDatetime());
+        		hm.put("profile", list.get(i).getProfile());
         		
         		hmlist.add(hm);
         	}

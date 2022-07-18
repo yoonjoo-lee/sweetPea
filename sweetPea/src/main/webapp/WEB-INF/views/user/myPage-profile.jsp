@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,6 +121,7 @@ function profileImageUpload(pageUserId, principalId) {
 		</div>
 		<!--유저정보 및 사진등록 구독하기-->
 
+
 	</div>
 </section>
 
@@ -131,5 +133,19 @@ function profileImageUpload(pageUserId, principalId) {
 		<button onclick="closePopup('.modal-info')">취소</button>
 	</div>
 </div>
+
+
+
+
+	<h3>파일 업로드 테스트</h3>
+	<img class="profile-image" src = "<spring:url value = '/images/profile/${login.profile }'/>" />
+	
+	<form action="profileUpload.do" method="post" enctype="multipart/form-data">
+		파일 : <input type="file" name="file">
+		
+		<br>
+		<input type="submit" value="업로드">
+	
+	</form>
 </body>
 </html>
