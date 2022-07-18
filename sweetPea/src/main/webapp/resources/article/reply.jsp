@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -439,10 +440,26 @@ function fn_modify(cidx){
         type:'POST',
         url : "modifyComment.do",
         data:$("#modifyForm").serialize(),
-        success : function(data){
+        success : async function(data){
             if(data=="success")
             {
-            	alert('수정완료');
+            	const Toast = Swal.mixin({
+            		  toast: true,
+            		  position: 'top-end',
+            		  showConfirmButton: false,
+            		  timer: 1000,
+            		  timerProgressBar: true,
+            		 /*  didOpen: (toast) => {
+            		    toast.addEventListener('mouseenter', Swal.stopTimer)
+            		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+            		  } */
+            		})
+
+            		await Toast.fire({
+            		  icon: 'success',
+            		  title: '수정 완료'
+            		})
+            		
                 getCommentList();
             }
         },
@@ -455,15 +472,31 @@ function fn_modify(cidx){
 
 function deleteComment(cidx){
 	var check = confirm("정말로 삭제하시겠습니까?");	
+	
 	if (check){
 		$.ajax({
 			type:'POST',
 			url: "deleteComment.do",
 			data: {"cidx":cidx},
-			success : function(data){
+			success : async function(data){
 				if(data=="success")
 				{
-					alert("삭제완료");
+					const Toast = Swal.mixin({
+		          		  toast: true,
+		          		  position: 'top-end',
+		          		  showConfirmButton: false,
+		          		  timer: 1000,
+		          		  timerProgressBar: true,
+		          		 /*  didOpen: (toast) => {
+		          		    toast.addEventListener('mouseenter', Swal.stopTimer)
+		          		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+		          		  } */
+		          		})
+
+		          		await Toast.fire({
+		          		  icon: 'success',
+		          		  title: '삭제 완료!'
+		          		})
 					getCommentList();
 				}
 			},
@@ -572,14 +605,14 @@ function getCommentList(){
                 	html += "<ul id='comments-list' class='comments-list'>";
                 	if (data[i].depth!=1){	
               		html += "<li><div class='comment-main-level'>";
-      				html += "<div class='comment-avatar'><img src='' alt=''></div>";
+      				html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				if (uidx != null){
 	       				if (data[i].depth==1){
-	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'><i class='fa fa-reply' ></i></div>";
 	       				}else{
-	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'></i>";
 	       				}
 	       				if (data[i].uidx == uidx){
 		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
@@ -595,15 +628,15 @@ function getCommentList(){
        				html += data[i].content+"</ul></div></div></div>";
                 	}
                 	else{
-       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='' alt=''></div>";
+       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				
        				if (uidx != null){
 	       				if (data[i].depth==1){
-	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'><i class='fa fa-reply' ></i></div>";
 	       				}else{
-	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'></i>";
 	       				}
 	       				if (data[i].uidx == uidx){
 		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
@@ -676,6 +709,7 @@ function getCommentList(){
  */
 function editComment(cidx, writer, content){
 	console.log(cidx, writer, content);
+	var profile ="${login.profile}" ;
 	var html = "";
 	html += "<form id='modifyForm' method='post'>";
 	html += "<div id='cidx"+cidx+"'>";
@@ -683,7 +717,7 @@ function editComment(cidx, writer, content){
 	html += "<div class='comments-container'>";
 	html += "<ul id='comments-list' class='comments-list'>";
 	html += "<li><div class='comment-main-level'><div><table class='table'>";
-	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='' alt=''></div></td>";
+	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div></td>";
 
 
     html += "<td><textarea class='form-control'  style='height:100px;' name='content'>"+content + "</textarea></td></tr>";
@@ -705,9 +739,10 @@ function editComment(cidx, writer, content){
  * 대댓글 작성 폼
  */
  
- function commentInComment(cidx, origincidx, writer, content, datetime){
+ function commentInComment(cidx, origincidx, writer, content, datetime, profile){
 	 	var bidx = ${bidx };
-	 console.log(cidx, writer, content, bidx);
+	 	/* var profile ="${login.profile}" ; */
+	 	console.log(cidx, origincidx, writer, content, datetime);
 		var html = "";
 		html += "<form id='commInCommForm' method='post'>";
 		
@@ -723,7 +758,7 @@ function editComment(cidx, writer, content){
 	    html += "<div class='comments-container'>";
 	    html += "<ul id='comments-list' class='comments-list'>";
   		html += "<li><div class='comment-main-level'>";
-		html += "<div class='comment-avatar'><img src='' alt=''></div>";
+		html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div>";
 		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + writer + "</a></h6>";
 		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
 		html += "</div><div class='comment-content'>";

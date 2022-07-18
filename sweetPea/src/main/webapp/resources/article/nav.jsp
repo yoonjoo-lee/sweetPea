@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,10 @@
 					<input type="button" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
 				</div>
 				<div class="login-center">
-					<div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'"></div>
+					<%-- <div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'"><img src = "<spring:url value = '/images/profile/${login.profile }'/>"></div>
+					 --%>
+					 <img class="profile" src = "<spring:url value = '/images/profile/${login.profile }'/>" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
+					 
 					<div class="info">
 						<ul>
 							<li>today</li>

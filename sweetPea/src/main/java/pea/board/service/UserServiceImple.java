@@ -71,4 +71,9 @@ public class UserServiceImple implements UserService{
 		return userDao.idxModify(vo);
 	}
 
+	@Override
+	public int profileUpload(UserVo vo) {
+		return userDao.profileUpload(vo);
+	}
+
 }
