@@ -10,14 +10,28 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
-<style type="text/css"></style>
+<style type="text/css">
+
+</style>
 <script>
 		$(function(){
 			$(".banner").load("resources/article/nav-banner.jsp");
 		});
-	</script>
+		<c:if test="${login != null}">
+			function openMessage(){
+				var popupX = (document.body.offsetWidth / 2) - (700 / 2);
+				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+				var popupY= (window.screen.height / 2) - 350;
+				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+				var uidx = ${login.uidx};
+				window.open('<%=request.getContextPath()%>/message/main.do?uidx='+uidx,'name',
+						'resizable=no width=700 height=400,left='+popupX+',top='+popupY);
+			}
+		</c:if>
+</script>
+
 </head>
-<body>
+<body style="max-width: 700px;	max-height: 400px;">
 	<div>
 		<div class="loginBox">
 			<!-- 로그인 상태 -->
@@ -33,7 +47,7 @@
 							<li>today</li>
 							<li>new</li>
 							<li>친구신청</li>
-							<li>쪽지</li>
+							<li><a onclick="openMessage()">쪽지</a></li>
 							<li>완두콩 <input type="button" value="충전"></li>
 						</ul>
 					</div>
@@ -61,5 +75,6 @@
 		</div>
 		<div class="banner"></div>
 	</div>
+
 </body>
 </html>

@@ -7,6 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<script>
+<c:if test="${login != null}">
+function openMessage(){
+	var popupX = (document.body.offsetWidth / 2) - (700 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	var popupY= (window.screen.height / 2) - 350;
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	var uidx = ${login.uidx};
+	window.open('<%=request.getContextPath()%>/message/main.do?uidx='+uidx,'name',
+			'resizable=no width=700 height=400,left='+popupX+',top='+popupY);
+}
+</c:if>
+</script>
 <style type="text/css">
 	.side-nav{
 		display: inline-block;
@@ -112,7 +125,7 @@
 					<li>today</li>
 					<li>new</li>
 					<li>친구신청</li>
-					<li>쪽지</li>
+					<li><a onclick="openMessage()">쪽지</a></li>
 					<li>완두콩 <input type="button" value="충전"></li>
 				</ul>
 			</div>
