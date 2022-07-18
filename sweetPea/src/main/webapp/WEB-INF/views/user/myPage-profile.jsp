@@ -2,149 +2,78 @@
     pageEncoding="UTF-8"%>
 <%@ page session="true" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-<script>
-function popup(obj) {
-	$(obj).css("display", "flex");
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style type="text/css">
+.profile-image{
+width: 250px;
+height: 250px;
 }
 
-function closePopup(obj) {
-	$(obj).css("display", "none");
+/* label{
+	width: 100px;
+	height: 30px;
+	cursor: pointer;
+	text-align: center;
+	display: block;
+	margin: 15px auto;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background-color: #5cb85c;
+	padding-top: 10px;
+   
+} */
+input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	clip:rect(0,0,0,0);
+	border: 0;
 }
-
-
-function modalInfo() {
-	$(".modal-info").css("display", "none");
+body{
+text-align: center;
 }
-
-function modalImage() {
-	$(".modal-image").css("display", "none");
+table{
+margin-top: 5%;
+margin-left:20%;
 }
-
-function modalClose() {
-	$(".modal-subscribe").css("display", "none");
-	location.reload();
-}
-
-function profileImageUpload(pageUserId, principalId) {
-	
-	
-	if(pageUserId != principalId){
-		alert("프로필 사진을 수정할 수 없는 유저입니다.");
-		return;
-	}
-	
-	$("#userProfileImageInput").click();
-
-	
-	$("#userProfileImageInput").on("change", (e) => {
-		let f = e.target.files[0];
-
-		if (!f.type.match("image.*")) {
-			alert("이미지를 등록해야 합니다.");
-			return;
-		}
-		
-		// 서버에 이미지를 전송
-		let profileImageForm = $("#userProfileImageForm")[0];
-
-		
-		// FormData 객체를 이용하면 form 태그의 필드와 그 값을 나타내는 일련의 key/value 쌍을 담을 수 있다.
-		let formData = new FormData(profileImageForm);
-		
-		$.ajax({
-			type: "put",
-			url: `/api/user/profileImage/${principalId}`,
-			data: formData,
-			contentType: false, // 필수 : x-www-form-urlencoded로 파싱되는 것을 방지
-			processData: false,  // 필수: contentType을 false로 줬을 때 QueryString 자동 설정됨. 해제
-			enctype: "multipart/form-data",
-			dataType: "text"
-		}).done(res=>{
-			alert(res);
-			location.href = `/user/profile/${principalId}`;
-		}).fail(error=>{
-			alert(error.responseText);
-		});
-
-
-	});
-}
-</script>
+</style>
 </head>
 <body>
-
-<section class="profile">
-	<!--유저정보 컨테이너-->
-	<div class="profileContainer">
-
-		<!--유저이미지-->
-		<div class="profile-left">
-			<div class="profile-img-wrap story-border" onclick="popup('.modal-image')">
-			
-				
-				<form id="userProfileImageForm">
-					<input type="file" name="profileImageFile" style="display: none;"
-						id="userProfileImageInput" />
-				</form>
-
-				<img class="profile-image" src="<%=request.getContextPath()%>/resources/upload/1.png"
-					onerror="this.src='/images/person.jpeg'" id="userProfileImage" />
-					
-			</div>
-		</div>
-		<!--유저이미지end-->
-
-		<!--유저정보 및 사진등록 구독하기-->
-		<div class="profile-right">
-			<div class="name-group">
-				<h2>${profileDto.name}</h2>
-				
-				
-						<button class="cta" onclick="location.href='/image/upload'">사진등록</button>
-						<button class="modi" onclick="popup('.modal-info')">
-						<i class="fas fa-cog"></i>
-						</button>
-
-			</div>
-
-			<div class="subscribe">
-				<ul>
-					<li><a href=""> 게시물<span></span>
-					</a></li>
-				</ul>
-			</div>
-		</div>
-		<!--유저정보 및 사진등록 구독하기-->
-
-
-	</div>
-</section>
-
-<!--로그아웃, 회원정보변경 모달-->
-<div class="modal-info" onclick="modalInfo()">
-	<div class="modal">
-		<button onclick="location.href='/user/update/${principal.id}'">회원정보 변경</button>
-		<button onclick="location.href='/logout'">로그아웃</button>
-		<button onclick="closePopup('.modal-info')">취소</button>
-	</div>
-</div>
-
-
-
-
-	<h3>파일 업로드 테스트</h3>
-	<img class="profile-image" src = "<spring:url value = '/images/profile/${login.profile }'/>" />
-	
+	<br><br><h3>프로필 변경</h3>
 	<form action="profileUpload.do" method="post" enctype="multipart/form-data">
-		파일 : <input type="file" name="file">
-		
-		<br>
-		<input type="submit" value="업로드">
+
+	<table style="text-align:center;">
+	<tr><td><img class="profile-image" src = "<spring:url value = '/images/profile/${login.profile }'/>" /></td>
+		<td><img class="profile-image" name="newImg" id="newImg"></td></tr>
+	
+	
+	<tr ><td colspan=2 ><input id="input_img" type="file" name="file">
+		<label class="btn btn-success" for="input_img">사진 업로드</label>
+		<!-- <br> -->
+		<input type="submit" class="btn btn-success" id="btn" value="업로드" disabled="disabled"></td></tr>
+	</table>
+      
+		<script>
+		   $("#input_img").on("change", function(event) {
+		    var file = event.target.files[0];
+		    var reader = new FileReader(); 
+		    reader.onload = function(e) {
+		        $("#newImg").attr("src", e.target.result);
+		        $('#btn').attr('disabled',false);
+		    }
+		    reader.readAsDataURL(file);
+		    });
+		</script>
+      
+      
 	
 	</form>
 </body>

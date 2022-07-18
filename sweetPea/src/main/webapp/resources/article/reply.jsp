@@ -440,10 +440,26 @@ function fn_modify(cidx){
         type:'POST',
         url : "modifyComment.do",
         data:$("#modifyForm").serialize(),
-        success : function(data){
+        success : async function(data){
             if(data=="success")
             {
-            	alert('수정완료');
+            	const Toast = Swal.mixin({
+            		  toast: true,
+            		  position: 'top-end',
+            		  showConfirmButton: false,
+            		  timer: 1000,
+            		  timerProgressBar: true,
+            		 /*  didOpen: (toast) => {
+            		    toast.addEventListener('mouseenter', Swal.stopTimer)
+            		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+            		  } */
+            		})
+
+            		await Toast.fire({
+            		  icon: 'success',
+            		  title: '수정 완료'
+            		})
+            		
                 getCommentList();
             }
         },
@@ -456,15 +472,31 @@ function fn_modify(cidx){
 
 function deleteComment(cidx){
 	var check = confirm("정말로 삭제하시겠습니까?");	
+	
 	if (check){
 		$.ajax({
 			type:'POST',
 			url: "deleteComment.do",
 			data: {"cidx":cidx},
-			success : function(data){
+			success : async function(data){
 				if(data=="success")
 				{
-					alert("삭제완료");
+					const Toast = Swal.mixin({
+		          		  toast: true,
+		          		  position: 'top-end',
+		          		  showConfirmButton: false,
+		          		  timer: 1000,
+		          		  timerProgressBar: true,
+		          		 /*  didOpen: (toast) => {
+		          		    toast.addEventListener('mouseenter', Swal.stopTimer)
+		          		    toast.addEventListener('mouseleave', Swal.resumeTimer)
+		          		  } */
+		          		})
+
+		          		await Toast.fire({
+		          		  icon: 'success',
+		          		  title: '삭제 완료!'
+		          		})
 					getCommentList();
 				}
 			},
@@ -578,9 +610,9 @@ function getCommentList(){
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				if (uidx != null){
 	       				if (data[i].depth==1){
-	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'><i class='fa fa-reply' ></i></div>";
 	       				}else{
-	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'></i>";
 	       				}
 	       				if (data[i].uidx == uidx){
 		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
@@ -602,9 +634,9 @@ function getCommentList(){
        				
        				if (uidx != null){
 	       				if (data[i].depth==1){
-	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'><i class='fa fa-reply' ></i></div>";
+	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'><i class='fa fa-reply' ></i></div>";
 	       				}else{
-	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\")'></i>";
+	       					html += "<i class='fa fa-reply' onClick='commentInComment(" + data[i].cidx + "," + data[i].cidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'></i>";
 	       				}
 	       				if (data[i].uidx == uidx){
 		      				html += "<div class='btn-group dropstart'><i class='fa-solid fa-bars' data-bs-toggle='dropdown' aria-expanded='false' ></i><ul class='dropdown-menu'>";
@@ -707,9 +739,9 @@ function editComment(cidx, writer, content){
  * 대댓글 작성 폼
  */
  
- function commentInComment(cidx, origincidx, writer, content, datetime){
+ function commentInComment(cidx, origincidx, writer, content, datetime, profile){
 	 	var bidx = ${bidx };
-	 	var profile ="${login.profile}" ;
+	 	/* var profile ="${login.profile}" ; */
 	 	console.log(cidx, origincidx, writer, content, datetime);
 		var html = "";
 		html += "<form id='commInCommForm' method='post'>";
