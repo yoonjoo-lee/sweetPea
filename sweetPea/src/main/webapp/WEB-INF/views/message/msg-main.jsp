@@ -10,6 +10,9 @@
 <title>SweetPea</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <style>
+	*{
+		box-sizing: border-box;
+	}
 	h3,ul{
 		text-align: center;
 		margin-bottom: 0;
@@ -35,13 +38,34 @@
 		font-size: 0.8em;
 		margin-top: 0.2em;
 	}
-	ul>li:first-child {width: 10%;}
-	ul>li:nth-child(2) {width: 15%}
-	ul>li:nth-child(3) {width: 45%; cursor: pointer;}
-	ul>li:last-child {width: 25%;}
+	.header-ul>li:first-child,.content-ul>li:fist-child {width: 10%;}
+	.header-ul>li:nth-child(2),.content-ul>li:nth-child(2) {width: 15%}
+	.header-ul>li:nth-child(3),.content-ul>li:nth-child(3) {width: 45%; cursor: pointer;}
+	.header-ul>li:last-child,.content-ul>li:last-child {width: 25%;}
 	.btnBox>input{
 		float: right;
 		margin-left: 0.5em;
+	}
+	.page-link{
+		border-radius: 0.25rem;
+		color: #fff;
+	    background-color: #ffc800;
+	    border-color: #ffc800;
+        padding: 0.375rem 0.75rem;
+        position: relative;
+    	display: block;
+    	text-decoration: none;
+	}
+	.myPaging{
+	display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
 	}
 </style>
 </head>
@@ -68,8 +92,8 @@
 	<c:if test="${list.size() > 0 }">
 		<c:forEach var="vo" items="${list}">
 			<c:if test="${vo.view_check eq 'Y'}">
-			<ul class="content-ul" style="color: gray;">
-				<li><input type="checkbox"></li>
+			<ul class="content-ul" style="color: lightgray;">
+				<li><input type="checkbox" class="checkBox"></li>
 				<li>${vo.name}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
@@ -77,7 +101,7 @@
 			</c:if>
 			<c:if test="${vo.view_check eq 'N'}">
 			<ul class="content-ul">
-				<li><input type="checkbox"></li>
+				<li><input type="checkbox" class="checkBox"></li>
 				<li>${vo.name}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
@@ -85,7 +109,7 @@
 			</c:if>
 		</c:forEach>
 	</c:if>
-	<div>
+<div>
 	<ul class="myPaging">		
 		<c:if test="${paging.startPage != 1 }">
 			<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
@@ -108,4 +132,16 @@
 
 </div>
 </body>
+<script>
+$(function(){
+	$("#allCheck").click(function(){
+		if($("#allCheck").is(":checked"))
+			$(".checkBox").prop("checked",true);
+		else{
+			$(".checkBox").prop("checked",false);
+		}
+	});
+})
+	
+</script>
 </html>
