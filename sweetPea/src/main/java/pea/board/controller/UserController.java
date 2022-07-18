@@ -333,22 +333,6 @@ public class UserController {
 		return "user/myPage-profile";
 	}
 	
-	/*
-	 * @RequestMapping(value="/user/upload.do", method=RequestMethod.POST) public
-	 * String profile(@RequestParam("profileImgUrl") MultipartFile multipartFile,
-	 * RedirectAttributes redirectAttributes, int uidx) { UserVo vo =
-	 * userService.userIdx(uidx); String imageFileName = uidx + "_" +
-	 * multipartFile.getOriginalFilename(); Path imageFilePath =
-	 * Paths.get(uploadFolder + imageFileName);
-	 * 
-	 * if(multipartFile.getSize() != 0) { try { if(vo.getProfile() != null) { File
-	 * file = new File(uploadFolder + vo.getProfile()); file.delete(); }
-	 * Files.write(imageFilePath,multipartFile.getBytes()); }catch (Exception e) {
-	 * e.printStackTrace(); } vo.setProfile(imageFileName); }
-	 * 
-	 * return "user/myPage-profile"; }
-	 */
-	
 	/* 회원정보 수정 - 동일한 이메일 체크(인증 반복 불필요) */
 	@ResponseBody
 	@RequestMapping(value="/user/userEmailCheck.do", produces = "application/json;charset=utf8")
@@ -357,6 +341,11 @@ public class UserController {
 		vo.setUidx(uidx);
 		vo.setEmail(email);
 		return userService.userEmailCheck(vo);
+	}
+	
+	@RequestMapping(value="/user/about.do")
+	public String about() {
+		return "user/about";
 	}
 	
 	
