@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +46,7 @@ public class messageController {
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
-		cntPerPage = "7";
+		cntPerPage = "5";
 		if (nowPage == null) {nowPage = "1";}
 		
 		int total = messageService.countMessage(uidx);
@@ -84,9 +85,15 @@ public class messageController {
 				pw.append("<script>location.href='main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 				pw.flush();
 		}
-		
 	}
 	
+	/*
+	 * @RequestBody
+	 * 
+	 * @RequestMapping(value="/delMsg.do", produces =
+	 * "application/json;charset=utf8") public String delMsg(){ return
+	 * "message/msg-write"; }
+	 */
 	
 	
 }

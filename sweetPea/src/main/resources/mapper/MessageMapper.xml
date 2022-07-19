@@ -60,6 +60,13 @@
 	   SET view_check = 'Y'
 	 WHERE midx = #{midx}
 </update>
+
+<update id="delMsg" parameterType="int">
+	UPDATE pea_message
+	   SET delyn = 'Y'
+	 WHERE midx = #{midx}
+</update>
+
 </mapper>
 
 

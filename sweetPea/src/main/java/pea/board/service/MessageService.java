@@ -11,4 +11,5 @@ public interface MessageService {
 	List<MessageVo> selectAll(SearchVo vo); 
 	MessageVo content(int midx);
 	int viewCheck(int midx);
+	int delMsg(int midx);
 }

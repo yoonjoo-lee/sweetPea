@@ -136,7 +136,7 @@
 	<div class="afterCheckBox">
 		<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 		<h4>회원 정보 수정</h4>
-		<br>
+		<h5>이메일 인증번호 받기 필수</h5>
 		<form id="frm">
 		<div class="inputBox">
 			<div class = "inputIdx">
@@ -180,7 +180,7 @@
 				<input type="text" name="addr" id="addr" value="${vo.addr}">
 				<input type="button" style="height: 2.2em" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 			</div>
-				<input type="button" onclick="change()" id="btn" value="변경">
+				<input type="button" onclick="change()" id="btn" value="변경" disabled="disabled">
 		</div>
 			
 		</form>
@@ -222,8 +222,9 @@ function mailCheck() {
 					}			
 				});
 			}
-		}  
+		}
 	})
+	$("#btn").attr("disabled",false);
 } // end send eamil
 // 인증번호 비교 
 // blur -> focus가 벗어나는 경우 발생

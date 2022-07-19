@@ -49,12 +49,17 @@
 	.page-link{
 		border-radius: 0.25rem;
 		color: #fff;
-	    background-color: #ffc800;
 	    border-color: #ffc800;
         padding: 0.375rem 0.75rem;
         position: relative;
     	display: block;
     	text-decoration: none;
+	}
+	a.page-link{
+		background-color: #8CC4C0;
+	}
+	b.page-link{
+		background-color: #723b80;
 	}
 	.myPaging{
 	display: flex;
@@ -65,9 +70,43 @@
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;
+	}
+	b{
+		
 	}
 </style>
+<!-- <script>
+		function delMsg(){
+			var valueArr = new Array();
+			var list = $("input[name='rowCheck']");
+			for(var i =0;i<list.length;i++){
+				if(list[i].checked){
+					valueArr.push(list[i].value);
+				}
+			}
+			if(valueArr.length == 0){
+				alert("삭제할 쪽지가 없습니다");
+			}else{
+				$.ajax({
+					url: 'delMsg.do',
+					type: 'post',
+					data: {valueArr : valueArr},
+					success: function(data){
+						if(data = 1){
+							alert("성공");
+							location.replace("main.do");
+						}
+						else{
+							alert("실패"	);
+						}
+						
+					}
+				});
+				
+			}
+				
+		}
+</script> -->
 </head>
 <body>
 <h3>쪽지함</h3>
@@ -75,7 +114,7 @@
 <c:if test="${login.pea_super eq 'Y'}">
 	<input type="button" onclick="location.href='write.do'" value="쪽지쓰기">
 </c:if>
-<input type="button" value="삭제">
+<input type="button" onclick="delMsg()" value="삭제">
 </div><br>
 <div>
 	<ul class="header-ul">
@@ -93,7 +132,7 @@
 		<c:forEach var="vo" items="${list}">
 			<c:if test="${vo.view_check eq 'Y'}">
 			<ul class="content-ul" style="color: lightgray;">
-				<li><input type="checkbox" class="checkBox"></li>
+				<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
 				<li>${vo.name}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
@@ -101,7 +140,7 @@
 			</c:if>
 			<c:if test="${vo.view_check eq 'N'}">
 			<ul class="content-ul">
-				<li><input type="checkbox" class="checkBox"></li>
+				<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
 				<li>${vo.name}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
