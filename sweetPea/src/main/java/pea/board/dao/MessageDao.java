@@ -36,4 +36,8 @@ public class MessageDao {
 	public int viewCheck(int midx) {
 		return sqlSession.update(namespace+".viewCheck",midx);
 	}
+	
+	public int delMsg(int midx) {
+		return sqlSession.update(namespace+".delMsg",midx);
+	}
 }

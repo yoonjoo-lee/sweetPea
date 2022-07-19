@@ -40,6 +40,11 @@ public class MessageServiceImple implements MessageService{
 		return messageDao.viewCheck(midx);
 	}
 
+	@Override
+	public int delMsg(int midx) {
+		return messageDao.delMsg(midx);
+	}
+
 	
 
 }
