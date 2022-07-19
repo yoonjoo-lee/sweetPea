@@ -66,7 +66,6 @@ public class UserController {
 			login.setName(user.getName());
 			login.setProfile(user.getProfile());
 			login.setPea_super(user.getPea_super());
-			login.setProfile(user.getProfile());
 			
 			session.setAttribute("login", login);
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
@@ -335,31 +334,33 @@ public class UserController {
 		return "user/myPage-profile";
 	}
 	
-	@RequestMapping(value="/user/profileUpload.do", method=RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value="/user/profileUpload.do", produces = "application/json;charset=utf8")
 	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IllegalStateException, IOException {
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/profile");
 		System.out.println(path);
-		
+		/*
+		 * String formData = request.getParameter("formData");
+		 * System.out.println(formData);
+		 */
 		session = request.getSession(); //uidx가져오기 위함
 		UserVo login = (UserVo)session.getAttribute("login");
 		login.setProfile(file.getOriginalFilename()); //프로필 넣기 위함
+		
 		System.out.println("file:"+file+ ", uidx:" + login.getUidx());
-		userService.profileUpload(login);
-		
-		session.setAttribute("login", login);
-		
-		
-		File dir = new File(path);
-		if(!dir.exists()) {
-			dir.mkdirs();
-		}
-		
-		if(!file.getOriginalFilename().isEmpty()) {
-			file.transferTo(new File(path, file.getOriginalFilename()));
-		}else {
-			
-		}
-		
+		/*
+		 * userService.profileUpload(login);
+		 * 
+		 * session.setAttribute("login", login);
+		 * 
+		 * 
+		 * File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
+		 * 
+		 * if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
+		 * file.getOriginalFilename())); }else {
+		 * 
+		 * }
+		 */
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
