@@ -74,7 +74,7 @@ margin-left:20%;
 <body>
 
 
-<form action="profileUpload.do" method="post" name="filefrm" enctype="multipart/form-data">
+<form action="profileUpload.do" method="post" id="filefrm" enctype="multipart/form-data">
 <div class="photo_box">
   <div class="upload_btn">
     <div class="upload">
@@ -84,7 +84,8 @@ margin-left:20%;
   </div>
   <div class="photo_them">
     <div class="them_img">
-    	<img id="image" src="<spring:url value = '/images/profile/${login.profile }'/>">
+    	<%-- <img id="image" src="<spring:url value = '/images/profile/${login.profile }'/>"> --%>
+    	<img id="image" src=${login.profile }>
     </div>
   </div>
   <a href="javascript:void(0);" id="complete">업로드</a>
@@ -92,6 +93,31 @@ margin-left:20%;
 </form>
 
 <script>
+//여기 0719
+const fr = new FileReader();
+
+fr.onload = (base64) => {
+  const image = new Image();
+
+  image.src = base64.target.result;
+
+  image.onload = (e) => { 
+    const $canvas = document.createElement(`canvas`);
+    const ctx = $canvas.getContext(`2d`);
+   
+    $canvas.width = e.target.width;
+    $canvas.height = e.target.height;
+    
+    ctx.drawImage(e.target, 0, 0);
+
+    // 용량이 줄어든 base64 이미지
+    console.log($canvas.toDataURL(`image/jpeg`, 0.5));
+    const tmp = $canvas.toDataURL(`image/jpeg`, 0.5);
+  }
+}
+//여기 0719
+
+
 $(function(){
 	var cropper;
     // 사진 업로드 버튼
@@ -141,28 +167,82 @@ $(function(){
     });
     // 업로드 버튼
     $('#complete').on('click', function(){
-    	$('.them_img').append('<div class="result_box"><img id="result" src=""></div>');
+    	$('.them_img').append('<div class="result_box"><img name="file" id="result" src=""></div>');
     	var image = $('#image');
     	var result = $('#result');
     	var canvas;
+    	
+    	/* 
+    	const maxSize = 400; //최대px 400px 기준
+    	let width = image.width; //5575px
+    	let height = image.height; //3923px
+    	if (width > height) { 
+    	    if (width > maxSize) {
+    	        height *= maxSize / width;
+    	        width = maxSize;
+    	    }
+    	} else {
+    	    if (height > maxSize) {
+    	        width *= maxSize / height;
+    	        height = maxSize;
+    	     }
+    	}
+    	canvas.width = width;
+    	canvas.height = height;
+    	canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+    	
+    	
+    	 */
+    	
+    	
+    	
+    	
+    	
     	if($('input[type="file"]').val() != ""){
     	canvas = image.cropper('getCroppedCanvas',{
     		width:200,
     		height:200
     	});
+    	
+    	const dataUrl = canvas.toDataURL();
+    	
+    	
+    	//console.log(dataUrl);
+    	
+    	
+    	
+    	
+    	var file = document.querySelector('input[type=file]').files[0];
+    	fr.readAsDataURL(file);
+    	console.log('file',file);
+    	
+/*     	fr.readAsDataURL($('input[type="file"]').val()); */
+    	
+    	// 여기 0719
+    	var file = document.querySelector('input[type=file]').files[0];
+		fr.readAsDataURL(file);
+		console.log('tmp',tmp);
+		// 여기 0719
+    	
     	result.attr('src',canvas.toDataURL("image/jpg"));
     	canvas.toBlob(function (blob) {
-    		/* var formData =$("#photoBtn").serialize(); */ 
-    		var formData =new FormData();
-    		formData.append('avatar', blob, 'profile.jpg');
-            formData.append('fileId',photoBtn);
     		
+    		
+    		
+    		
+    		
+    		
+    		
+    		/* var formData =$("#photoBtn").serialize(); */ 
+    		var formData =new FormData($('#filefrm')[0]);
+    		
+    	//console.log("dataUrl",dataUrl);
     		  $.ajax({
     			url: 'profileUpload.do',
            		method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
+                data: {"dataUrl":tmp},
+                /* processData: false,
+                contentType: false, */
                 success: function () {
                 	alert('업로드 성공');
                 },
@@ -179,10 +259,37 @@ $(function(){
       }
     });
 });
+
+
+/* function getThumbFile(_IMG){
+	  //canvas에 이미지 객체를 리사이징해서 담는 과정
+	  var canvas = document.createElement("canvas");
+	  canvas.width = '100px'; //리사이징하여 그릴 가로 길이
+	  canvas.height ='100px'; //리사이징하여 그릴 세로 길이
+	  canvas.getContext("2d").drawImage(_IMG, 0, 0, 400, 400);
+
+	  //canvas의 dataurl를 blob(file)화 하는 과정
+	  var dataURL = canvas.toDataURL("image/png"); //png => jpg 등으로 변환 가능
+	  var byteString = atob(dataURI.split(',')[1]);
+	  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+	  var ab = new ArrayBuffer(byteString.length);
+	  var ia = new Uint8Array(ab);
+	  for (var i = 0; i < byteString.length; i++) {
+	    ia[i] = byteString.charCodeAt(i);
+	  }
+
+	  //리사이징된 file 객체
+	  var tmpThumbFile = new Blob([ab], {type: mimeString});
+	 
+	  consol.log("tmpThumbFile:", tmpThumbFile);
+	  return tmpThumbFile;
+	} */
 </script>
 
 
 	<br><br><h3>프로필 변경</h3>
+	
+	<img alt="" src="${login.profile }">
 	<form action="profileUpload.do" method="post" enctype="multipart/form-data">
 
 	<table style="text-align:center;">
