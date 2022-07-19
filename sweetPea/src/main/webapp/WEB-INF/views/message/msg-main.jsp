@@ -47,13 +47,13 @@
 		margin-left: 0.5em;
 	}
 	.page-link{
-		border-radius: 0.25rem;
 		color: #fff;
 	    border-color: #ffc800;
         padding: 0.375rem 0.75rem;
         position: relative;
     	display: block;
     	text-decoration: none;
+    	border: 1px solid #e5e5e5;
 	}
 	a.page-link{
 		background-color: #8CC4C0;
@@ -71,42 +71,42 @@
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 	}
-	b{
-		
-	}
 </style>
-<!-- <script>
+<script>
 		function delMsg(){
 			var valueArr = new Array();
 			var list = $("input[name='rowCheck']");
+			var ft = '<%=request.getContextPath()%>';
+			
 			for(var i =0;i<list.length;i++){
 				if(list[i].checked){
 					valueArr.push(list[i].value);
 				}
 			}
+			data = JSON.stringify(valueArr);
+			alert(data);
 			if(valueArr.length == 0){
 				alert("삭제할 쪽지가 없습니다");
 			}else{
 				$.ajax({
-					url: 'delMsg.do',
-					type: 'post',
-					data: {valueArr : valueArr},
-					success: function(data){
-						if(data = 1){
-							alert("성공");
-							location.replace("main.do");
-						}
-						else{
-							alert("실패"	);
-						}
-						
-					}
-				});
+					  url: ft + "/message/delMsg.do",
+					  type: "POST",
+					  dataType:"JSON",
+					  traditional : true, //필수
+					  data: {list : data},
+					  success: function(result){
+					    alert("저장되었습니다.");
+					    self.selectList();
+					  },
+					  error: function (error){
+					  	alert('다시 시도하세요');
+					  }
+					});
 				
 			}
 				
 		}
-</script> -->
+</script>
 </head>
 <body>
 <h3>쪽지함</h3>
