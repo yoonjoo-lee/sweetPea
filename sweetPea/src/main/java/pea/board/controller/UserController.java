@@ -336,31 +336,36 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/user/profileUpload.do", produces = "application/json;charset=utf8")
-	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IllegalStateException, IOException {
+	public void profileUpload(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IllegalStateException, IOException {
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/profile");
 		System.out.println(path);
 		/*
 		 * String formData = request.getParameter("formData");
 		 * System.out.println(formData);
 		 */
+//		System.out.println("file:" + file);
 		session = request.getSession(); //uidx가져오기 위함
 		UserVo login = (UserVo)session.getAttribute("login");
-		login.setProfile(file.getOriginalFilename()); //프로필 넣기 위함
 		
-		System.out.println("file:"+file+ ", uidx:" + login.getUidx());
-		/*
-		 * userService.profileUpload(login);
-		 * 
-		 * session.setAttribute("login", login);
-		 * 
-		 * 
-		 * File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
-		 * 
-		 * if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
-		 * file.getOriginalFilename())); }else {
-		 * 
-		 * }
-		 */
+		String dataUrl = request.getParameter("dataUrl");
+		System.out.println("dataUrl"+ dataUrl);
+		login.setProfile(dataUrl); //프로필 넣기 위함
+//		login.setProfile(file.getOriginalFilename()); //프로필 넣기 위함
+//		
+//		System.out.println("file:"+file+ ", uidx:" + login.getUidx());
+		
+		userService.profileUpload(login);
+		
+		session.setAttribute("login", login);
+		
+		 
+//		File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
+//		
+//		if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
+//		file.getOriginalFilename())); }else {
+//		
+//		}
+		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
