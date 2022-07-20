@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>SweetPea</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 	*{
 		box-sizing: border-box;
@@ -73,39 +74,63 @@
 	}
 </style>
 <script>
-		function delMsg(){
-			var valueArr = new Array();
-			var list = $("input[name='rowCheck']");
-			var ft = '<%=request.getContextPath()%>';
+	async function delMsg(){
+		var valueArr = new Array();
+		var list = $("input[name='rowCheck']");
+		var ft = '<%=request.getContextPath()%>';
+		
+		var checkboxValues = [];
+	    $("input[name='rowCheck']:checked").each(function(i) {
+	        checkboxValues.push($(this).val());
+	    });
+		
+		var allData = {"checkBox": checkboxValues}
+		if(checkboxValues.length == 0){
+			Swal.fire({
+			      title: '실패',
+			      text: '삭제할 쪽지가 없습니다',
+			      icon: 'error',
+		    });
+			return;
+		}else{
+			await Swal.fire({
+				  text: '선택한 쪽지를 삭제하시겠습니까?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '예',
+				  cancelButtonText: '아니오'
+				}).then((result) => {
+				   if (result.isConfirmed) {
+					   
+					   $.ajax({
+						  url: ft + "/message/delMsg.do",
+						  type: "get",
+						  data: allData,
+						  success: async function(result){
+							  await Swal.fire({
+							      text: '삭제가 완료되었습니다',
+							      icon: 'error',
+						  		});
+						    window.location.reload();
+						  },
+						  error: function (error){
+						  	alert('다시 시도하세요');
+						  }
+						});
+					  
+				  }
+				  else{
+					window.location.reload();  
+				  }
+				})
 			
-			for(var i =0;i<list.length;i++){
-				if(list[i].checked){
-					valueArr.push(list[i].value);
-				}
-			}
-			data = JSON.stringify(valueArr);
-			alert(data);
-			if(valueArr.length == 0){
-				alert("삭제할 쪽지가 없습니다");
-			}else{
-				$.ajax({
-					  url: ft + "/message/delMsg.do",
-					  type: "POST",
-					  dataType:"JSON",
-					  traditional : true, //필수
-					  data: {list : data},
-					  success: function(result){
-					    alert("저장되었습니다.");
-					    self.selectList();
-					  },
-					  error: function (error){
-					  	alert('다시 시도하세요');
-					  }
-					});
-				
-			}
-				
+			
+			
 		}
+			
+	}
 </script>
 </head>
 <body>
@@ -133,7 +158,7 @@
 			<c:if test="${vo.view_check eq 'Y'}">
 			<ul class="content-ul" style="color: lightgray;">
 				<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-				<li>${vo.name}</li>
+				<li>${vo.writer}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
 			</ul>
@@ -141,7 +166,7 @@
 			<c:if test="${vo.view_check eq 'N'}">
 			<ul class="content-ul">
 				<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-				<li>${vo.name}</li>
+				<li>${vo.writer}</li>
 				<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
 				<li>${vo.datetime}</li>
 			</ul>

@@ -104,32 +104,6 @@
 	        }).open();
 	    }
 </script>
-<script>
-	function change(){
-		if($("#span-email").css("color")=="rgb(255, 0, 0)"){
-			$('#email').focus();
-			$('#email').blur();
-			$('#email').focus();
-			return;
-		}
-		Swal.fire({
-			  title: '변경사항을 저장하시겠습니까?',
-			  showCancelButton: true,
-			  confirmButtonText: '저장',
-			  cancelButtonText: '취소',
-			}).then((result) => {
-			  /* Read more about isConfirmed, isDenied below */
-			  if (result.isConfirmed) {
-			    $("#frm").attr("action","<%=request.getContextPath()%>/user/myPage-modify.do?uidx="+${login.uidx});
-				$("#frm").attr("method","post");
-				$("#frm").submit();
-			  }
-			})
-		
-	}
-	
-
-</script>	
 </head>
 <body>
 	<br><br><br>
@@ -201,7 +175,11 @@ function mailCheck() {
 				      text: '이미 인증한 이메일입니다.',
 				      icon: 'error',
 			    });
+				$("#span-email").text('동일한 이메일입니다');
+				$("#span-email").css('color','green');
 			}else{
+				noCheck = data;
+				checkInput.attr('disabled',false);
 				Swal.fire({
 				      text: '인증번호 전송중...',
 				      didOpen: () => {
@@ -213,8 +191,6 @@ function mailCheck() {
 					type : 'get',
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 					success : async function (data) {
-						checkInput.attr('disabled',false);
-						code =data;
 						await Swal.fire({
 						      text: '인증번호가 전송되었습니다.',
 						      icon: 'success',
@@ -245,6 +221,37 @@ $('.mail-check-input').blur(function () {
 		$resultMsg.css('color','red');
 	}
 });
+
+async function change(){
+	if($("#span-email").css("color")=="rgb(255, 0, 0)"){
+		$('.mail-check-input').focus();
+		$('.mail-check-input').blur();
+		$('.mail-check-input').focus();
+		return;
+	}
+	else{
+		if(noCheck==1 && email != $("#email").val()){
+		await Swal.fire({
+		      text: '이메일이 변경되었습니다. 인증을 진행해 주세요',
+		      icon: 'error',
+	    });
+		return;
+	}
+	Swal.fire({
+		  title: '변경사항을 저장하시겠습니까?',
+		  showCancelButton: true,
+		  confirmButtonText: '저장',
+		  cancelButtonText: '취소',
+		}).then((result) => {
+		  /* Read more about isConfirmed, isDenied below */
+		  if (result.isConfirmed) {
+		    $("#frm").attr("action","<%=request.getContextPath()%>/user/myPage-modify.do?uidx="+${login.uidx});
+			$("#frm").attr("method","post");
+			$("#frm").submit();
+		  }
+		})
+	}
+}
 </script>
 <script>
 	$("#name").blur(function(){
