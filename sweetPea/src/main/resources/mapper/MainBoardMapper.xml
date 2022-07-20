@@ -28,13 +28,14 @@
 		<if test="category != 6">
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
-		 from pea_board b, pea_user u, pea_report r
+		 from pea_board b, pea_user u
 		where b.uidx=u.uidx
 		</if>
 		<if test="category == 6">
 		SELECT  A.*
 		FROM (select @rownum:=@rownum+1 as rn,b.*,r.report,r.reply, r.troll
-		from pea_board b,pea_report r where b.bidx=r.bidx
+		from pea_board b,pea_report r 
+		where b.bidx=r.bidx
 		</if>
 		
 		and category=#{category}

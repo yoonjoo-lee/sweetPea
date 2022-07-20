@@ -366,19 +366,6 @@ public class UserController {
 //		
 //		}
 		
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter pw = response.getWriter();
-			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
-			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
-			pw.append("<script>"
-					+ "$(async function(){"
-					+ "await Swal.fire({"
-					+ "icon: 'success',"
-					+ "title: '변경 완료',"
-					+ "position: 'top'"
-					+ "});"
-					+ "window.parent.location.href='myPage.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-			pw.flush();
 		
 		/* return "user/myPage-profile"; */
 	}
