@@ -385,16 +385,16 @@ public class UserController {
 		return userService.userEmailCheck(vo);
 	}
 	
-	@RequestMapping(value="/user/about.do")
+	@RequestMapping(value="/user/charge.do")
 	public String about() {
-		return "user/about";
+		return "user/charge";
 	}
 	
-	@RequestMapping(value="/user/sale.do")
+	@RequestMapping(value="/user/payment.do")
 	public String sale(Model model, int price) {
 		model.addAttribute("price", price);
 		
-		return "user/sale";
+		return "user/payment";
 	}
 	
 	

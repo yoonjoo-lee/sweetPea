@@ -31,9 +31,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link header-a" href="#services">아이템상점</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
-                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/about.do">결제/충전</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/charge.do">결제/충전</a></li>
                         <li class="nav-item nav-hover" >
                         	<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
                         	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list" >
