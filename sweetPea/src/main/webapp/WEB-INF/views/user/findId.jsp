@@ -68,7 +68,6 @@ $('#mailCheckBtn').click(function() {
 					url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 					success : async function (data) {
 						checkInput.attr('disabled',false);
-						$('#idCheckBtn').attr('disabled',false);
 						code =data;
 						await Swal.fire({
 						      text: '인증번호가 전송되었습니다.',
@@ -94,7 +93,8 @@ $('.mail-check-input').blur(function () {
 		$('#userEamil1').attr('readonly',true);
 		$('#userEamil2').attr('readonly',true);
 		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        $('#idCheckBtn').attr('disabled',false);
 	}else{
 		$resultMsg.html('');
 		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
