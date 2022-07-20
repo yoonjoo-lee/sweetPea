@@ -403,5 +403,34 @@ public class UserController {
 		return "user/about";
 	}
 	
+	@RequestMapping(value="/user/sale.do")
+	public String sale(Model model, int price) {
+		model.addAttribute("price", price);
+		
+		return "user/sale";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

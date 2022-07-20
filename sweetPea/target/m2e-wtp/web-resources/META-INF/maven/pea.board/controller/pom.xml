@@ -197,6 +197,20 @@
 		    <version>20180130</version>
 		</dependency>
 		       
+		       <!-- 부트페이 dependency -->
+		       
+		       <dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>LATEST</version>
+</dependency>
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>LATEST</version>
+</dependency>
+		       
+		       
 	</dependencies>
     <build>
         <plugins>
