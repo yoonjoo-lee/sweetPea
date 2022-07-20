@@ -15,6 +15,7 @@
 <!-- js -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://fengyuanchen.github.io/cropper/js/cropper.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style type="text/css">
 .profile-image{
@@ -178,8 +179,13 @@ $(function(){
                 data: {"dataUrl":dataUrl},
                 /* processData: false,
                 contentType: false, */
-                success: function () {
-                	alert('업로드 성공');
+                success: async function () {
+   					await Swal.fire({
+    					 icon: 'success',
+    					 title: '변경 완료',
+    					 position: 'top'
+    					});
+    					window.parent.location.href='myPage.do';
                 },
                 error: function () {
                 	alert('업로드 실패');
