@@ -61,7 +61,7 @@
 	<br>
 	<br>
 
-	  <button onclick="sale()" style="padding:10px; margin-left:10%">bootpay</button>
+	  <button onclick="payment()" style="padding:10px; margin-left:10%">bootpay</button>
 	  <div id="saleView"></div>
 	<br>
 	<div class="pea_package">
@@ -74,29 +74,29 @@
 		<div class="pea_package_box">
 			<div class="pea_package_box1" >
 				<ul >
-					<li>쿠키 1개 <input type="button"  onclick="sale(100)" value="100원"></li>
-					<li>쿠키 10개 <input type="button" onclick="sale(1000)" value="1,000원"></li>
-					<li>쿠키 30개 <input type="button" onclick="sale(3000)" value="3,000원"></li>
-					<li>쿠키 50개 <input type="button" onclick="sale(5000)" value="5,000원"></li>
-					<li>쿠키 100개 <input type="button" onclick="sale(10000)" value="10,000원"></li>
+					<li>쿠키 1개 <input type="button"  onclick="payment(100)" value="100원"></li>
+					<li>쿠키 10개 <input type="button" onclick="payment(1000)" value="1,000원"></li>
+					<li>쿠키 30개 <input type="button" onclick="payment(3000)" value="3,000원"></li>
+					<li>쿠키 50개 <input type="button" onclick="payment(5000)" value="5,000원"></li>
+					<li>쿠키 100개 <input type="button" onclick="payment(10000)" value="10,000원"></li>
 				</ul>
 			</div>
 			<div class="pea_package_box2" >	
 				<ul >
-					<li>쿠키 200개 <input type="button" onclick="sale(20000)"  value="20,000원"></li>
-					<li>쿠키 300개 <input type="button" onclick="sale(30000)" value="30,000원"></li>
-					<li>쿠키 500개 <input type="button" onclick="sale(50000)" value="50,000원"></li>
-					<li>쿠키 700개 <input type="button" onclick="sale(70000)" value="70,000원"></li>
-					<li>쿠키 1,000개 <input type="button" onclick="sale(100000)" value="100,000원"></li>
+					<li>쿠키 200개 <input type="button" onclick="payment(20000)"  value="20,000원"></li>
+					<li>쿠키 300개 <input type="button" onclick="payment(30000)" value="30,000원"></li>
+					<li>쿠키 500개 <input type="button" onclick="payment(50000)" value="50,000원"></li>
+					<li>쿠키 700개 <input type="button" onclick="payment(70000)" value="70,000원"></li>
+					<li>쿠키 1,000개 <input type="button" onclick="payment(100000)" value="100,000원"></li>
 				</ul>
 			</div>	
 		</div>
 	</div>
 	
 <script type="text/javascript">
-	function sale(price){
+	function payment(price){
 		$.ajax({
-			url: "sale.do?price="+price,
+			url: "payment.do?price="+price,
 	
 			success: function(data){
 				$("#saleView").html(data);
