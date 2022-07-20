@@ -19,7 +19,7 @@
 	});
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
-		location.href="list.do?category=2&nowPage=${paging.nowPage}&cntPerPage="+sel;
+		location.href="list.do?category="+${searchVo.category}+"&nowPage=${paging.nowPage}&cntPerPage="+sel;
 	}
 </script>
 <style type="text/css">
@@ -183,9 +183,17 @@ a {
 		<thead>
 			<tr>
 				<th>글번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
+				<c:if test="${searchVo.category == 6 }">
+					<th>신고유형</th>
+					<th>제목</th>
+					<th>상태</th>
+					<th>신고일자</th>
+				</c:if>
+				<c:if test="${searchVo.category != 6 }">
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -195,13 +203,40 @@ a {
 				</tr>
 			</c:if>
 			<c:if test="${list.size() > 0 }">
-				<c:forEach var="vo" items="${list }">
+				<c:forEach var="vo" items="${list }" varStatus="status">
 					<tr onclick="location.href='view.do?bidx=${vo.bidx }'">
-						<%-- <td><a href="content.do?bidx=${vo.bidx }">${vo.title }</a></td> --%>
-						<%-- <td>${vo.name }</td> --%>
 						<td>${vo.bidx }</td>
-						<td>${vo.title }</td>
-						<td>${vo.name }</td>
+						<c:if test="${searchVo.category==6 }">
+							<c:if test="${vo.report==1}">
+								<td>욕설/비방</td>
+							</c:if>
+							<c:if test="${vo.report==2}">
+								<td>악성루머</td>
+							</c:if>
+							<c:if test="${vo.report==3}">
+								<td>광고글도배</td>
+							</c:if>
+							<c:if test="${vo.report==4}">
+								<td>기타</td>
+							</c:if>
+							
+							<td>${vo.title }</td>
+							
+							<c:if test="${vo.reply==1}">
+								<td><p style="color:orange;">미확인</p></td>
+							</c:if>
+							<c:if test="${vo.reply==2}">
+								<td>접수</td>
+							</c:if>
+							<c:if test="${vo.reply==3}">
+								<td>거절</td>
+							</c:if>
+						</c:if>
+						
+						<c:if test="${searchVo.category != 6 }">
+							<td>${vo.title }</td>
+							<td>${vo.name }</td>
+						</c:if>
 						<td>${vo.datetime }</td>
 						
 					</tr>

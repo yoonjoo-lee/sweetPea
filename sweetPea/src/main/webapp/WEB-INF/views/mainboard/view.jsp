@@ -33,6 +33,10 @@
 	position: absolute;
 	
 }
+tabla{
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
 </style>
 <body>
 <header id="header"></header>
@@ -73,7 +77,9 @@
 	
 	
 	<c:if test="${vo.category != 1}">
-		<div id="reply"></div>	
+		<c:if test="${ vo.pea_super=='Y' || vo.category==2 || vo.category==3 }">
+			<div id="reply"></div>	
+		</c:if>
 	</c:if>
 
 </div>
@@ -117,21 +123,18 @@ async function reportfn(){
           ]
         }
       })
-      if (formValues) {
+          $("#frm").attr("action","report.do?bidx="+${vo.bidx});
+          $("#frm").attr("method","POST");
+          $("#frm").submit();
+
+        if (formValues) {
           await Swal.fire({
           	text: '신고완료',
           });
           const sw1 = $("#content").val();
           const sw2 = $("#report").val();
-          alert(sw1,sw2);
+         // alert(sw1,sw2);
         }
-      
-      
-          $("#frm").attr("action","report.do?bidx="+${vo.bidx});
-          $("#frm").attr("method","POST");
-          $("#frm").submit();
-      
-      
       
 }
 /* 
