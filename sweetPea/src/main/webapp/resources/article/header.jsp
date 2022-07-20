@@ -577,7 +577,7 @@ if ( $.fn.makisu.enabled ) {
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link header-a" href="#services">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
-                        <li class="nav-item"><a class="nav-link header-a" href="#about">결제/충전</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/about.do">결제/충전</a></li>
                         <span class="toggle" ><li class="nav-item" >
                         		<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
                         	<dl class="list maki" >
