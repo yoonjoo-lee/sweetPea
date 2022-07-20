@@ -114,8 +114,8 @@ a {
 <header id="header"></header>
 <div id="view">
 <h2>고객센터</h2><br>
-<button onclick="boardList4()">FAQ</button>
-<button onclick="boardList5()">Q&A</button>
+<button class="btn btn-secondary" onclick="boardList4()">FAQ</button>
+<button class="btn btn-secondary" onclick="boardList5()">Q&A</button>
 <div id="boardList">
 </div>
 </div>
@@ -138,7 +138,7 @@ $(function (){
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
 				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
@@ -168,7 +168,7 @@ function boardList4(){
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
 				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}

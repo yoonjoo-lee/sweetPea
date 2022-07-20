@@ -185,7 +185,7 @@ a {
 				<th>글번호</th>
 				<c:if test="${searchVo.category == 6 }">
 					<th>신고유형</th>
-					<th>제목</th>
+					<th>신고이유</th>
 					<th>상태</th>
 					<th>신고일자</th>
 				</c:if>
@@ -204,7 +204,7 @@ a {
 			</c:if>
 			<c:if test="${list.size() > 0 }">
 				<c:forEach var="vo" items="${list }" varStatus="status">
-					<tr onclick="location.href='view.do?bidx=${vo.bidx }'">
+					<tr onclick="location.href='view.do?bidx=${vo.bidx }&category=${vo.category }&ridx=${vo.ridx }'">
 						<td>${vo.bidx }</td>
 						<c:if test="${searchVo.category==6 }">
 							<c:if test="${vo.report==1}">
@@ -220,7 +220,7 @@ a {
 								<td>기타</td>
 							</c:if>
 							
-							<td>${vo.title }</td>
+							<td>${vo.content }</td>
 							
 							<c:if test="${vo.reply==1}">
 								<td><p style="color:orange;">미확인</p></td>
