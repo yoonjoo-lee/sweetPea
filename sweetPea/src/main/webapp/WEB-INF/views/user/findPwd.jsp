@@ -136,7 +136,6 @@ $('#mailCheckBtn').click(function() {
 					url : '<%=request.getContextPath()%>/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 					success : async function (data) {
 						checkInput.attr('disabled',false);
-						$('#changeBtn').attr('disabled',false);
 						code =data;
 						await Swal.fire({
 						      text: '인증번호가 전송되었습니다.',
@@ -162,7 +161,8 @@ $('.mail-check-input').blur(function () {
 		$('#userEamil1').attr('readonly',true);
 		$('#userEamil2').attr('readonly',true);
 		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        $('#changeBtn').attr('disabled',false);
 	}else{
 		$resultMsg.html('');
 		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
@@ -186,13 +186,11 @@ $("#changeBtn").click(function(){
 <div class="afterBox">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<h4 style="text-align: center;">비밀번호 재설정</h4>
-	<form id = "fm">
 	<input type="password" id="pwd" placeholder="새 비밀번호">
 	<span id="span-pwd"></span><br>
 	<input type="password" id="pwd2" placeholder="새 비밀번호 확인">
 	<span id="span-pwd2"></span><br>
 	<input type="button" id="changeBtn" value="확인" onclick="changePwd()">
-	</form>
 </div>
 <script>
 	$("#pwd").blur(function(){
