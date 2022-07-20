@@ -758,7 +758,7 @@ function editComment(cidx, writer, content){
 	    html += "<div class='comments-container'>";
 	    html += "<ul id='comments-list' class='comments-list'>";
   		html += "<li><div class='comment-main-level'>";
-		html += "<div class='comment-avatar'><img src="+profile+"/>' alt=''></div>";
+		html += "<div class='comment-avatar'><img src="+profile+"></div>";
 		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'>" + writer + "</h6>";
 		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
 		html += "</div><div class='comment-content'>";

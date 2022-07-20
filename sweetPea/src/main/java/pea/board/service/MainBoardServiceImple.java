@@ -28,8 +28,8 @@ public class MainBoardServiceImple implements MainBoardService{
 	}
 
 	@Override
-	public MainBoardVo view(int bidx) {
-		return mainboardDao.view(bidx);
+	public MainBoardVo view(MainBoardVo vo) {
+		return mainboardDao.view(vo);
 	}
 
 	@Override

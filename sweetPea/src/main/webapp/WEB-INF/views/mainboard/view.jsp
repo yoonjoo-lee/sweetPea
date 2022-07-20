@@ -33,16 +33,56 @@
 	position: absolute;
 	
 }
-tabla{
+/* tabla{
 	border-radius: 10px;
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+} */
+.viewDiv{
+	height: 400px;
+	border-radius: 10px;
+	box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+}
+.titleDiv{
+	padding: 20px;
+}
+.nameDiv{
+	font-size: 15px;
+	color: grey;
+}
+.contentDiv{
+	padding-left: 20px;
 }
 </style>
 <body>
 <header id="header"></header>
 <br>
 <div id="view">
-<div style="border:1px solid grey">
+
+<c:if test="${vo.category!=6}">
+<div class="viewDiv">
+<div class="titleDiv"><h3>${vo.title }</h3>
+<div class="nameDiv"><b>${vo.name }</b>&nbsp ${vo.datetime }</div>
+</div>
+
+<div class="contentDiv">${vo.content}</div>
+</div>
+</c:if>
+
+<c:if test="${vo.category==6}">
+	<div class="viewDiv">
+	<div class="titleDiv"><h3>${vo.title }</h3>
+	<div class="nameDiv"><b>신고자: ${vo.reportername}, 트롤: ${vo.trollname }</b>&nbsp ${vo.datetime }</div>
+	</div>
+	
+	<div class="contentDiv">접수글: ${vo.content}
+	<br>
+	신고 내용: ${vo.reportcontent }
+	</div>
+	</div>
+	
+</c:if>
+
+<%-- <div style="border:1px solid grey">
 <table class="table table-sm">
 		<tbody>
 			<tr>
@@ -55,14 +95,16 @@ tabla{
 			<tr  style="height:300px">
 				<td >
 						${vo.content}
-					<%-- <textarea id="summernote" readonly>${vo.content }</textarea> --%>
+					<textarea id="summernote" readonly>${vo.content }</textarea>
 				</td>
 			</tr>
 			
 			
 		</tbody>
 	</table>
-</div>
+</div> --%>
+
+
 
 
 <br>
@@ -74,7 +116,10 @@ tabla{
 		<button class="btn btn-sm btn-secondary" onclick="reportfn()">신고</button>
 	</c:if>
 	<button class="btn btn-sm btn-secondary "  onclick="location.href='list.do?category=${vo.category }'">목록</button>
-	
+	<c:if test="${vo.category==6}">
+		<button class="btn btn-sm btn-secondary" onclick="">접수</button>
+		<button class="btn btn-sm btn-secondary" onclick="">거절</button>
+	</c:if>
 	
 	<c:if test="${vo.category != 1}">
 		<c:if test="${ vo.pea_super=='Y' || vo.category==2 || vo.category==3 }">
@@ -111,6 +156,7 @@ async function reportfn(){
           '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
           '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
           '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
+          '<input type="hidden" name="category" value='+${vo.category}+'>'+
           '</form>',
         focusConfirm: false,
         backdrop: false,

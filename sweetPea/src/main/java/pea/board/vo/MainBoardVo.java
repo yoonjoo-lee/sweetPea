@@ -13,6 +13,10 @@ public class MainBoardVo extends UserVo  {
 	private int hit;
 	private String delyn;
 	
+	private String trollname;
+	private String reportername;
+	private String reportcontent;
+	
 	
 	private int ridx;
 	private int reply;
@@ -27,6 +31,24 @@ public class MainBoardVo extends UserVo  {
 	}
 	public void setRidx(int ridx) {
 		this.ridx = ridx;
+	}
+	public String getReportcontent() {
+		return reportcontent;
+	}
+	public void setReportcontent(String reportcontent) {
+		this.reportcontent = reportcontent;
+	}
+	public String getTrollname() {
+		return trollname;
+	}
+	public void setTrollname(String trollname) {
+		this.trollname = trollname;
+	}
+	public String getReportername() {
+		return reportername;
+	}
+	public void setReportername(String reportername) {
+		this.reportername = reportername;
 	}
 	public int getReply() {
 		return reply;

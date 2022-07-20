@@ -136,8 +136,12 @@ public class MainBoardController {
 	
 	//각 보드 (content)
 	@RequestMapping(value="mainboard/view.do")
-	public String view(int bidx, Model model,HttpServletRequest request, HttpSession session) {
-		MainBoardVo vo = mainboardService.view(bidx);
+	public String view(int bidx,int category,int ridx, Model model,HttpServletRequest request, HttpSession session) {
+		MainBoardVo mbo = new MainBoardVo();
+		mbo.setBidx(bidx);
+		mbo.setCategory(category);
+		mbo.setRidx(ridx);
+		MainBoardVo vo = mainboardService.view(mbo);
 		model.addAttribute("vo", vo);
 		
 		session = request.getSession();
@@ -161,7 +165,10 @@ public class MainBoardController {
 	//수정페이지 이동
 	@RequestMapping(value="mainboard/modify.do", method=RequestMethod.GET)
 	public String modify(int bidx, Model model) {
-		MainBoardVo vo = mainboardService.view(bidx);
+		MainBoardVo mbo = new MainBoardVo();
+		mbo.setBidx(bidx);
+		
+		MainBoardVo vo = mainboardService.view(mbo);
 		model.addAttribute("vo", vo);
 		
 		return "mainboard/modify";
@@ -276,13 +283,14 @@ public class MainBoardController {
 	//신고
 	@RequestMapping(value="mainboard/report", method=RequestMethod.POST)
 	public void report(ReportVo vo, HttpServletResponse response) throws IOException {
+		int category=vo.getCategory();
 		vo.setCategory(6); //신고유형 카테고리: 6
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 		
 		PrintWriter pw = response.getWriter();
 		
-		System.out.println("title"+vo.getTitle()+"content"+vo.getContent()+"category:"+vo.getCategory()+"troll:"+vo.getTroll()+"report"+ vo.getReport());
+	//	System.out.println("title"+vo.getTitle()+"content"+vo.getContent()+"category:"+vo.getCategory()+"troll:"+vo.getTroll()+"report"+ vo.getReport());
 		System.out.println("bidx:" +vo.getBidx());
 		int rbidx = vo.getRbidx();
 		int result = mainboardService.writeReport(vo);
@@ -290,7 +298,7 @@ public class MainBoardController {
 		
 		if (result==1) {
 //			pw.append("<script>alert('신고 완료');'</script>");
-			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
+			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"&category="+category+"&ridx="+vo.getRidx()+"'</script>");
 			pw.flush();
 		} else {
 			pw.append("<script>location.href='view.do?bidx="+vo.getRbidx()+"'</script>");
