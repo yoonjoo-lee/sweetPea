@@ -605,8 +605,8 @@ function getCommentList(){
                 	html += "<ul id='comments-list' class='comments-list'>";
                 	if (data[i].depth!=1){	
               		html += "<li><div class='comment-main-level'>";
-      				html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
-       				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
+      				html += "<div class='comment-avatar'><img src="+data[i].profile+" alt=''></div>";
+       				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'>" + data[i].writer + "</h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				if (uidx != null){
 	       				if (data[i].depth==1){
@@ -628,8 +628,8 @@ function getCommentList(){
        				html += data[i].content+"</ul></div></div></div>";
                 	}
                 	else{
-       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+data[i].profile+"'/>' alt=''></div>";
-       				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'><a href='http://creaticode.com/blog'>" + data[i].writer + "</a></h6>";
+       				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src="+data[i].profile+"></div>";
+       				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'>" + data[i].writer + "</h6>";
        				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
        				
        				if (uidx != null){
@@ -717,7 +717,7 @@ function editComment(cidx, writer, content){
 	html += "<div class='comments-container'>";
 	html += "<ul id='comments-list' class='comments-list'>";
 	html += "<li><div class='comment-main-level'><div><table class='table'>";
-	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div></td>";
+	html += "<tr><td style='width:20px'><div class='comment-avatar'><img src='${login.profile}'/>' alt=''></div></td>";
 
 
     html += "<td><textarea class='form-control'  style='height:100px;' name='content'>"+content + "</textarea></td></tr>";
@@ -758,8 +758,8 @@ function editComment(cidx, writer, content){
 	    html += "<div class='comments-container'>";
 	    html += "<ul id='comments-list' class='comments-list'>";
   		html += "<li><div class='comment-main-level'>";
-		html += "<div class='comment-avatar'><img src='<spring:url value = '/images/profile/"+profile+"'/>' alt=''></div>";
-		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'><a href='http://creaticode.com/blog'>" + writer + "</a></h6>";
+		html += "<div class='comment-avatar'><img src="+profile+"/>' alt=''></div>";
+		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'>" + writer + "</h6>";
 		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
 		html += "</div><div class='comment-content'>";
 		html += content+"</div></div>";
