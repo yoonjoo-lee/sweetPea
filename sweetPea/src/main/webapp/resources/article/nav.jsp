@@ -26,7 +26,26 @@
 				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 				var uidx = ${login.uidx};
 				window.open('<%=request.getContextPath()%>/message/main.do?uidx='+uidx,'name',
-						'resizable=no width=700 height=400,left='+popupX+',top='+popupY);
+						'resizable=no width=1300 height=700,left='+popupX+',top='+popupY);
+			}
+			
+
+			
+			function openMini(){
+				var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
+				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+				var popupY= (window.screen.height / 2) - 350;
+				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+				var uidx = ${login.uidx};
+				
+				var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
+				 
+				if (mobile) { 
+					window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+uidx;
+				}else{
+					window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name',
+							'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
+				}
 			}
 		</c:if>
 </script>
@@ -58,7 +77,7 @@
 					</div>
 				</div>
 				<div class="login-bottom">
-					<input type="button" value="미니홈피 가기">
+					<input type="button" onclick="openMini()" value="미니홈피 가기">
 				</div>
 			</c:if>
 			<!-- 로그인 상태 끝 -->
