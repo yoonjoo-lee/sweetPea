@@ -25,10 +25,18 @@
 
 <!-- 게시물 글 목록 조회-->
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
+		<if test="category != 6">
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
-		 from pea_board b, pea_user u
+		 from pea_board b, pea_user u, pea_report r
 		where b.uidx=u.uidx
+		</if>
+		<if test="category == 6">
+		SELECT  A.*
+		FROM (select @rownum:=@rownum+1 as rn,b.*,r.report,r.reply, r.troll
+		from pea_board b,pea_report r where b.bidx=r.bidx
+		</if>
+		
 		and category=#{category}
 		and (@rownum:=0)=0
 		<if test='searchType != null and searchType.equals("title")'>

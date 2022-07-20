@@ -44,7 +44,8 @@
 				<div class="login-center">
 					<%-- <div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'"><img src = "<spring:url value = '/images/profile/${login.profile }'/>"></div>
 					 --%>
-					 <img class="profile" src = "<spring:url value = '/images/profile/${login.profile }'/>" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
+<%-- 					 <img class="profile" src = "<spring:url value = '/images/profile/${login.profile }'/>" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" /> --%>
+					 <img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
 					 
 					<div class="info">
 						<ul>
