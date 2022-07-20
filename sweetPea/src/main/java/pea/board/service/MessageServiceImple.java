@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import pea.board.dao.MessageDao;
 import pea.board.vo.MessageVo;
+import pea.board.vo.PagingVo;
 import pea.board.vo.SearchVo;
 
 @Repository
@@ -21,12 +22,12 @@ public class MessageServiceImple implements MessageService{
 	}
 
 	@Override
-	public int countMessage(int uidx) {
-		return messageDao.countMessage(uidx);
+	public int countMessage(PagingVo vo) {
+		return messageDao.countMessage(vo);
 	}
 
 	@Override
-	public List<MessageVo> selectAll(SearchVo vo) {
+	public List<MessageVo> selectAll(PagingVo vo) {
 		return messageDao.selectAll(vo);
 	}
 
@@ -43,6 +44,11 @@ public class MessageServiceImple implements MessageService{
 	@Override
 	public int delMsg(int midx) {
 		return messageDao.delMsg(midx);
+	}
+
+	@Override
+	public List<String> userCheck() {
+		return messageDao.userCheck();
 	}
 
 	

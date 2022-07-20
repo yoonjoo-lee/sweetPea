@@ -6,7 +6,14 @@ public class SearchVo{
 	private String searchValue;
 	private int category;
 	private int list;
+	private int uidx;
 	
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public int getList() {
 		return list;
 	}

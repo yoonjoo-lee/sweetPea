@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.vo.MessageVo;
+import pea.board.vo.PagingVo;
 import pea.board.vo.SearchVo;
 
 @Repository
@@ -21,11 +22,11 @@ public class MessageDao {
 		return sqlSession.insert(namespace+".writeMessage",vo);
 	}
 	
-	public int countMessage(int uidx) {
-		return sqlSession.selectOne(namespace+".countMessage",uidx);
+	public int countMessage(PagingVo vo) {
+		return sqlSession.selectOne(namespace+".countMessage",vo);
 	}
 	
-	public List<MessageVo> selectAll(SearchVo vo) {
+	public List<MessageVo> selectAll(PagingVo vo) {
 		return sqlSession.selectList(namespace+".selectAll",vo);
 	}
 	
@@ -39,5 +40,9 @@ public class MessageDao {
 	
 	public int delMsg(int midx) {
 		return sqlSession.update(namespace+".delMsg",midx);
+	}
+	
+	public List<String> userCheck(){
+		return sqlSession.selectList(namespace+".userCheck");
 	}
 }

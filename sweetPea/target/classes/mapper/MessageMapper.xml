@@ -9,22 +9,23 @@
 <!-- 게시물 작성 -->
 <insert id="writeMessage" parameterType="MessageVo">
 	INSERT INTO pea_message(
-		  title
-		, content
-		, uidx
-		, writer
-	) VALUES(
-		  #{title}
-		, #{content}
-		, #{uidx}
-		, #{writer}
+		   title
+		 , content
+		 , uidx
+		 , writer
+	)
+	VALUES(
+		   #{title}
+		 , #{content}
+		 , #{uidx}
+		 , #{writer}
 	)
 </insert>
 
 <!-- 쪽지함 페이징용 uidx에 따른 쪽지 총 합 -->
-<select id="countMessage" parameterType="int" resultType="int">
+<select id="countMessage" parameterType="PagingVo" resultType="int">
 	SELECT COUNT(*) 
-	 FROM pea_message
+	  FROM pea_message
 	 WHERE uidx = #{uidx}
 	   AND delyn = 'N'
 </select>
@@ -33,10 +34,8 @@
 	SELECT	A.* 
 	  FROM	(  SELECT @rownum:=@rownum+1 AS rn
 	  			    , b.*
-	  			    , u.name
 			     FROM pea_message b
-			        , pea_user u
-			    WHERE b.uidx = u.uidx
+			    WHERE b.uidx = #{uidx}
 	  			  AND (@rownum:=0) = 0
  	 			  AND b.delyn = 'N'
  	 		 ORDER BY b.midx desc
@@ -66,6 +65,13 @@
 	   SET delyn = 'Y'
 	 WHERE midx = #{midx}
 </update>
+
+<!-- 쪽지 쓰기 전 전체유저의 uidx값 가져오기 -->
+<select id="userCheck" resultType="string">
+	SELECT uidx
+	  FROM pea_user
+	 WHERE delyn = 'N'
+</select>
 
 </mapper>
 

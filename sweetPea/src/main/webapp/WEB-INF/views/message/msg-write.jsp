@@ -31,7 +31,8 @@
 	<input type="text" name="title" placeholder="제목">
 	<textarea rows="10" cols="" name="content"></textarea>
 	<input type="submit" value="입력">
-	<input type="hidden" name="uidx" value="${login.uidx}">
+	<input type="button" onclick="location.href='main.do?uidx=${login.uidx}'" value="취소">
+	<input type="hidden" name="writer_uidx" value="${login.uidx}">
 	<input type="hidden" name="writer" value="${login.name}">
 </form>
 </body>
