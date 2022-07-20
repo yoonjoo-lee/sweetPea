@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
+
 <html>
 <head>
+<!-- <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>  -->
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.3.min.js" type="application/javascript"></script>
 	<title>SweetPea</title>
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -56,6 +59,11 @@
 </c:if>
 	<header id="header"></header>
 	<br>
+	<br>
+
+	  <button onclick="sale()" style="padding:10px; margin-left:10%">bootpay</button>
+	  <div id="saleView"></div>
+	<br>
 	<div class="pea_package">
 		<div class="pea_meaning">
 			<dl>
@@ -66,51 +74,44 @@
 		<div class="pea_package_box">
 			<div class="pea_package_box1" >
 				<ul >
-					<li>쿠키 1개 <input type="button" value="100원"></li>
-					<li>쿠키 10개 <input type="button" value="1,000원"></li>
-					<li>쿠키 30개 <input type="button" value="3,000원"></li>
-					<li>쿠키 50개 <input type="button" value="5,000원"></li>
-					<li>쿠키 100개 <input type="button" value="10,000원"></li>
+					<li>쿠키 1개 <input type="button"  onclick="sale(100)" value="100원"></li>
+					<li>쿠키 10개 <input type="button" onclick="sale(1000)" value="1,000원"></li>
+					<li>쿠키 30개 <input type="button" onclick="sale(3000)" value="3,000원"></li>
+					<li>쿠키 50개 <input type="button" onclick="sale(5000)" value="5,000원"></li>
+					<li>쿠키 100개 <input type="button" onclick="sale(10000)" value="10,000원"></li>
 				</ul>
 			</div>
 			<div class="pea_package_box2" >	
 				<ul >
-					<li>쿠키 200개 <input type="button" value="20,000원"></li>
-					<li>쿠키 300개 <input type="button" value="30,000원"></li>
-					<li>쿠키 500개 <input type="button" value="50,000원"></li>
-					<li>쿠키 700개 <input type="button" value="70,000원"></li>
-					<li>쿠키 1,000개 <input type="button" value="100,000원"></li>
+					<li>쿠키 200개 <input type="button" onclick="sale(20000)"  value="20,000원"></li>
+					<li>쿠키 300개 <input type="button" onclick="sale(30000)" value="30,000원"></li>
+					<li>쿠키 500개 <input type="button" onclick="sale(50000)" value="50,000원"></li>
+					<li>쿠키 700개 <input type="button" onclick="sale(70000)" value="70,000원"></li>
+					<li>쿠키 1,000개 <input type="button" onclick="sale(100000)" value="100,000원"></li>
 				</ul>
 			</div>	
 		</div>
 	</div>
 	
-	<input type="button" id="naverPayBtn" value="네이버페이 결제 버튼">
-<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
-<script>
-    var oPay = Naver.Pay.create({
-          "mode" : "production", // development or production
-          "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
-    });
+<script type="text/javascript">
+	function sale(price){
+		$.ajax({
+			url: "sale.do?price="+price,
+	
+			success: function(data){
+				$("#saleView").html(data);
 
-    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
-    var elNaverPayBtn = document.getElementById("naverPayBtn");
-
-    elNaverPayBtn.addEventListener("click", function() {
-        oPay.open({
-          "merchantUserKey": "가맹점 사용자 식별키",
-          "merchantPayKey": "가맹점 주문 번호",
-          "productName": "상품명을 입력하세요",
-          "totalPayAmount": "1000",
-          "taxScopeAmount": "1000",
-          "taxExScopeAmount": "0",
-          "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
-        });
-    });
-
+				
+			}
+		})
+	}
 </script>
 	
+
+
 	
+
+
 	
 	
 <!-- 	<div class="pea_package">
