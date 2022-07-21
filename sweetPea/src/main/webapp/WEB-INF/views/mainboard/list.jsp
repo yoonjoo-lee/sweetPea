@@ -146,6 +146,9 @@ a {
 <c:if test="${searchVo.category == 5}">
 	<h2>Q&A</h2>
 </c:if>
+<c:if test="${searchVo.category == 6}">
+	<h2>신고 관리</h2>
+</c:if>
 
 
 <!-- 페이징 옵션 선택 -->
@@ -229,6 +232,9 @@ a {
 								<td>접수</td>
 							</c:if>
 							<c:if test="${vo.reply==3}">
+								<td>경고</td>
+							</c:if>
+							<c:if test="${vo.reply==4}">
 								<td>거절</td>
 							</c:if>
 						</c:if>
@@ -246,25 +252,6 @@ a {
 </table>
 
 <br>
-<!-- 페이징 -->
-<%--  <div style="display: block; text-align: center;">		
-		<c:if test="${paging.startPage != 1 }">
-			<a href="list.do?category=${searchVo.category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != paging.nowPage }">
-					<a href="list.do?category=${searchVo.category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="list.do?category=${searchVo.category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-		</c:if>
-</div>   --%>
 
 <!-- 페이징 -->
 <div>

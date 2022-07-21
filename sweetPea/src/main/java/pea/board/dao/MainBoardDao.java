@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
+import pea.board.vo.MessageVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
 
@@ -63,6 +64,18 @@ public class MainBoardDao {
 	public int writeReport(ReportVo vo) {
 		int result =  sqlSession.insert("pea.board.mapper.MainBoardMapper.writeReport", vo);
 		return sqlSession.insert("pea.board.mapper.MainBoardMapper.writeReport2", vo);
+	}
+	
+	public int reportstate(ReportVo vo) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.reportstate", vo);
+	}
+	
+	public int withdrawal(ReportVo vo) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.withdrawal", vo);
+	}
+	
+	public int warningtroll(MessageVo vo) {
+		return sqlSession.insert("pea.board.mapper.MainBoardMapper.warningtroll",vo);
 	}
 	
 }

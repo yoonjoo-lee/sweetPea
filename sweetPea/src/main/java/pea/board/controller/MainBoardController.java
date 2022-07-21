@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pea.board.service.MainBoardService;
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
+import pea.board.vo.MessageVo;
 import pea.board.vo.PagingVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
@@ -308,23 +309,31 @@ public class MainBoardController {
 //		return "redirect:/mainboard/view.do?bidx="+vo.getRbidx();
 	}
 	
-	/*
-	 * //보드write 페이지 이동 (로그인 검열)
-	 * 
-	 * @RequestMapping(value="mainboard/write.do") public void write(int category,
-	 * HttpServletResponse response, HttpServletRequest request, HttpSession
-	 * session) throws IOException { session = request.getSession(); PrintWriter pw
-	 * = response.getWriter();
-	 * 
-	 * UserVo login = (UserVo)session.getAttribute("login"); if (login==null) {
-	 * pw.append("<script>alert('로그인 후 작성 가능합니다.');location.href='home.do'</script>"
-	 * ); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }else {
-	 * pw.append("<script>location.href='gowrite.do?category="+category+
-	 * "';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라. pw.flush(); }
-	 * System.out.println("login uinx"+ login.getUidx());
-	 * 
-	 * }
-	 */
+	@RequestMapping(value="mainboard/withdrawal", method=RequestMethod.POST)
+	public String withdrawal(ReportVo vo) {
+		vo.setReply(2); //신고 접수는 2번
+		
+		mainboardService.withdrawal(vo); //회원 탈퇴
+		mainboardService.reportstate(vo); //상태 변경
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="mainboard/warningtroll", method=RequestMethod.POST)
+	public String warningtroll(ReportVo vo, String warningmessage) {
+		vo.setReply(3); //경고는 3번
+		
+		MessageVo mvo = new MessageVo();
+		
+		mvo.setUidx(vo.getTroll());
+		mvo.setContent(warningmessage);
+		mvo.setTitle("게시글 경고");
+		mvo.setWriter("관리자");
+		
+		mainboardService.warningtroll(mvo); //회원 경고
+		mainboardService.reportstate(vo); //상태 변경
+		
+		return "redirect:/";
+	}
 	
 }
 

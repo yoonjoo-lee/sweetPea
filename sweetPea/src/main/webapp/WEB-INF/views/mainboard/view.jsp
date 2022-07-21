@@ -11,6 +11,7 @@
 </head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -69,6 +70,9 @@
 </c:if>
 
 <c:if test="${vo.category==6}">
+	<c:if test="${vo.reply!=1 }">
+		<h6>신고 처리가 완료된 건입니다.</h6	>
+	</c:if>
 	<div class="viewDiv">
 	<div class="titleDiv"><h3>${vo.title }</h3>
 	<div class="nameDiv"><b>신고자: ${vo.reportername}, 트롤: ${vo.trollname }</b>&nbsp ${vo.datetime }</div>
@@ -79,7 +83,10 @@
 	신고 내용: ${vo.reportcontent }
 	</div>
 	</div>
-	
+	<form action="" id="reportfrm">
+		<input type="hidden" name="troll" value="${vo.troll }">
+		<input type="hidden" name="ridx" value="${vo.ridx }">
+	</form>
 </c:if>
 
 <%-- <div style="border:1px solid grey">
@@ -116,9 +123,10 @@
 		<button class="btn btn-sm btn-secondary" onclick="reportfn()">신고</button>
 	</c:if>
 	<button class="btn btn-sm btn-secondary "  onclick="location.href='list.do?category=${vo.category }'">목록</button>
-	<c:if test="${vo.category==6}">
-		<button class="btn btn-sm btn-secondary" onclick="">접수</button>
-		<button class="btn btn-sm btn-secondary" onclick="">거절</button>
+	<c:if test="${vo.category==6 && vo.reply==1}">
+		<button class="btn btn-sm btn-danger" onclick="withdrawal()">접수 </button> <!-- 트롤 탈퇴시키기 -->
+		<button class="btn btn-sm btn-warning" onclick="warningtroll()">경고</button> <!-- 트롤한테 경고 메시지 보내기 -->
+		<button class="btn btn-sm btn-success" onclick="">거절</button> <!-- 신고자한테 거절 메시지 보내기 -->
 	</c:if>
 	
 	<c:if test="${vo.category != 1}">
@@ -137,7 +145,68 @@ function deletecheck(){
 	if (check){
 		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
 	} 
-	
+}
+
+/* 신고 접수 */
+function withdrawal(){
+	const swalWithBootstrapButtons = Swal.mixin({
+		  customClass: {
+		    confirmButton: 'btn btn-success',
+		    cancelButton: 'btn btn-danger'
+		  },
+		  buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+		  title: '정말 신고 접수하시겠습니까?',
+		  text: "접수된 회원은 즉각 탈퇴 조치됩니다.",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: '신고 접수',
+		  cancelButtonText: '취소',
+		  reverseButtons: true
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    swalWithBootstrapButtons.fire(
+		      '접수 완료',
+		      '신고된 회원이 탈퇴되었습니다.',
+		      'success'
+		    )
+		      $("#reportfrm").attr("action","withdrawal.do");
+	          $("#reportfrm").attr("method","POST");
+	          $("#reportfrm").submit();
+		  } else if (
+		    /* Read more about handling dismissals below */
+		    result.dismiss === Swal.DismissReason.cancel
+		  ) {
+		    swalWithBootstrapButtons.fire(
+		      '취소',
+		      '신고 접수가 취소되었습니다.',
+		      'error'
+		    )
+		  }
+		})
+}
+
+/* 신고 경고 (트롤에게) */
+async function warningtroll(){
+	const { value: text } = await Swal.fire({
+		  input: 'textarea',
+		  inputLabel: '경고',
+		  inputPlaceholder: '경고 메시지를 남겨주세요.',
+		  inputAttributes: {
+		    'aria-label': 'Type your message here'
+		  },
+		  showCancelButton: true
+		})
+
+		if (text) {
+		  Swal.fire(text)
+		  
+		  $("#reportfrm").attr("action","warningtroll.do?warningmessage="+text);
+          $("#reportfrm").attr("method","POST");
+          $("#reportfrm").submit();
+		}
 }
 
 async function reportfn(){
@@ -183,76 +252,8 @@ async function reportfn(){
         }
       
 }
-/* 
 
-async function reportfn(){
-	const { value: formValues } = await Swal.fire({
-		  title: 'Multiple inputs',
-		  html:
-		    '<input id="swal-input1" class="swal2-input">' +
-		    '<input id="swal-input2" class="swal2-input">',
-		  focusConfirm: false,
-		  preConfirm: () => {
-		    return [
-		      document.getElementById('swal-input1').value,
-		      document.getElementById('swal-input2').value
-		    ]
-		  }
-		})
 
-		if (formValues) {
-		  Swal.fire(JSON.stringify(formValues))
-		}
-	
-	const { value: text } = await Swal.fire({
-		  input: 'textarea',
-		  inputLabel: 'Message',
-		  inputPlaceholder: 'Type your message here...',
-		  inputAttributes: {
-		    'aria-label': 'Type your message here'
-		  },
-		  showCancelButton: true
-		})
-		
-
-		if (text) {
-		  Swal.fire(text)
-		}
-	
-	const { value: fruit } = await Swal.fire({
-	  title: 'Select field validation',
-	  input: 'select',
-	  inputOptions: {
-	    'Fruits': {
-	      apples: 'Apples',
-	      bananas: 'Bananas',
-	      grapes: 'Grapes',
-	      oranges: 'Oranges'
-	    },
-	    'Vegetables': {
-	      potato: 'Potato',
-	      broccoli: 'Broccoli',
-	      carrot: 'Carrot'
-	    },
-	    'icecream': 'Ice cream'
-	  },
-	  inputPlaceholder: 'Select a fruit',
-	  showCancelButton: true,
-	  inputValidator: (value) => {
-	    return new Promise((resolve) => {
-	      if (value === 'oranges') {
-	        resolve()
-	      } else {
-	        resolve('You need to select oranges :)')
-	      }
-	    })
-	  }
-	})
-
-	if (fruit) {
-	  Swal.fire(`You selected: ${fruit}`)
-	}
-} */
 </script>
 </body>
 </html>
