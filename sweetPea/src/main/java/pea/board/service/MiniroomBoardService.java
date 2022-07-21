@@ -1,5 +1,8 @@
 package pea.board.service;
 
-public interface MiniroomBoardService {
+import pea.board.vo.MiniHomeVo;
 
+public interface MiniroomBoardService {
+	MiniHomeVo joinMiniHome(int uidx);
+	int changeHeader(MiniHomeVo vo);
 }
