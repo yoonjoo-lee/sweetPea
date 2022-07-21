@@ -75,7 +75,6 @@
 mainboard 작성
 ${category }
 <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'>
-
 <form action="" method="post">
 <div id="title-box">
 	<input style="ime-mode:disabled;"id="title" name="title" placeholder="제목을 입력해 주세요">

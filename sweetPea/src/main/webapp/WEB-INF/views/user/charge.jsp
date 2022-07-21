@@ -74,20 +74,20 @@
 		<div class="pea_package_box">
 			<div class="pea_package_box1" >
 				<ul >
-					<li>쿠키 1개 <input type="button"  onclick="payment(100)" value="100원"></li>
-					<li>쿠키 10개 <input type="button" onclick="payment(1000)" value="1,000원"></li>
-					<li>쿠키 30개 <input type="button" onclick="payment(3000)" value="3,000원"></li>
-					<li>쿠키 50개 <input type="button" onclick="payment(5000)" value="5,000원"></li>
-					<li>쿠키 100개 <input type="button" onclick="payment(10000)" value="10,000원"></li>
+					<li>완두콩 1개 <input type="button"  onclick="payment(100)" value="100원"></li>
+					<li>완두콩 10개 <input type="button" onclick="payment(1000)" value="1,000원"></li>
+					<li>완두콩 30개 <input type="button" onclick="payment(3000)" value="3,000원"></li>
+					<li>완두콩 50개 <input type="button" onclick="payment(5000)" value="5,000원"></li>
+					<li>완두콩 100개 <input type="button" onclick="payment(10000)" value="10,000원"></li>
 				</ul>
 			</div>
 			<div class="pea_package_box2" >	
 				<ul >
-					<li>쿠키 200개 <input type="button" onclick="payment(20000)"  value="20,000원"></li>
-					<li>쿠키 300개 <input type="button" onclick="payment(30000)" value="30,000원"></li>
-					<li>쿠키 500개 <input type="button" onclick="payment(50000)" value="50,000원"></li>
-					<li>쿠키 700개 <input type="button" onclick="payment(70000)" value="70,000원"></li>
-					<li>쿠키 1,000개 <input type="button" onclick="payment(100000)" value="100,000원"></li>
+					<li>완두콩 200개 <input type="button" onclick="payment(20000)"  value="20,000원"></li>
+					<li>완두콩 300개 <input type="button" onclick="payment(30000)" value="30,000원"></li>
+					<li>완두콩 500개 <input type="button" onclick="payment(50000)" value="50,000원"></li>
+					<li>완두콩 700개 <input type="button" onclick="payment(70000)" value="70,000원"></li>
+					<li>완두콩 1,000개 <input type="button" onclick="payment(100000)" value="100,000원"></li>
 				</ul>
 			</div>	
 		</div>
