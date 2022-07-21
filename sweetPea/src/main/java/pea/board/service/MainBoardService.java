@@ -4,6 +4,7 @@ import java.util.List;
 
 import pea.board.vo.MainBoardVo;
 import pea.board.vo.MainCommentVo;
+import pea.board.vo.MessageVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
 
@@ -25,5 +26,8 @@ public interface MainBoardService {
 	
 	//신고
 	int writeReport(ReportVo vo); //신고 게시문 작성
+	int reportstate(ReportVo vo); //신고 상태 변경
+	int withdrawal(ReportVo vo); //회원 탈퇴 (신고 접수)
+	int warningtroll(MessageVo vo); //회원 경고 (트롤에게)
 
 }

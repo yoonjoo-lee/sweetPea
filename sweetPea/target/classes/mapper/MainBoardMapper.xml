@@ -204,6 +204,33 @@
 	)
 </insert>
 
+<update id="withdrawal" parameterType="ReportVo">
+	UPDATE pea_user 
+	SET delyn='Y'
+	WHERE uidx=#{troll}
+</update>
+
+<update id="reportstate" parameterType="ReportVo">
+	UPDATE pea_report
+	SET reply=#{reply}
+	WHERE ridx=#{ridx}
+</update>
+
+<insert id="warningtroll" parameterType="MessageVo">
+	INSERT pea_message(
+		 uidx
+		,title
+		,content
+		,writer
+	)VALUE(
+		 #{uidx}
+		,#{title}
+		,#{content}
+		,#{writer}
+	)
+</insert>
+
+
 </mapper>
 
 
