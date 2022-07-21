@@ -17,7 +17,8 @@
         <typeAlias type="pea.board.vo.ReportVo" alias="ReportVo"/>
         <typeAlias type="pea.board.vo.UserVo" alias="UserVo"/>
         <typeAlias type="pea.board.vo.SearchVo" alias="SearchVo"/>
-        <typeAlias type="pea.board.vo.SearchVo" alias="PagingVo"/>
+        <typeAlias type="pea.board.vo.PagingVo" alias="PagingVo"/>
+        <typeAlias type="pea.board.vo.MiniHomeVo" alias="MiniHomeVo"/>
     </typeAliases>
 
 </configuration>

@@ -4,5 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="pea.board.mapper.MiniroomBoardMapper">
-
+	<select id="joinMiniHome" parameterType="int" resultType="MiniHomeVo">
+		SELECT *
+		  FROM pea_minihome
+		 WHERE uidx = #{uidx}
+	</select>
+	
+	<insert id="insertMiniHome" parameterType="int">
+		INSERT INTO pea_minihome(
+				uidx
+		)VALUES(
+				#{uidx}
+		)
+	</insert>
+	
+	<update id="changeHeader" parameterType="MiniHomeVo">
+		UPDATE pea_minihome
+		   SET h2 = #{h2}
+		 WHERE uidx = #{uidx}
+	</update>
 </mapper>
