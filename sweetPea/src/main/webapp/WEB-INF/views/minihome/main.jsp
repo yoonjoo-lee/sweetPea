@@ -121,7 +121,7 @@
 	    height: 55vh;
 	    border-radius: 15px;
 	    margin: 3vh auto;
-	    background-color: aliceblue;
+	    background-color: white;
 	    position: relative;
 	}
 	#left-board-setting{
@@ -137,12 +137,39 @@
 	    width: 92%;
 	}
 	#addFr{
-		width: 4.5vh;
+		width: 4vh;
 	    bottom: 0;
 	    right: 0;
 	    position: absolute;
 	    float: right;
 	    margin-right: 0.3vw;
+	}
+	.leftBtn{
+		float: right;
+	    font-size: 2vh;
+    	margin: 3vh 0;
+	}
+	
+	#left-board-content{
+		height: 43vh;
+	}
+	#left-boardBox>textarea{
+		background-color: inherit;
+		width: 92%;
+		min-height: 35vh;
+		margin: 0 auto;
+		display: block;
+		border: 0;
+		resize: none;
+		padding-top: 1vh;
+    	padding-left: 1vh;
+    	font-size: 2vh;
+	}
+	#chat{
+		bottom: 1vh;
+		right: 1vw;
+		width: 8vh;
+		position: absolute;
 	}
 </style>
 </c:if>
@@ -154,10 +181,38 @@
 </style>
 </c:if>
 <script>
-function clickBtn(link){ $("#miniIframe").attr("src",link);$("#section").load("resources/article/section.jsp"); }
+function clickBtn(link){ $("#miniIframe").attr("src",link);}
 function clickThis(e){
 	$(".boardBtn").removeClass('act');
 	$(e).addClass('act');
+}
+
+function changeLeftBoard(){
+	$("#left-boardBox").html("<input type='button' class='leftBtn' value='취소' onclick='location.reload()'>"
+			+"<input type='button' class='leftBtn' value='변경' onclick='inputLeftBoard()'>"
+			+"<br><textarea id='changeLeftBoard'>${mini.h1}</textarea>");
+	var leftBoard = $("#changeLeftBoard").val()
+	$("#changeLeftBoard").val(leftBoard.replaceAll("<br>", "\r\n"));
+	$("#changeLeftBoard").focus();
+}
+
+function inputLeftBoard(){
+	var leftBoard = $("#changeLeftBoard").val().replace(/\n/g, "<br>");
+	$.ajax({
+		url:"changeLeftBoard.do",
+		type:"get",
+		data:{	"h1"	: leftBoard,
+				"uidx"	: ${mini.uidx}
+		},
+		success: function(data){
+			if(data == 1){
+			window.location.reload();
+			}
+			else{
+				alert("오류!");
+			}
+		}
+	}); 
 }
 </script>
 </head>
@@ -172,9 +227,16 @@ function clickThis(e){
 		<div id="left-centerBox">
 			<br><img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile">
 			<div id="left-boardBox">
-				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png"><br>
-				<p id="left-board">${mini.h1}</p>
+				<c:if test="${mini.uidx == login.uidx}">
+				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">
+				</c:if>
+				<br>
+				<div id="left-board-content">
+					<p id="left-board">${mini.h1}</p>
+				</div>
+				<c:if test="${mini.uidx != login.uidx}">
 				<img src="<%=request.getContextPath()%>/resources/images/addFr.png" id="addFr">
+				</c:if>
 			</div>
 			
 		</div>
@@ -184,14 +246,14 @@ function clickThis(e){
 		<iframe id="miniIframe" scrolling="no" src="mini-home.do?uidx=${mini.uidx}"></iframe>
 	</div>
 	<div id="buttonBox">
-		<div class="boardBtn act"  onclick='clickBtn("mini-home.do"),clickThis(this)'><p>홈</p></div>
-		<div class="boardBtn" onclick="clickBtn('mini-diary.do'),clickThis(this)"><p>다이어리</p></div>
+		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>
+		<div class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>사진첩</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>방명록</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>관리</p></div>
 	</div>
 </div>
-
+<img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png">
 </c:if>
 
 <c:if test="${device eq 'MOBILE'}">

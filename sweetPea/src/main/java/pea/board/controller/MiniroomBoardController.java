@@ -1,6 +1,8 @@
 package pea.board.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MiniroomBoardService;
 import pea.board.vo.MiniHomeVo;
+import pea.board.vo.MiniroomBoardVo;
 
 @RequestMapping(value="/mini")
 @Controller
@@ -47,8 +50,19 @@ public class MiniroomBoardController {
 	}
 	
 	@RequestMapping(value="/mini-diary.do", method=RequestMethod.GET)
-	public String iframe_diary() {
+	public String iframe_diary(int uidx, Model model) {
+		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
+		
+		model.addAttribute("category",category);
 		return "minihome/diary";
+	}
+	
+	@RequestMapping(value="/diary-write.do", method=RequestMethod.GET)
+	public String diaryWrite(int uidx, Model model) {
+		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
+		model.addAttribute("category",category);
+		
+		return "minihome/diary-write";
 	}
 	
 	@ResponseBody
@@ -65,4 +79,22 @@ public class MiniroomBoardController {
 		}
 		else return 0;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/changeLeftBoard.do", produces = "application/json;charset=utf8")
+	public int changeLeftBoard(HttpServletRequest request) {
+		String h1 = request.getParameter("h1");
+		int uidx = Integer.parseInt(request.getParameter("uidx"));
+		MiniHomeVo vo = new MiniHomeVo();
+		vo.setH1(h1);
+		vo.setUidx(uidx);
+		int result = miniroomBoardService.changeLeftBoard(vo);
+		if(result == 1) {
+			return 1;
+		}
+		else return 0;
+	}
+	
+	
+	
 }
