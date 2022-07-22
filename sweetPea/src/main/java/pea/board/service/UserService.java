@@ -11,7 +11,7 @@ public interface UserService {
 	int changePwd(UserVo vo);
 	UserVo userIdx(int uidx);
 	int pwdCheck(UserVo vo);
-	int delId(int uidx);
+	int delId(UserVo vo);
 	int userEmailCheck(UserVo vo);
 	int idxModify(UserVo vo);
 	int profileUpload(UserVo vo);

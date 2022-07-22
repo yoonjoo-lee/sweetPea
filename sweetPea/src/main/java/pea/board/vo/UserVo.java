@@ -16,9 +16,16 @@ public class UserVo {
 	private int pea_amount;
 	private String pea_super;
 	private String profile;
+	private String delreason;
 	
 	
 	
+	public String getDelreason() {
+		return delreason;
+	}
+	public void setDelreason(String delreason) {
+		this.delreason = delreason;
+	}
 	public int getUidx() {
 		return uidx;
 	}

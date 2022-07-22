@@ -53,7 +53,7 @@
                         	<li class="nav-item nav-hover">
 								<a class="nav-link" href="<%=request.getContextPath()%>"> 관리자 </a>   
 	                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
-								  <li><a class="nav-link" href="<%=request.getContextPath()%>/"> 회원관리</a></li>
+								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/memberManagement.do"> 회원관리</a></li>
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=6"> 신고관리</a></li>
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/">아이템승인</a></li>
 							    </ul>

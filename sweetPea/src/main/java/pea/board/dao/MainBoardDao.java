@@ -11,6 +11,7 @@ import pea.board.vo.MainCommentVo;
 import pea.board.vo.MessageVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
+import pea.board.vo.UserVo;
 
 @Repository
 public class MainBoardDao {
@@ -78,4 +79,11 @@ public class MainBoardDao {
 		return sqlSession.insert("pea.board.mapper.MainBoardMapper.warningtroll",vo);
 	}
 	
+	public List<UserVo> selectAlluser(){
+		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectAlluser");
+	}
+	
+	public List<UserVo> selectAlldeleteuser(){
+		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectAlldeleteuser");
+	}
 }

@@ -11,6 +11,7 @@ import pea.board.vo.MainCommentVo;
 import pea.board.vo.MessageVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
+import pea.board.vo.UserVo;
 
 @Service
 public class MainBoardServiceImple implements MainBoardService{
@@ -86,6 +87,16 @@ public class MainBoardServiceImple implements MainBoardService{
 	@Override
 	public int reportstate(ReportVo vo) {
 		return mainboardDao.reportstate(vo);
+	}
+
+	@Override
+	public List<UserVo> selectAlluser() {
+		return mainboardDao.selectAlluser();
+	}
+
+	@Override
+	public List<UserVo> selectAlldeleteuser() {
+		return mainboardDao.selectAlldeleteuser();
 	}
 
 }

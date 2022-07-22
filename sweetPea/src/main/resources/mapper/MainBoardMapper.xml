@@ -230,6 +230,15 @@
 	)
 </insert>
 
+<!-- 회원 리스트 -->
+<select id="selectAlluser" resultType="UserVo">
+	SELECT * FROM pea_user WHERE delyn='N' ORDER BY uidx DESC
+</select>
+
+<!-- 탈퇴 회원 리스트 -->
+<select id="selectAlldeleteuser" resultType="UserVo">
+	SELECT * FROM pea_user WHERE delyn='Y' ORDER BY uidx DESC
+</select>
 
 </mapper>
 

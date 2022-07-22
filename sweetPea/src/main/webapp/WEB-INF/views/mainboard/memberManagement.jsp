@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -19,22 +18,15 @@
 		#view{
 			width: 60%;
 			margin: 0 auto;
-			margin-bottom: 15em;
 		}
 		#footer{
 			width: 100%;
 			bottom: 0;
 			left: 0;
 			position: absolute;
-			
 		}
 		
 		
-		
-		
-		
-
-
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
@@ -119,7 +111,7 @@ a {
   
   
   
-
+  
 @import url(https://fonts.googleapis.com/css?family=Roboto:700);
 .button {
   background: #3D4C53;
@@ -163,139 +155,127 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
-</head>
 
+</head>
 <body>
 <header id="header"></header>
 <div id="view">
-<!-- <h2>커뮤니티</h2> -->
-<!-- <h4>공지게시판</h4> -->
-<div class="button" onclick="location.href='<%=request.getContextPath()%>/mainboard/list.do?category=1'">
-   <p class="btnText">공지게시판</p>
+<!-- <h2>회원관리</h2><br>
+<button class="btn btn-secondary" onclick="userList()">회원</button>
+<button class="btn btn-secondary" onclick="deleteAccountList()">탈퇴회원</button>  -->
+
+<div style="float: left; width: 15%;" class="button" onclick="userList()">
+   <p class="btnText">회원</p>
    <div class="btnTwo">
-     <p class="btnText2">go!</p>
+     <p class="btnText2">really?</p>
    </div>
 </div>
- 
-<div id="boardList1">
-</div>
-<!-- <h4>자유게시판</h4> -->
-<div class="button" onclick="location.href='<%=request.getContextPath()%>/mainboard/list.do?category=2'">
-   <p class="btnText">자유게시판</p>
+<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="deleteAccountList()">
+   <p class="btnText">탈퇴회원</p>
    <div class="btnTwo">
-     <p class="btnText2">go!</p>
+     <p class="btnText2">really?</p>
    </div>
 </div>
-<div id="boardList2">
-</div>
-<!-- <h4>유머게시판</h4> -->
-<div class="button" onclick="location.href='<%=request.getContextPath()%>/mainboard/list.do?category=3'">
-   <p class="btnText">유머게시판</p>
-   <div class="btnTwo">
-     <p class="btnText2">go!</p>
-   </div>
-</div>
-<div id="boardList3">
+
+<div id="userList">
 </div>
 </div>
-<br>
-<footer id="footer"></footer>
 <script>
-$(document).ready(function(){
+$(function (){
 	$.ajax({
-		url:"boardList.do?category=1",
+		url:"userList.do",
 		type:"get",
 		success:function(data){
 			var html ="";
 			html += "<table>";
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>글번호</th>";
-			html += "<th>제목</th>";
-			html += "<th>작성자</th>";
-			html += "<th>작성일</th>";
+			html += "<th>아이디</th>";
+			html += "<th>이름</th>";
+			html += "<th>성별</th>";
+			html += "<th>가입일</th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
-				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td>"+data[i].id+"</td>";
+				html+="<td><a href=''>"+data[i].name+"</a></td>";
+				html+="<td>"+data[i].gender+"</td>";
+				html+="<td>"+data[i].udate+"</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
 			html += "</table>";
 			
-			$("#boardList1").html(html);
+			$("#userList").html(html);
 		}
 	});
 })
 
-$(document).ready(function(){
+function userList(){
 	$.ajax({
-		url:"boardList.do?category=2",
+		url:"userList.do",
 		type:"get",
 		success:function(data){
 			var html ="";
 			html += "<table>";
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>글번호</th>";
-			html += "<th>제목</th>";
-			html += "<th>작성자</th>";
-			html += "<th>작성일</th>";
+			html += "<th>아이디</th>";
+			html += "<th>이름</th>";
+			html += "<th>성별</th>";
+			html += "<th>가입일</th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
-				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td>"+data[i].id+"</td>";
+				html+="<td><a href=''>"+data[i].name+"</a></td>";
+				html+="<td>"+data[i].gender+"</td>";
+				html+="<td>"+data[i].udate+"</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
 			html += "</table>";
 			
-			$("#boardList2").html(html);
+			$("#userList").html(html);
 		}
 	});
-})
+}
 
-$(document).ready(function(){
+function deleteAccountList(){
 	$.ajax({
-		url:"boardList.do?category=3",
+		url:"deleteAccountList.do",
 		type:"get",
 		success:function(data){
 			var html ="";
 			html += "<table>";
 			html += "<thead>";
 			html += "<tr>";
-			html += "<th>글번호</th>";
-			html += "<th>제목</th>";
-			html += "<th>작성자</th>";
-			html += "<th>작성일</th>";
+			html += "<th>아이디</th>";
+			html += "<th>이름</th>";
+			html += "<th>성별</th>";
+			html += "<th>탈퇴 이유</th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
-				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td>"+data[i].id+"</td>";
+				html+="<td><a href=''>"+data[i].name+"</a></td>";
+				html+="<td>"+data[i].gender+"</td>";
+				html+="<td>"+data[i].delreason+"</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
 			html += "</table>";
 			
-			$("#boardList3").html(html);
+			$("#userList").html(html);
 		}
 	});
-})
+} 
 </script>
 </body>
 </html>

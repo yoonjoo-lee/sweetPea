@@ -320,12 +320,16 @@ public class UserController {
 		return "user/myPage-del";
 	}
 	
-	@RequestMapping(value="/user/delId.do", method=RequestMethod.GET)
-	public String delId(int uidx, HttpServletRequest request, HttpSession session) {
-		userService.delId(uidx);
+	@RequestMapping(value="/user/delId.do", method=RequestMethod.POST)
+	public void delId(UserVo vo, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
+		userService.delId(vo);
 		session = request.getSession();
 		session.invalidate();
-		return "redirect:/";
+		
+		PrintWriter pw = response.getWriter();
+		
+		pw.append("<script>window.parent.location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
 	
 	@RequestMapping(value="/user/myPage-profile.do", method=RequestMethod.GET)

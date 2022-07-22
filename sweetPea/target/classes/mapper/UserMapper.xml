@@ -79,9 +79,10 @@
 		   AND pwd = #{pwd}
 	</select>
 	
-	<update id="delId" parameterType="int">
+	<update id="delId" parameterType="userVo">
 		UPDATE pea_user
 		   SET delyn = 'Y'
+		   , delreason = #{delreason}
 		 WHERE uidx = #{uidx}
 	</update>
 	

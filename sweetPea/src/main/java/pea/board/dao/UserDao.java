@@ -66,8 +66,8 @@ public class UserDao {
 		}
 	}
 	
-	public int delId(int uidx) {
-		return sqlSession.update(namespace+".delId",uidx);
+	public int delId(UserVo vo) {
+		return sqlSession.update(namespace+".delId",vo);
 	}
 	
 	public int userEmailCheck(UserVo vo) {

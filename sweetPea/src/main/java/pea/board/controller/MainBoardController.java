@@ -335,6 +335,24 @@ public class MainBoardController {
 		return "redirect:/";
 	}
 	
+	// 고객센터 페이지 이동
+	@RequestMapping(value="mainboard/memberManagement.do")
+	public String memberManagement() {
+		return "mainboard/memberManagement";
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value="mainboard/userList.do", produces = "application/json;charset=utf8")
+	public List<UserVo> userList(){
+		return mainboardService.selectAlluser();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainboard/deleteAccountList.do", produces = "application/json;charset=utf8")
+	public List<UserVo> deleteAccountList(){
+		return mainboardService.selectAlldeleteuser();
+	}
 }
 
 

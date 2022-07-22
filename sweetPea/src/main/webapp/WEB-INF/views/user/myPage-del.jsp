@@ -74,13 +74,19 @@ $(async function(){
 				window.location.reload();
 			}else{
 				await Swal.fire({
-					  title: '정말로 탈퇴하시겠습니까?',
+					  title: '정말로 탈퇴하시게요?이유는요?',
+					  text: "탈퇴 이유를 작성해주세요.",
+					  html:
+					         '<form id="frm">'+
+					          '<textarea id="content" name="delreason" class="swal2-input" rows=6 cols=30></textarea>' +
+					          '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
+					          '</form>',
 					  icon: 'warning',
 					  showCancelButton: true,
 					  confirmButtonColor: '#3085d6',
 					  cancelButtonColor: '#d33',
-					  confirmButtonText: '예',
-					  cancelButtonText: '아니오',
+					  confirmButtonText: '탈퇴',
+					  cancelButtonText: '취소',
 					  position: 'top'
 					}).then((result) => {
 					   if (result.isConfirmed) {
@@ -91,6 +97,10 @@ $(async function(){
 					  }
 					})
 				if(sw == 1){
+					$("#frm").attr("action","delId.do");
+			          $("#frm").attr("method","POST");
+			          $("#frm").submit();
+			          
 					await Swal.fire({
 					      title: '회원탈퇴 되었습니다',
 					      icon: 'success',
@@ -98,7 +108,8 @@ $(async function(){
 					      showConfirmButton: false,
 					      timer: 2000
 				    });
-					window.parent.location.href="<%=request.getContextPath()%>/user/delId.do?uidx="+${login.uidx};
+					<%-- window.parent.location.href="<%=request.getContextPath()%>/user/delId.do?uidx="+${login.uidx}; --%>
+				  
 				}
 			}
 		}

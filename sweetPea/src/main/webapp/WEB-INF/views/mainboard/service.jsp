@@ -107,15 +107,75 @@ a {
   
   
   }
+  
+  
+  
+  
+@import url(https://fonts.googleapis.com/css?family=Roboto:700);
+.button {
+  background: #3D4C53;
+  margin : 20px auto;
+  width : 200px;
+  height : 50px;
+  overflow: hidden;
+  text-align : center;
+  transition : .2s;
+  cursor : pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+}
+.btnTwo {
+  position : relative;
+  width : 200px;
+  height : 100px;
+  margin-top: -100px;
+  padding-top: 2px;
+  background : #26A69A;
+  left : -250px;
+  transition : .3s;
+}
+.btnText {
+  color : white;
+  transition : .3s;
+  margin-top : 10px;
+}
+.btnText2 {
+  margin-top : 53px;
+  margin-right : -130px;
+  color : #FFF;
+}
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+.button:hover .btnText{ /*When hovering over .button change .btnText*/
+  margin-left : 65px;
+}
+.button:active { /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+}
 </style>
 
 </head>
 <body>
 <header id="header"></header>
 <div id="view">
-<h2>고객센터</h2><br>
-<button class="btn btn-secondary" onclick="boardList4()">FAQ</button>
-<button class="btn btn-secondary" onclick="boardList5()">Q&A</button>
+<!-- <h2>고객센터</h2><br> -->
+<!-- <button class="btn btn-secondary" onclick="boardList4()">FAQ</button>
+<button class="btn btn-secondary" onclick="boardList5()">Q&A</button> -->
+
+<div style="float: left; width: 15%;" class="button" onclick="boardList4()">
+   <p class="btnText">FAQ</p>
+   <div class="btnTwo">
+     <p class="btnText2">really?</p>
+   </div>
+</div>
+<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="boardList5()">
+   <p class="btnText">Q&A</p>
+   <div class="btnTwo">
+     <p class="btnText2">really?</p>
+   </div>
+</div>
+
 <div id="boardList">
 </div>
 </div>

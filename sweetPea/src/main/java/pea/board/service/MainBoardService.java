@@ -7,6 +7,7 @@ import pea.board.vo.MainCommentVo;
 import pea.board.vo.MessageVo;
 import pea.board.vo.ReportVo;
 import pea.board.vo.SearchVo;
+import pea.board.vo.UserVo;
 
 public interface MainBoardService {
 
@@ -29,5 +30,9 @@ public interface MainBoardService {
 	int reportstate(ReportVo vo); //신고 상태 변경
 	int withdrawal(ReportVo vo); //회원 탈퇴 (신고 접수)
 	int warningtroll(MessageVo vo); //회원 경고 (트롤에게)
+	
+	List<UserVo> selectAlluser(); //회원 정보 리스트
+	List<UserVo> selectAlldeleteuser(); //탈퇴 회원 정보 리스트
+	
 
 }

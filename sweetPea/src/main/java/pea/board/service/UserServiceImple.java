@@ -57,8 +57,8 @@ public class UserServiceImple implements UserService{
 	}
 
 	@Override
-	public int delId(int uidx) {
-		return userDao.delId(uidx);
+	public int delId(UserVo vo) {
+		return userDao.delId(vo);
 	}
 
 	@Override
