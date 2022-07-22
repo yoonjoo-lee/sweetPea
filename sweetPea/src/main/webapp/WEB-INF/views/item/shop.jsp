@@ -16,14 +16,14 @@
 	</script>
 	<style type="text/css">
 		#view{
-			width: 60vw;
+			width: 80vw;
 			margin: 0 auto;
 			margin-bottom: 15em;
 			height: 100%;
 		}
 		section{
 			border: 1px solid black;
-			width: 49.2vw;
+			width: 69.2vw;
 			height: 100%;
 			float: right;
 		}
