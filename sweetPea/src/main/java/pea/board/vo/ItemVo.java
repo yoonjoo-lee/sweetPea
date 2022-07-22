@@ -10,7 +10,7 @@ public class ItemVo {
 	private int subcategory;
 	private String name;
 	private String tag;
-	private String daate;
+	private String date;
 	private int uiidx;
 	private String like;
 	private String heart;
@@ -67,11 +67,11 @@ public class ItemVo {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	public String getDaate() {
-		return daate;
+	public String getDate() {
+		return date;
 	}
-	public void setDaate(String daate) {
-		this.daate = daate;
+	public void setDate(String daate) {
+		this.date = daate;
 	}
 	public int getUiidx() {
 		return uiidx;
