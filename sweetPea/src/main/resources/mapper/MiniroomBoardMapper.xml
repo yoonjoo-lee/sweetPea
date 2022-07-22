@@ -9,7 +9,7 @@
 		  FROM pea_minihome
 		 WHERE uidx = #{uidx}
 	</select>
-	
+<!-- 최초 미니홈피  -->	
 	<insert id="insertMiniHome" parameterType="int">
 		INSERT INTO pea_minihome(
 				uidx
@@ -17,10 +17,45 @@
 				#{uidx}
 		)
 	</insert>
+<!-- 최초 게시글 -->
+	<insert id="firstBoard" parameterType="int">
+		INSERT INTO pea_minihome_board(
+			   uidx
+			 , title
+			 , content
+			 , writer
+			 , ip
+			 , category
+			 , subcategory
+		)VALUES(
+			   #{uidx}
+			 , 'SweetPea에 오신걸 환영합니다.'
+			 , '최초 미니홈피가 생성되었습니다'
+			 , '운영자'
+			 , 'NoIP'
+			 , 2
+			 , '새 카테고리'
+		)
+	</insert>
 	
 	<update id="changeHeader" parameterType="MiniHomeVo">
 		UPDATE pea_minihome
-		   SET h2 = #{h2}
+		   SET h2 	= #{h2}
 		 WHERE uidx = #{uidx}
 	</update>
+	
+	<update id="changeLeftBoard" parameterType="MiniHomeVo">
+		UPDATE pea_minihome
+		   SET h1	= #{h1}
+		 WHERE uidx = #{uidx}
+	</update>
+	
+	<!-- 카테고리 종류 확인 -->
+	<select id="checkCategory" parameterType="int" resultType="MiniRoomBoardVo">
+		  SELECT subcategory
+		    FROM pea_minihome_board
+		   WHERE category	= 2
+		     AND uidx		= #{uidx} 
+	    GROUP BY subcategory;
+	</select>
 </mapper>

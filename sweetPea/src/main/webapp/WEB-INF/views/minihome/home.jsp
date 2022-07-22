@@ -39,14 +39,20 @@ h3>img{
 }
 .upDateBox{
 	display: inline-block;
-    background-color: gray;
     width: 35vw;
     height: 25vh;
     margin-right: 1vw;
+    float: left;
+}
+.upDateBox>p{
+	font-size: 2.5vh;
+	margin-bottom: 1vh;
+    font-weight: bold;
+    padding-left: 1vw;
 }
 .boardListBox{
 	display: inline-block;
-    background-color: gray;
+    background-color: #f0f2e9;
     width: 53vw;
     height: 25vh;
     border-radius: 15px;
@@ -63,6 +69,7 @@ h3>img{
 		$("h3").html("<input type='text' id='changeHeader' value='${mini.h2}'>"
 				+"<input type='button' class='headerBtn' value='취소' onclick='location.reload()'>"
 				+"<input type='button' class='headerBtn' value='변경' onclick='inputHeader()'>");
+		$("#changeHeader").focus();
 	}
 	function inputHeader(){
 		$.ajax({
@@ -80,7 +87,6 @@ h3>img{
 				}
 			}
 		});
-		
 	}
 </script>
 </head>
@@ -90,7 +96,10 @@ h3>img{
 	</h3>
 	<hr>
 	<div class="center-topBox">
-	<div class="upDateBox"></div>
+	<div class="upDateBox">
+		<p>Update</p>
+		<hr>
+	</div>
 	<div class="boardListBox"></div>
 	</div>
 	<hr>
