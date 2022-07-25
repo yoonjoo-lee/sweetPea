@@ -4,5 +4,5 @@ import pea.board.vo.MiniroomBoardVo;
 
 public interface MiniroomBoard2Service {
 
-	int writediary(MiniroomBoardVo vo);
+	int writemini(MiniroomBoardVo vo);
 }

@@ -167,13 +167,13 @@ $(function(){
 
 </head>
 <body>
-<form action="diary_write" method="post">
+<form action="<%=request.getContextPath()%>/miniroomboard2/diary_write.do" method="post">
 	<h3>글쓰기<button type="submit">작성</button></h3>
 	<hr>
 	
 	<div id="title-box">
 		<input id="title" name="title" placeholder="제목을 입력해 주세요">
-		<input type="checkbox" name="secret" value="Y">
+		비밀글<input type="checkbox" name="secret" value="Y">
 		<div class="dropdown">
 		<button class="dropbtn" type="button" >
 			<span class="dropbtn_icon"></span>
@@ -181,7 +181,7 @@ $(function(){
 			<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
 		</button>
 		<div class="dropdown-content">
-			<c:forEach var="cate" items="${category}">
+			<c:forEach var="cate" items="${subcategory}">
 				<div class="diary-category" onclick="showMenu(this.innerText)">${cate.subcategory}</div>
 			</c:forEach>
 		</div>
