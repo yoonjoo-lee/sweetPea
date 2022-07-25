@@ -67,8 +67,10 @@ public class MainBoardController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "5";
 		}
-		
+	
 		vo = new PagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearchType(searchVo.getSearchType());
+		vo.setSearchValue(searchVo.getSearchValue());
 		
 		model.addAttribute("paging", vo);
 		

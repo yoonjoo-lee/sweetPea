@@ -269,7 +269,7 @@ window.onload=()=>{
 		</div>
 	</div>
 	<c:if test="${login.uidx == mini.uidx }">
-	<input type="button" id='writeDiary' onclick="location.href='diary-write.do?uidx=${login.uidx}'" value="글 작성">
+	<input type="button" id='writeDiary' onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
 	</c:if>
 	<hr>
 	

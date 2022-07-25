@@ -167,12 +167,13 @@ $(function(){
 
 </head>
 <body>
-<form>
-	<h3>글쓰기<button>작성</button></h3>
+<form action="diary_write" method="post">
+	<h3>글쓰기<button type="submit">작성</button></h3>
 	<hr>
 	
 	<div id="title-box">
 		<input id="title" name="title" placeholder="제목을 입력해 주세요">
+		<input type="checkbox" name="secret" value="Y">
 		<div class="dropdown">
 		<button class="dropbtn" type="button" >
 			<span class="dropbtn_icon"></span>
@@ -187,7 +188,7 @@ $(function(){
 	</div>
 	</div>
 		<textarea id="summernote" name="content"></textarea>
-		
+	<input type="hidden" name="category" value=${category }>
 </form>
 </body>
 </html>
