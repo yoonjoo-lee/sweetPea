@@ -20,7 +20,7 @@
   background-color: #fcfcfc;
   font-weight: 400;
   color : rgb(124, 124, 124);
-  width :20vw;
+  width :25vw;
   text-align: left;
   cursor : pointer;
   font-size : 2vw;
@@ -33,7 +33,7 @@
   display : none;
   font-weight: 400;
   background-color: #fcfcfc;
-  min-width : 20vw;
+  min-width : 25vw;
   border-radius: 8px;
   max-height : 20vh;
   overflow : scroll;
@@ -87,7 +87,7 @@
 	display: none;
 }
 #inputCategory{
-	width: 12vw;
+	width: 15vw;
     font-size: 2vw;
     padding: 0;
 }
@@ -141,8 +141,7 @@ window.onload=()=>{
         var openDropdown = dropdowns[i];
         if (openDropdown.classList.contains('show') && e.target.id != 'plusCategory' && e.target.id != 'inputCategory' && e.target.className != 'inputBtn'
         	&& e.target.className != 'inputBtn host') {
-          openDropdown.classList.remove('show');
-          $("#inputCategory").parent().remove();
+        	openDropdown.classList.remove('show'); 
         }
       }
     }
@@ -222,7 +221,7 @@ window.onload=()=>{
 		console.log($val);
 		$(e).parent().html("<input type='text' id='inputCategory' value='"+$val+"'>"
 			+"<img class='inputBtn' src='<%=request.getContextPath()%>/resources/images/left.png' onclick='changeCategoryAction()'>");
-		$(e).focus();
+		$("#inputCategory").focus();
 	}
 	
 	function changeCategoryAction(){
@@ -269,7 +268,7 @@ window.onload=()=>{
 		</div>
 	</div>
 	<c:if test="${login.uidx == mini.uidx }">
-	<input type="button" id='writeDiary' onclick="location.href='diary-write.do?uidx=${login.uidx}'" value="글 작성">
+	<input type="button" id='writeDiary' onclick="location.href='<%=request.getContextPath()%>/mini/diary-write.do?uidx=${login.uidx}'" value="글 작성">
 	</c:if>
 	<hr>
 	

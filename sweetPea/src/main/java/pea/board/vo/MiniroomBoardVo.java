@@ -1,12 +1,12 @@
 package pea.board.vo;
 
-public class MiniroomBoardVo {
+public class MiniroomBoardVo extends UserVo{
 
 	private int mbidx;
 	private int uidx;
 	private String title;
 	private String content;
-	private String writer;
+	private int writer;
 	private String date;
 	private String ip;
 	private int category;
@@ -40,10 +40,10 @@ public class MiniroomBoardVo {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 	public String getDate() {

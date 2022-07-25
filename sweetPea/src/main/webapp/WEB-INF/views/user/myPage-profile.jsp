@@ -203,7 +203,7 @@ $(function(){
 </script>
 
 
-	<br><br><h3>프로필 변경</h3>
+	<%-- <br><br><h3>프로필 변경</h3>
 	
 	<img alt="" src="${login.profile }">
 	<form action="profileUpload.do" method="post" enctype="multipart/form-data">
@@ -231,7 +231,7 @@ $(function(){
 		    });
 		</script> 
 	
-	</form>
+	</form> --%>
 	
 </body>
 </html>
