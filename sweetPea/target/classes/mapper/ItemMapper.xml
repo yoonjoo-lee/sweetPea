@@ -11,4 +11,13 @@
 		SET profile = #{profile}
 		WHERE uidx = #{uidx}
 	</update>
+	
+	<select id="itemNameCheck" parameterType="string" resultType="string">
+		SELECT name 
+		FROM pea_item 
+		WHERE name = #{name} 
+		AND delyn ='N'
+		
+	
+	</select>
 </mapper>
