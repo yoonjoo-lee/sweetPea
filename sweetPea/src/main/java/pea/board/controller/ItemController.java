@@ -1,6 +1,8 @@
 package pea.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetAddress;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,9 +67,27 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value="/item/item-write.do", method=RequestMethod.POST)
-	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest reqeust, HttpSession session) {
+	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest request, HttpSession session) throws IOException {
 		
-		session = reqeust.getSession();
+		session = request.getSession();
+		UserVo login = (UserVo) session.getAttribute("login");
+		PrintWriter pw = response.getWriter();
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		vo.setUiidx(login.getUidx());
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
+		System.out.println(path);
+		System.out.println(vo.getImg());
+		int result = itemService.itemWrite(vo);
+		
+		response.setContentType("text/html;charset=utf-8");
+		
+		if(result <= 0) {
+			pw.append("<script>alert('아이템이 등록되지 않았습니다.');location.href='item/item-write.do'</script>");
+			pw.flush();
+		}else {
+			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='item/shop.do'</script>");
+		}
 		
 		
 		
