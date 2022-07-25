@@ -12,7 +12,17 @@
  	,title
  	,content
  	,writer
- 	,
+ 	,ip
+ 	,category
+ 	,secret
+ ) VALUES(
+ 	 #{uidx}
+ 	,#{title}
+ 	,#{content}
+ 	,#{writer}
+ 	,#{ip}
+ 	,#{category}
+ 	,#{secret}
  )
 </insert>
 

@@ -1,5 +1,19 @@
 package pea.board.dao;
 
-public class MiniroomBoard2Dao {
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import pea.board.vo.MiniroomBoardVo;
+
+@Repository
+public class MiniroomBoard2Dao {
+	@Autowired
+	SqlSession sqlSession;
+	
+	private static final String namespace = "pea.board.mapper.MiniroomBoard2Mapper";
+	
+	public int writemini(MiniroomBoardVo vo) {
+		return sqlSession.insert(namespace+".writemini",vo);
+	}
 }
