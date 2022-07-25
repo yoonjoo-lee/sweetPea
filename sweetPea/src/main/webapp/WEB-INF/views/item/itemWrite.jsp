@@ -114,7 +114,7 @@ table {
 						<div class="upload">
 							<input type="file" name="file" accept="image/jpeg, image/png, image/gif" id="photoBtn"><label for="photoBtn">사진 첨부하기</label>
 						</div>
-					</div> <a href="javascript:void(0);" id="complete">업로드</a></td>
+					</div> <!-- <a href="javascript:void(0);" id="complete">업로드</a> --></td>
 			</tr>
 		</table>
 
@@ -138,9 +138,37 @@ table {
 			<tbody>
 				<tr>
 					<th>아이템 이름 :</th>
-					<td width="300px;"><input type="text" name="item-name" size="23"><span> </span><input type="button" value="이름 중복 체크"></td>
+					<td width="300px;"><input type="text" name="item-name" id="item-name" size="23" placeholder="아이템 이름 작성" maxlength="15"><span id="span-itemNameCheck"></span></td>
+					<script>
+																							/* 한글과 영어 숫자만 사용 가능 */	
+						$('#item-name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+							
+						$('#item-name').blur(function(){
+							if($('#item-name').val()==""){
+								$('#span-itemNameCheck').text('아이템 이름을 입력하세요');
+								$('#span-itemNameCheck').css('color','red');
+							}else{
+								
+			/* 				alert($('#item-name').val()); */
+							$.ajax({
+									url:"itemNameCheck.do",
+									type:"get",
+									data:"name="+$('#item-name').val(),
+									success: function(data){
+										if(data==1){
+											$('#span-itemNameCheck').text('중복된 아이템 이름입니다.');
+											$('#span-itemNameCheck').css('color','red');
+										}else{
+											$('#span-itemNameCheck').text('사용가능한 아이템 이름입니다.');
+											$('#span-itemNameCheck').css('color','green');
+										}
+									}
+								});
+							}
+						});
+					</script>
 					<th>아이템 종류 :</th>
-					<td><select>
+					<td><select id="item-category" name="item-category">
 							<option value="MNR">미니룸</option>
 							<option value="BGM">BGM</option>
 							<option value="CTM">커스텀</option>
