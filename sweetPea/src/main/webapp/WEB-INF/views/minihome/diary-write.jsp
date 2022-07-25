@@ -177,7 +177,7 @@ $(function(){
 		<div class="dropdown">
 		<button class="dropbtn" type="button" >
 			<span class="dropbtn_icon"></span>
-			<span class="dropbtn_content">카테고리1</span>
+			<span class="dropbtn_content">카테고리1d</span>
 			<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
 		</button>
 		<div class="dropdown-content">
