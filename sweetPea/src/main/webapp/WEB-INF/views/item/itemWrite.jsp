@@ -100,8 +100,8 @@ table {
 		<b>아이템 이미지</b>
 	</h4>
 	<!-- 사진 업로드 -->
-	<img alt="" src="">
-	<form action="item-write.do" method="post" enctype="multipart/form-data">
+	<img alt="" src="${vo.img }">
+	<form action="itemWrite.do" method="post" enctype="multipart/form-data">
 
 		<table style="text-align: center;">
 			<tr>
@@ -118,19 +118,6 @@ table {
 			</tr>
 		</table>
 
-		<script>
-	   $("#photoBtn").on("change", function(event) {
-	    var file = event.target.files[0];
-	    var reader = new FileReader(); 
-	    reader.onload = function(e) {
-	        $("#newImg").attr("src", e.target.result);
-	        $('#btn').attr('disabled',false);
-	    }
-	    reader.readAsDataURL(file);
-	    });
-	   
-
-	</script>
 
 	<!-- <form action="item-write.do" method="post"> -->
 		<table style="width: 700px; height: 150px;">
@@ -148,7 +135,7 @@ table {
 				</tr>
 				<tr>
 					<th>상품가격 :</th>
-					<td><input type="number" name="price" id="price" size="23"> 원</td>
+					<td><input type="text" name="price" id="price" size="23" maxlength="2"> 완두콩</td>
 				</tr>
 				<tr>
 									<th>태그 :</th>
@@ -161,14 +148,27 @@ table {
 			</tbody>
 		</table>
 		<div>
-			<button>아이템 등록</button>
+			<input type="submit" id="btn" disabled="disabled" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
 
 <script>
+/* 사진 업로드 jQuery */
+$("#photoBtn").on("change", function(event) {
+ var file = event.target.files[0];
+ var reader = new FileReader(); 
+ reader.onload = function(e) {
+     $("#newImg").attr("src", e.target.result);
+     $('#btn').attr('disabled',false);
+ }
+ reader.readAsDataURL(file);
+ });
 
-            
+
+
+          /* price 숫자만 넣기 */
+       $('#price').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9]/g,"") );});
 
 /* 아이템 이름 중복 확인 ajax */
 																				/* 한글과 영어 숫자만 사용 가능 */	

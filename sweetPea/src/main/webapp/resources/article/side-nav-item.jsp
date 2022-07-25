@@ -254,7 +254,7 @@ a:hover {
 			<h3>관리자</h3>
 			<ul>
 				<li><a onclick="">아이템 승인</a></li>
-				<li><a onclick="info('item-write.do')">아이템 등록</a></li>
+				<li><a onclick="info('itemWrite.do')">아이템 등록</a></li>
 				<li><a onclick="">보류</a></li>
 			</ul>
 		</c:if>
