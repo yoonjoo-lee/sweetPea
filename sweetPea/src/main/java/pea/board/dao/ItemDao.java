@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pea.board.vo.ItemVo;
+
 @Repository
 public class ItemDao {
 	
@@ -24,5 +26,8 @@ public class ItemDao {
 	}
 	
 	
+	public int itemWrite(ItemVo vo) {
+		return sqlSession.insert(namespace+".iTemInsert", vo);
+	}
 	
 }

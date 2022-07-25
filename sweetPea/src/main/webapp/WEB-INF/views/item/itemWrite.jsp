@@ -101,11 +101,11 @@ table {
 	</h4>
 	<!-- 사진 업로드 -->
 	<img alt="" src="">
-	<form action="profileUpload.do" method="post" enctype="multipart/form-data">
+	<form action="item-write.do" method="post" enctype="multipart/form-data">
 
 		<table style="text-align: center;">
 			<tr>
-				<td><img class="item-image" name="newImg" id="newImg"></td>
+				<td><img class="item-image" name="img" id="newImg"></td>
 			</tr>
 
 
@@ -131,61 +131,77 @@ table {
 	   
 
 	</script>
-	</form>
 
-	<form action="">
+	<!-- <form action="item-write.do" method="post"> -->
 		<table style="width: 700px; height: 150px;">
 			<tbody>
 				<tr>
 					<th>아이템 이름 :</th>
-					<td width="300px;"><input type="text" name="item-name" id="item-name" size="23" placeholder="아이템 이름 작성" maxlength="15"><span id="span-itemNameCheck"></span></td>
-					<script>
-																							/* 한글과 영어 숫자만 사용 가능 */	
-						$('#item-name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
-							
-						$('#item-name').blur(function(){
-							if($('#item-name').val()==""){
-								$('#span-itemNameCheck').text('아이템 이름을 입력하세요');
-								$('#span-itemNameCheck').css('color','red');
-							}else{
-								
-			/* 				alert($('#item-name').val()); */
-							$.ajax({
-									url:"itemNameCheck.do",
-									type:"get",
-									data:"name="+$('#item-name').val(),
-									success: function(data){
-										if(data==1){
-											$('#span-itemNameCheck').text('중복된 아이템 이름입니다.');
-											$('#span-itemNameCheck').css('color','red');
-										}else{
-											$('#span-itemNameCheck').text('사용가능한 아이템 이름입니다.');
-											$('#span-itemNameCheck').css('color','green');
-										}
-									}
-								});
-							}
-						});
-					</script>
+					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15"><span id="span-itemNameCheck"></span></td>
+
 					<th>아이템 종류 :</th>
-					<td><select id="item-category" name="item-category">
-							<option value="MNR">미니룸</option>
-							<option value="BGM">BGM</option>
-							<option value="CTM">커스텀</option>
+					<td><select id="category" name="category">
+							<option value="1">미니룸</option>
+							<option value="2">BGM</option>
+							<option value="3">커스텀</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>상품가격 :</th>
-					<td><input type="number" name="item-price" id="item-price" size="23"> 원</td>
+					<td><input type="number" name="price" id="price" size="23"> 원</td>
+				</tr>
+				<tr>
+									<th>태그 :</th>
+					<td><select id="tag" name="tag">
+							<option value="1">미니룸</option>
+							<option value="2">BGM</option>
+							<option value="3">커스텀</option>
+					</select></td>
 				</tr>
 			</tbody>
 		</table>
 		<div>
-			<input type="button" value="아이템 등록" onclick="">
+			<button>아이템 등록</button>
+			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
 
+<script>
 
+            
+
+/* 아이템 이름 중복 확인 ajax */
+																				/* 한글과 영어 숫자만 사용 가능 */	
+	$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+		
+	$('#name').blur(function(){
+		if($('#name').val()==""){
+			$('#span-itemNameCheck').text('아이템 이름을 입력하세요');
+			$('#span-itemNameCheck').css('color','red');
+		}else{
+			
+/* 				alert($('#item-name').val()); */
+		$.ajax({
+				url:"itemNameCheck.do",
+				type:"get",
+				data:"name="+$('#name').val(),
+				success: function(data){
+					if(data==1){
+						$('#span-itemNameCheck').text('중복된 아이템 이름입니다.');
+						$('#span-itemNameCheck').css('color','red');
+					}else{
+						$('#span-itemNameCheck').text('사용가능한 아이템 이름입니다.');
+						$('#span-itemNameCheck').css('color','green');
+					}
+				}
+			});
+		}
+	});
+	
+	
+	
+	
+</script>
 
 	<script>
 

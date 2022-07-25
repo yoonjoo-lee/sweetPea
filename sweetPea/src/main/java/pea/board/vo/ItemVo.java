@@ -17,8 +17,23 @@ public class ItemVo {
 	private String cart;
 	private String buy;
 	private String inout;
+	private String img;
+	private String ip;
 	
 	
+	
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	public int getIidx() {
 		return iidx;
 	}

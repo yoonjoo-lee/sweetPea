@@ -8,16 +8,43 @@
 
 	<update id="itemImgUpload" parameterType="itemVo">
 		UPDATE pea_user
-		SET profile = #{profile}
+		SET
+		profile = #{profile}
 		WHERE uidx = #{uidx}
 	</update>
-	
-	<select id="itemNameCheck" parameterType="string" resultType="string">
-		SELECT name 
-		FROM pea_item 
-		WHERE name = #{name} 
+
+	<select id="itemNameCheck" parameterType="string"
+		resultType="string">
+		SELECT name
+		FROM pea_item
+		WHERE name = #{name}
 		AND delyn ='N'
-		
-	
+
 	</select>
+	
+	<insert id="iTemInsert" parameterType="itemVo">
+	INSERT INTO pea_item(
+				  price
+				, category
+				, subcategory
+				, name
+				, tag
+				, img	
+				, maker	
+				, ip
+	) 
+	VALUES(
+				  #{price}
+				, #{category}
+				, 1
+				, #{name}
+				, #{tag}
+				, 'img'
+				, 'maker'
+				, #{ip}
+	)
+	
+	
+	
+	</insert>
 </mapper>
