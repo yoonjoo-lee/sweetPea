@@ -95,6 +95,51 @@ public class MiniroomBoardController {
 		else return 0;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/delCategory.do", produces = "application/json;charset=utf8")
+	public int delCategory(HttpServletRequest request) {
+		String subcategory = request.getParameter("subcategory");
+		int uidx = Integer.parseInt(request.getParameter("uidx"));
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setSubcategory(subcategory);
+		vo.setUidx(uidx);
+		int result = miniroomBoardService.delCategory(vo);
+		if(result >= 1) {
+			return 1;
+		}
+		else return 0;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/plusCategory.do", produces = "application/json;charset=utf8")
+	public int plusCategory(HttpServletRequest request) {
+		String subcategory = request.getParameter("subcategory");
+		int uidx = Integer.parseInt(request.getParameter("uidx"));
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setSubcategory(subcategory);
+		vo.setUidx(uidx);
+		int result = miniroomBoardService.plusCategory(vo);
+		if(result >= 1) {
+			return 1;
+		}
+		else return 0;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/changeCategory.do", produces = "application/json;charset=utf8")
+	public int changeCategory(HttpServletRequest request) {
+		String subcategory = request.getParameter("subcategory");
+		String beforeSubcategory = request.getParameter("beforeSubcategory");
+		int uidx = Integer.parseInt(request.getParameter("uidx"));
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setSubcategory(subcategory);
+		vo.setUidx(uidx);
+		vo.setContent(beforeSubcategory);
+		int result = miniroomBoardService.changeCategory(vo);
+		if(result >= 1) {
+			return 1;
+		}
+		else return 0;
+	}
 	
 }
