@@ -22,6 +22,7 @@ public class MiniroomBoardDao {
 		if(vo == null) {
 			sqlSession.insert(namespace+".insertMiniHome",uidx);
 			sqlSession.insert(namespace+".firstBoard",uidx);
+			sqlSession.insert(namespace+".firstSubCategory",uidx);
 			
 			return sqlSession.selectOne(namespace+".joinMiniHome",uidx);
 		}else
@@ -38,5 +39,17 @@ public class MiniroomBoardDao {
 	
 	public List<MiniroomBoardVo> checkCategory(int uidx){
 		return sqlSession.selectList(namespace+".checkCategory",uidx);
+	}
+	
+	public int delCategory(MiniroomBoardVo vo) {
+		return sqlSession.update(namespace+".delCategory",vo);
+	}
+	
+	public int plusCategory(MiniroomBoardVo vo) {
+		return sqlSession.insert(namespace+".plusCategory",vo);
+	}
+	
+	public int changeCategory(MiniroomBoardVo vo) {
+		return sqlSession.update(namespace+".changeCategory", vo);
 	}
 }

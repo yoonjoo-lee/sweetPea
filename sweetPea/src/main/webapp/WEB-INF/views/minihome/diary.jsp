@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 .dropdown{
   position : relative;
@@ -51,7 +52,7 @@
   text-decoration : none;
   color : rgb(37, 37, 37);
   font-size: 2vw;
-  padding: 1vh 2vw;
+  padding: 1vh 0 1vh 2vw;
   cursor: pointer;
 }
 .dropdown-content div:not(:first-child):hover{
@@ -84,6 +85,17 @@
 }
 .host{
 	display: none;
+}
+#inputCategory{
+	width: 12vw;
+    font-size: 2vw;
+    padding: 0;
+}
+.inputBtn{
+    width: 2vw;
+    float: right;
+    padding-top: 0.4vw;
+    padding-right: 0.2vw;
 }
 </style>
 <script>
@@ -127,12 +139,111 @@ window.onload=()=>{
       var i;
       for (i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
+        if (openDropdown.classList.contains('show') && e.target.id != 'plusCategory' && e.target.id != 'inputCategory' && e.target.className != 'inputBtn'
+        	&& e.target.className != 'inputBtn host') {
           openDropdown.classList.remove('show');
+          $("#inputCategory").parent().remove();
         }
       }
     }
   }
+</script>
+<script>
+	function newCategory(){
+		$(".dropdown-content").append("<div class='diary-category'><input type='text' id='inputCategory' placeholder='생성하기'>"
+			+"<img class='inputBtn' src='<%=request.getContextPath()%>/resources/images/plus.png' onclick='plusCategory()'></div>");
+		$("#inputCategory").focus();
+	}
+	
+	async function delCategory(e){
+		var $name = $(e).parent().text();
+		await Swal.fire({
+			title: '정말로 삭제하시겠습니까?',
+			text: "카테고리 삭제시, 해당카테고리에 있던 게시물들도 전부 삭제됩니다",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '삭제',
+			cancelButtonText: '취소',
+			position: 'top',
+			width: '30em'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
+				$.ajax({
+					url:"delCategory.do",
+					type:"get",
+					data:{	"subcategory"	: $name,
+							"uidx"	: ${mini.uidx}
+					},
+					success: async function(data){
+						if(data == 1){
+						await Swal.fire({
+						    title: '삭제완료',
+						    text: '카테고리가 삭제되었습니다',
+						    icon: 'success',
+						    position: 'top',
+						    width: '25em',
+						});
+						window.location.reload();
+						}
+						else{
+							alert("오류!");
+						}
+					}
+				});
+			  }
+	    });
+	}
+	
+	function plusCategory(){
+		var $new = $("#inputCategory").val();
+		$.ajax({
+			url:"plusCategory.do",
+			type:"get",
+			data:{	"subcategory"	: $new,
+					"uidx"	: ${mini.uidx}
+			},
+			success: function(data){
+				if(data==1){
+					window.location.reload();
+				}
+				else{
+					alert("오류!");
+				}
+			}
+		});
+	}
+	
+	var $val = 0;
+	function changeCategory(e){
+		$val = $(e).parent().text();
+		console.log($val);
+		$(e).parent().html("<input type='text' id='inputCategory' value='"+$val+"'>"
+			+"<img class='inputBtn' src='<%=request.getContextPath()%>/resources/images/left.png' onclick='changeCategoryAction()'>");
+		$(e).focus();
+	}
+	
+	function changeCategoryAction(){
+		var $change = $("#inputCategory").val();
+		 $.ajax({
+			url:"changeCategory.do",
+			type:"get",
+			data:{	"subcategory"	: $change,
+					"uidx"	: ${mini.uidx},
+					"beforeSubcategory" : $val
+			},
+			success: function(data){
+				if(data==1){
+					window.location.reload();
+				}
+				else{
+					alert("오류!");
+				}
+			}
+		}); 
+	}
 </script>
 </head>
 <body>
@@ -142,11 +253,13 @@ window.onload=()=>{
 			<span class="dropbtn_content">전체글 보기</span>
 			<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
 		</button>
-		<div class="dropdown-content">
-			<div class="diary-category host" onclick="showMenu(this.innerText)"><span>+</span></div>
+		<div class="dropdown-content" id="content-list">
+			<div class="diary-category host" onclick="showMenu(this.innerText)"><span id="plusCategory" onclick="newCategory()">+</span></div>
 			<div class="diary-category" onclick="showMenu(this.innerText)">전체글 보기</div>
 			<c:forEach var="cate" items="${category}">
-				<div class="diary-category" onclick="showMenu(this.innerText)">${cate.subcategory}</div>
+				<div class="diary-category" onclick="showMenu(this.innerText)"
+				>${cate.subcategory}<img src="<%=request.getContextPath()%>/resources/images/delete.png" class="inputBtn host" onclick="delCategory(this)"
+				><img src="<%=request.getContextPath()%>/resources/images/pencil.png" class="inputBtn host" onclick="changeCategory(this)"></div>
 			</c:forEach>
 			<c:if test="${login.uidx == mini.uidx}">
 			<script>

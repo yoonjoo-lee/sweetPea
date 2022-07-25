@@ -91,7 +91,7 @@
 <textarea id="summernote" name="content"></textarea>
 <input type="hidden" name="category" value=${category }>
 
-<button type="submit">작dd성dd</button>
+<button type="submit">작성</button>
 </form>
 </div>
 <br>
