@@ -35,4 +35,19 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 		return miniroomBoardDao.checkCategory(uidx);
 	}
 
+	@Override
+	public int delCategory(MiniroomBoardVo vo) {
+		return miniroomBoardDao.delCategory(vo);
+	}
+
+	@Override
+	public int plusCategory(MiniroomBoardVo vo) {
+		return miniroomBoardDao.plusCategory(vo);
+	}
+
+	@Override
+	public int changeCategory(MiniroomBoardVo vo) {
+		return miniroomBoardDao.changeCategory(vo);
+	}
+
 }

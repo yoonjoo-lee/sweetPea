@@ -10,4 +10,7 @@ public interface MiniroomBoardService {
 	int changeHeader(MiniHomeVo vo);
 	int changeLeftBoard(MiniHomeVo vo);
 	List<MiniroomBoardVo> checkCategory(int uidx);
+	int delCategory(MiniroomBoardVo vo);
+	int plusCategory(MiniroomBoardVo vo);
+	int changeCategory(MiniroomBoardVo vo);
 }

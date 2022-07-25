@@ -26,15 +26,31 @@
 			 , writer
 			 , ip
 			 , category
-			 , subcategory
 		)VALUES(
 			   #{uidx}
 			 , 'SweetPea에 오신걸 환영합니다.'
 			 , '최초 미니홈피가 생성되었습니다'
-			 , '운영자'
+			 , 1
 			 , 'NoIP'
 			 , 2
+		)
+	</insert>
+<!-- 최초 카테고리 -->
+	<insert id="firstSubCategory" parameterType="int">
+		INSERT INTO pea_subcategory
+		(
+			   uidx
+			 , subcategory
+			 , mbidx
+		)
+		VALUES
+		(
+			   #{uidx}
 			 , '새 카테고리'
+			 , (
+			 	SELECT max(mbidx)
+			 	  FROM pea_minihome_board
+			   )
 		)
 	</insert>
 	
@@ -53,9 +69,36 @@
 	<!-- 카테고리 종류 확인 -->
 	<select id="checkCategory" parameterType="int" resultType="MiniRoomBoardVo">
 		  SELECT subcategory
-		    FROM pea_minihome_board
-		   WHERE category	= 2
-		     AND uidx		= #{uidx} 
+		    FROM pea_subcategory
+		   WHERE uidx		= #{uidx}
+		     AND delyn		= 'N' 
 	    GROUP BY subcategory;
 	</select>
+	
+	<update id="delCategory" parameterType="MiniroomBoardVo">
+		UPDATE pea_minihome_board a, pea_subcategory b
+		   SET a.delyn = 'Y',b.delyn = 'Y'
+		 WHERE subcategory	= #{subcategory}
+		   AND a.uidx 		= #{uidx}
+	</update>
+	
+	<insert id="plusCategory" parameterType="MiniroomBoardVo">
+		INSERT INTO pea_subcategory
+		(
+			   uidx
+			 , subcategory
+		)
+		VALUES
+		(
+			   #{uidx}
+			 , #{subcategory}
+		)
+	</insert>
+	
+	<update id="changeCategory" parameterType="MiniroomBoardVo">
+		UPDATE pea_subcategory
+		   SET subcategory	= #{subcategory}
+		 WHERE uidx = #{uidx}
+		   AND subcategory = #{content}
+	</update>
 </mapper>
