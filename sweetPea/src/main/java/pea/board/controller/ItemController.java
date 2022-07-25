@@ -60,13 +60,13 @@ public class ItemController {
 
 //	/* 아이템 등록 구문 */
 
-	@RequestMapping(value = "/item/item-write.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/itemWrite.do", method = RequestMethod.GET)
 	public String itemWrite() {
 
 		return "item/itemWrite";
 	}
 	
-	@RequestMapping(value="/item/item-write.do", method=RequestMethod.POST)
+	@RequestMapping(value="/item/itemWrite.do", method=RequestMethod.POST)
 	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest request, HttpSession session) throws IOException {
 		
 		session = request.getSession();
@@ -75,6 +75,7 @@ public class ItemController {
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 		vo.setUiidx(login.getUidx());
+		vo.setImg(vo.getImg()); 
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
 		System.out.println(path);
 		System.out.println(vo.getImg());
@@ -83,10 +84,11 @@ public class ItemController {
 		response.setContentType("text/html;charset=utf-8");
 		
 		if(result <= 0) {
-			pw.append("<script>alert('아이템이 등록되지 않았습니다.');location.href='item/item-write.do'</script>");
+			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
 			pw.flush();
 		}else {
-			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='item/shop.do'</script>");
+			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do'</script>");
+			pw.flush();
 		}
 		
 		

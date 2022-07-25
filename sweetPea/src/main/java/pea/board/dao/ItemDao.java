@@ -27,7 +27,7 @@ public class ItemDao {
 	
 	
 	public int itemWrite(ItemVo vo) {
-		return sqlSession.insert(namespace+".iTemInsert", vo);
+		return sqlSession.insert(namespace+".itemInsert", vo);
 	}
 	
 }

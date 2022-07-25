@@ -6,12 +6,6 @@
 <mapper namespace="pea.board.mapper.ItemMapper">
 
 
-	<update id="itemImgUpload" parameterType="itemVo">
-		UPDATE pea_user
-		SET
-		profile = #{profile}
-		WHERE uidx = #{uidx}
-	</update>
 
 	<select id="itemNameCheck" parameterType="string"
 		resultType="string">
@@ -22,7 +16,7 @@
 
 	</select>
 	
-	<insert id="iTemInsert" parameterType="itemVo">
+	<insert id="itemInsert" parameterType="ItemVo">
 	INSERT INTO pea_item(
 				  price
 				, category
@@ -39,7 +33,7 @@
 				, 1
 				, #{name}
 				, #{tag}
-				, 'img'
+				, #{img}
 				, 'maker'
 				, #{ip}
 	)
