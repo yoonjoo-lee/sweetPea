@@ -142,4 +142,22 @@ public class MiniroomBoardController {
 		else return 0;
 	}
 	
+	/* 미니홈피 - 관리자 */
+	@RequestMapping(value="/mini-option.do", method=RequestMethod.GET)
+	public String minihomeOption(int uidx, Model model) {
+		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
+		model.addAttribute("category",category);
+		
+		return "minihome/option";
+	}
+	
+	/* 미니홈피 - 관리자 - 내정보 */
+	@RequestMapping(value="/option-idx.do", method=RequestMethod.GET)
+	public String option_idx(int uidx, Model model) {
+		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
+		model.addAttribute("category",category);
+		
+		return "minihome/option-idx";
+	}
+	
 }
