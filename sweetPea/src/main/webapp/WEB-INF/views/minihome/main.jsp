@@ -32,7 +32,6 @@
 		z-index: 9999;
 	}
 	#leftBox{
-		/* background-color: #a0df93; */
 		background-color: white;
 		width: 15vw;
 		height: 95%;
@@ -173,6 +172,10 @@
 	}
 </style>
 </c:if>
+<script>
+	$(function(){
+	})
+</script>
 <c:if test="${device eq 'MOBILE'}">
 <style>
 	body{
@@ -181,7 +184,38 @@
 </style>
 </c:if>
 <script>
-function clickBtn(link){ $("#miniIframe").attr("src",link);}
+function clickBtn(link){
+	$("#miniIframe").attr("src",link);
+	$option = 'mini-option.do?uidx=${mini.uidx}';
+	if(link == $option){
+		$("#miniIframe").css({
+			'left': '0',
+		    'top': '0',
+		    'position': 'fixed',
+		    'width': '72vw',
+		    'height': '98vh',
+		    'margin': '1vh 1vw',
+		    'background-color': '#52C3BD',
+			'border-radius': '30px',
+		/* width: 99vw;
+		height: 98vh;
+		margin: 1vh 1vw;
+		z-index: 9999; */
+	    });
+	}else{
+		$("#miniIframe").css({
+			'left': 'inherit',
+			'top': 'inherit',
+			'position': 'relative',
+		    'width': '97%',
+		    'height': '100%',
+		    'margin': '0 auto',
+		    'background-color': 'white',
+			'border-radius': '0',
+		});
+	}
+	
+	}
 function clickThis(e){
 	$(".boardBtn").removeClass('act');
 	$(e).addClass('act');
@@ -250,7 +284,9 @@ function inputLeftBoard(){
 		<div class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>사진첩</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>방명록</p></div>
-		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>관리</p></div>
+		<c:if test="${mini.uidx == login.uidx}">
+		<div class="boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis(this)'><p>관리</p></div>
+		</c:if>
 	</div>
 </div>
 <img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png">
