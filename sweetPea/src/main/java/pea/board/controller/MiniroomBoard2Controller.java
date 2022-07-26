@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
@@ -64,9 +65,44 @@ public class MiniroomBoard2Controller {
 		
 		PrintWriter pw = response.getWriter();
 		
-//		pw.append("<script>history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-//		pw.flush();
+		pw.append("<script>history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 //		return "minihome/diary-write.do?uidx="+login.getUidx()+"&category="+vo.getCategory()+"";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/miniroomboardList.do", produces = "application/json;charset=utf8")
+	public List<MiniroomBoardVo> miniroomboardList() {
+		System.out.println("미니룸 보드 리스트 컨트롤러 들어옴");
+		return miniroomboard2Service.miniroomboardList();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -268,9 +269,57 @@ window.onload=()=>{
 		</div>
 	</div>
 	<c:if test="${login.uidx == mini.uidx }">
-	<input type="button" id='writeDiary' onclick="location.href='<%=request.getContextPath()%>/mini/diary-write.do?uidx=${login.uidx}'" value="글 작성">
+	<input type="button" id='writeDiary' onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
 	</c:if>
 	<hr>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- <button onclick="callBoard()">게시글 불러오기</button> -->
+	<div id="boardList">
+	
+	</div>
+	
+	<script>
+	$(function callBoard(){
+		console.log("콜보드 펑션 들어옴");
+		$.ajax({
+			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
+			type:"get",
+			success:function(data){
+				var html ="";
+				html += "<table>";
+				html += "<tbody>";
+				for(var i=0; i<data.length;i++){
+					html+="<tr>";
+					html+="<td>"+data[i].writer+"</td>";
+					html+="</tr>";
+					html+="<tr>";
+					html+="<td><a href='javascript:viewBoard("+data[i].mbidx+");'>"+data[i].title+"</a></td>";
+					html+="</tr>";
+					html+="<tr>";
+					html+="<td>"+data[i].content+"</td>";
+					html+="</tr>";
+					html+="<tr>";
+					html+="<td>"+data[i].writer+"</td>";
+					html+="</tr>";
+				}
+				html += "</tbody>";
+				html += "</table>";
+				
+				$("#boardList").html(html);
+			}
+		});
+	})
+	</script>
 </body>
 </html>

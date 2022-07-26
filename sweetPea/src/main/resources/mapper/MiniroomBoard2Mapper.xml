@@ -26,4 +26,10 @@
  )
 </insert>
 
+<select id="miniroomboardList" resultType="MiniroomBoardVo">
+	 SELECT * 
+	 FROM pea_minihome_board
+</select>
+ 
+ 
 </mapper>
