@@ -124,7 +124,7 @@ table {
 			<tbody>
 				<tr>
 					<th>아이템 이름 :</th>
-					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15"></td>
+					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15" required ></td>
 				</tr>
 				<tr>
 					<td width="300px;"></td>
@@ -140,7 +140,7 @@ table {
 				</tr>
 				<tr>
 					<th>완두콩 :</th>
-					<td><input type="text" name="price" id="price" size="23" maxlength="2"> 개</td>
+					<td><input type="text" name="price" id="price" size="23" maxlength="2"  required> 개</td>
 				</tr>
 				<tr>
 					<th>해시태그 :</th>
@@ -152,7 +152,7 @@ table {
 				</tr>
 				<tr>
 					<th>만든이</th>
-					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이"></td>
+					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이" required></td>
 				</tr>
 			</tbody>
 		</table>
@@ -212,17 +212,17 @@ $("#photoBtn").on("change", function(event) {
 	
 	function itemWrite(){
 		let fm = document.frm;
-		if($('#name').val == "" || $('#span-itemNameCheck').css('color')=="rgb(255,0,0)"){
+		if($('#name').val() == "" || $('#span-itemNameCheck').css('color')=="rgb(255,0,0)"){
 				$('#name').focus();
 				$('#name').blur();
 				$('#name').focus();
 				return;
-			}else if ($('#price').val== ""){
+			}else if ($('#price').val() == ""){
 				$('#price').focus();
 				$('#price').blur();
 				$('#price').focus();
 				return;
-			}else if ($('#maker').val==""){
+			}else if ($('#maker').val() ==""){
 				$('#maker').focus();
 				$('#maker').blur();
 				$('#maker').focus();
@@ -231,7 +231,7 @@ $("#photoBtn").on("change", function(event) {
 			
 		fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
 		fm.method="post";
-		/* fm.enctype="multipart/form-data";  */
+		fm.enctype="multipart/form-data";  
 		fm.submit();
 		return;
 		}

@@ -213,12 +213,10 @@ ul {
 	<br>
 	<div class="lavel">신상품</div>
 	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width:100%" >
 			
-			<div id="itemList">
-				
-			
-			</div>
+		</div>
+	</div>
 			<script>
 				$(function(){
 				$.ajax({
@@ -229,7 +227,7 @@ ul {
 						var html="";
 						for(var i=0; i<data.length;i++){
 							console.log(data[i].img);
-						html +="<div class='col mb-5'>";
+						html +="<div class='col mb-5' style='float:left;'>";
 						html +="<div class='card h-100'>";
 						html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
 						html +="<div class='card-body p-4'>";
@@ -248,6 +246,8 @@ ul {
 						html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 						html +="<div class='text-center'>";
 						html +="<a class='btn btn-outline-dark mt-auto' href='#'>Add to cart</a>";
+						html +="</div>";
+						html +="</div>";
 						html +="</div>";
 						html +="</div>";
 						html +="</div>";
