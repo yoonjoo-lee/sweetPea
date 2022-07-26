@@ -103,7 +103,7 @@ table {
 	</h4>
 	<!-- 사진 업로드 -->
 	<img alt="" src="${vo.img }">
-	<form action="itemWrite.do" method="post" enctype="multipart/form-data">
+	<form name="frm" onSubmit="return false;">
 
 		<table style="text-align: center;">
 			<tr>
@@ -143,7 +143,7 @@ table {
 					<td><input type="text" name="price" id="price" size="23" maxlength="2"> 개</td>
 				</tr>
 				<tr>
-									<th>해시태그 :</th>
+					<th>해시태그 :</th>
 					<td><select id="tag" name="tag">
 							<option value="1">미니룸</option>
 							<option value="2">BGM</option>
@@ -152,17 +152,17 @@ table {
 				</tr>
 				<tr>
 					<th>만든이</th>
-					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이"> </td>
-				</tr>				
+					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이"></td>
+				</tr>
 			</tbody>
 		</table>
 		<div>
-			<input type="submit" id="btn" disabled="disabled" value="아이템 등록">
+			<input type="button" id="btn" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
 
-<script>
+	<script>
 /* 사진 업로드 jQuery */
 $("#photoBtn").on("change", function(event) {
  var file = event.target.files[0];
@@ -178,6 +178,8 @@ $("#photoBtn").on("change", function(event) {
 
           /* price 숫자만 넣기 */
        $('#price').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9]/g,"") );});
+          /* 만든이 한글과 영어 숫자 사용 가능 */
+       $('#maker').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 
 /* 아이템 이름 중복 확인 ajax */
 																				/* 한글과 영어 숫자만 사용 가능 */	
@@ -208,122 +210,51 @@ $("#photoBtn").on("change", function(event) {
 	});
 	
 	
-	
-	
-</script>
-
-	<script>
-
-
-
-
-
-
-/* $(function(){
-	var cropper;
-    // 사진 업로드 버튼
-    $('#photoBtn').on('change', function(){
-        $('.them_img').empty().append('<img id="image" src="">');
-        var image = $('#image');
-        var imgFile = $('#photoBtn').val();
-        var fileForm = /(.*?)\.(jpg|jpeg|png)$/;
+	function itemWrite(){
+		let fm = document.frm;
+		if($('#name').val == "" || $('#span-itemNameCheck').css('color')=="rgb(255,0,0)"){
+				$('#name').focus();
+				$('#name').blur();
+				$('#name').focus();
+				return;
+			}else if ($('#price').val== ""){
+				$('#price').focus();
+				$('#price').blur();
+				$('#price').focus();
+				return;
+			}else if ($('#maker').val==""){
+				$('#maker').focus();
+				$('#maker').blur();
+				$('#maker').focus();
+				return;
+			}
+			
+		fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
+		fm.method="post";
+		/* fm.enctype="multipart/form-data";  */
+		fm.submit();
+		return;
+		}
 		
-        // 이미지가 확장자 확인 후 노출
-        if(imgFile.match(fileForm)) {
-        	var reader = new FileReader(); 
-        	reader.onload = function(event) { 
-        		image.attr("src", event.target.result);
-        		cropper = image.cropper( {
-        			dragMode: 'move',
-        			viewMode:1,
-        			aspectRatio: 1,
-        			autoCropArea:0.9,
-        			minCropBoxWidth:200,
-       				restore: false,
-                    guides: false,
-                    center: false,
-                    highlight: false,
-                    cropBoxMovable: false,
-                    cropBoxResizable: false,
-                    toggleDragModeOnDblclick: false
-                });
-            }; 
-        	reader.readAsDataURL(event.target.files[0]);
-        } else{
-        	alert("이미지 파일(jpg, png형식의 파일)만 올려주세요");
-        	$('#photoBtn').focus();
-        	return; 
-        }
-	});
-    // 사진 다시 올리기 버튼
-    $('#resetPhoto').on('click', function(){
-        if($('input[type="file"]').val() != ""){
-        	$('#photoBtn').val('');
-        	$('.them_img img').attr('src','').remove();
-        	$('.btn_wrap a:last-child').removeClass('bg1');
-        	$('input[type="file"]').click();
-        }else{
-        	//alert('업로드된 사진이 없습니다.');
-        }
-    });
-    // 업로드 버튼
-    $('#complete').on('click', function(){
-    	$('.them_img').append('<div class="result_box"><img name="file" id="result" src=""></div>');
-    	var image = $('#image');
-    	var result = $('#result');
-    	var canvas;
-    	
-    	if($('input[type="file"]').val() != ""){
-    	canvas = image.cropper('getCroppedCanvas',{
-    		width:200,
-    		height:200
-    	});
-    	
-    	const dataUrl = canvas.toDataURL(`image/jpeg`, 0.5);
-    	
-    	console.log("dataUrl:",dataUrl);
-    	
-    	
-    	// 여기 0719
-    	//var file = document.querySelector('input[type=file]').files[0];
-		//fr.readAsDataURL(file);
-		//console.log('tmp',tmp);
-		// 여기 0719
-    	
-    	result.attr('src',canvas.toDataURL("image/jpg"));
-    	canvas.toBlob(function (blob) {
-    		
-    		/* var formData =$("#photoBtn").serialize(); */ 
-    		var formData =new FormData($('#filefrm')[0]);
-    		
-    		  $.ajax({
-    			url: 'profileUpload.do',
-           		method: 'POST',
-                data: {"dataUrl":dataUrl},
-                /* processData: false,
-                contentType: false, */
-                success: async function () {
-   					await Swal.fire({
-    					 icon: 'success',
-    					 title: '변경 완료',
-    					 position: 'top'
-    					});
-    					window.parent.location.href='myPage.do';
-                },
-                error: function () {
-                	alert('업로드 실패');
-                	$('.result_box').remove()
-                },
-    		});  
-    	})
-      }else{
-          alert('사진을 업로드 해주세요');
-          $('input[type="file"]').focus();
-          return;
-      }
-    });
-}); */
+	
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
