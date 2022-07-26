@@ -1,5 +1,7 @@
 package pea.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,11 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	@Override
 	public int writemini(MiniroomBoardVo vo) {
 		return miniroomboardDao.writemini(vo);
+	}
+
+	@Override
+	public List<MiniroomBoardVo> miniroomboardList() {
+		return miniroomboardDao.miniroomboardList();
 	}
 
 }
