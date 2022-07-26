@@ -34,11 +34,13 @@
 				, #{name}
 				, #{tag}
 				, #{img}
-				, 'maker'
+				, #{maker}
 				, #{ip}
 	)
-	
-	
-	
 	</insert>
+	<select id="itemList" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY iidx DESC
+	</select>
 </mapper>

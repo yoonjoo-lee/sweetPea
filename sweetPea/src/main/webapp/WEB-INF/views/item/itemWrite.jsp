@@ -72,8 +72,10 @@ table {
 	margin: 0 auto;
 	height: 100%;
 }
-
-#complete {
+/* .upload{
+	width:250px;
+} */
+#photoBtn, .upload_btn {
 	display: block;
 	margin-top: 20px;
 	padding: 15px 0;
@@ -112,20 +114,23 @@ table {
 			<tr>
 				<td colspan=2><div class="upload_btn">
 						<div class="upload">
-							<input type="file" name="file" accept="image/jpeg, image/png, image/gif" id="photoBtn"><label for="photoBtn">사진 첨부하기</label>
+							<input type="file" name="file" accept="image/jpeg, image/png, image/gif, audio/mp3, audio/wav, audio/mp4" id="photoBtn"><label for="photoBtn">아이템 파일 및 오디오</label>
 						</div>
-					</div> <!-- <a href="javascript:void(0);" id="complete">업로드</a> --></td>
+					</div></td>
 			</tr>
 		</table>
-
-
-	<!-- <form action="item-write.do" method="post"> -->
+		<!-- 아이템 내용들 -->
 		<table style="width: 700px; height: 150px;">
 			<tbody>
 				<tr>
 					<th>아이템 이름 :</th>
-					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15"><span id="span-itemNameCheck"></span></td>
-
+					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15"></td>
+				</tr>
+				<tr>
+					<td width="300px;"></td>
+					<td><span id="span-itemNameCheck"></span></td>
+				</tr>
+				<tr>
 					<th>아이템 종류 :</th>
 					<td><select id="category" name="category">
 							<option value="1">미니룸</option>
@@ -134,17 +139,21 @@ table {
 					</select></td>
 				</tr>
 				<tr>
-					<th>상품가격 :</th>
-					<td><input type="text" name="price" id="price" size="23" maxlength="2"> 완두콩</td>
+					<th>완두콩 :</th>
+					<td><input type="text" name="price" id="price" size="23" maxlength="2"> 개</td>
 				</tr>
 				<tr>
-									<th>태그 :</th>
+									<th>해시태그 :</th>
 					<td><select id="tag" name="tag">
 							<option value="1">미니룸</option>
 							<option value="2">BGM</option>
 							<option value="3">커스텀</option>
 					</select></td>
 				</tr>
+				<tr>
+					<th>만든이</th>
+					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이"> </td>
+				</tr>				
 			</tbody>
 		</table>
 		<div>

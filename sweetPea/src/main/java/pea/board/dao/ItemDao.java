@@ -1,5 +1,7 @@
 package pea.board.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,13 @@ public class ItemDao {
 	
 	public int itemWrite(ItemVo vo) {
 		return sqlSession.insert(namespace+".itemInsert", vo);
+	}
+	
+	
+	public List<ItemVo> itemSelectAll(){
+		
+		return sqlSession.selectList(namespace+".itemList");
+		
 	}
 	
 }
