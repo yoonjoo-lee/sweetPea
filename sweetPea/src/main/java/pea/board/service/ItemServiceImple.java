@@ -1,5 +1,7 @@
 package pea.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +22,11 @@ public class ItemServiceImple implements ItemService {
 	@Override
 	public int itemWrite(ItemVo vo) {
 		return itemDao.itemWrite(vo);
+	}
+
+	@Override
+	public List<ItemVo> itemSelectAll() {
+		return itemDao.itemSelectAll();
 	}
 
 }

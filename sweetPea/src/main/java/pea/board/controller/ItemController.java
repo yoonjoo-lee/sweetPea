@@ -1,8 +1,10 @@
 package pea.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import pea.board.service.ItemService;
 import pea.board.vo.ItemVo;
@@ -66,8 +71,9 @@ public class ItemController {
 		return "item/itemWrite";
 	}
 	
-	@RequestMapping(value="/item/itemWrite.do", method=RequestMethod.POST)
-	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest request, HttpSession session) throws IOException {
+	@ResponseBody
+	@RequestMapping(value="/item/itemWrite.do", produces = "application/json;charset=utf8")
+	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
 		
 		session = request.getSession();
 		UserVo login = (UserVo) session.getAttribute("login");
@@ -75,10 +81,23 @@ public class ItemController {
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 		vo.setUiidx(login.getUidx());
-		vo.setImg(vo.getImg()); 
+		vo.setImg(file.getOriginalFilename()); 
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
+		
 		System.out.println(path);
 		System.out.println(vo.getImg());
+		
+		session.setAttribute("login", login);
+
+		File dir = new File(path); 
+		
+		if(!dir.exists()) { dir.mkdirs(); }
+		
+		if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
+		file.getOriginalFilename())); }else {
+		
+		}
+		
 		int result = itemService.itemWrite(vo);
 		
 		response.setContentType("text/html;charset=utf-8");
@@ -97,40 +116,11 @@ public class ItemController {
 		
 	}
 
-	/* 아이템 이미지 업로드 */
 
-	@ResponseBody
-	@RequestMapping(value = "/user/itemImgUpload.do", produces = "application/json;charset=utf8")
-	public void itemImgUpload(HttpServletRequest request, HttpSession session, HttpServletResponse response)
-			throws IllegalStateException, IOException {
-		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
-		System.out.println(path);
-		/*
-		 * String formData = request.getParameter("formData");
-		 * System.out.println(formData);
-		 */
-//		System.out.println("file:" + file);
-		session = request.getSession(); // uidx가져오기 위함
-		UserVo login = (UserVo) session.getAttribute("login");
-
-		String dataUrl = request.getParameter("dataUrl");
-		System.out.println("dataUrl" + dataUrl);
-		login.setProfile(dataUrl); // 프로필 넣기 위함
-//		login.setProfile(file.getOriginalFilename()); //프로필 넣기 위함
-//		
-//		System.out.println("file:"+file+ ", uidx:" + login.getUidx());
-
-		session.setAttribute("login", login);
-
-//		File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
-//		
-//		if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
-//		file.getOriginalFilename())); }else {
-//		
-//		}
-
-		/* return "user/myPage-profile"; */
-	}
+	
+	
+	
+//	 /* 아이템 이름 중복체크 */
 
 	@ResponseBody
 	@RequestMapping(value = "/item/itemNameCheck.do", produces = "application/json;charset=utf8")
@@ -138,5 +128,31 @@ public class ItemController {
 		System.out.println(name);
 		return itemService.itemNameCheck(name);
 	}
+	
+
+//	 /* 아이템 리스트 가져오기 */
+	
+	@ResponseBody
+	@RequestMapping(value="/item/itemSelectAll.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemSelectAll(){
+		
+		return itemService.itemSelectAll();
+	}
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
