@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -213,289 +214,58 @@ ul {
 	<div class="lavel">신상품</div>
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">그리고 그후-프리스타일</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">View options</a>
-						</div>
-					</div>
-				</div>
+			
+			<div id="itemList">
+				
+			
 			</div>
-
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">신호등-이무진</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">세기말 컴퓨터 책상</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 25개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">사랑인가봐-멜로망스</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">그라데이션-10CM</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">아버지-임영웅</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">I LUV U - 김종국,KCM</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">That That (prod. & feat. SUGA of BTS)- 싸이(PSY)</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">바보에게 바보가 (웹툰 '연애의 발견' X 이석훈)-이석훈</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- Product image-->
-					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-					<!-- Product details-->
-					<div class="card-body p-4">
-						<div class="text-center">
-							<!-- Product name-->
-							<h5 class="fw-bolder">바다의 왕자 - 박명수</h5>
-							<!-- Product reviews-->
-							<div class="d-flex justify-content-center small text-warning mb-2">
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-								<div class="bi-star-fill"></div>
-							</div>
-							<!-- Product price-->
-							완두콩 10개
-						</div>
-					</div>
-					<!-- Product actions-->
-					<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						<div class="text-center">
-							<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+			<script>
+				$(function(){
+				$.ajax({
+					url:"itemSelectAll.do",
+					type:"get",
+					success:function(data){
+					/* 	alert(data[i].name); */
+						var html="";
+						for(var i=0; i<data.length;i++){
+							console.log(data[i].img);
+						html +="<div class='col mb-5'>";
+						html +="<div class='card h-100'>";
+						html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+						html +="<div class='card-body p-4'>";
+						html +="<div class='text-center'>";
+							html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+							html +="<div class='d-flex justify-content-center small text-warning mb-2'>";
+							html +="<div class='bi-star-fill'></div>";
+							html +="<div class='bi-star-fill'></div>";
+							html +="<div class='bi-star-fill'></div>";
+							html +="<div class='bi-star-fill'></div>";
+							html +="<div class='bi-star-fill'></div>";
+							html +="</div>";
+							html +=data[i].price+" 개";
+						html +="</div>";
+						html +="</div>";
+						html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+						html +="<div class='text-center'>";
+						html +="<a class='btn btn-outline-dark mt-auto' href='#'>Add to cart</a>";
+						html +="</div>";
+						html +="</div>";
+						html +="</div>";
+						html +="</div>";
+						}
+						$("#itemList").html(html);
+					
+					}
+					
+				})
+					
+				})
+			
+			
+			
+			</script>
+			
+			
 	<!-- 페이지 넘버. -->
 </body>
 </html>
