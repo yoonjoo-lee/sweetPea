@@ -10,6 +10,12 @@
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
+#boardList{
+   overflow-y: scroll;
+   height: 90vh;
+   width: 100%;
+}
+
 .dropdown{
   position : relative;
   display : inline-block;
@@ -246,7 +252,7 @@ window.onload=()=>{
 	}
 </script>
 </head>
-<body>
+<body class="body">
 	<div class="dropdown">
 		<button class="dropbtn">
 			<span class="dropbtn_icon"></span>

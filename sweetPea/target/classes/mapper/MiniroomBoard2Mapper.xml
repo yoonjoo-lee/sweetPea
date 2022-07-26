@@ -27,8 +27,19 @@
 </insert>
 
 <select id="miniroomboardList" resultType="MiniroomBoardVo">
-	 SELECT * 
-	 FROM pea_minihome_board
+	 SELECT 
+	 	  mbidx
+	 	, uidx
+	 	, title
+	 	, CONVERT(content USING UTF8) as content
+	 	, writer
+	 	, date
+	 	, ip
+	 	, category
+	 	, delyn
+	 	, secret
+	  FROM pea_minihome_board 
+	 WHERE delyn='N'
 </select>
  
  
