@@ -63,6 +63,17 @@ h3>img{
     margin: 2vh auto;
     background-color: gray;
 }
+
+@font-face {
+    font-family: 'EF_hyunydororong';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_hyunydororong.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.body{
+font-family: 'EF_hyunydororong';
+}
 </style>
 <script>
 	function changeHeader(){
@@ -90,7 +101,7 @@ h3>img{
 	}
 </script>
 </head>
-<body>
+<body class="body">
 	<h3>${mini.h2}
 	<c:if test="${login.uidx == mini.uidx}"><img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()"></c:if>
 	</h3>

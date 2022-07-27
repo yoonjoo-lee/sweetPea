@@ -26,6 +26,7 @@
  )
 </insert>
 
+<!-- 미니룸 다이어리 글 목록 전부 불러오기 -->
 <select id="miniroomboardList" resultType="MiniroomBoardVo">
 	 SELECT 
 	 	  mbidx
@@ -40,7 +41,22 @@
 	 	, secret
 	  FROM pea_minihome_board 
 	 WHERE delyn='N'
+	 ORDER BY mbidx DESC
 </select>
  
- 
+<!-- 글 삭제 --> 
+<update id="deleteDiary" parameterType="int">
+	UPDATE pea_minihome_board
+	 SET delyn='Y'
+	WHERE mbidx=#{mbidx}
+</update>
+
+<!-- 글 수정 -->
+<update id="modify" parameterType="MiniroomBoardVo">
+	UPDATE pea_minihome_board
+	 SET title=#{title}
+	 	,content=#{content}
+	 	,secret=#{secret}
+	WHERE mbidx=#{mbidx}
+</update>
 </mapper>

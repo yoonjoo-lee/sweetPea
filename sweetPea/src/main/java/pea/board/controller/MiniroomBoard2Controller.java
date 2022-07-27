@@ -33,17 +33,16 @@ public class MiniroomBoard2Controller {
 	MiniroomBoardService miniroomboardService;
 	
 	
+	// 다이어리 작성 페이지 이동
 	@RequestMapping(value="/diary_write.do", method=RequestMethod.GET)
 	public String diary_write(int uidx, int category, Model model ){
-
 		model.addAttribute("category", category);
 		return "minihome/diary-write";
 	}
 	
+	// 다이어리 작성 
 	@RequestMapping(value="/diary_write.do", method=RequestMethod.POST)
 	public void diary_write(MiniroomBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model) throws IOException {
-		System.out.println("다이어리 롸이트 포스트메소드 들어옴");
-		
 		session = request.getSession();
 		UserVo login = (UserVo)session.getAttribute("login");
 		vo.setWriter(login.getUidx()); //작성자 uidx
@@ -67,19 +66,49 @@ public class MiniroomBoard2Controller {
 		
 		pw.append("<script>history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
-//		return "minihome/diary-write.do?uidx="+login.getUidx()+"&category="+vo.getCategory()+"";
 	}
 	
-	
+	// 다이어리 글 전부 보내기
 	@ResponseBody
 	@RequestMapping(value="/miniroomboardList.do", produces = "application/json;charset=utf8")
 	public List<MiniroomBoardVo> miniroomboardList() {
-		System.out.println("미니룸 보드 리스트 컨트롤러 들어옴");
 		return miniroomboard2Service.miniroomboardList();
 	}
 	
+	// 다이어리 삭제
+	@RequestMapping(value="/deleteDiary.do")
+	public void deleteDiary(int mbidx, HttpServletResponse response) throws IOException {
+		System.out.println("mbidx: " + mbidx);
+		miniroomboard2Service.deleteDiary(mbidx);
+		
+		PrintWriter pw = response.getWriter();
+		
+		pw.append("<script>alert('삭제 완료');history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
 	
+	// 다이어리 수정 페이지 이동
+	@RequestMapping(value="/modify.do", method=RequestMethod.GET)
+	public String modify(int mbidx, String title, String content, Model model) {
+		
+		model.addAttribute("mbidx", mbidx);
+		model.addAttribute("title", title);
+		model.addAttribute("content", content);
+		
+		
+		return "minihome/modify";
+	}
 	
+	// 다이어리 수정
+	@RequestMapping(value="/modify.do", method=RequestMethod.POST)
+	public void modify(MiniroomBoardVo vo, HttpServletResponse response) throws IOException {
+		
+		miniroomboard2Service.modify(vo);
+		
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>alert('수정 완료');history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
 	
 	
 	

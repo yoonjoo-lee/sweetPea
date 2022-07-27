@@ -25,4 +25,14 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 		return miniroomboardDao.miniroomboardList();
 	}
 
+	@Override
+	public int deleteDiary(int mbidx) {
+		return miniroomboardDao.deleteDiary(mbidx);
+	}
+
+	@Override
+	public int modify(MiniroomBoardVo vo) {
+		return miniroomboardDao.modify(vo);
+	}
+
 }

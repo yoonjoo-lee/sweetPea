@@ -3,12 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <%@ page session="true" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <style>
 #boardList{
    overflow-y: scroll;
@@ -103,6 +106,89 @@
     float: right;
     padding-top: 0.4vw;
     padding-right: 0.2vw;
+}
+
+/* 다이어리 css */
+.calendar {
+    margin: 20px 20px 10px 20px;
+    flex: 0.1;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.day {
+    flex: 0.125;
+    margin: 10px;
+    text-align: center;
+}
+
+
+.month {
+    flex: 0.875;
+    margin: 10px;
+}
+
+
+.diary {
+    margin: 10px 20px 20px 20px;
+    flex: 0.9;
+}
+
+
+.diary-box {
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+}
+
+
+.diary-date {
+    font-size: 0.75rem;
+}
+
+
+.diary-text {
+    text-align: center;
+}
+
+
+.secret-button {
+    width: 35%;
+    margin: 40px auto;
+}
+
+
+.secret-button button {
+    padding: 10px;
+    background-color: white;
+    color: white;
+    border: none;
+}
+.secret-button button:hover {
+    background-color: rgb(255, 70, 70);
+    transition: 800ms ease-in all;
+}
+
+
+.icon {
+    margin-right: 5px;
+}
+
+
+
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.body{
+font-family: 'BMJUA';
 }
 </style>
 <script>
@@ -289,43 +375,54 @@ window.onload=()=>{
 	
 	
 	
-	
-	<!-- <button onclick="callBoard()">게시글 불러오기</button> -->
+
 	<div id="boardList">
 	
 	</div>
 	
 	<script>
+	
+	/* 글 모두 가져와서 화면 #boardList 에 출력 */
 	$(function callBoard(){
-		console.log("콜보드 펑션 들어옴");
+		let name = '${login.name}';
 		$.ajax({
 			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
 			type:"get",
 			success:function(data){
 				var html ="";
-				html += "<table>";
-				html += "<tbody>";
+				html+="<div class='main-content'>";
+				html+="<div class='calendar'>";
+				html+="<div class='day' id='bold-text'>01.24<br>MON</div>";
+				html+="<div class='month' id='basic-text'><span id='blue'>1</span> <span id='red'>2</span> 3 4 5 6 7 <span id='blue'>8</span> <span id='red'>9</span> 10 11 12 13 14 <span id='blue'>15</span> <span id='red'>16</span> 17 18 19 20 21 <span id='blue'>22</span> <span id='red'>32</span> 24 25 26 27 28 <span id='blue'>29</span> <span id='red'>30</span> <span id='red'>31</span></div>";
+				html+="</div>";
+			         
+			     
+				html+="<div class='diary'>";
 				for(var i=0; i<data.length;i++){
-					html+="<tr>";
-					html+="<td>"+data[i].writer+"</td>";
-					html+="</tr>";
-					html+="<tr>";
-					html+="<td><a href='javascript:viewBoard("+data[i].mbidx+");'>"+data[i].title+"</a></td>";
-					html+="</tr>";
-					html+="<tr>";
-					html+="<td>"+data[i].content+"</td>";
-					html+="</tr>";
-					html+="<tr>";
-					html+="<td>"+data[i].writer+"</td>";
-					html+="</tr>";
+					html+="<div class='diary-box'>";
+					html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'><i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i><i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+					html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+					html+="</div>";
 				}
-				html += "</tbody>";
-				html += "</table>";
+					html+="</div>";
+				if (${login.uidx == mini.uidx}){
+					html+="<div class='secret-button'><button><i class='fas fa-lock icon'></i>"+name+"의 비밀일기 보기</button></div>";
+				}
+				html+="</div>";
 				
 				$("#boardList").html(html);
 			}
 		});
 	})
+	
+	
+	function deleteDiary(mbidx){
+		var check = confirm("정말로 삭제하시겠습니까?");	
+		if (check){
+			location.href="<%=request.getContextPath()%>/miniroomboard2/deleteDiary.do?mbidx="+mbidx+"";
+		} 
+	}
 	</script>
+
 </body>
 </html>
