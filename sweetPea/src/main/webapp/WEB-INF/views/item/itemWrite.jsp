@@ -120,42 +120,58 @@ table {
 			</tr>
 		</table>
 		<!-- 아이템 내용들 -->
-		<table style="width: 700px; height: 150px;">
+		<table style="width: 700px; height: 170px;">
 			<tbody>
 				<tr>
-					<th>아이템 이름 :</th>
-					<td width="300px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15" required ></td>
+					<th width="200px">아이템 이름 :</th>
+					<td width="500px;"><input type="text" name="name" id="name" size="23" placeholder="아이템 이름 작성" maxlength="15" required></td>
 				</tr>
 				<tr>
-					<td width="300px;"></td>
-					<td><span id="span-itemNameCheck"></span></td>
+					<td width="200px;"></td>
+					<td width="500px;"><span id="span-itemNameCheck"></span></td>
 				</tr>
 				<tr>
-					<th>아이템 종류 :</th>
-					<td><select id="category" name="category">
+					<th width="200px;">아이템 종류 :</th>
+					<td width="500px;"><select id="category" name="category">
 							<option value="1">미니룸</option>
 							<option value="2">BGM</option>
 							<option value="3">커스텀</option>
 					</select></td>
 				</tr>
 				<tr>
-					<th>완두콩 :</th>
-					<td><input type="text" name="price" id="price" size="23" maxlength="2"  required> 개</td>
+					<th width="200px;">완두콩 :</th>
+					<td width="500px;"><input type="text" name="price" id="price" size="23" maxlength="2" required> 개</td>
+				</tr>
+				<tr>
+					<td width="200px;"></td>
+					<td width="500px;"><span id="span-price"></span></td>
 				</tr>
 				<tr>
 					<th>해시태그 :</th>
 					<td><select id="tag" name="tag">
-							<option value="1">미니룸</option>
-							<option value="2">BGM</option>
-							<option value="3">커스텀</option>
+							<option value="1">봄</option>
+							<option value="2">여름</option>
+							<option value="3">가을</option>
+							<option value="4">겨울</option>
+							<option value="11">10개</option>
+							<option value="12">20개</option>
+							<option value="13">30개</option>
+							<option value="14">40개</option>
 					</select></td>
 				</tr>
 				<tr>
 					<th>만든이</th>
 					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이" required></td>
 				</tr>
+				<tr>
+					<td width="300px;"></td>
+					<td><span id="span-maker"></span></td>
+				</tr>
 			</tbody>
 		</table>
+		<br>
+		<br>
+		<br>
 		<div>
 			<input type="button" id="btn" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
@@ -163,81 +179,113 @@ table {
 	</form>
 
 	<script>
-/* 사진 업로드 jQuery */
-$("#photoBtn").on("change", function(event) {
- var file = event.target.files[0];
- var reader = new FileReader(); 
- reader.onload = function(e) {
-     $("#newImg").attr("src", e.target.result);
-     $('#btn').attr('disabled',false);
- }
- reader.readAsDataURL(file);
- });
-
-
-
-          /* price 숫자만 넣기 */
-       $('#price').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9]/g,"") );});
-          /* 만든이 한글과 영어 숫자 사용 가능 */
-       $('#maker').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
-
-/* 아이템 이름 중복 확인 ajax */
-																				/* 한글과 영어 숫자만 사용 가능 */	
-	$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
-		
-	$('#name').blur(function(){
-		if($('#name').val()==""){
-			$('#span-itemNameCheck').text('아이템 이름을 입력하세요');
-			$('#span-itemNameCheck').css('color','red');
+	/* ajax로 input값 입력하기 값 확인하기  */
+	/* 완두콩 가격  */
+	$('#price').blur(function(){
+		if($('#price').val()==""){
+			$('#span-price').text('완두콩 몇개로 정해야할까요?');
+			$('#span-price').css('color','red');
 		}else{
+			$('#span-price').text('이 완두콩 갯수로 등록 돼요!');
+			$('#span-price').css('color','green');
 			
-/* 				alert($('#item-name').val()); */
-		$.ajax({
-				url:"itemNameCheck.do",
-				type:"get",
-				data:"name="+$('#name').val(),
-				success: function(data){
-					if(data==1){
-						$('#span-itemNameCheck').text('중복된 아이템 이름입니다.');
-						$('#span-itemNameCheck').css('color','red');
-					}else{
-						$('#span-itemNameCheck').text('사용가능한 아이템 이름입니다.');
-						$('#span-itemNameCheck').css('color','green');
-					}
-				}
-			});
 		}
-	});
+	})
+	
+	/* 만든이  */
+	$('#maker').blur(function(){
+		if($('#maker').val()==""){
+			$('#span-maker').text('누가 만들었을까요?');
+			$('#span-maker').css('color','red');
+		}else{
+			$('#span-maker').text('당신이군요!');
+			$('#span-maker').css('color','green');
+		}
+	})
 	
 	
-	function itemWrite(){
-		let fm = document.frm;
-		if($('#name').val() == "" || $('#span-itemNameCheck').css('color')=="rgb(255,0,0)"){
-				$('#name').focus();
-				$('#name').blur();
-				$('#name').focus();
-				return;
-			}else if ($('#price').val() == ""){
-				$('#price').focus();
-				$('#price').blur();
-				$('#price').focus();
-				return;
-			}else if ($('#maker').val() ==""){
-				$('#maker').focus();
-				$('#maker').blur();
-				$('#maker').focus();
-				return;
-			}
+	
+	
+	
+	
+	/* 사진 업로드 jQuery */
+	$("#photoBtn").on("change", function(event) {
+	 var file = event.target.files[0];
+	 var reader = new FileReader(); 
+	 reader.onload = function(e) {
+	     $("#newImg").attr("src", e.target.result);
+	     $('#btn').attr('disabled',false);
+	 }
+	 reader.readAsDataURL(file);
+	 });
+	
+	
+	
+	          /* price 숫자만 넣기 */
+	       $('#price').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9]/g,"") );});
+	          /* 만든이 한글과 영어 숫자 사용 가능 */
+	       $('#maker').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+	
+	/* 아이템 이름 중복 확인 및 ajax */
+																					/* 한글과 영어 숫자만 사용 가능 */	
+		$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 			
-		fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
-		fm.method="post";
-		fm.enctype="multipart/form-data";  
-		fm.submit();
-		return;
+		$('#name').blur(function(){
+			if($('#name').val()==""){
+				$('#span-itemNameCheck').text('아이템 이름을 해볼까요?');
+				$('#span-itemNameCheck').css('color','red');
+			}else{
+				
+	/* 				alert($('#item-name').val()); */
+			$.ajax({
+					url:"itemNameCheck.do",
+					type:"get",
+					data:"name="+$('#name').val(),
+					success: function(data){
+						if(data==1){
+							$('#span-itemNameCheck').text('중복된 아이템 이름이에요~');
+							$('#span-itemNameCheck').css('color','red');
+						}else{
+							$('#span-itemNameCheck').text('사용가능한 아이템 이름이네요!');
+							$('#span-itemNameCheck').css('color','green');
+						}
+					}
+				});
+			}
+		});
+		
+		
+		/* input태그 값이 없으면  focus  */
+		
+		function itemWrite(){
+			let fm = document.frm;
+			if($('#name').val() == "" || $('#span-itemNameCheck').css('color')=="rgb(255,0,0)"){
+					$('#name').focus();
+					$('#name').blur();
+					$('#name').focus();
+					return;
+				}else if ($('#price').val() == ""||$('#span-price').css('color')=="rgb(255,0,0)"){
+					$('#price').focus();
+					$('#price').blur();
+					$('#price').focus();
+					return;
+				}else if ($('#maker').val() ==""||$('#span-maker').css('color')=='rgb(255,0,0)'){
+					$('#maker').focus();
+					$('#maker').blur();
+					$('#maker').focus();
+					return;
+				}
+				
+			fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
+			fm.method = "post";
+			fm.enctype = "multipart/form-data";
+			fm.submit();
+			return;
 		}
 		
-	
-</script>
+		
+		
+	</script>
 
 
 
