@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page session="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
@@ -155,7 +156,73 @@ ul {
 	flex: 0 0 auto;
 	width: 15%;
 }
+
+/* 버튼 css */
+@import url(https://fonts.googleapis.com/css?family=Roboto:700);
+
+.button {
+	background: #3D4C53;
+	margin: 20px auto;
+	width: 200px;
+	height: 50px;
+	overflow: hidden;
+	text-align: center;
+	transition: .2s;
+	cursor: pointer;
+	border-radius: 3px;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+.btnTwo {
+	position: relative;
+	width: 200px;
+	height: 100px;
+	margin-top: -100px;
+	padding-top: 2px;
+	background: #26A69A;
+	left: -250px;
+	transition: .3s;
+}
+
+.btnText {
+	color: white;
+	transition: .3s;
+	margin-top: 1.5vh;
+}
+
+.btnText2 {
+	margin-top: 63px;
+	margin-right: -130px;
+	color: #FFF;
+}
+
+.button:hover .btnTwo { /*When hovering over .button change .btnTwo*/
+	left: -130px;
+}
+
+.button:hover .btnText { /*When hovering over .button change .btnText*/
+	margin-left: 65px;
+}
+
+.button:active { /*Clicked and held*/
+	box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
 </style>
+<script type="text/javascript">
+/* 장바구니 팝업 */
+<c:if test="${login != null}">
+function openShoppingBasket(){
+	var popupX = (document.body.offsetWidth / 2) - (700 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	var popupY= (window.screen.height / 2) - 350;
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	var uidx = ${login.uidx};
+	window.open('<%=request.getContextPath()%>/item/shoppingList.do?uidx='+uidx,'name',
+			'resizable=no width=750 height=400,left='+popupX+',top='+popupY);
+}
+</c:if>
+
+</script>
 </head>
 <body>
 	<br>
@@ -200,73 +267,221 @@ ul {
 	</div>
 	<br>
 	<!-- 아이템 리스트  -->
-	<div class="item_page">
-		<div class="category_list">
-			<ul>
-				<li class="first_select"><a onclick="">| 인기상품순</a></li>
-				<li class="first_select"><a onclick="">| 신상품순</a></li>
-				<li class="first_select"><a onclick="">| 낮은가격순</a></li>
-				<li class="first_select"><a onclick="">| 높은가격순</a></li>
-			</ul>
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListCount()">
+		<p class="btnText">인기상품순</p>
+		<div class="btnTwo">
+			<p class="btnText2">GO?</p>
 		</div>
 	</div>
+	
+	<div style="float: left; width: 15%;margin-left: 5px;" class="button" onclick="itemListDesc()">
+		<p class="btnText">가격내림순</p>
+		<div class="btnTwo">
+			<p class="btnText2">GO?</p>
+		</div>
+	</div>
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListAsc()">
+		<p class="btnText">가격오름순</p>
+		<div class="btnTwo">
+			<p class="btnText2">GO?</p>
+		</div>
+	</div>
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListNew()">
+		<p class="btnText">신상품순</p>
+		<div class="btnTwo">
+			<p class="btnText2">GO?</p>
+		</div>
+	</div>
+	<div style="float: right; width: 15%; margin-left: 5px;" class="button" onclick="openShoppingBasket()">
+		<p class="btnText">장바구니</p>
+		<div class="btnTwo">
+			<p class="btnText2">GO!</p>
+		</div>
+	</div>
+
 	<br>
-	<div class="lavel">신상품</div>
+<!-- 	<div style="border-bottom:1px solid #CCC; "></div> -->
 	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width:100%" >
-			
-		</div>
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
-			<script>
-				$(function(){
-				$.ajax({
-					url:"itemSelectAll.do",
-					type:"get",
-					success:function(data){
-					/* 	alert(data[i].name); */
-						var html="";
-						for(var i=0; i<data.length;i++){
-							console.log(data[i].img);
-						html +="<div class='col mb-5' style='float:left;'>";
-						html +="<div class='card h-100'>";
-						html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
-						html +="<div class='card-body p-4'>";
-						html +="<div class='text-center'>";
-							html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-							html +="<div class='d-flex justify-content-center small text-warning mb-2'>";
-							html +="<div class='bi-star-fill'></div>";
-							html +="<div class='bi-star-fill'></div>";
-							html +="<div class='bi-star-fill'></div>";
-							html +="<div class='bi-star-fill'></div>";
-							html +="<div class='bi-star-fill'></div>";
-							html +="</div>";
-							html +=data[i].price+" 개";
-						html +="</div>";
-						html +="</div>";
-						html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-						html +="<div class='text-center'>";
-						html +="<a class='btn btn-outline-dark mt-auto' href='#'>Add to cart</a>";
-						html +="</div>";
-						html +="</div>";
-						html +="</div>";
-						html +="</div>";
-						html +="</div>";
-						html +="</div>";
-						}
-						$("#itemList").html(html);
+	<script>
+$(function(){
+	$.ajax({
+	url:"itemSelectAll.do",
+	type:"get",
+	success:function(data){
+		/* 	alert(data[i].name); */
+		var html="";
+		for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+		}
+			$("#itemList").html(html);
+							
+		}
+						
+	})
 					
-					}
-					
-				})
-					
-				})
+})
 			
+
+/* 가격 내림차순 */
+ 
+ function itemListDesc(){
+	 $.ajax({
+		url:"itemListDesc.do",
+		type:"get",
+		success:function(data){
+			var html="";
+			for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			}
+			$("#itemList").html(html);
 			
+		}
+	 })
+ }
+/* 가격 오름차순 */
+
+function itemListAsc(){
+	 $.ajax({
+		url:"itemListAsc.do",
+		type:"get",
+		success:function(data){
+			var html="";
+			for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			}
+			$("#itemList").html(html);
+			
+		}
+	 })
+}
+					
+/* 아이템 신상품순 */
+
+function itemListNew(){
+	 $.ajax({
+		url:"itemListNew.do",
+		type:"get",
+		success:function(data){
+			var html="";
+			for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			}
+			$("#itemList").html(html);
+			
+		}
+	 })
+}
+					
+/* 아이템 인기상품순 */
+
+function itemListCount(){
+	 $.ajax({
+		url:"itemListCount.do",
+		type:"get",
+		success:function(data){
+			var html="";
+			for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			}
+			$("#itemList").html(html);
+			
+		}
+	 })
+}
+					
 			
 			</script>
-			
-			
+
+
 	<!-- 페이지 넘버. -->
+	
 </body>
 </html>
 

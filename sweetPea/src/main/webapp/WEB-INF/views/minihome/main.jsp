@@ -18,7 +18,7 @@
 		background-position: center center;
 		background-size: cover;
 	}
-	*{
+	* {
 		margin: 0;
 		padding: 0;
 	}

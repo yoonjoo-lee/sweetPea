@@ -139,9 +139,74 @@ public class ItemController {
 		return itemService.itemSelectAll();
 	}
 	
+	// 아이템 인기 상품순
+	@ResponseBody
+	@RequestMapping(value="/item/itemListCount.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListCount(){
+		
+		return itemService.itemListCount();
+	}
+	// 아이템 가격 내림차순
+	@ResponseBody
+	@RequestMapping(value="/item/itemListDesc.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListDesc(){
+		
+		return itemService.itemListDesc();
+	}
+	
+	// 아이템 가격 오름차순
+	@ResponseBody
+	@RequestMapping(value="/item/itemListAsc.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListAsc(){
+		
+		return itemService.itemListAsc();
+	}
+	
+	// 아이템 가격 오름차순
+	@ResponseBody
+	@RequestMapping(value="/item/itemListNew.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListNew(){
+		
+		return itemService.itemListNew();
+	}
+	
+		
+	// 아이템 리스트 신상품 LIMIT 5개 
+	@ResponseBody
+	@RequestMapping(value="/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListNewLimit(){
+		
+		return itemService.itemListNewLimit();
+	}
 	
 	
+	
+//	/* 아이템 장바구니  */
+	
+	/*아이템 장바구니 리스트*/
+	
+	@RequestMapping(value="item/shoppingList.do", method=RequestMethod.GET)
+	public String shoppingList() {
+		
+		
+		return "item/shopping-basket";
+	}
+	
+	
+	/*아이템 사기*/
+	@RequestMapping(value="item/itemBuy.do", method=RequestMethod.GET)
+	public String itemBuy() {
+		return "item/itemBuy";
+	}
+	
+	@RequestMapping(value="item/delCheckItem.do", method=RequestMethod.GET)
+	public String delCheckItem() {
+	
+		return "item/delCheckItem";
+	}
 
+	
+	
 }
 
 
