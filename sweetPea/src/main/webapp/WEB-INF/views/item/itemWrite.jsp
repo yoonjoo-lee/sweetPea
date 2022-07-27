@@ -183,7 +183,7 @@ table {
 	/* 완두콩 가격  */
 	$('#price').blur(function(){
 		if($('#price').val()==""){
-			$('#span-price').text('완두콩 몇개로 정해야할까요?');
+			$('#span-price').text('완두콩 몇개로 정할까요?');
 			$('#span-price').css('color','red');
 		}else{
 			$('#span-price').text('이 완두콩 갯수로 등록 돼요!');

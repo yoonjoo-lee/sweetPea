@@ -83,8 +83,8 @@
 		<input type="text" name="id" id="id" placeholder="아이디" ><br>
 		<span id="span-id"></span>
 		<script>
+		/* 영어랑 숫자만. */
 			$('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
-			/* $('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[ㄱ-ㅎ|ㅏ-|가-힣|!-/|:-@|[-`|{-~]/g,"") );}); */
 				
 			$('#id').blur(function(){
 				if($('#id').val()==""){
@@ -146,6 +146,7 @@
 		<input type="text" name="name" id="name" placeholder="이름" ><br>
 		<span id="span-name"></span><br>
 		<script type="text/javascript">
+		/* 한글만  */
 			$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 		</script>
 		

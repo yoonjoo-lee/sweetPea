@@ -29,4 +29,29 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.itemSelectAll();
 	}
 
+	@Override
+	public List<ItemVo> itemListDesc() {
+		return itemDao.itemListDesc();
+	}
+
+	@Override
+	public List<ItemVo> itemListAsc() {
+		return itemDao.itemListAsc();
+	}
+
+	@Override
+	public List<ItemVo> itemListNew() {
+		return itemDao.itemListNew();
+	}
+
+	@Override
+	public List<ItemVo> itemListCount() {
+		return itemDao.itemListCount();
+	}
+
+	@Override
+	public List<ItemVo> itemListNewLimit() {
+		return itemDao.itemListNewLimit();
+	}
+
 }

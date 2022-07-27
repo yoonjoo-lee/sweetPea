@@ -38,9 +38,55 @@
 				, #{ip}
 	)
 	</insert>
+	<!-- 아이템 리스트  -->
 	<select id="itemList" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N'
 		ORDER BY iidx DESC
 	</select>
+	
+	<!-- 아이템 인기 상품순 -->
+	<select id="itemListCount" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY count DESC, iidx DESC
+	</select>
+	<!-- 아이템 리스트 가격 내림차순 -->
+	<select id="itemListDesc" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY price DESC, iidx DESC
+	</select>
+	<!-- 아이템 리스트 가격 오름차순 -->
+	<select id="itemListAsc" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY price 
+		ASC, iidx 
+		DESC
+	</select>
+	<!-- 아이템 리스트 신상품순 -->
+	<select id="itemListNew" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY iidx DESC
+	</select>
+	
+	<!-- 아이템 리스트 신상품순 5개 -->
+	<select id="itemListNewLimit" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE delyn='N'
+		ORDER BY iidx DESC LIMIT 1,5;
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
