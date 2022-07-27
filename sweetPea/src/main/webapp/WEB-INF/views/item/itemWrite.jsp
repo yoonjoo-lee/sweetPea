@@ -188,6 +188,7 @@ table {
 		}else{
 			$('#span-price').text('이 완두콩 갯수로 등록 돼요!');
 			$('#span-price').css('color','green');
+			
 		}
 	})
 	
