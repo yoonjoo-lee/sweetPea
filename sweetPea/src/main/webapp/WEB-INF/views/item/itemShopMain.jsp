@@ -305,6 +305,14 @@ function openShoppingBasket(){
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
 	<script>
+	/* tagify value key 값 가져오는 구문 */
+	      var test = [{'value':"banana"},{'value':"yellow"}];
+      
+      for (var i=0; i<test.length; i++){
+         console.log(test[i]['value']);
+      }
+	
+	
 $(function(){
 	$.ajax({
 	url:"itemSelectAll.do",
