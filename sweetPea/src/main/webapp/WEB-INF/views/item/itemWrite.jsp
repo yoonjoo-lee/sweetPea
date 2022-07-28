@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <title>item Write</title>
 <style type="text/css">
 body {
@@ -91,6 +93,11 @@ table {
 	width: 250px;
 	height: 250px;
 }
+
+.tagify {
+	width: 100%;
+	max-width: 250px;
+}
 </style>
 
 </head>
@@ -148,16 +155,7 @@ table {
 				</tr>
 				<tr>
 					<th>해시태그 :</th>
-					<td><select id="tag" name="tag">
-							<option value="1">봄</option>
-							<option value="2">여름</option>
-							<option value="3">가을</option>
-							<option value="4">겨울</option>
-							<option value="11">10개</option>
-							<option value="12">20개</option>
-							<option value="13">30개</option>
-							<option value="14">40개</option>
-					</select></td>
+					<td><input id="tag" name="tag"></td>
 				</tr>
 				<tr>
 					<th>만든이</th>
@@ -169,9 +167,7 @@ table {
 				</tr>
 			</tbody>
 		</table>
-		<br>
-		<br>
-		<br>
+		<br> <br> <br>
 		<div>
 			<input type="button" id="btn" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
@@ -179,6 +175,17 @@ table {
 	</form>
 
 	<script>
+	
+	
+	/* 태그 스크립트 */
+		var input = document.querySelector('input[name=tag]')
+
+		new Tagify(input, {
+		  whitelist: ['봄','여름','가을','겨울','10개','20개','30개','40개','50개'],
+		  userInput: false
+		})
+	
+	
 	/* ajax로 input값 입력하기 값 확인하기  */
 	/* 완두콩 가격  */
 	$('#price').blur(function(){
@@ -276,15 +283,13 @@ table {
 					return;
 				}
 				
-			fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
+			fm.action="<%=request.getContextPath()%>
+		/item/itemWrite.do";
 			fm.method = "post";
 			fm.enctype = "multipart/form-data";
 			fm.submit();
 			return;
 		}
-		
-		
-		
 	</script>
 
 
