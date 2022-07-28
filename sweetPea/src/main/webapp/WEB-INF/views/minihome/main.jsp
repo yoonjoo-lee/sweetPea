@@ -194,7 +194,7 @@
   position: absolute;
   width: 120px;
   height: 200px;
-  top: 70%;
+  top: 60%;
   left: 85%;
   transform: rotateZ(90deg);
   /*background-color: red;*/

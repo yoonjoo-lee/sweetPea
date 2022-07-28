@@ -1,194 +1,191 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
-<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page session="true"%>
+<%@ page import="java.time.LocalDate"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <style>
-#boardList{
-   overflow-y: scroll;
-   height: 90vh;
-   width: 100%;
+#boardList {
+	overflow-y: scroll;
+	height: 90vh;
+	width: 100%;
 }
 
-.dropdown{
-  position : relative;
-  display : inline-block;
-}
-.dropbtn{
-  display : block;
-  border : 2px solid rgb(94, 94, 94);
-  border-radius : 4px;
-  background-color: #fcfcfc;
-  font-weight: 400;
-  color : rgb(124, 124, 124);
-  width :25vw;
-  text-align: left;
-  cursor : pointer;
-  font-size : 2vw;
-  z-index :1;
-  position : relative;
-  padding: 0.5vh 0.5vw;
-  text-indent: 0.5vw;
-}
-.dropdown-content{
-  display : none;
-  font-weight: 400;
-  background-color: #fcfcfc;
-  min-width : 25vw;
-  border-radius: 8px;
-  max-height : 20vh;
-  overflow : scroll;
-  box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
-}
-.dropdown-content::-webkit-scrollbar{
-  width : 5px;
-  height : 10px;
-}
-.dropdown-content::-webkit-scrollbar-thumb{
-  border-radius : 2px;
-  background-color :rgb(194, 194, 194)
-}
-.dropdown-content div:not(:first-child){
-  display : block;
-  text-decoration : none;
-  color : rgb(37, 37, 37);
-  font-size: 2vw;
-  padding: 1vh 0 1vh 2vw;
-  cursor: pointer;
-}
-.dropdown-content div:not(:first-child):hover{
-  background-color: rgb(226, 226, 226);
+.dropdown {
+	position: relative;
+	display: inline-block;
 }
 
-.dropdown-content.show{
-  display : block;
-  position: absolute;
+.dropbtn {
+	display: block;
+	border: 2px solid rgb(94, 94, 94);
+	border-radius: 4px;
+	background-color: #fcfcfc;
+	font-weight: 400;
+	color: rgb(124, 124, 124);
+	width: 25vw;
+	text-align: left;
+	cursor: pointer;
+	font-size: 2vw;
+	z-index: 1;
+	position: relative;
+	padding: 0.5vh 0.5vw;
+	text-indent: 0.5vw;
 }
-.dropbtn_click{
-	float: right;
-    height: 2.5vh;
-    padding-top: 0.25vw;
+
+.dropdown-content {
+	display: none;
+	font-weight: 400;
+	background-color: #fcfcfc;
+	min-width: 25vw;
+	border-radius: 8px;
+	max-height: 20vh;
+	overflow: scroll;
+	box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
 }
-.dropdown-content div:first-child{
-  font-size: 2vw;
-  padding: 0;
-  text-align: right;
+
+.dropdown-content::-webkit-scrollbar {
+	width: 5px;
+	height: 10px;
 }
-.dropdown-content div span{
+
+.dropdown-content::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background-color: rgb(194, 194, 194)
+}
+
+.dropdown-content div:not(:first-child) {
+	display: block;
+	text-decoration: none;
+	color: rgb(37, 37, 37);
+	font-size: 2vw;
+	padding: 1vh 0 1vh 2vw;
 	cursor: pointer;
 }
 
-#writeDiary{
-    height: 4.5vh;
-    width: 12vw;
-    float: right;
-    cursor: pointer;
+.dropdown-content div:not(:first-child):hover {
+	background-color: rgb(226, 226, 226);
 }
-.host{
+
+.dropdown-content.show {
+	display: block;
+	position: absolute;
+}
+
+.dropbtn_click {
+	float: right;
+	height: 2.5vh;
+	padding-top: 0.25vw;
+}
+
+.dropdown-content div:first-child {
+	font-size: 2vw;
+	padding: 0;
+	text-align: right;
+}
+
+.dropdown-content div span {
+	cursor: pointer;
+}
+
+#writeDiary {
+	height: 4.5vh;
+	width: 12vw;
+	float: right;
+	cursor: pointer;
+}
+
+.host {
 	display: none;
 }
-#inputCategory{
+
+#inputCategory {
 	width: 15vw;
-    font-size: 2vw;
-    padding: 0;
+	font-size: 2vw;
+	padding: 0;
 }
-.inputBtn{
-    width: 2vw;
-    float: right;
-    padding-top: 0.4vw;
-    padding-right: 0.2vw;
+
+.inputBtn {
+	width: 2vw;
+	float: right;
+	padding-top: 0.4vw;
+	padding-right: 0.2vw;
 }
 
 /* 다이어리 css */
 .calendar {
-    margin: 20px 20px 10px 20px;
-    flex: 0.1;
-    border: 1px solid gray;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+	margin: 20px 20px 10px 20px;
+	flex: 0.1;
+	border: 1px solid gray;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
-
 
 .day {
-    flex: 0.125;
-    margin: 10px;
-    text-align: center;
+	flex: 0.125;
+	margin: 10px;
+	text-align: center;
 }
-
 
 .month {
-    flex: 0.875;
-    margin: 10px;
+	flex: 0.875;
+	margin: 10px;
 }
-
 
 .diary {
-    margin: 10px 20px 20px 20px;
-    flex: 0.9;
+	margin: 10px 20px 20px 20px;
+	flex: 0.9;
 }
-
 
 .diary-box {
-    border: 1px solid gray;
-    margin-bottom: 20px;
-    padding: 20px;
-    
+	border: 1px solid gray;
+	margin-bottom: 20px;
+	padding: 20px;
 }
-
 
 .diary-date {
-    font-size: 0.75rem;
+	font-size: 0.75rem;
 }
-
 
 .diary-text {
-    text-align: center;
+	text-align: center;
 }
-
-
-.secret-button {
-    width: 35%;
-    margin: 40px auto;
-}
-
 
 .secret-button button {
-    padding: 10px;
-    background-color: white;
-    color: white;
-    border: none;
-}
-.secret-button button:hover {
-    background-color: rgb(255, 70, 70);
-    transition: 800ms ease-in all;
+	padding: 10px;
+	background-color: white;
+	color: white;
+	border: none;
 }
 
+.secret-button button:hover {
+	background-color: rgb(255, 70, 70);
+	transition: 800ms ease-in all;
+}
 
 .icon {
-    margin-right: 5px;
+	margin-right: 5px;
 }
-
-
 
 @font-face {
-    font-family: 'BMJUA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'BMJUA';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-.body{
-font-family: 'BMJUA';
+.body {
+	font-family: 'BMJUA';
 }
 </style>
 <script>
@@ -339,52 +336,84 @@ window.onload=()=>{
 </script>
 </head>
 <body class="body">
+
 	<div class="dropdown">
 		<button class="dropbtn">
-			<span class="dropbtn_icon"></span>
-			<span class="dropbtn_content">전체글 보기</span>
+			<span class="dropbtn_icon"></span> 
+			<span class="dropbtn_content">전체글 보기</span> 
 			<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
 		</button>
+		
 		<div class="dropdown-content" id="content-list">
-			<div class="diary-category host" onclick="showMenu(this.innerText)"><span id="plusCategory" onclick="newCategory()">+</span></div>
+			<div class="diary-category host" onclick="showMenu(this.innerText)">
+				<span id="plusCategory" onclick="newCategory()">+</span>
+			</div>
+			
 			<div class="diary-category" onclick="showMenu(this.innerText)">전체글 보기</div>
 			<c:forEach var="cate" items="${category}">
-				<div class="diary-category" onclick="showMenu(this.innerText)"
-				>${cate.subcategory}<img src="<%=request.getContextPath()%>/resources/images/delete.png" class="inputBtn host" onclick="delCategory(this)"
-				><img src="<%=request.getContextPath()%>/resources/images/pencil.png" class="inputBtn host" onclick="changeCategory(this)"></div>
+				<div class="diary-category" onclick="showMenu(this.innerText)">${cate.subcategory}
+						<img src="<%=request.getContextPath()%>/resources/images/delete.png" class="inputBtn host" 
+						onclick="delCategory(this)"><img src="<%=request.getContextPath()%>/resources/images/pencil.png"
+						class="inputBtn host" onclick="changeCategory(this)">
+				</div>
 			</c:forEach>
+			
 			<c:if test="${login.uidx == mini.uidx}">
-			<script>
-				$(".host").css("display","block");
-			</script>
+				<script>$(".host").css("display","block");</script>
 			</c:if>
 		</div>
 	</div>
+	
 	<c:if test="${login.uidx == mini.uidx }">
-	<input type="button" id='writeDiary' onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
+		<input type="button" id='writeDiary' 
+		onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
 	</c:if>
-	<hr>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<hr><div id="boardList"></div>
 
-	<div id="boardList">
-	
-	</div>
-	
 	<script>
-	
+	// 시간 정보
+	<%
+		LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기 
+		int year = now.getYear(); // 년
+		int monthValue = now.getMonthValue(); // 월 
+		int dayOfMonth = now.getDayOfMonth(); // 일
+		String dayOfWeek = now.getDayOfWeek().toString(); // 일
+	%>
+		
+	var calcmonth = <%=monthValue%>;
+	let name = '${login.name}';
+	      
+	// 윤년 계산
+	function leapyearCalc(year){
+		if (year%4==0){
+			if (year%100!=0){ return true; }
+			else{ if(year%400==0){ return true; } }	
+		} return false;
+	}
+   
+	// 전월 이동
+	function monthDown() {
+		calcmonth -= 1;
+		if (calcmonth<=0){ calcmonth=12; }
+		callBoard();
+	}
+
+	// 다음월 이동
+	function monthUp() {
+		calcmonth += 1;
+		if (calcmonth>=12){ calcmonth=1; }
+		callBoard();
+	}
+   
+	// 월별 일수
+	if (leapyearCalc(<%=year%>)==true){
+		var lastdate = [0,31,29,31,30,31,30,31,31,30,31,30,31];
+	} else{
+		var lastdate = [0,31,28,31,30,31,30,31,31,30,31,30,31];
+	}
+
 	/* 글 모두 가져와서 화면 #boardList 에 출력 */
-	$(function callBoard(){
-		let name = '${login.name}';
+	$(function (){
 		$.ajax({
 			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
 			type:"get",
@@ -392,22 +421,40 @@ window.onload=()=>{
 				var html ="";
 				html+="<div class='main-content'>";
 				html+="<div class='calendar'>";
-				html+="<div class='day' id='bold-text'>01.24<br>MON</div>";
-				html+="<div class='month' id='basic-text'><span id='blue'>1</span> <span id='red'>2</span> 3 4 5 6 7 <span id='blue'>8</span> <span id='red'>9</span> 10 11 12 13 14 <span id='blue'>15</span> <span id='red'>16</span> 17 18 19 20 21 <span id='blue'>22</span> <span id='red'>32</span> 24 25 26 27 28 <span id='blue'>29</span> <span id='red'>30</span> <span id='red'>31</span></div>";
+				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
+				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
+				html+="<div class='month' id='basic-text'>";
+				for (var i=1; i<=lastdate[<%=monthValue%>];i++){
+					html+= i;
+					html+= " ";
+				}
+				html+="</div>";
+				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
 				html+="</div>";
 			         
 			     
 				html+="<div class='diary'>";
 				for(var i=0; i<data.length;i++){
-					html+="<div class='diary-box'>";
-					html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'><i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i><i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-					html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-					html+="</div>";
+					// 비밀글
+					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
+					// 안 비밀글 
+					if (data[i].secret!='Y'){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
 				}
-					html+="</div>";
-				if (${login.uidx == mini.uidx}){
-					html+="<div class='secret-button'><button><i class='fas fa-lock icon'></i>"+name+"의 비밀일기 보기</button></div>";
-				}
+				html+="</div>";
 				html+="</div>";
 				
 				$("#boardList").html(html);
@@ -415,14 +462,63 @@ window.onload=()=>{
 		});
 	})
 	
+	/* 글 모두 가져와서 화면 #boardList 에 출력 */
+	function callBoard(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
+			type:"get",
+			success:function(data){
+				var html ="";
+				html+="<div class='main-content'>";
+				html+="<div class='calendar'>";
+				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
+				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
+				html+="<div class='month' id='basic-text'>";
+				for (var i=1; i<=lastdate[calcmonth];i++){
+					html+= i;
+					html+= " ";
+				}
+				html+="</div>";
+				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
+				html+="</div>";
+			         
+			     
+				html+="<div class='diary'>";
+				for(var i=0; i<data.length;i++){
+					// 비밀글
+					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
+					// 안 비밀글 
+					if (data[i].secret!='Y'){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
+				}
+				html+="</div>";
+				html+="</div>";
+				
+				$("#boardList").html(html);
+			}
+		});
+	}
 	
+	// 글 삭제
 	function deleteDiary(mbidx){
 		var check = confirm("정말로 삭제하시겠습니까?");	
 		if (check){
 			location.href="<%=request.getContextPath()%>/miniroomboard2/deleteDiary.do?mbidx="+mbidx+"";
 		} 
 	}
-	</script>
-
+</script>
 </body>
 </html>
