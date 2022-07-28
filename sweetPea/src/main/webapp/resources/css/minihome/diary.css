@@ -1,0 +1,176 @@
+@charset "UTF-8";
+#boardList {
+	overflow-y: scroll;
+	height: 90vh;
+	width: 100%;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropbtn {
+	display: block;
+	border: 2px solid rgb(94, 94, 94);
+	border-radius: 4px;
+	background-color: #fcfcfc;
+	font-weight: 400;
+	color: rgb(124, 124, 124);
+	width: 25vw;
+	text-align: left;
+	cursor: pointer;
+	font-size: 2vw;
+	z-index: 1;
+	position: relative;
+	padding: 0.5vh 0.5vw;
+	text-indent: 0.5vw;
+}
+
+.dropdown-content {
+	display: none;
+	font-weight: 400;
+	background-color: #fcfcfc;
+	min-width: 25vw;
+	border-radius: 8px;
+	max-height: 20vh;
+	overflow: scroll;
+	box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
+}
+
+.dropdown-content::-webkit-scrollbar {
+	width: 5px;
+	height: 10px;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb {
+	border-radius: 2px;
+	background-color: rgb(194, 194, 194)
+}
+
+.dropdown-content div:not(:first-child) {
+	display: block;
+	text-decoration: none;
+	color: rgb(37, 37, 37);
+	font-size: 2vw;
+	padding: 1vh 0 1vh 2vw;
+	cursor: pointer;
+}
+
+.dropdown-content div:not(:first-child):hover {
+	background-color: rgb(226, 226, 226);
+}
+
+.dropdown-content.show {
+	display: block;
+	position: absolute;
+}
+
+.dropbtn_click {
+	float: right;
+	height: 2.5vh;
+	padding-top: 0.25vw;
+}
+
+.dropdown-content div:first-child {
+	font-size: 2vw;
+	padding: 0;
+	text-align: right;
+}
+
+.dropdown-content div span {
+	cursor: pointer;
+}
+
+#writeDiary {
+	height: 4.5vh;
+	width: 12vw;
+	float: right;
+	cursor: pointer;
+}
+
+.host {
+	display: none;
+}
+
+#inputCategory {
+	width: 15vw;
+	font-size: 2vw;
+	padding: 0;
+}
+
+.inputBtn {
+	width: 2vw;
+	float: right;
+	padding-top: 0.4vw;
+	padding-right: 0.2vw;
+}
+
+/* 다이어리 css */
+.calendar {
+	margin: 20px 20px 10px 20px;
+	flex: 0.1;
+	border: 1px solid gray;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.day {
+	flex: 0.125;
+	margin: 10px;
+	text-align: center;
+}
+
+.month {
+	flex: 0.875;
+	margin: 10px;
+}
+
+.diary {
+	margin: 10px 20px 20px 20px;
+	flex: 0.9;
+}
+
+.diary-box {
+	border: 1px solid gray;
+	margin-bottom: 20px;
+	padding: 20px;
+}
+
+.diary-date {
+	font-size: 0.75rem;
+}
+
+.diary-text {
+	text-align: center;
+}
+
+.secret-button button {
+	padding: 10px;
+	background-color: white;
+	color: white;
+	border: none;
+}
+
+.secret-button button:hover {
+	background-color: rgb(255, 70, 70);
+	transition: 800ms ease-in all;
+}
+
+.icon {
+	margin-right: 5px;
+}
+
+@font-face {
+	font-family: 'BMJUA';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.body {
+	font-family: 'BMJUA';
+}
