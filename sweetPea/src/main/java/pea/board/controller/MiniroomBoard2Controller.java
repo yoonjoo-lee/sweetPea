@@ -97,4 +97,15 @@ public class MiniroomBoard2Controller {
 		pw.append("<script>alert('수정 완료');history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
+	
+	
+	
+	// 다이어리 글 다른 페이지에서 가져오기 테스트
+	@RequestMapping(value = "/boardList.do", method=RequestMethod.GET)
+	public String boardList(Model model) {
+		 List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
+		 model.addAttribute("list", list);
+		 
+		return "minihome/boardList";
+	}
 }

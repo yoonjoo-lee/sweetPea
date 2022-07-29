@@ -12,11 +12,22 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <style>
-#boardList {
+/* #tmp {
+	overflow-y: scroll;
+	height: 90vh;
+	width: 100%;
+} */
+.main-content{
 	overflow-y: scroll;
 	height: 90vh;
 	width: 100%;
 }
+
+/* #boardList {
+	overflow-y: scroll;
+	height: 90vh;
+	width: 100%;
+} */
 
 .dropdown {
 	position: relative;
@@ -368,17 +379,98 @@ window.onload=()=>{
 		<input type="button" id='writeDiary' 
 		onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
 	</c:if>
-	<hr><div id="boardList"></div>
+	<hr>
+
+
+
+
+
+
+<%
+LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기 
+int year = now.getYear(); // 년
+int monthValue = now.getMonthValue(); // 월 
+int dayOfMonth = now.getDayOfMonth(); // 일
+String dayOfWeek = now.getDayOfWeek().toString(); // 일
+
+
+//윤년 계산하여 각 월의 일수 저장
+int[] lastdate = {0,31,28,31,30,31,30,31,31,30,31,30,31}; 
+if (year%4==0){ 
+	if (year%100!=0){ 
+		lastdate[2] = 29;
+	}
+	else { 
+		if (year%400==0){ 
+			lastdate[2] = 29;
+		}else{
+			lastdate[2] = 28;
+		}
+	}	
+} else{
+	lastdate[2] = 28;
+}
+
+int calcmonth = monthValue;
+
+
+
+%>
+<div class='main-content'>
+	<div class='calendar'>
+		<i class='bi-caret-left-fill' onclick=<%calcmonth -= 1; %>></i>
+		<div class='day' id='bold-text'>
+			<span id='demo'></span><%=calcmonth%>.<%=dayOfMonth%><br><%=dayOfWeek%></div>
+		<div class='month' id='basic-text'>
+			<c:forEach var="date" begin="1" end="<%=lastdate[monthValue] %>">
+				<span><c:out value="${date}" /></span>	
+			</c:forEach>
+			
+		</div>
+		<i class='bi-caret-right-fill' onclick='monthUp()'></i>
+	</div>	
+	<div id="tmp">
+	
+	</div>
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div id="boardList">
+	
+	</div>
 
 	<script>
+	$(function (){
+		console.log("글 리스트 창 오픈");
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
+			type: "GET",
+			/* data: "iqidx="+ $(obj).val(), */
+			success: function(html){
+				console.log("글 리스트 오픈 성공");
+				$("#tmp").html(html);
+			},
+			error: function(){
+				console.log("답변 창 오픈 실패");
+			}
+		})
+	});
+	
 	// 시간 정보
-	<%
+<%-- 	<%
 		LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기 
 		int year = now.getYear(); // 년
 		int monthValue = now.getMonthValue(); // 월 
 		int dayOfMonth = now.getDayOfMonth(); // 일
 		String dayOfWeek = now.getDayOfWeek().toString(); // 일
-	%>
+	%> --%>
 		
 	var calcmonth = <%=monthValue%>;
 	let name = '${login.name}';
@@ -404,6 +496,20 @@ window.onload=()=>{
 		if (calcmonth>=12){ calcmonth=1; }
 		callBoard();
 	}
+
+	// 전월 이동
+	function monthDown2(month, day) {
+		calcmonth -= 1;
+		if (calcmonth<=0){ calcmonth=12; }
+		callBoard(month, day);
+	}
+
+	// 다음월 이동
+	function monthUp2(month, day) {
+		calcmonth += 1;
+		if (calcmonth>=12){ calcmonth=1; }
+		callBoard(month, day);
+	}
    
 	// 월별 일수
 	if (leapyearCalc(<%=year%>)==true){
@@ -413,7 +519,7 @@ window.onload=()=>{
 	}
 
 	/* 글 모두 가져와서 화면 #boardList 에 출력 */
-	$(function (){
+	<%-- $(function (){
 		$.ajax({
 			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
 			type:"get",
@@ -425,8 +531,8 @@ window.onload=()=>{
 				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
 				html+="<div class='month' id='basic-text'>";
 				for (var i=1; i<=lastdate[<%=monthValue%>];i++){
-					html+= i;
-					html+= " ";
+					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
+				/* 	html+= " "; */
 				}
 				html+="</div>";
 				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
@@ -475,8 +581,7 @@ window.onload=()=>{
 				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
 				html+="<div class='month' id='basic-text'>";
 				for (var i=1; i<=lastdate[calcmonth];i++){
-					html+= i;
-					html+= " ";
+					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
 				}
 				html+="</div>";
 				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
@@ -511,6 +616,57 @@ window.onload=()=>{
 			}
 		});
 	}
+	
+	/* 글 모두 가져와서 화면 #boardList 에 출력 */
+	function callBoard(month, day){
+		console.log("month:", month, "day", day);
+		$.ajax({
+			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
+			type:"get",
+			success:function(data){
+				var html ="";
+				html+="<div class='main-content'>";
+				html+="<div class='calendar'>";
+				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
+				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
+				html+="<div class='month' id='basic-text'>";
+				for (var i=1; i<=lastdate[calcmonth];i++){
+					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
+				}
+				html+="</div>";
+				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
+				html+="</div>";
+			         
+			     
+				html+="<div class='diary'>";
+				for(var i=0; i<data.length;i++){
+					
+					// 비밀글
+					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
+					// 안 비밀글 
+					if (data[i].secret!='Y'){
+						html+="<div class='diary-box'>";
+						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
+						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
+						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
+						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
+						html+="</div>";
+					}
+				}
+				html+="</div>";
+				html+="</div>";
+				
+				$("#boardList").html(html);
+			}
+		});
+	} --%>
 	
 	// 글 삭제
 	function deleteDiary(mbidx){
