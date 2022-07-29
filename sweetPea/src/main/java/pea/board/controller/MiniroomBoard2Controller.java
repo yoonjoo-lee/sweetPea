@@ -41,8 +41,7 @@ public class MiniroomBoard2Controller {
 
 	// 다이어리 작성
 	@RequestMapping(value = "/diary_write.do", method = RequestMethod.POST)
-	public void diary_write(MiniroomBoardVo vo, HttpServletResponse response, HttpServletRequest request,
-			HttpSession session, Model model) throws IOException {
+	public void diary_write(MiniroomBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 		session = request.getSession();
 		UserVo login = (UserVo) session.getAttribute("login");
 		vo.setWriter(login.getUidx()); // 작성자 uidx
