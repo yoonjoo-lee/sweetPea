@@ -42,6 +42,12 @@ public class ItemController {
 //	
 //	
 //	
+	@RequestMapping(value="item/shopping-basket.do", method=RequestMethod.GET)
+	public String shoppingBasket() {
+		
+		return "item/shopping-basket";
+	}
+	
 	@RequestMapping(value = "/item/shop.do", method = RequestMethod.GET)
 	public String shop() {
 
@@ -125,42 +131,27 @@ public class ItemController {
 
 	@ResponseBody
 	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemSelectAll() {
-
+	public List<ItemVo> itemSelectAll(int cate) {
+		
+		/* 아이템 리스트 전체 */
+		if(cate==1) {
+			return itemService.itemSelectAll();
+		}else if(cate==2) {
+			/* 아이템 리스트 인기상품순 */
+			return itemService.itemListCount();
+		}else if(cate==3) {
+			/* 아이템 리스트 가격내림차순 */
+			return itemService.itemListDesc();
+		}else if(cate==4) {
+			/* 아이템 리스트 가격오름차순 */
+			return itemService.itemListAsc();
+		}else if(cate==5) {
+			/* 아이템 리스트 신상품순 */
+			return itemService.itemListNew();
+		}
 		return itemService.itemSelectAll();
 	}
 
-	// 아이템 인기 상품순
-	@ResponseBody
-	@RequestMapping(value = "/item/itemListCount.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListCount() {
-
-		return itemService.itemListCount();
-	}
-
-	// 아이템 가격 내림차순
-	@ResponseBody
-	@RequestMapping(value = "/item/itemListDesc.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListDesc() {
-
-		return itemService.itemListDesc();
-	}
-
-	// 아이템 가격 오름차순
-	@ResponseBody
-	@RequestMapping(value = "/item/itemListAsc.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListAsc() {
-
-		return itemService.itemListAsc();
-	}
-
-	// 아이템 가격 오름차순
-	@ResponseBody
-	@RequestMapping(value = "/item/itemListNew.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListNew() {
-
-		return itemService.itemListNew();
-	}
 
 	// 아이템 리스트 신상품 LIMIT 5개
 	@ResponseBody
