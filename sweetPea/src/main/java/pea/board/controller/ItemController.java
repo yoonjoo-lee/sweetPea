@@ -29,9 +29,6 @@ public class ItemController {
 
 	@Autowired
 	ItemService itemService;
-	
-	
-	
 
 	@RequestMapping(value = "/item/home.do")
 	public String home() {
@@ -70,56 +67,51 @@ public class ItemController {
 
 		return "item/itemWrite";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/item/itemWrite.do", produces = "application/json;charset=utf8")
-	public void itemWrite(ItemVo vo,HttpServletResponse response ,HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
-		
+	@RequestMapping(value = "/item/itemWrite.do", produces = "application/json;charset=utf8")
+	public void itemWrite(ItemVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
+
 		session = request.getSession();
 		UserVo login = (UserVo) session.getAttribute("login");
 		PrintWriter pw = response.getWriter();
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 		vo.setUiidx(login.getUidx());
-		vo.setImg(file.getOriginalFilename()); 
+		vo.setImg(file.getOriginalFilename());
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
-		
+
 		System.out.println(path);
 		System.out.println(vo.getImg());
-		
+
 		session.setAttribute("login", login);
 
-		File dir = new File(path); 
-		
-		if(!dir.exists()) { dir.mkdirs(); }
-		
-		if(!file.getOriginalFilename().isEmpty()) { file.transferTo(new File(path,
-		file.getOriginalFilename())); }else {
-		
+		File dir = new File(path);
+
+		if (!dir.exists()) {
+			dir.mkdirs();
 		}
-		
+
+		if (!file.getOriginalFilename().isEmpty()) {
+			file.transferTo(new File(path, file.getOriginalFilename()));
+		} else {
+
+		}
+
 		int result = itemService.itemWrite(vo);
-		
+
 		response.setContentType("text/html;charset=utf-8");
-		
-		if(result <= 0) {
+
+		if (result <= 0) {
 			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
 			pw.flush();
-		}else {
+		} else {
 			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do'</script>");
 			pw.flush();
 		}
-		
-		
-		
-		
-		
+
 	}
 
-
-	
-	
-	
 //	 /* 아이템 이름 중복체크 */
 
 	@ResponseBody
@@ -128,96 +120,76 @@ public class ItemController {
 		System.out.println(name);
 		return itemService.itemNameCheck(name);
 	}
-	
 
 //	 /* 아이템 리스트 가져오기 */
-	
+
 	@ResponseBody
-	@RequestMapping(value="/item/itemSelectAll.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemSelectAll(){
-		
+	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemSelectAll() {
+
 		return itemService.itemSelectAll();
 	}
-	
+
 	// 아이템 인기 상품순
 	@ResponseBody
-	@RequestMapping(value="/item/itemListCount.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListCount(){
-		
+	@RequestMapping(value = "/item/itemListCount.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListCount() {
+
 		return itemService.itemListCount();
 	}
+
 	// 아이템 가격 내림차순
 	@ResponseBody
-	@RequestMapping(value="/item/itemListDesc.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListDesc(){
-		
+	@RequestMapping(value = "/item/itemListDesc.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListDesc() {
+
 		return itemService.itemListDesc();
 	}
-	
+
 	// 아이템 가격 오름차순
 	@ResponseBody
-	@RequestMapping(value="/item/itemListAsc.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListAsc(){
-		
+	@RequestMapping(value = "/item/itemListAsc.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListAsc() {
+
 		return itemService.itemListAsc();
 	}
-	
+
 	// 아이템 가격 오름차순
 	@ResponseBody
-	@RequestMapping(value="/item/itemListNew.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListNew(){
-		
+	@RequestMapping(value = "/item/itemListNew.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListNew() {
+
 		return itemService.itemListNew();
 	}
-	
-		
-	// 아이템 리스트 신상품 LIMIT 5개 
+
+	// 아이템 리스트 신상품 LIMIT 5개
 	@ResponseBody
-	@RequestMapping(value="/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListNewLimit(){
-		
+	@RequestMapping(value = "/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListNewLimit() {
+
 		return itemService.itemListNewLimit();
 	}
-	
-	
-	
+
 //	/* 아이템 장바구니  */
-	
-	/*아이템 장바구니 리스트*/
-	
-	@RequestMapping(value="item/shoppingList.do", method=RequestMethod.GET)
+
+	/* 아이템 장바구니 리스트 */
+
+	@RequestMapping(value = "item/shoppingList.do", method = RequestMethod.GET)
 	public String shoppingList() {
-		
-		
+
 		return "item/shopping-basket";
 	}
-	
-	
-	/*아이템 사기*/
-	@RequestMapping(value="item/itemBuy.do", method=RequestMethod.GET)
+
+	/* 아이템 사기 */
+	@RequestMapping(value = "item/itemBuy.do", method = RequestMethod.GET)
 	public String itemBuy() {
 		return "item/itemBuy";
 	}
-	
-	@RequestMapping(value="item/delCheckItem.do", method=RequestMethod.GET)
+
+	@RequestMapping(value = "item/delCheckItem.do", method = RequestMethod.GET)
 	public String delCheckItem() {
-	
+
 		return "item/delCheckItem";
 	}
 
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
