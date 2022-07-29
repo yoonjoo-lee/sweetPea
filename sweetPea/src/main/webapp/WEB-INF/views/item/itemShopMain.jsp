@@ -324,6 +324,62 @@ function openShoppingBasket(){
 				<div class="modal-body">
 					<div class="btnBox">
 						<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> <input type="button" onclick="delCheckItem()" value="삭제">
+						<!--  -->
+						<br>
+						<div>
+							<ul class="header-ul">
+								<li><input type="checkbox" id="allCheck"></li>
+								<li>ITEM-MAKER</li>
+								<li>ITEM-NAME</li>
+								<li>담은 날짜</li>
+							</ul>
+							<c:if test="${list.size() == 0}">
+								<ul class="content-ul">
+									<li>등록된 아이템이 없습니다.</li>
+								</ul>
+							</c:if>
+							<c:if test="${list.size() > 0 }">
+								<c:forEach var="vo" items="${list}">
+									<c:if test="${vo.view_check eq 'Y'}">
+										<ul class="content-ul" style="color: lightgray;">
+											<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
+											<li>${vo.writer}</li>
+											<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
+											<li>${vo.datetime}</li>
+										</ul>
+									</c:if>
+									<c:if test="${vo.view_check eq 'N'}">
+										<ul class="content-ul">
+											<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
+											<li>${vo.writer}</li>
+											<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
+											<li>${vo.datetime}</li>
+										</ul>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							<div>
+								<ul class="myPaging">
+									<c:if test="${paging.startPage != 1 }">
+										<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li class="page-item  active"><b class="page-link">${p }</b></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+								</ul>
+							</div>
+
+						</div>
 					</div>
 					<br>
 				</div>
