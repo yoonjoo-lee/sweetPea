@@ -211,6 +211,14 @@ ul {
 .button:active { /*Clicked and held*/
 	box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
 }
+
+.exampleModalCenter {
+	width: 100vw;
+}
+
+/* 모달 사이즈  */
+
+
 </style>
 <script type="text/javascript">
 /* 장바구니 팝업 */
@@ -271,35 +279,35 @@ function openShoppingBasket(){
 	</div>
 	<br>
 	<!-- 아이템 리스트  -->
-	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListCount()">
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(2)">
 		<p class="btnText">인기상품순</p>
 		<div class="btnTwo">
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
 
-	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListDesc()">
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(3)">
 		<p class="btnText">가격내림순</p>
 		<div class="btnTwo">
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
-	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListAsc()">
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(4)">
 		<p class="btnText">가격오름순</p>
 		<div class="btnTwo">
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
-	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemListNew()">
+	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(5)">
 		<p class="btnText">신상품순</p>
 		<div class="btnTwo">
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
-	<div style="float: right; width: 15%; margin-left: 5px;" class="button" onclick="openShoppingBasket()">
-		<p class="btnText" data-toggle="modal" data-target="#exampleModalCenter">장바구니</p>
+	<div style="float: right; width: 15%; margin-left: 5px;" class="button" onclick="">
+		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg">장바구니</p>
 		<div class="btnTwo">
-			<p class="btnText2" data-toggle="modal" data-target="#exampleModalCenter">GO!</p>
+			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg">GO!</p>
 		</div>
 	</div>
 
@@ -311,84 +319,28 @@ function openShoppingBasket(){
 	</div>
 	<br>
 
-
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">SHOPPING-BASKET</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<div class="btnBox">
-						<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> <input type="button" onclick="delCheckItem()" value="삭제">
 						<!--  -->
-						<br>
-						<div>
-							<ul class="header-ul">
-								<li><input type="checkbox" id="allCheck"></li>
-								<li>ITEM-MAKER</li>
-								<li>ITEM-NAME</li>
-								<li>담은 날짜</li>
-							</ul>
-							<c:if test="${list.size() == 0}">
-								<ul class="content-ul">
-									<li>등록된 아이템이 없습니다.</li>
-								</ul>
-							</c:if>
-							<c:if test="${list.size() > 0 }">
-								<c:forEach var="vo" items="${list}">
-									<c:if test="${vo.view_check eq 'Y'}">
-										<ul class="content-ul" style="color: lightgray;">
-											<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-											<li>${vo.writer}</li>
-											<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-											<li>${vo.datetime}</li>
-										</ul>
-									</c:if>
-									<c:if test="${vo.view_check eq 'N'}">
-										<ul class="content-ul">
-											<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-											<li>${vo.writer}</li>
-											<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-											<li>${vo.datetime}</li>
-										</ul>
-									</c:if>
-								</c:forEach>
-							</c:if>
-							<div>
-								<ul class="myPaging">
-									<c:if test="${paging.startPage != 1 }">
-										<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-									</c:if>
-									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-										<c:choose>
-											<c:when test="${p == paging.nowPage }">
-												<li class="page-item  active"><b class="page-link">${p }</b></li>
-											</c:when>
-											<c:when test="${p != paging.nowPage }">
-												<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-											</c:when>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${paging.endPage != paging.lastPage}">
-										<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-									</c:if>
-								</ul>
-							</div>
+						<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do" style="width: 100%;"></iframe>
 
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
-					<br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -423,12 +375,48 @@ function openShoppingBasket(){
       for (var i=0; i<test.length; i++){
          console.log(test[i]['value']);
       }
-	
-	
-$(function(){
+/* 아이템 리스트 나열 */	
+ $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
+	data:"cate="+1,
+	success:function(data){
+		var html="";
+		for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+		}
+			$("#itemList").html(html);
+							
+		}
+						
+	})
+					
+})
+ 
+/* 아이템 리스트 카테고리별 나열 */	
+function itemSelectAll(cate){
+	$.ajax({
+	url:"itemSelectAll.do",
+	type:"get",
+	data:"cate="+cate,
 	success:function(data){
 		/* 	alert(data[i].name); */
 		var html="";
@@ -458,147 +446,10 @@ $(function(){
 						
 	})
 					
-})
-			
-
-/* 가격 내림차순 */
- 
- function itemListDesc(){
-	 $.ajax({
-		url:"itemListDesc.do",
-		type:"get",
-		success:function(data){
-			var html="";
-			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
-			html +="<div class='card-body p-4'>";
-			html +="<div class='text-center'>";
-				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
-			html +="</div>";
-			html +="</div>";
-			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			}
-			$("#itemList").html(html);
-			
-		}
-	 })
- }
-/* 가격 오름차순 */
-
-function itemListAsc(){
-	 $.ajax({
-		url:"itemListAsc.do",
-		type:"get",
-		success:function(data){
-			var html="";
-			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
-			html +="<div class='card-body p-4'>";
-			html +="<div class='text-center'>";
-				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
-			html +="</div>";
-			html +="</div>";
-			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			}
-			$("#itemList").html(html);
-			
-		}
-	 })
 }
-					
-/* 아이템 신상품순 */
 
-function itemListNew(){
-	 $.ajax({
-		url:"itemListNew.do",
-		type:"get",
-		success:function(data){
-			var html="";
-			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
-			html +="<div class='card-body p-4'>";
-			html +="<div class='text-center'>";
-				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
-			html +="</div>";
-			html +="</div>";
-			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			}
-			$("#itemList").html(html);
-			
-		}
-	 })
-}
-					
-/* 아이템 인기상품순 */
-
-function itemListCount(){
-	 $.ajax({
-		url:"itemListCount.do",
-		type:"get",
-		success:function(data){
-			var html="";
-			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
-			html +="<div class='card-body p-4'>";
-			html +="<div class='text-center'>";
-				html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
-			html +="</div>";
-			html +="</div>";
-			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			}
-			$("#itemList").html(html);
-			
-		}
-	 })
-}
 /* 모달 */
-		
-			
-			</script>
+</script>
 
 
 	<!-- 페이지 넘버. -->
