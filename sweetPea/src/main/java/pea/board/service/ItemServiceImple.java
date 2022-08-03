@@ -54,4 +54,9 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.itemListNewLimit();
 	}
 
+	@Override
+	public List<ItemVo> itemApproval() {
+		return itemDao.itemApproval();
+	}
+
 }

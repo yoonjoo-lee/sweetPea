@@ -148,6 +148,9 @@ public class ItemController {
 		}else if(cate==5) {
 			/* 아이템 리스트 신상품순 */
 			return itemService.itemListNew();
+		}else if(cate==6) {
+			/*아이템 승인 전 들어가는 페이지 리스트 */
+			return itemService.itemApproval();
 		}
 		return itemService.itemSelectAll();
 	}
@@ -183,4 +186,19 @@ public class ItemController {
 		return "item/delCheckItem";
 	}
 
+	/*아이템 등록 페이지 */
+	@RequestMapping(value="item/item-approval.do", method=RequestMethod.GET)
+	public String itemApproval() {
+
+		
+		return "item/item-approval";
+	}
+	/*아이템 보류 페이지 */
+	@RequestMapping(value="item/item-postpone.do", method=RequestMethod.GET)
+	public String itemPostpone() {
+		
+		
+		return "item/item-postpone";
+	}
+	
 }

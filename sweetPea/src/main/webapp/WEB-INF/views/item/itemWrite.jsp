@@ -283,8 +283,7 @@ table {
 					return;
 				}
 				
-			fm.action="<%=request.getContextPath()%>
-		/item/itemWrite.do";
+			fm.action="<%=request.getContextPath()%>/item/itemWrite.do";
 			fm.method = "post";
 			fm.enctype = "multipart/form-data";
 			fm.submit();

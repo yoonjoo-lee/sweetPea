@@ -14,5 +14,6 @@ public interface ItemService {
 	List<ItemVo> itemListAsc();	// 아이템 가격 오름순 리스트 
 	List<ItemVo> itemListNew();	// 아이템 신상품순 리스트 
 	List<ItemVo> itemListNewLimit();	// 아이템 신상품순 리스트 Limit 5개
+	List<ItemVo> itemApproval();	// 아이템 신상품순 리스트 Limit 5개
 	
 }
