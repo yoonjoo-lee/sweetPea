@@ -183,4 +183,19 @@ public class ItemController {
 		return "item/delCheckItem";
 	}
 
+	/*아이템 등록 페이지 */
+	@RequestMapping(value="item/item-approval.do", method=RequestMethod.GET)
+	public String itemApproval() {
+
+		
+		return "item/item-approval";
+	}
+	/*아이템 보류 페이지 */
+	@RequestMapping(value="item/item-postpone.do", method=RequestMethod.GET)
+	public String itemPostpone() {
+		
+		
+		return "item/item-postpone";
+	}
+	
 }

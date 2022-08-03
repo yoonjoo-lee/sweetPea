@@ -9,118 +9,47 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> -->
 <!-- <meta name="description" content="" />
 <meta name="author" content="" />
- --><title>SHOPPING BASKET</title>
+ -->
+<title>SHOPPING BASKET</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
-.side-nav {
-	display: inline-block;
-	float: left;
-	width: 10vw;
-	height: 60vh;
-	margin-bottom: 15em;
+* {
+	box-sizing: border-box;
 }
 
-.loginBox {
-	display: inline-block;
-	width: 100%;
-	height: 17vh;
-	border: 1px solid black;
-}
-
-.login-top {
-	font-size: 0.1em;
-	margin-top: 3em;
-	height: 20%;
-}
-
-.login-top>span {
-	float: left;
-	font-size: 9em;
-	margin-left: 1em;
-	color: silver;
-}
-
-.login-top>input {
-	float: right;
-	margin-right: 3em;
-}
-
-.login-center {
-	height: 55%;
-}
-
-.login-bottom {
-	height: 22%;
-}
-
-.login-center div {
-	display: inline-block;
-	height: 85%;
-}
-
-.profile {
-	height: 85%;
-	border: 1px solid black;
-	width: 40%;
-	margin-left: 5%;
-}
-
-.info {
-	width: 50%;
-}
-
-.info ul {
-	list-style: none;
-	font-size: 0.05em;
-	padding: 0;
-}
-
-.login-bottom>input {
-	width: 85%;
-	display: block;
-	margin: 0 auto;
-	font-size: 0.8em;
-}
-
-input {
-	margin: 0;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
-}
-
-.categoryBox {
-	border: 1px solid black;
-	margin-top: 1.5vh;
-}
-
-.categoryBox>h3 {
-	margin: 1vh 0;
+h3, ul {
 	text-align: center;
+	margin-bottom: 0;
 }
 
-.categoryBox>ul {
-	font-size: 0.8em;
-}
-
-a:hover {
-	cursor: pointer;
-	text-decoration: underline;
-	color: aqua;
-}
-
-.leftBanner {
-	background-image:
-		url("<%=request.getContextPath()%>/resources/images/leftbanner.png");
+ul {
+	list-style-type: none;
+	padding: 0;
 	width: 100%;
-	height: 100%;
-	display: block;
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-position: center center;
-	background-size: cover;
 }
+
+li {
+	display: inline-block;
+	font-size: 1.1em;
+}
+
+.header-ul {
+	background-color: #52C3BD;
+	color: white;
+	padding: 0.2em 0;
+}
+
+.content-ul {
+	background-color: #e5e5e5;
+	padding: 0.5em 0;
+	font-size: 0.8em;
+	margin-top: 0.2em;
+}
+.header-ul>li:first-child, .content-ul>li:fist-child {
+	width: 10%;
+}
+
 </style>
 <script>
 $(function(){
@@ -194,7 +123,7 @@ $(function(){
 </script>
 </head>
 <body>
-	<h3>SHOPPING-BASKET</h3>
+	<!-- 	<h3>SHOPPING-BASKET</h3> -->
 	<div class="btnBox">
 		<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> <input type="button" onclick="delCheckItem()" value="삭제">
 	</div>
@@ -231,6 +160,9 @@ $(function(){
 				</c:if>
 			</c:forEach>
 		</c:if>
+		<!--  -->
+		<!-- 페이징  -->
+		<!--  -->
 		<div>
 			<ul class="myPaging">
 				<c:if test="${paging.startPage != 1 }">
