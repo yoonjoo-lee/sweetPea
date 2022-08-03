@@ -71,4 +71,8 @@ public class ItemDao {
 		
 	}
 	
+	public List<ItemVo> itemApproval(){
+		return sqlSession.selectList(namespace+".itemApproval");
+	}
+	
 }

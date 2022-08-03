@@ -28,7 +28,7 @@ $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+1,
+	data:"cate="+6,
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
@@ -43,7 +43,8 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemShoppingAdd();'>장바구니</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval();'>등록완료</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemPostpone();'>보류</a>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";

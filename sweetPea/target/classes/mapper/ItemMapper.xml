@@ -80,8 +80,12 @@
 	</select>
 	
 	<!-- 아이템 승인 -->
-	<select id="item">
-	
+	<select id="itemApproval" resultType="ItemVo">
+		SELECT * FROM pea_item 
+			WHERE delyn='N' 
+			AND approval='N' 
+			ORDER BY iidx 
+			DESC;
 	</select>
 </mapper>
 

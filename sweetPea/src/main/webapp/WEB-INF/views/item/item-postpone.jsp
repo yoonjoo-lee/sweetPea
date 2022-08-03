@@ -18,6 +18,53 @@
 <title>item-postpone</title>
 </head>
 <body>
+	<div class="container px-4 px-lg-5 mt-5">
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
+	</div>
+<script>
 
+/* 아이템 리스트 나열 */	
+$(function itemSelectAll(){
+	$.ajax({
+	url:"itemSelectAll.do",
+	type:"get",
+	data:"cate="+6,
+	success:function(data){
+		var html="";
+		for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='card h-100'>";
+			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemDel();'>삭제</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+		}
+			$("#itemList").html(html);
+							
+		}
+						
+	})
+					
+})
+
+function itemDel(){
+	var check = confirm("정말로 삭제하시겠습니까?");	
+	if (check){
+		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
+	} 
+}
+</script>
 </body>
 </html>

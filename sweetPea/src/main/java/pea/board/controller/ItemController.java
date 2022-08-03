@@ -148,6 +148,9 @@ public class ItemController {
 		}else if(cate==5) {
 			/* 아이템 리스트 신상품순 */
 			return itemService.itemListNew();
+		}else if(cate==6) {
+			/*아이템 승인 전 들어가는 페이지 리스트 */
+			return itemService.itemApproval();
 		}
 		return itemService.itemSelectAll();
 	}
