@@ -59,4 +59,9 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.itemApproval();
 	}
 
+	@Override
+	public List<ItemVo> postPone() {
+		return itemDao.postPone();
+	}
+
 }

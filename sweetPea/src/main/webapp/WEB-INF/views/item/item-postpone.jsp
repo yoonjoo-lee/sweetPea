@@ -28,7 +28,7 @@ $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+6,
+	data:"cate="+7,
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){

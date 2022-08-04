@@ -71,8 +71,19 @@ public class ItemDao {
 		
 	}
 	
+	// 아이템 보류 리스트 
+	public List<ItemVo> postPone(){
+		return sqlSession.selectList(namespace+".postPone");
+	}
+	
+	//아이템 승인 리스트 
 	public List<ItemVo> itemApproval(){
 		return sqlSession.selectList(namespace+".itemApproval");
 	}
-	
+
+	// 아이템 승인 
+	public int itemBuy() {
+		
+		return sqlSession.update(namespace+".itemBuy");
+	}
 }
