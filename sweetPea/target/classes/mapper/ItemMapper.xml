@@ -79,7 +79,7 @@
 		ORDER BY iidx DESC LIMIT 1,5;
 	</select>
 	
-	<!-- 아이템 승인 -->
+	<!-- 아이템 승인 리스트  -->
 	<select id="itemApproval" resultType="ItemVo">
 		SELECT * FROM pea_item 
 			WHERE delyn='N' 
@@ -87,7 +87,8 @@
 			ORDER BY iidx 
 			DESC;
 	</select>
-	<select id="postPone" resultType="ItemVo">
+	<!-- 아이템 보류 리스트  -->
+	<select id="postpone" resultType="ItemVo">
 		SELECT * FROM pea_item
 			WHERE delyn='N'
 			AND approval='N'
@@ -96,8 +97,14 @@
 			DESC;
 	
 	</select>
+	
+	<!-- 아이템 승인 버튼 -->
 	<update id="approvalCheck" parameterType="ItemVo">
 		UPDATE pea_item SET approval='Y' WHERE iidx=#{iidx}
+	</update>
+	<!-- 아이템 보류 버튼  -->
+	<update id="postponeCheck" parameterType="ItemVo">
+		UPDATE pea_item SET postpone='Y' WHERE iidx=#{iidx}
 	</update>
 	
 </mapper>

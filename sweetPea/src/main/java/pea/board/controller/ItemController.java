@@ -184,6 +184,7 @@ public class ItemController {
 		if(check==1) {
 			return itemService.itemApproval();
 		} else if(check==2) {
+			return itemService.postPone();
 		}
 		return itemService.itemSelectAll();
 	}

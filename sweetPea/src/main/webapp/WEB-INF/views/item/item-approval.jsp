@@ -43,7 +43,7 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval(1);'>등록완료</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval(1);'>등록</a>";
 			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval(2);'>보류</a>";
 			html +="</div>";
 			html +="</div>";
