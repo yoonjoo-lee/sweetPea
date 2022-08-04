@@ -87,6 +87,19 @@
 			ORDER BY iidx 
 			DESC;
 	</select>
+	<select id="postPone" resultType="ItemVo">
+		SELECT * FROM pea_item
+			WHERE delyn='N'
+			AND approval='N'
+			AND postpone='Y'
+			ORDER BY iidx 
+			DESC;
+	
+	</select>
+	<update id="approvalCheck" parameterType="ItemVo">
+		UPDATE pea_item SET approval='Y' WHERE iidx=#{iidx}
+	</update>
+	
 </mapper>
 
 

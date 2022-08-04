@@ -151,6 +151,9 @@ public class ItemController {
 		}else if(cate==6) {
 			/*아이템 승인 전 들어가는 페이지 리스트 */
 			return itemService.itemApproval();
+		}else if(cate==7) {
+			
+			return itemService.postPone();
 		}
 		return itemService.itemSelectAll();
 	}
@@ -174,10 +177,15 @@ public class ItemController {
 		return "item/shopping-basket";
 	}
 
-	/* 아이템 사기 */
-	@RequestMapping(value = "item/itemBuy.do", method = RequestMethod.GET)
-	public String itemBuy() {
-		return "item/itemBuy";
+	/* 아이템 승인 확인  */
+	@RequestMapping(value = "item/approvalCheck.do", method = RequestMethod.POST)
+	public List<ItemVo> approvalCheck(int check) {
+		
+		if(check==1) {
+			return itemService.itemApproval();
+		} else if(check==2) {
+		}
+		return itemService.itemSelectAll();
 	}
 
 	@RequestMapping(value = "item/delCheckItem.do", method = RequestMethod.GET)
