@@ -42,12 +42,12 @@ public class ItemController {
 //	
 //	
 //	
-	@RequestMapping(value="item/shopping-basket.do", method=RequestMethod.GET)
+	@RequestMapping(value = "item/shopping-basket.do", method = RequestMethod.GET)
 	public String shoppingBasket() {
-		
+
 		return "item/shopping-basket";
 	}
-	
+
 	@RequestMapping(value = "/item/shop.do", method = RequestMethod.GET)
 	public String shop() {
 
@@ -132,32 +132,31 @@ public class ItemController {
 	@ResponseBody
 	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
 	public List<ItemVo> itemSelectAll(int cate) {
-		
+
 		/* 아이템 리스트 전체 */
-		if(cate==1) {
+		if (cate == 1) {
 			return itemService.itemSelectAll();
-		}else if(cate==2) {
+		} else if (cate == 2) {
 			/* 아이템 리스트 인기상품순 */
 			return itemService.itemListCount();
-		}else if(cate==3) {
+		} else if (cate == 3) {
 			/* 아이템 리스트 가격내림차순 */
 			return itemService.itemListDesc();
-		}else if(cate==4) {
+		} else if (cate == 4) {
 			/* 아이템 리스트 가격오름차순 */
 			return itemService.itemListAsc();
-		}else if(cate==5) {
+		} else if (cate == 5) {
 			/* 아이템 리스트 신상품순 */
 			return itemService.itemListNew();
-		}else if(cate==6) {
-			/*아이템 승인 전 들어가는 페이지 리스트 */
+		} else if (cate == 6) {
+			/* 아이템 승인 전 들어가는 페이지 리스트 */
 			return itemService.itemApproval();
-		}else if(cate==7) {
-			
+		} else if (cate == 7) {
+
 			return itemService.postPone();
 		}
 		return itemService.itemSelectAll();
 	}
-
 
 	// 아이템 리스트 신상품 LIMIT 5개
 	@ResponseBody
@@ -177,15 +176,18 @@ public class ItemController {
 		return "item/shopping-basket";
 	}
 
-	/* 아이템 승인 확인  */
+	/* 아이템 승인 확인 */
+	@ResponseBody
 	@RequestMapping(value = "item/approvalCheck.do", method = RequestMethod.POST)
-	public List<ItemVo> approvalCheck(int check) {
-		
-		if(check==1) {
-			return itemService.itemApproval();
-		} else if(check==2) {
+	public int approvalCheck(int iidx, int check) {
+		System.out.println(iidx);
+		System.out.println(check);
+		if (check == 1) {
+			return itemService.approvalCheck(iidx);
+		} else if (check == 2) {
+			return itemService.postponeCheck(iidx);
 		}
-		return itemService.itemSelectAll();
+		return 1;
 	}
 
 	@RequestMapping(value = "item/delCheckItem.do", method = RequestMethod.GET)
@@ -194,19 +196,26 @@ public class ItemController {
 		return "item/delCheckItem";
 	}
 
-	/*아이템 등록 페이지 */
-	@RequestMapping(value="item/item-approval.do", method=RequestMethod.GET)
+	/* 아이템 등록 페이지 */
+	@RequestMapping(value = "item/item-approval.do", method = RequestMethod.GET)
 	public String itemApproval() {
 
-		
 		return "item/item-approval";
 	}
-	/*아이템 보류 페이지 */
-	@RequestMapping(value="item/item-postpone.do", method=RequestMethod.GET)
+
+	/* 아이템 보류 페이지 */
+	@RequestMapping(value = "item/item-postpone.do", method = RequestMethod.GET)
 	public String itemPostpone() {
-		
-		
+
 		return "item/item-postpone";
 	}
 	
+	@RequestMapping(value="item/itemDel.do")
+	public void itemDel(int iidx, HttpServletResponse response) throws IOException {
+		int result = itemService.itemDel(iidx);
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
+
 }

@@ -61,7 +61,24 @@ public class ItemServiceImple implements ItemService {
 
 	@Override
 	public List<ItemVo> postPone() {
-		return itemDao.postPone();
+		return itemDao.postpone();
 	}
+
+	@Override
+	public int approvalCheck(int iidx) {
+		return itemDao.approvalCheck(iidx );
+	}
+
+	@Override
+	public int postponeCheck(int iidx) {
+		return itemDao.postponeCheck(iidx);
+	}
+
+	@Override
+	public int itemDel(int iidx) {
+		return itemDao.itemDel(iidx);
+	}
+
+
 
 }
