@@ -412,34 +412,28 @@ if (year%4==0){
 }
 
 int calcmonth = monthValue;
-
-
-
 %>
+<!-- 글 공간 전체 -->
 <div class='main-content'>
+	<!-- 달력 공간 -->
 	<div class='calendar'>
-		<i class='bi-caret-left-fill' onclick=<%calcmonth -= 1; %>></i>
+		<i class='bi-caret-left-fill' onclick="test()"></i>
 		<div class='day' id='bold-text'>
 			<span id='demo'></span><%=calcmonth%>.<%=dayOfMonth%><br><%=dayOfWeek%></div>
-		<div class='month' id='basic-text'>
-			<c:forEach var="date" begin="1" end="<%=lastdate[monthValue] %>">
-				<span><c:out value="${date}" /></span>	
-			</c:forEach>
 			
+			<!-- <div id="calendar"></div> -->
+			
+		<div class='month' id='basic-text'>
+			<c:forEach var="date" begin="1" end="<%=lastdate[calcmonth] %>">
+				<span onclick="openlist(<%=year%>,<%=calcmonth%>,${date})"><c:out value="${date}" /></span>	
+			</c:forEach>
 		</div>
+		
 		<i class='bi-caret-right-fill' onclick='monthUp()'></i>
 	</div>	
-	<div id="tmp">
-	
-	</div>
+	<!-- 글 공간 -->
+	<div id="board"></div>
 </div>
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	<div id="boardList">
@@ -447,21 +441,59 @@ int calcmonth = monthValue;
 	</div>
 
 	<script>
+	// 글 전부 불러오기
 	$(function (){
-		console.log("글 리스트 창 오픈");
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
 			type: "GET",
-			/* data: "iqidx="+ $(obj).val(), */
+			success: function(html){
+				$("#board").html(html);
+			},
+			error: function(){
+			}
+		})
+	});
+	
+	
+	// 달력 불러오기
+<%-- 	$(function (){
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
+			type: "GET",
+			data: {"month":<%=calcmonth%>,"day":<%=dayOfMonth%>},
+			success: function(html){
+				$("#calendar").html(html);
+			},
+			error: function(){
+			}
+		})
+	});
+	function caledar(){
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
+			type: "GET",
+			success: function(html){
+				$("#calendar").html(html);
+			},
+			error: function(){
+			}
+		})
+	} --%>
+	
+	function openlist(year,month,day){
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
+			type: "GET",
+			data: {"year":year, "month":month, "day":day},
 			success: function(html){
 				console.log("글 리스트 오픈 성공");
-				$("#tmp").html(html);
+				$("#board").html(html);
 			},
 			error: function(){
 				console.log("답변 창 오픈 실패");
 			}
-		})
-	});
+		}) 
+	}
 	
 	// 시간 정보
 <%-- 	<%

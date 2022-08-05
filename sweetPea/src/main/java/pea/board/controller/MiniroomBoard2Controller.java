@@ -99,13 +99,30 @@ public class MiniroomBoard2Controller {
 	}
 	
 	
-	
-	// 다이어리 글 다른 페이지에서 가져오기 테스트
+																																		
+	// 다이어리 글 전부 조회 
 	@RequestMapping(value = "/boardList.do", method=RequestMethod.GET)
 	public String boardList(Model model) {
-		 List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
-		 model.addAttribute("list", list);
+		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
+		model.addAttribute("list", list);
 		 
 		return "minihome/boardList";
+	}
+	
+	// 다이어리 글 날짜별 조회
+	@RequestMapping(value = "/boardByDate.do", method=RequestMethod.GET)
+	public String boardByDate(Model model, int year, int month, int day) {
+		String date = Integer.toString(year) +'-'+ Integer.toString(month) +'-'+ Integer.toString(day);
+		List<MiniroomBoardVo> list = miniroomboard2Service.boardByDate(date);
+		model.addAttribute("list", list);
+		 
+		return "minihome/boardList";
+	}
+	
+	@RequestMapping(value = "/calendar.do", method=RequestMethod.GET)
+	public String calendar(Model model, int month, int day) {
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		return "minihome/calendar";
 	}
 }

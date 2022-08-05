@@ -43,6 +43,25 @@
 	 WHERE delyn='N'
 	 ORDER BY mbidx DESC
 </select>
+
+<!-- 미니룸 다이어리 글 목록 전부 불러오기 -->
+<select id="boardByDate" parameterType="String" resultType="MiniroomBoardVo">
+	 SELECT 
+	 	  mbidx
+	 	, uidx
+	 	, title
+	 	, CONVERT(content USING UTF8) as content
+	 	, writer
+	 	, date
+	 	, ip
+	 	, category
+	 	, delyn
+	 	, secret
+	  FROM pea_minihome_board 
+	 WHERE delyn='N'
+	  AND date(date)=#{date}
+	 ORDER BY mbidx DESC
+</select>
  
 <!-- 글 삭제 --> 
 <update id="deleteDiary" parameterType="int">
@@ -59,4 +78,6 @@
 	 	,secret=#{secret}
 	WHERE mbidx=#{mbidx}
 </update>
+
+
 </mapper>
