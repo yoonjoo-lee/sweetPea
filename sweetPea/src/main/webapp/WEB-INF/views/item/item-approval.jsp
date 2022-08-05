@@ -18,6 +18,7 @@
 <title>item-approval</title>
 </head>
 <body>
+	<h3 style="text-align:center;">ITEM-APPROVAL</h3>
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
@@ -43,8 +44,8 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval(1);'>등록</a>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval(2);'>보류</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval("+data[i].iidx+",1);'>등록</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval("+data[i].iidx+",2);'>보류</a>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -60,13 +61,16 @@ $(function itemSelectAll(){
 					
 })
 
-function itemApproval(check){
+function itemApproval(iidx, check){
+	console.log(iidx);
+	console.log(check);
 	$.ajax({
 		url:"approvalCheck.do",
 		type:"post",
-		data:"check="+check,
+		data:{"iidx":iidx,"check":check},
 		success:function(data){
-			alert('버튼 확인');
+			alert('변경 되었습니다.');
+			document.location.reload();
 			
 		}
 	})

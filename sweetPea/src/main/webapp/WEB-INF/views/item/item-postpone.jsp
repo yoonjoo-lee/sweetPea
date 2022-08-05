@@ -18,6 +18,7 @@
 <title>item-postpone</title>
 </head>
 <body>
+	<h3 style="text-align:center;">ITEM-POSTPONE</h3>
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
@@ -43,7 +44,7 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemDel();'>삭제</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemDel("+data[i].iidx+");'>삭제</a>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -54,15 +55,15 @@ $(function itemSelectAll(){
 			$("#itemList").html(html);
 							
 		}
-						
+
 	})
 					
 })
 
-function itemDel(){
+function itemDel(iidx){
 	var check = confirm("정말로 삭제하시겠습니까?");	
 	if (check){
-		location.href="delete.do?bidx=${vo.bidx}&category=${vo.category}";
+		location.href="itemDel.do?iidx="+iidx+"";
 	} 
 }
 </script>

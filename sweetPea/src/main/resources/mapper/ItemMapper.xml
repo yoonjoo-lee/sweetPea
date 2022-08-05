@@ -41,26 +41,26 @@
 	<!-- 아이템 리스트  -->
 	<select id="itemList" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y' and postpone='N'
 		ORDER BY iidx DESC
 	</select>
 	
 	<!-- 아이템 인기 상품순 -->
 	<select id="itemListCount" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y'  and postpone='N'
 		ORDER BY count DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 내림차순 -->
 	<select id="itemListDesc" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y' AND postpone='N'
 		ORDER BY price DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 오름차순 -->
 	<select id="itemListAsc" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y' AND postpone='N'
 		ORDER BY price 
 		ASC, iidx 
 		DESC
@@ -68,14 +68,14 @@
 	<!-- 아이템 리스트 신상품순 -->
 	<select id="itemListNew" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y' AND postpone='N'
 		ORDER BY iidx DESC
 	</select>
 	
 	<!-- 아이템 리스트 신상품순 5개 -->
 	<select id="itemListNewLimit" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'
+		WHERE delyn='N' and approval='Y' AND postpone='N'
 		ORDER BY iidx DESC LIMIT 1,5;
 	</select>
 	
@@ -84,6 +84,7 @@
 		SELECT * FROM pea_item 
 			WHERE delyn='N' 
 			AND approval='N' 
+			AND	postpone='N'
 			ORDER BY iidx 
 			DESC;
 	</select>
@@ -99,12 +100,17 @@
 	</select>
 	
 	<!-- 아이템 승인 버튼 -->
-	<update id="approvalCheck" parameterType="ItemVo">
+	<update id="approvalCheck" parameterType="int">
 		UPDATE pea_item SET approval='Y' WHERE iidx=#{iidx}
 	</update>
 	<!-- 아이템 보류 버튼  -->
-	<update id="postponeCheck" parameterType="ItemVo">
+	<update id="postponeCheck" parameterType="int">
 		UPDATE pea_item SET postpone='Y' WHERE iidx=#{iidx}
+	</update>
+	
+	<!-- 아이템 삭제  -->
+	<update id="itemDel" parameterType="int">
+		UPDATE pea_item SET delyn='Y' WHERE iidx=#{iidx}
 	</update>
 	
 </mapper>

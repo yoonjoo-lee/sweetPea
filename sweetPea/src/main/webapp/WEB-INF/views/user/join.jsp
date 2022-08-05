@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>join</title>
-<script src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link href="<%=request.getContextPath()%>/resources/css/join.css" rel="stylesheet" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -75,14 +74,14 @@
 </script>
 </head>
 <body>
-<header id="header"></header>
-<br><br>
-<div id="joinBox">
-	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
-	<form name="frm" >
-		<input type="text" name="id" id="id" placeholder="아이디" ><br>
-		<span id="span-id"></span>
-		<script>
+	<header id="header"></header>
+	<br>
+	<br>
+	<div id="joinBox">
+		<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
+		<form name="frm">
+			<input type="text" name="id" id="id" placeholder="아이디"><br> <span id="span-id"></span>
+			<script>
 		/* 영어랑 숫자만. */
 			$('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
 				
@@ -108,13 +107,8 @@
 				}
 			});
 		</script>
-		<br>
-		
-		<input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br>
-		<span id="span-pwd"></span><br>
-		<input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br>
-		<span id="span-pwd2"></span><br>
-		<script>
+			<br> <input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br> <span id="span-pwd"></span><br> <input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br> <span id="span-pwd2"></span><br>
+			<script>
 			$("#pwd").blur(function(){
 				if($("#pwd").val() == ""){
 					$("#span-pwd").text("비밀번호를 입력하세요");
@@ -142,22 +136,19 @@
 				}	
 			});
 		</script>
-		
-		<input type="text" name="name" id="name" placeholder="이름" ><br>
-		<span id="span-name"></span><br>
-		<script type="text/javascript">
+
+			<input type="text" name="name" id="name" placeholder="이름"><br> <span id="span-name"></span><br>
+			<script type="text/javascript">
 		/* 한글만  */
 			$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 		</script>
-		
-		<select name="gender" id="gender">
-			<option value="">성별</option>
-			<option value="M">남자</option>
-			<option value="W">여자</option>
-		</select>
-		<br>
-		<span id="span-gender"></span>
-		<script>
+
+			<select name="gender" id="gender">
+				<option value="">성별</option>
+				<option value="M">남자</option>
+				<option value="W">여자</option>
+			</select> <br> <span id="span-gender"></span>
+			<script>
 			$('#name').blur(function(){
 				if($('#name').val()==""){
 					$('#span-name').text("이름을 입력하세요.");
@@ -178,10 +169,8 @@
 				}
 			})
 		</script>
-		<br>
-		<input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외" ><br>
-		<span id="span-birth"></span><br>
-		<script>
+			<br> <input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외"><br> <span id="span-birth"></span><br>
+			<script>
 			$('#birth').blur(function(){
 				if($('#birth').val()==""){
 					$('#span-birth').text('생년월일을 입력하세요');
@@ -193,9 +182,8 @@
 			})
 			
 		</script>
-		<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br>
-		<span id="span-phone"></span><br>
-		<script>
+			<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br> <span id="span-phone"></span><br>
+			<script>
 			$('#phone').blur(function(){
 				if($('#phone').val()==""){
 					$('#span-phone').text('연락처를 입력하세요');
@@ -206,12 +194,9 @@
 				}
 			})
 		</script>
-		<input type="text" name="email" id="email" placeholder="이메일">
-		<input type="button" id="mailCheckBtn" value="인증번호 받기" ><br>
-		<input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br>
-		<span id="span-email"></span><br>
-		
-		<script>
+			<input type="text" name="email" id="email" placeholder="이메일"> <input type="button" id="mailCheckBtn" value="인증번호 받기"><br> <input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br> <span id="span-email"></span><br>
+
+			<script>
 			$('#email').blur(function(){
 				if($('#email').val()==""){
 					$('#span-email').text('이메일을 입력하세요');
@@ -223,17 +208,17 @@
 			
 			})
 		</script>
-		<!-- <input type="text" name="addr" placeholder="주소" id="addr"><input type="button" value="검색"><br>
+			<!-- <input type="text" name="addr" placeholder="주소" id="addr"><input type="button" value="검색"><br>
 		<span></span><br> -->
-	
-	
-	<input type="text" id="addr" name="addr" placeholder="주소">
-	<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br><br>
-	<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-	
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3239a3373f05b6e77a023666bc916273&libraries=services"></script>
-	<script>
+
+
+			<input type="text" id="addr" name="addr" placeholder="주소"> <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+			<br>
+			<div id="map" style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3239a3373f05b6e77a023666bc916273&libraries=services"></script>
+			<script>
 	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	        mapOption = {
 	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
@@ -280,31 +265,31 @@
 	        }).open();
 	    }
 	</script>
-	
-		<input type="button" value="회원가입" onclick="join();" >
-	</form>
-</div>
+
+			<input type="button" value="회원가입" onclick="join();">
+		</form>
+	</div>
 
 
 
 
 
 
-<!--  -->
-<!--  -->
-<!--  -->
-<!-- 이메일 인증 스크립트. -->
-<!--  -->
-<!--  -->
-<!--  -->
+	<!--  -->
+	<!--  -->
+	<!--  -->
+	<!-- 이메일 인증 스크립트. -->
+	<!--  -->
+	<!--  -->
+	<!--  -->
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 $('#mailCheckBtn').click(function() {
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!
 	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-	var pjtPath = '<%= request.getContextPath()%>';
+	var pjtPath = '<%=request.getContextPath()%>';
 	Swal.fire({
 	      text: '인증번호 전송중...',
 	      didOpen: () => {
@@ -346,7 +331,7 @@ $('.mail-check-input').blur(function () {
 });
 </script>
 
-<br>
-<footer id="footer"></footer>
+	<br>
+	<footer id="footer"></footer>
 </body>
 </html>
