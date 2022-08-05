@@ -35,4 +35,9 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 		return miniroomboardDao.modify(vo);
 	}
 
+	@Override
+	public List<MiniroomBoardVo> boardByDate(String date) {
+		return miniroomboardDao.boardByDate(date);
+	}
+
 }
