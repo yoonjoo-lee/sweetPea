@@ -1,10 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
-<%-- <%@ include file="../views/header.jsp"%> --%>
 <html>
 <head>
 	<title>SweetPea</title>
-	<script src="resources/js/jquery-3.6.0.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){
 			$("#header").load("resources/article/header.jsp"); 
@@ -19,8 +18,15 @@
 			margin: 0 auto;
 			margin-bottom: 15em;
 		}
-		
 	</style>
+	<c:if test="${device eq 'MOBILE' }">
+	<style>
+		#view{
+			width: 100%;
+		}
+	</style>
+	
+	</c:if>
 </head>
 <body>
 <article>
