@@ -6,7 +6,7 @@
 <mapper namespace="pea.board.mapper.ItemMapper">
 
 
-
+	<!-- 아이템 이름 중복 체크 -->
 	<select id="itemNameCheck" parameterType="string"
 		resultType="string">
 		SELECT name
@@ -16,6 +16,7 @@
 
 	</select>
 	
+	<!-- 아이템 등록 -->
 	<insert id="itemInsert" parameterType="ItemVo">
 	INSERT INTO pea_item(
 				  price
@@ -113,6 +114,17 @@
 		UPDATE pea_item SET delyn='Y' WHERE iidx=#{iidx}
 	</update>
 	
+	<!-- 장바구니 리스트  -->
+	<select id="shoppingList" resultType="ItemVo">
+		
+	
+	</select>
+	
+	<!-- 장바구니함 리스트  -->
+<select id="basket_selectAll" parameterType="int" resultType="ItemVo">
+	SELECT * FROM pea_item 
+		WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} cart='Y' and delyn='N')
+</select>
 </mapper>
 
 

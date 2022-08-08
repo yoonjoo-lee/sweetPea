@@ -44,6 +44,7 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval("+data[i].iidx+",1);'>등록</a>&nbsp;";
 			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemDel("+data[i].iidx+");'>삭제</a>";
 			html +="</div>";
 			html +="</div>";
@@ -65,6 +66,21 @@ function itemDel(iidx){
 	if (check){
 		location.href="itemDel.do?iidx="+iidx+"";
 	} 
+}
+
+function itemApproval(iidx, check){
+	console.log(iidx);
+	console.log(check);
+	$.ajax({
+		url:"approvalCheck.do",
+		type:"post",
+		data:{"iidx":iidx,"check":check},
+		success:function(data){
+			alert('변경 되었습니다.');
+			document.location.reload();
+			
+		}
+	})
 }
 </script>
 </body>

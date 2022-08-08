@@ -327,7 +327,7 @@ function openShoppingBasket(){
 				<div class="modal-body">
 					<div class="btnBox">
 						<!--  -->
-						<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do" style="width: 100%;"></iframe>
+						<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=${login.uidx}" style="width: 100%;"></iframe>
 
 
 						<div class="modal-footer">
@@ -385,6 +385,23 @@ function openShoppingBasket(){
 	})
 					
 })
+ /* 장바구니  */
+ function itemShoppingAdd(){
+	 console.log('itemShoppgAdd');
+	$.ajax({
+	
+		url:"itemShoppingAdd.do",
+		type:"post",
+	 /* 	data:{"":},  */
+		success:function(data){
+			
+		},
+		error:function(){
+			alert('장바구니에 추가되지 않았습니다.');
+		}
+	})
+}
+
  
 /* 아이템 리스트 카테고리별 나열 */	
 function itemSelectAll(cate){
@@ -422,6 +439,8 @@ function itemSelectAll(cate){
 	})
 					
 }
+
+
 
 /* 모달 */
 </script>

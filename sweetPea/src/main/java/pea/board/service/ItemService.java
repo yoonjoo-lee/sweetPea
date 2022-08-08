@@ -20,4 +20,6 @@ public interface ItemService {
 	int approvalCheck(int iidx);	//  아이템 승인하기 
 	int postponeCheck(int iidx); // 아이템 보류하기 
 	int itemDel(int iidx); // 아이템 삭제 
+	
+	List<ItemVo> basketList(int uidx); // 장바구니 리스트 
 }
