@@ -41,9 +41,9 @@
 				var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
 				 
 				if (mobile) { 
-					window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+uidx;
+					window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx_="+uidx;
 				}else{
-					window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name',
+					window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name()',
 							'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
 				}
 			}

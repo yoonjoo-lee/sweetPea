@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.dao.MiniroomBoardDao;
+import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 
@@ -48,6 +49,16 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	@Override
 	public int changeCategory(MiniroomBoardVo vo) {
 		return miniroomBoardDao.changeCategory(vo);
+	}
+
+	@Override
+	public int addFriends(FriendsVo vo) {
+		return miniroomBoardDao.addFriends(vo);
+	}
+
+	@Override
+	public String checkFriends(FriendsVo vo) {
+		return miniroomBoardDao.checkFriends(vo);
 	}
 
 }

@@ -5,9 +5,11 @@
  
 <mapper namespace="pea.board.mapper.MiniroomBoardMapper">
 	<select id="joinMiniHome" parameterType="int" resultType="MiniHomeVo">
-		SELECT *
-		  FROM pea_minihome
-		 WHERE uidx = #{uidx}
+		SELECT a.* , b.name
+		  FROM pea_minihome a
+		  JOIN pea_user b
+		    ON a.uidx = b.uidx
+		 WHERE a.uidx = #{uidx}
 	</select>
 <!-- 최초 미니홈피  -->	
 	<insert id="insertMiniHome" parameterType="int">
@@ -101,4 +103,30 @@
 		 WHERE uidx = #{uidx}
 		   AND subcategory = #{content}
 	</update>
+	
+	<!-- 친구추가 -->
+	<insert id="addFriends" parameterType="FriendsVo">
+		INSERT INTO pea_friends
+		(
+			   uidx
+			 , bfidx
+			 , uname
+			 , bfname
+		)
+		VALUES
+		(
+			 , #{uidx}
+			 , #{bfidx}
+			 , #{uname}
+			 , #{bfname}
+		)
+	</insert>
+	
+	<!-- 친구추가 확인 -->
+	<select id="checkFriends" parameterType="FriendsVo" resultType="string">
+		SELECT delyn
+		  FROM pea_friends
+		 WHERE (uidx = #{uidx} AND bfidx = #{bfidx})
+		    OR (uidx = #{bfidx} AND bfidx = #{uidx}) 
+	</select>
 </mapper>

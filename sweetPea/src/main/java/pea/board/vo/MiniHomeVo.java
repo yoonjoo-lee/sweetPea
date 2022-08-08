@@ -12,7 +12,14 @@ public class MiniHomeVo {
 	private String bgm;
 	private String background;
 	private String font;
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getMnidx() {
 		return mnidx;
 	}

@@ -221,7 +221,7 @@ ul{
 	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" oncdivck="changeHeader()">
 	</h3>
 	<hr>
-	<iframe id="miniIframe" scrolling="no" src="option-idx.do?uidx=${mini.uidx}"></iframe>
+	<iframe id="miniIframe" scrolling="no" src=""></iframe>
 	</div>
 	</div>
 </body>
