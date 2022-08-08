@@ -102,4 +102,9 @@ public class ItemDao {
 
 		return sqlSession.update(namespace + ".itemBuy");
 	}
+	
+	public List<ItemVo> basket_selectAll(int uidx) {
+		return sqlSession.selectList(namespace+".basket_selectAll", uidx);
+	}
+	
 }

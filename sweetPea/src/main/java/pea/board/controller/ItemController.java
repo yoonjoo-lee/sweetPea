@@ -22,6 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import pea.board.service.ItemService;
 import pea.board.vo.ItemVo;
+import pea.board.vo.MainBoardVo;
+import pea.board.vo.MessageVo;
+import pea.board.vo.PagingVo;
+import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
 
 @Controller
@@ -168,13 +172,28 @@ public class ItemController {
 
 //	/* 아이템 장바구니  */
 
+	
 	/* 아이템 장바구니 리스트 */
 
 	@RequestMapping(value = "item/shoppingList.do", method = RequestMethod.GET)
-	public String shoppingList() {
+	public String shoppingList(ItemVo vo, Model model, int uidx) {
+		
+		List<ItemVo> list = itemService.basketList(uidx);
 
+		model.addAttribute("list", list);	
+		
 		return "item/shopping-basket";
 	}
+	/* 장바구니 아이템 추가 */
+	
+	@RequestMapping(value="item/itemShoppingAdd.do", method=RequestMethod.POST)
+	public int itemShoppingAdd() {
+		
+		
+		
+		return 1;
+	}
+	
 
 	/* 아이템 승인 확인 */
 	@ResponseBody
@@ -209,7 +228,7 @@ public class ItemController {
 
 		return "item/item-postpone";
 	}
-	
+	/*아이템 보류페이지에서 삭제 */
 	@RequestMapping(value="item/itemDel.do")
 	public void itemDel(int iidx, HttpServletResponse response) throws IOException {
 		int result = itemService.itemDel(iidx);
