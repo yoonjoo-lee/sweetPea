@@ -114,17 +114,29 @@
 		UPDATE pea_item SET delyn='Y' WHERE iidx=#{iidx}
 	</update>
 	
-	<!-- 장바구니 리스트  -->
-	<select id="shoppingList" resultType="ItemVo">
-		
-	
-	</select>
 	
 	<!-- 장바구니함 리스트  -->
 <select id="basket_selectAll" parameterType="int" resultType="ItemVo">
+	<![CDATA[ 
 	SELECT * FROM pea_item 
-		WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} cart='Y' and delyn='N')
+		WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} AND cart='Y' and delyn='N')
+	]]>
 </select>
+
+	<!-- 장바구니 추가 -->
+	<select id="basket_add" parameterType="ItemVo">
+		INSERT INTO pea_user_item(
+			  iidx
+			, uidx
+			, cart
+		)VALUES(
+			  #{iidx}
+			, #{uidx}
+			, 'Y'
+		)
+		 
+	</select>
+
 </mapper>
 
 

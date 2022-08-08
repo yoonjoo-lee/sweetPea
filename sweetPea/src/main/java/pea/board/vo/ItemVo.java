@@ -11,7 +11,8 @@ public class ItemVo {
 	private String name;
 	private String tag;
 	private String date;
-	private int uiidx;
+	private int uidx;
+
 	private String like;
 	private String heart;
 	private String cart;
@@ -21,7 +22,12 @@ public class ItemVo {
 	private String ip;
 	
 	
-	
+	public int getUidx() {
+		return uidx;
+	}
+	public void setUidx(int uidx) {
+		this.uidx = uidx;
+	}
 	public String getIp() {
 		return ip;
 	}
@@ -87,12 +93,6 @@ public class ItemVo {
 	}
 	public void setDate(String daate) {
 		this.date = daate;
-	}
-	public int getUiidx() {
-		return uiidx;
-	}
-	public void setUiidx(int uiidx) {
-		this.uiidx = uiidx;
 	}
 	public String getLike() {
 		return like;

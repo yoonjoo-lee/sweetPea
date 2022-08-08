@@ -47,8 +47,16 @@ public class ItemController {
 //	
 //	
 	@RequestMapping(value = "item/shopping-basket.do", method = RequestMethod.GET)
-	public String shoppingBasket() {
-
+	public String shoppingBasket(int uidx, Model model) {
+		System.out.println("uidx"+uidx);
+		
+		List<ItemVo> list = itemService.basketList(uidx);
+		model.addAttribute("list",list);
+		for(ItemVo vo: list) {
+			System.out.println("vo: "+vo.getIidx());
+		}
+		System.out.println(list.isEmpty());
+		
 		return "item/shopping-basket";
 	}
 
@@ -87,7 +95,7 @@ public class ItemController {
 		PrintWriter pw = response.getWriter();
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
-		vo.setUiidx(login.getUidx());
+		vo.setUidx(login.getUidx());
 		vo.setImg(file.getOriginalFilename());
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
 
@@ -181,7 +189,8 @@ public class ItemController {
 		List<ItemVo> list = itemService.basketList(uidx);
 
 		model.addAttribute("list", list);	
-		
+		model.addAttribute("vo",vo);
+		System.out.println(list.isEmpty());
 		return "item/shopping-basket";
 	}
 	/* 장바구니 아이템 추가 */
