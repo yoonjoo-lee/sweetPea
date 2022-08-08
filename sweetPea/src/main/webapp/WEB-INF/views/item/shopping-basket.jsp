@@ -49,6 +49,31 @@ li {
 .header-ul>li:first-child, .content-ul>li:fist-child {
 	width: 10%;
 }
+/* 구매버튼, 삭제버튼 오른쪽 정렬  */
+.btnBox>input {
+	float: right;
+	margin-left: 0.5em;
+}
+
+/* 장바구니 리스트 순서   */
+
+.header-ul>li:first-child, .content-ul>li:fist-child {
+	width: 10%;
+}
+
+.header-ul>li:nth-child(2), .content-ul>li:nth-child(2) {
+	width: 15%
+}
+
+.header-ul>li:nth-child(3), .content-ul>li:nth-child(3) {
+	width: 45%;
+	cursor: pointer;
+}
+
+.header-ul>li:last-child, .content-ul>li:last-child {
+	width: 25%;
+}
+
 
 </style>
 <script>
@@ -125,39 +150,32 @@ $(function(){
 <body>
 	<!-- 	<h3>SHOPPING-BASKET</h3> -->
 	<div class="btnBox">
-		<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> <input type="button" onclick="delCheckItem()" value="삭제">
+		<c:if test="${login.uidx >0 }">
+			<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> 
+		</c:if>
+		<input type="button" onclick="delCheckItem()" value="삭제">
 	</div>
 	<br>
 	<div>
 		<ul class="header-ul">
 			<li><input type="checkbox" id="allCheck"></li>
-			<li>ITEM-MAKER</li>
-			<li>ITEM-NAME</li>
-			<li>담은 날짜</li>
+			<li>사진</li>
+			<li>아이템명</li>
+			<li>상품금액</li>
 		</ul>
 		<c:if test="${list.size() == 0}">
 			<ul class="content-ul">
 				<li>등록된 아이템이 없습니다.</li>
 			</ul>
 		</c:if>
-		<c:if test="${list.size() > 0 }">
+		<c:if test="${list.size() >0 }">
 			<c:forEach var="vo" items="${list}">
-				<c:if test="${vo.view_check eq 'Y'}">
 					<ul class="content-ul" style="color: lightgray;">
-						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-						<li>${vo.writer}</li>
-						<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-						<li>${vo.datetime}</li>
+						<li><input type="checkbox" name="rowCheck" value="${vo.uidx}" class="checkBox"></li>
+						<li>${vo.img}</li>
+						<li>${vo.name}</li>
+						<li>${vo.price}</li>
 					</ul>
-				</c:if>
-				<c:if test="${vo.view_check eq 'N'}">
-					<ul class="content-ul">
-						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-						<li>${vo.writer}</li>
-						<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-						<li>${vo.datetime}</li>
-					</ul>
-				</c:if>
 			</c:forEach>
 		</c:if>
 		<!--  -->

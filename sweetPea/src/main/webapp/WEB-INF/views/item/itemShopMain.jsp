@@ -389,7 +389,6 @@ function openShoppingBasket(){
  function itemShoppingAdd(){
 	 console.log('itemShoppgAdd');
 	$.ajax({
-	
 		url:"itemShoppingAdd.do",
 		type:"post",
 	 /* 	data:{"":},  */
