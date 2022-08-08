@@ -386,66 +386,34 @@ window.onload=()=>{
 
 
 
-<%
-LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기 
-int year = now.getYear(); // 년
-int monthValue = now.getMonthValue(); // 월 
-int dayOfMonth = now.getDayOfMonth(); // 일
-String dayOfWeek = now.getDayOfWeek().toString(); // 일
 
-
-//윤년 계산하여 각 월의 일수 저장
-int[] lastdate = {0,31,28,31,30,31,30,31,31,30,31,30,31}; 
-if (year%4==0){ 
-	if (year%100!=0){ 
-		lastdate[2] = 29;
-	}
-	else { 
-		if (year%400==0){ 
-			lastdate[2] = 29;
-		}else{
-			lastdate[2] = 28;
-		}
-	}	
-} else{
-	lastdate[2] = 28;
-}
-
-int calcmonth = monthValue;
-%>
 <!-- 글 공간 전체 -->
 <div class='main-content'>
 	<!-- 달력 공간 -->
 	<div class='calendar'>
-		<i class='bi-caret-left-fill' onclick="test()"></i>
-		<div class='day' id='bold-text'>
-			<span id='demo'></span><%=calcmonth%>.<%=dayOfMonth%><br><%=dayOfWeek%></div>
-			
-			<!-- <div id="calendar"></div> -->
-			
-		<div class='month' id='basic-text'>
-			<c:forEach var="date" begin="1" end="<%=lastdate[calcmonth] %>">
-				<span onclick="openlist(<%=year%>,<%=calcmonth%>,${date})"><c:out value="${date}" /></span>	
-			</c:forEach>
-		</div>
-		
-		<i class='bi-caret-right-fill' onclick='monthUp()'></i>
+		<i class='bi-caret-left-fill' onclick='monthDown2()'></i>
+			<div id="calendar"><!-- 달력 날짜 공간 --></div> 
+		<i class='bi-caret-right-fill' onclick='monthUp2()'></i>
 	</div>	
-	<!-- 글 공간 -->
-	<div id="board"></div>
+	<div id="board"><!-- 글 공간 --></div>
 </div>
 	
-	
-	<div id="boardList">
-	
-	</div>
 
 	<script>
+	<%
+	LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기
+	int year = now.getYear(); // 년
+	int monthValue = now.getMonthValue(); // 월 
+	int dayOfMonth = now.getDayOfMonth(); // 일
+	String dayOfWeek = now.getDayOfWeek().toString(); // 일
+	%>
+	<%-- <% Integer day = (Integer)session.getAttribute("day"); %> --%>
 	// 글 전부 불러오기
 	$(function (){
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
 			type: "GET",
+			data: {"day":<%=dayOfMonth%>},
 			success: function(html){
 				$("#board").html(html);
 			},
@@ -454,251 +422,94 @@ int calcmonth = monthValue;
 		})
 	});
 	
-	
-	// 달력 불러오기
-<%-- 	$(function (){
-		$.ajax({
-			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
-			type: "GET",
-			data: {"month":<%=calcmonth%>,"day":<%=dayOfMonth%>},
-			success: function(html){
-				$("#calendar").html(html);
-			},
-			error: function(){
-			}
-		})
-	});
-	function caledar(){
-		$.ajax({
-			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
-			type: "GET",
-			success: function(html){
-				$("#calendar").html(html);
-			},
-			error: function(){
-			}
-		})
-	} --%>
-	
-	function openlist(year,month,day){
-		$.ajax({
-			url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
-			type: "GET",
-			data: {"year":year, "month":month, "day":day},
-			success: function(html){
-				console.log("글 리스트 오픈 성공");
-				$("#board").html(html);
-			},
-			error: function(){
-				console.log("답변 창 오픈 실패");
-			}
-		}) 
-	}
-	
-	// 시간 정보
-<%-- 	<%
-		LocalDate now = LocalDate.now(); // 현재 시간 정보 불러오기 
-		int year = now.getYear(); // 년
-		int monthValue = now.getMonthValue(); // 월 
-		int dayOfMonth = now.getDayOfMonth(); // 일
-		String dayOfWeek = now.getDayOfWeek().toString(); // 일
-	%> --%>
-		
-	var calcmonth = <%=monthValue%>;
-	let name = '${login.name}';
-	      
-	// 윤년 계산
+ 	// 윤년 계산
 	function leapyearCalc(year){
 		if (year%4==0){
 			if (year%100!=0){ return true; }
 			else{ if(year%400==0){ return true; } }	
 		} return false;
 	}
-   
-	// 전월 이동
-	function monthDown() {
-		calcmonth -= 1;
-		if (calcmonth<=0){ calcmonth=12; }
-		callBoard();
-	}
 
-	// 다음월 이동
-	function monthUp() {
-		calcmonth += 1;
-		if (calcmonth>=12){ calcmonth=1; }
-		callBoard();
-	}
-
-	// 전월 이동
-	function monthDown2(month, day) {
-		calcmonth -= 1;
-		if (calcmonth<=0){ calcmonth=12; }
-		callBoard(month, day);
-	}
-
-	// 다음월 이동
-	function monthUp2(month, day) {
-		calcmonth += 1;
-		if (calcmonth>=12){ calcmonth=1; }
-		callBoard(month, day);
-	}
-   
 	// 월별 일수
 	if (leapyearCalc(<%=year%>)==true){
 		var lastdate = [0,31,29,31,30,31,30,31,31,30,31,30,31];
 	} else{
 		var lastdate = [0,31,28,31,30,31,30,31,31,30,31,30,31];
 	}
-
-	/* 글 모두 가져와서 화면 #boardList 에 출력 */
-	<%-- $(function (){
-		$.ajax({
-			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
-			type:"get",
-			success:function(data){
-				var html ="";
-				html+="<div class='main-content'>";
-				html+="<div class='calendar'>";
-				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
-				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
-				html+="<div class='month' id='basic-text'>";
-				for (var i=1; i<=lastdate[<%=monthValue%>];i++){
-					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
-				/* 	html+= " "; */
-				}
-				html+="</div>";
-				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
-				html+="</div>";
-			         
-			     
-				html+="<div class='diary'>";
-				for(var i=0; i<data.length;i++){
-					// 비밀글
-					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-					// 안 비밀글 
-					if (data[i].secret!='Y'){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-				}
-				html+="</div>";
-				html+="</div>";
-				
-				$("#boardList").html(html);
-			}
-		});
-	})
 	
-	/* 글 모두 가져와서 화면 #boardList 에 출력 */
-	function callBoard(){
-		$.ajax({
-			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
-			type:"get",
-			success:function(data){
-				var html ="";
-				html+="<div class='main-content'>";
-				html+="<div class='calendar'>";
-				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
-				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
-				html+="<div class='month' id='basic-text'>";
-				for (var i=1; i<=lastdate[calcmonth];i++){
-					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
-				}
-				html+="</div>";
-				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
-				html+="</div>";
-			         
-			     
-				html+="<div class='diary'>";
-				for(var i=0; i<data.length;i++){
-					// 비밀글
-					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-					// 안 비밀글 
-					if (data[i].secret!='Y'){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-				}
-				html+="</div>";
-				html+="</div>";
-				
-				$("#boardList").html(html);
-			}
-		});
+ 	var calcmonth = <%=monthValue%>; //월 js변수 저장
+ 	
+ 	function openlist(year,month,day){
+ 		sessionStorage.setItem("testday", day ); // 저장
+ 		
+ 	 	$("#day").text(day); 
+ 		$.ajax({
+ 			url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
+ 			type: "GET",
+ 			data: {"year":year, "month":month, "day":day},
+ 			success: function(html){
+ 				console.log("글 리스트 오픈 성공");
+ 				$("#board").html(html);
+ 			},
+ 			error: function(){
+ 				console.log("답변 창 오픈 실패");
+ 			}
+ 		}) 
+ 	}
+ 
+	 	var saveDay='${saveDay}'; 
+ 		console.log("saveday의 ", saveDay);
+ 	// 전월 이동
+	function monthDown2() {
+		calcmonth -= 1;
+		if (calcmonth<=0){ calcmonth=12; }
+		
+		if(sessionStorage.getItem("testday")==null){
+			console.log("nulllllll");
+		}else{
+			var testday=sessionStorage.getItem("testday"); // mineItRecord
+		}
+		openlist(2022,calcmonth,testday);
+		caledar(calcmonth,lastdate[calcmonth],testday);
 	}
-	
-	/* 글 모두 가져와서 화면 #boardList 에 출력 */
-	function callBoard(month, day){
-		console.log("month:", month, "day", day);
+ 	
+	// 다음월 이동
+	function monthUp2() {
+		console.log("monthUp2의 ", saveDay);
+		calcmonth += 1;
+		if (calcmonth>=12){ calcmonth=1; }
+		caledar(calcmonth,lastdate[calcmonth],saveDay );
+	}
+ 	
+	// 달력 불러오기(자동)
+ 	$(function (){
 		$.ajax({
-			url:"<%=request.getContextPath()%>/miniroomboard2/miniroomboardList.do",
-			type:"get",
-			success:function(data){
-				var html ="";
-				html+="<div class='main-content'>";
-				html+="<div class='calendar'>";
-				html+="<i class='bi-caret-left-fill' onclick='monthDown()'></i>";
-				html+="<div class='day' id='bold-text'><span id='demo'>"+calcmonth+"</span>.<%=dayOfMonth%><br><%=dayOfWeek%></div>";
-				html+="<div class='month' id='basic-text'>";
-				for (var i=1; i<=lastdate[calcmonth];i++){
-					html+= "<span onclick='callBoard(calcmonth, "+i+")'>"+i+" </span>";
-				}
-				html+="</div>";
-				html+="<i class='bi-caret-right-fill' onclick='monthUp()'></i>";
-				html+="</div>";
-			         
-			     
-				html+="<div class='diary'>";
-				for(var i=0; i<data.length;i++){
-					
-					// 비밀글
-					if (data[i].secret=='Y' && ${login.uidx == mini.uidx}){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'><i class='bi-lock-fill'></i>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-					// 안 비밀글 
-					if (data[i].secret!='Y'){
-						html+="<div class='diary-box'>";
-						html+="<div class='diary-date' id='bold-text'>"+data[i].date+"<span style='float:right;'>"
-						html+="<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>"
-						html+="<i class='bi-trash' onclick='deleteDiary("+data[i].mbidx+")'></i></span></div>";
-						html+="<div class='diary-text' id='basic-text'>"+data[i].content+"</div>";
-						html+="</div>";
-					}
-				}
-				html+="</div>";
-				html+="</div>";
-				
-				$("#boardList").html(html);
+			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
+			type: "GET",
+			data: {"year":<%=year%>,"month":calcmonth,"monthByDate":lastdate[calcmonth],"day":saveDay},
+			success: function(html){
+				$("#calendar").html(html);
+			},
+			error: function(){
 			}
-		});
-	} --%>
+		})
+	});
+	
+ 	// 달력 불러오기(함수)
+	function caledar(month,monthByDate,dayOfMonth){
+		console.log("caledar의 ", dayOfMonth);
+		console.log(calcmonth);
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
+			type: "GET",
+			data: {"year":<%=year%>,"month":month,"monthByDate":monthByDate,"day":dayOfMonth},
+			success: function(html){
+				$("#calendar").html(html);
+			},
+			error: function(){
+			}
+		})
+	} 
 	
 	// 글 삭제
 	function deleteDiary(mbidx){
