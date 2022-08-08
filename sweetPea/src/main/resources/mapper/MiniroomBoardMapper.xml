@@ -115,7 +115,7 @@
 		)
 		VALUES
 		(
-			 , #{uidx}
+			   #{uidx}
 			 , #{bfidx}
 			 , #{uname}
 			 , #{bfname}

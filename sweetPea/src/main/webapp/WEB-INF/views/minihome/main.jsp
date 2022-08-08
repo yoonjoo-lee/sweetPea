@@ -137,7 +137,7 @@
 	    margin: 3vh auto;
 	    width: 92%;
 	}
-	#addFr{
+	.addFr{
 		width: 4vh;
 	    bottom: 0;
 	    right: 0;
@@ -396,6 +396,13 @@ font-family: 'BMJUA';
 					})
 				}
 		})
+		
+		$("#addingFr").click(async function(){
+			Swal.fire({
+				title:'친구신청 중 입니다',
+				icon:'info'
+			})
+		})
 	})
 </script>
 <c:if test="${device eq 'MOBILE'}">
@@ -492,10 +499,10 @@ function inputLeftBoard(){
 				</div>
 				<c:if test="${login != null && mini.uidx != login.uidx}">
 					<c:if test="${checkFr eq 'N'}">
-						<img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" id="addFr">
+						<img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" class="addFr" id="addingFr">
 					</c:if>
 					<c:if test="${checkFr == null}">
-						<img src="<%=request.getContextPath()%>/resources/images/addFr.png" id="addFr">
+						<img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr">
 					</c:if>
 				</c:if>
 			</div>

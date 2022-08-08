@@ -181,7 +181,6 @@ public class MiniroomBoardController {
 		String bfName = request.getParameter("bfname");
 		int uidx = Integer.parseInt(request.getParameter("uidx")); 
 		int bfidx = Integer.parseInt(request.getParameter("bfidx"));
-		System.out.println("uname : "+uName+" bfName : "+bfName);
 		FriendsVo vo = new FriendsVo();
 		vo.setUname(uName);
 		vo.setBfname(bfName);
