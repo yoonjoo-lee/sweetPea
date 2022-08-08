@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MiniroomBoardService;
+import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
+import pea.board.vo.UserVo;
 
 @RequestMapping(value="/mini")
 @Controller
@@ -26,7 +28,7 @@ public class MiniroomBoardController {
 	
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String main(int uidx,HttpServletRequest request, HttpSession session, Model model){
-
+		
 		String userAgent = request.getHeader("user-agent");
 		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
 		                          +"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
@@ -34,6 +36,17 @@ public class MiniroomBoardController {
 		
 		MiniHomeVo vo = miniroomBoardService.joinMiniHome(uidx);
 		session = request.getSession();
+		
+		UserVo login = (UserVo)	session.getAttribute("login");
+		
+		if(login != null) {
+			int bfidx = login.getUidx();
+			FriendsVo vo_ = new FriendsVo();
+			vo_.setUidx(uidx);
+			vo_.setBfidx(bfidx);
+			String checkFriends = miniroomBoardService.checkFriends(vo_);
+			session.setAttribute("checkFr", checkFriends);
+		}
 		session.setAttribute("mini", vo);
 		if (mobile1 || mobile2) {
 			model.addAttribute("device", "MOBILE");
@@ -158,6 +171,27 @@ public class MiniroomBoardController {
 		model.addAttribute("category",category);
 		
 		return "minihome/option-idx";
+	}
+	
+	/* 미니홈피 - 친구추가 */
+	@ResponseBody
+	@RequestMapping(value="/addFriends.do", produces = "application/json;charset=utf8")
+	public int addFriends(HttpServletRequest request) {
+		String uName = request.getParameter("uname");
+		String bfName = request.getParameter("bfname");
+		int uidx = Integer.parseInt(request.getParameter("uidx")); 
+		int bfidx = Integer.parseInt(request.getParameter("bfidx"));
+		FriendsVo vo = new FriendsVo();
+		vo.setUname(uName);
+		vo.setBfname(bfName);
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		
+		int result = miniroomBoardService.addFriends(vo);
+		if(result >= 1) {
+			return 1;
+		}
+		else return 0;
 	}
 	
 }

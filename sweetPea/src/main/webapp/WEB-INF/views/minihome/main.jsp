@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>SweetPea</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <c:if test="${device eq 'PC'}">
 <style>
 	body{
@@ -30,7 +30,7 @@
 		height: 98vh;
 		position: relative;
 		margin: 1vh 1vw;
-		z-index: 9999;
+		z-index: 1050;
 	}
 	#leftBox{
 		background-color: white;
@@ -137,13 +137,14 @@
 	    margin: 3vh auto;
 	    width: 92%;
 	}
-	#addFr{
+	.addFr{
 		width: 4vh;
 	    bottom: 0;
 	    right: 0;
 	    position: absolute;
 	    float: right;
 	    margin-right: 0.3vw;
+	    cursor: pointer;
 	}
 	.leftBtn{
 		float: right;
@@ -166,6 +167,13 @@
     	padding-left: 1vh;
     	font-size: 2vh;
 	}
+	.swal2-input{
+		width:15em;
+	}
+	.swal2-input::placeholder{
+		font-size: 0.6em;
+	}
+	
 	#chat{
 		bottom: 1vh;
 		right: 1vw;
@@ -337,6 +345,64 @@ font-family: 'BMJUA';
 </c:if>
 <script>
 	$(function(){
+		$("#addFr").click(async function(){
+			const { value: formValues } = await Swal.fire({
+				  title: '친구 신청을 하시겠습니까?',
+				  html:
+					'<p>상대방 일촌명</p>' +
+				    '<input id="swal-input1" class="swal2-input" placeholder="상대방의 일촌명을 입력해주세요">' +
+				    '<p style="margin-top: 1em">상대방에게 나의 일촌명</p>' +
+				    '<input id="swal-input2" class="swal2-input" placeholder="상대방에게 표시될 나의 일촌명을 입력해주세요">',
+				  focusConfirm: false,
+				  showCancelButton: true,
+				  confirmButtonText: "신청",
+				  cancelButtonText: "취소",
+				  preConfirm: () => {
+				    return [
+				      document.getElementById('swal-input1').value,
+				      document.getElementById('swal-input2').value
+				    ]
+				  }
+				})
+				
+				if (formValues) {
+					var $youName = formValues[0];
+					var $myName = formValues[1];
+					var $arrow = '<%=request.getContextPath()%>/resources/images/rocket_filled_icon.png';
+					await Swal.fire({
+						title: '<span style="color: red">신청</span> 되었습니다.',
+						html:
+							'<div><ul style="display: inline-block; list-style: none"><li>${mini.name}</li><li>('+$youName+')</li></ul>'+
+							'<img style="margin: 0 0.5em" src='+$arrow+'>'+
+							'<ul style="display: inline-block; list-style: none"><li>${login.name}</li><li>('+$myName+')</li></ul></div>',
+						preConfirm: () => {
+							$.ajax({
+								url:"addFriends.do",
+								type:"get",
+								data:{"uname" : $youName
+									, "bfname" : $myName
+									, "uidx" : ${login.uidx}
+									, "bfidx" : ${mini.uidx}
+									},
+								success: function(data){
+									if(data==1){
+										window.location.reload();
+									}else{
+										alert("오류!");
+									}
+								}
+							});
+						}
+					})
+				}
+		})
+		
+		$("#addingFr").click(async function(){
+			Swal.fire({
+				title:'친구신청 중 입니다',
+				icon:'info'
+			})
+		})
 	})
 </script>
 <c:if test="${device eq 'MOBILE'}">
@@ -431,8 +497,13 @@ function inputLeftBoard(){
 				<div id="left-board-content">
 					<p id="left-board">${mini.h1}</p>
 				</div>
-				<c:if test="${mini.uidx != login.uidx}">
-				<img src="<%=request.getContextPath()%>/resources/images/addFr.png" id="addFr">
+				<c:if test="${login != null && mini.uidx != login.uidx}">
+					<c:if test="${checkFr eq 'N'}">
+						<img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" class="addFr" id="addingFr">
+					</c:if>
+					<c:if test="${checkFr == null}">
+						<img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr">
+					</c:if>
 				</c:if>
 			</div>
 			

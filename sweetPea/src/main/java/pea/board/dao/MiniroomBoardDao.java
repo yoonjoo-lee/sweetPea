@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 
@@ -51,5 +52,13 @@ public class MiniroomBoardDao {
 	
 	public int changeCategory(MiniroomBoardVo vo) {
 		return sqlSession.update(namespace+".changeCategory", vo);
+	}
+	
+	public int addFriends(FriendsVo vo) {
+		return sqlSession.insert(namespace+".addFriends",vo);
+	}
+	
+	public String checkFriends(FriendsVo vo) {
+		return sqlSession.selectOne(namespace+".checkFriends",vo);
 	}
 }
