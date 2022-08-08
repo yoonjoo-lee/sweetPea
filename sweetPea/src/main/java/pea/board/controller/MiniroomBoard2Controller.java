@@ -102,27 +102,42 @@ public class MiniroomBoard2Controller {
 																																		
 	// 다이어리 글 전부 조회 
 	@RequestMapping(value = "/boardList.do", method=RequestMethod.GET)
-	public String boardList(Model model) {
+	public String boardList(Model model, int day, HttpServletRequest request, HttpSession session) {
+		System.out.println("boardList 들어옴");
 		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
 		model.addAttribute("list", list);
-		 
+		session = request.getSession();
+		session.setAttribute("saveDay", day);
+		System.out.println("day: "+day);
 		return "minihome/boardList";
 	}
 	
 	// 다이어리 글 날짜별 조회
 	@RequestMapping(value = "/boardByDate.do", method=RequestMethod.GET)
-	public String boardByDate(Model model, int year, int month, int day) {
+	public String boardByDate(Model model, int year, int month, int day, HttpServletRequest request, HttpSession session) {
+		System.out.println("boardByDate 들어옴");
 		String date = Integer.toString(year) +'-'+ Integer.toString(month) +'-'+ Integer.toString(day);
 		List<MiniroomBoardVo> list = miniroomboard2Service.boardByDate(date);
 		model.addAttribute("list", list);
+		session = request.getSession();
+		session.setAttribute("saveDay", day);
+		
+		System.out.println("boardByDate day는 " + day);
 		 
 		return "minihome/boardList";
 	}
 	
 	@RequestMapping(value = "/calendar.do", method=RequestMethod.GET)
-	public String calendar(Model model, int month, int day) {
+	public String calendar(Model model, int year, int month, int monthByDate, int day, HttpServletRequest request, HttpSession session) {
+		System.out.println("calendar 들어옴");
+		model.addAttribute("year", year);
 		model.addAttribute("month", month);
-		model.addAttribute("day", day);
+		model.addAttribute("monthByDate", monthByDate);
+		/* model.addAttribute("day", day); */
+		session = request.getSession();
+		session.setAttribute("saveDay", day);
+		System.out.println("calendar day는 " + day);
+		
 		return "minihome/calendar";
 	}
 }
