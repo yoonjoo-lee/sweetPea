@@ -347,7 +347,6 @@ window.onload=()=>{
 </script>
 </head>
 <body class="body">
-
 	<div class="dropdown">
 		<button class="dropbtn">
 			<span class="dropbtn_icon"></span> 
@@ -387,6 +386,9 @@ window.onload=()=>{
 
 
 
+
+
+
 <!-- 글 공간 전체 -->
 <div class='main-content'>
 	<!-- 달력 공간 -->
@@ -407,9 +409,10 @@ window.onload=()=>{
 	int dayOfMonth = now.getDayOfMonth(); // 일
 	String dayOfWeek = now.getDayOfWeek().toString(); // 일
 	%>
-	<%-- <% Integer day = (Integer)session.getAttribute("day"); %> --%>
+	
 	// 글 전부 불러오기
 	$(function (){
+		sessionStorage.removeItem("clickday");	//세션 삭제
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
 			type: "GET",
@@ -429,19 +432,18 @@ window.onload=()=>{
 			else{ if(year%400==0){ return true; } }	
 		} return false;
 	}
-
+	var year = <%=year%>;
 	// 월별 일수
-	if (leapyearCalc(<%=year%>)==true){
+	if (leapyearCalc(year)==true){
 		var lastdate = [0,31,29,31,30,31,30,31,31,30,31,30,31];
 	} else{
 		var lastdate = [0,31,28,31,30,31,30,31,31,30,31,30,31];
 	}
 	
+	
  	var calcmonth = <%=monthValue%>; //월 js변수 저장
  	
  	function openlist(year,month,day){
- 		sessionStorage.setItem("testday", day ); // 저장
- 		
  	 	$("#day").text(day); 
  		$.ajax({
  			url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
@@ -457,28 +459,28 @@ window.onload=()=>{
  		}) 
  	}
  
-	 	var saveDay='${saveDay}'; 
- 		console.log("saveday의 ", saveDay);
  	// 전월 이동
 	function monthDown2() {
 		calcmonth -= 1;
-		if (calcmonth<=0){ calcmonth=12; }
+		if (calcmonth<=0){ calcmonth=12; year -= 1;}
 		
-		if(sessionStorage.getItem("testday")==null){
-			console.log("nulllllll");
-		}else{
-			var testday=sessionStorage.getItem("testday"); // mineItRecord
+		if(sessionStorage.getItem("clickday")!=null){
+			var clickday=sessionStorage.getItem("clickday");
+			openlist(year,calcmonth,clickday);
 		}
-		openlist(2022,calcmonth,testday);
-		caledar(calcmonth,lastdate[calcmonth],testday);
+		caledar(calcmonth,lastdate[calcmonth],<%=dayOfMonth%>);
 	}
  	
 	// 다음월 이동
 	function monthUp2() {
-		console.log("monthUp2의 ", saveDay);
 		calcmonth += 1;
-		if (calcmonth>=12){ calcmonth=1; }
-		caledar(calcmonth,lastdate[calcmonth],saveDay );
+		if (calcmonth>=12){ calcmonth=1; year += 1;}
+		
+		if(sessionStorage.getItem("clickday")!=null){
+			var clickday=sessionStorage.getItem("clickday");
+			openlist(year,calcmonth,clickday);
+		}
+		caledar(calcmonth,lastdate[calcmonth],<%=dayOfMonth%>);
 	}
  	
 	// 달력 불러오기(자동)
@@ -486,7 +488,7 @@ window.onload=()=>{
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
 			type: "GET",
-			data: {"year":<%=year%>,"month":calcmonth,"monthByDate":lastdate[calcmonth],"day":saveDay},
+			data: {"year":<%=year%>,"month":calcmonth,"monthByDate":lastdate[calcmonth],"day":<%=dayOfMonth%>},
 			success: function(html){
 				$("#calendar").html(html);
 			},
@@ -497,12 +499,10 @@ window.onload=()=>{
 	
  	// 달력 불러오기(함수)
 	function caledar(month,monthByDate,dayOfMonth){
-		console.log("caledar의 ", dayOfMonth);
-		console.log(calcmonth);
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/calendar.do",
 			type: "GET",
-			data: {"year":<%=year%>,"month":month,"monthByDate":monthByDate,"day":dayOfMonth},
+			data: {"year":year,"month":month,"monthByDate":monthByDate,"day":dayOfMonth},
 			success: function(html){
 				$("#calendar").html(html);
 			},

@@ -97,46 +97,32 @@ public class MiniroomBoard2Controller {
 		pw.append("<script>alert('수정 완료');history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
-	
-	
 																																		
 	// 다이어리 글 전부 조회 
 	@RequestMapping(value = "/boardList.do", method=RequestMethod.GET)
-	public String boardList(Model model, int day, HttpServletRequest request, HttpSession session) {
-		System.out.println("boardList 들어옴");
+	public String boardList(Model model, int day) {
 		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
 		model.addAttribute("list", list);
-		session = request.getSession();
-		session.setAttribute("saveDay", day);
-		System.out.println("day: "+day);
+
 		return "minihome/boardList";
 	}
 	
 	// 다이어리 글 날짜별 조회
 	@RequestMapping(value = "/boardByDate.do", method=RequestMethod.GET)
-	public String boardByDate(Model model, int year, int month, int day, HttpServletRequest request, HttpSession session) {
-		System.out.println("boardByDate 들어옴");
+	public String boardByDate(Model model, int year, int month, int day) {
 		String date = Integer.toString(year) +'-'+ Integer.toString(month) +'-'+ Integer.toString(day);
 		List<MiniroomBoardVo> list = miniroomboard2Service.boardByDate(date);
 		model.addAttribute("list", list);
-		session = request.getSession();
-		session.setAttribute("saveDay", day);
-		
-		System.out.println("boardByDate day는 " + day);
-		 
+
 		return "minihome/boardList";
 	}
 	
 	@RequestMapping(value = "/calendar.do", method=RequestMethod.GET)
-	public String calendar(Model model, int year, int month, int monthByDate, int day, HttpServletRequest request, HttpSession session) {
-		System.out.println("calendar 들어옴");
+	public String calendar(Model model, int year, int month, int monthByDate, int day) {
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
 		model.addAttribute("monthByDate", monthByDate);
-		/* model.addAttribute("day", day); */
-		session = request.getSession();
-		session.setAttribute("saveDay", day);
-		System.out.println("calendar day는 " + day);
+		model.addAttribute("day", day); 
 		
 		return "minihome/calendar";
 	}

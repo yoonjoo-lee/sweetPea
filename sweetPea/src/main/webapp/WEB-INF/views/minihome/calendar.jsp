@@ -6,21 +6,19 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <!DOCTYPE html>
 
-<% Integer day = (Integer)session.getAttribute("day"); %>
 <!-- 달력 -->
 <div class='day' id='bold-text'>
-<span id='demo'></span>${year}.${month}.<span id="day">${saveDay}</span><br></div>
+<span id='demo'></span>${year}.${month}.<span id="day"></span><br></div>
 <div class='month' id='basic-text'>
 	<c:forEach var="date" begin="1" end="${monthByDate}">
-		<span onclick="openlist(${year},${month},${date})">${date}</span>	
+		<span onclick="openlist(${year},${month},${date})">${date}&nbsp;</span>	
 	</c:forEach>
 </div>
-<button onclick="test()">gg</button>
 
 <script>
 /* 날짜별 글 불러오기 */
 function openlist(year,month,day){
-	sessionStorage.setItem("testday", day ); // 저장
+	sessionStorage.setItem("clickday", day ); // 저장
 	
  	$("#day").text(day); 
 	$.ajax({
@@ -36,13 +34,15 @@ function openlist(year,month,day){
 		}
 	}) 
 }
-$(function test(){
-	if(sessionStorage.getItem("testday")==null){
-		console.log("nulllllll");
+
+/* 클릭 날짜 세션 값에 저장 */
+var tmpday = ${day};
+$(function (){
+	if(sessionStorage.getItem("clickday")!=null){
+		var clickday=sessionStorage.getItem("clickday"); 
+		$("#day").text(clickday); 
 	}else{
-		var testday=sessionStorage.getItem("testday"); // mineItRecord
-		console.log(testday);
-		$("#day").text(testday); 
+		$("#day").text(tmpday); 
 	}
-})
+});
 </script>
