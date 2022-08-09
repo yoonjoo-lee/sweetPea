@@ -104,7 +104,6 @@ b.page-link {
 	    $("input[name='rowCheck']:checked").each(function(i) {
 	        checkboxValues.push($(this).val());
 	    });
-		
 		var allData = {"checkBox": checkboxValues}
 		if(checkboxValues.length == 0){
 			Swal.fire({

@@ -121,7 +121,7 @@ table {
 			<tr>
 				<td colspan=2><div class="upload_btn">
 						<div class="upload" style="width:100%;">
-							<input type="file" name="file" accept="image/jpeg, image/png, image/gif, audio/mp3, audio/wav, audio/mp4" id="photoBtn"><label for="photoBtn">아이템 파일</label>
+							<input type="file" name="file" accept="audio/mp3, audio/wav, audio/mp4" id="photoBtn"><label for="photoBtn">BGM FILE</label>
 						</div>
 					</div></td>
 			</tr>

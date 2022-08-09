@@ -84,6 +84,16 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.basket_selectAll(uidx);
 	}
 
+	@Override
+	public int basketItemDel(int uiidx) {
+		return itemDao.basketItemDel(uiidx);
+	}
+
+	@Override
+	public int basketItemAdd(int uiidx) {
+		return itemDao.basketItemAdd(uiidx);
+	}
+
 
 
 }
