@@ -27,7 +27,7 @@
 </insert>
 
 <!-- 미니룸 다이어리 글 목록 전부 불러오기 -->
-<select id="miniroomboardList" resultType="MiniroomBoardVo">
+<select id="miniroomboardList" parameterType="MiniroomBoardVo" resultType="MiniroomBoardVo">
 	 SELECT 
 	 	  mbidx
 	 	, uidx
@@ -41,11 +41,13 @@
 	 	, secret
 	  FROM pea_minihome_board 
 	 WHERE delyn='N'
+	 AND uidx=#{uidx}
+	 AND category=#{category}
 	 ORDER BY mbidx DESC
 </select>
 
 <!-- 미니룸 다이어리 글 목록 전부 불러오기 -->
-<select id="boardByDate" parameterType="String" resultType="MiniroomBoardVo">
+<select id="boardByDate" parameterType="MiniroomBoardVo" resultType="MiniroomBoardVo">
 	 SELECT 
 	 	  mbidx
 	 	, uidx
@@ -60,6 +62,7 @@
 	  FROM pea_minihome_board 
 	 WHERE delyn='N'
 	  AND date(date)=#{date}
+	  AND uidx=#{uidx}
 	 ORDER BY mbidx DESC
 </select>
  
