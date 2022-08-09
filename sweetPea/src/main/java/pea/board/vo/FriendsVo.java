@@ -9,8 +9,28 @@ public class FriendsVo {
 	private String bfname;
 	private String delyn;
 	private String consent;
-	
-	
+	private String name;
+	private String id;
+	private String fdate;
+		
+	public String getFdate() {
+		return fdate;
+	}
+	public void setFdate(String fdate) {
+		this.fdate = fdate;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getFidx() {
 		return fidx;
 	}

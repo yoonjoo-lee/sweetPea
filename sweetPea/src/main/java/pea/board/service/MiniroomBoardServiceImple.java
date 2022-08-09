@@ -9,6 +9,7 @@ import pea.board.dao.MiniroomBoardDao;
 import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
+import pea.board.vo.SearchVo;
 
 @Repository
 public class MiniroomBoardServiceImple implements MiniroomBoardService{
@@ -60,5 +61,41 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	public String checkFriends(FriendsVo vo) {
 		return miniroomBoardDao.checkFriends(vo);
 	}
+	
+	@Override
+	public List<FriendsVo> friendsCheck(int uidx) {
+		return miniroomBoardDao.friendsCheck(uidx);
+	}
+	
+	@Override
+	public List<FriendsVo> friendsCheckList(SearchVo vo) {
+		return miniroomBoardDao.friendsCheckList(vo);
+	}
+
+	@Override
+	public int friendsCheckList_count(int uidx) {
+		return miniroomBoardDao.friendsCheckList_count(uidx);
+	}
+	
+	@Override
+	public int acceptFriends(FriendsVo vo) {
+		return miniroomBoardDao.acceptFriends(vo);
+	}
+
+	@Override
+	public int refuseFriends(FriendsVo vo) {
+		return miniroomBoardDao.refuseFriends(vo);
+	}
+
+	@Override
+	public List<FriendsVo> friendsAcceptList(int uidx) {
+		return miniroomBoardDao.friendsAcceptList(uidx);
+	}
+
+	@Override
+	public int cancelFriends(FriendsVo vo) {
+		return miniroomBoardDao.cancelFriends(vo);
+	}
+
 
 }

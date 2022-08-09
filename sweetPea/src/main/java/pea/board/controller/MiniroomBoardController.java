@@ -11,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MiniroomBoardService;
 import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
+import pea.board.vo.PagingVo;
+import pea.board.vo.SearchVo;
 import pea.board.vo.UserVo;
 
 @RequestMapping(value="/mini")
@@ -160,7 +163,12 @@ public class MiniroomBoardController {
 	public String minihomeOption(int uidx, Model model) {
 		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
 		model.addAttribute("category",category);
-		
+		List<FriendsVo> list = miniroomBoardService.friendsCheck(uidx);
+		if(list.isEmpty()) {
+			model.addAttribute("newFriends","N");
+		}else {
+			model.addAttribute("newFriends","Y");
+		}
 		return "minihome/option";
 	}
 	
@@ -194,4 +202,62 @@ public class MiniroomBoardController {
 		else return 0;
 	}
 	
+	/* 미니홈피 - 친구신청 목록 */
+	@RequestMapping(value="/friendsCheckList.do", method=RequestMethod.GET)
+	public String friendsCheckList(int uidx, Model model, SearchVo searchVo, PagingVo vo
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		
+		cntPerPage = "5";
+		if (nowPage == null) {nowPage = "1";}
+		
+		int checkTotal = miniroomBoardService.friendsCheckList_count(uidx);
+		System.out.println("checkTotal : "+checkTotal);
+		vo = new PagingVo(checkTotal, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("checkPaging", vo);
+		vo.setUidx(uidx);
+		
+		List<FriendsVo> checkList = miniroomBoardService.friendsCheckList(vo);
+		model.addAttribute("checkSearchVo", vo);
+		
+		
+		List<FriendsVo> acceptList = miniroomBoardService.friendsAcceptList(uidx);
+		model.addAttribute("checkList",checkList);
+		model.addAttribute("acceptList",acceptList);
+		
+		return "minihome/option-friendsCheck";
+	}
+	
+	/* 미니홈피 - 친구추가 승낙 */
+	@ResponseBody
+	@RequestMapping(value="/acceptFriends.do", produces = "application/json;charset=utf8")
+	public int acceptFriends(int uidx,int bfidx) {
+		FriendsVo vo = new FriendsVo();
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		
+		return miniroomBoardService.acceptFriends(vo);
+	}
+	
+	/* 미니홈피 - 친구추가 거절 */
+	@ResponseBody
+	@RequestMapping(value="/refuseFriends.do", produces = "application/json;charset=utf8")
+	public int refuseFriends(int uidx,int bfidx) {
+		FriendsVo vo = new FriendsVo();
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		
+		return miniroomBoardService.refuseFriends(vo);
+	}
+	
+	/* 미니홈피 - 친구추가 거절 */
+	@ResponseBody
+	@RequestMapping(value="/cancelFriends.do", produces = "application/json;charset=utf8")
+	public int cancelFriends(int uidx,int bfidx) {
+		FriendsVo vo = new FriendsVo();
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		
+		return miniroomBoardService.cancelFriends(vo);
+	}
 }
