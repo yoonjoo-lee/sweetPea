@@ -208,8 +208,6 @@ a:hover {
 				<span>${login.name}님</span> <input type="button" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
 			</div>
 			<div class="login-center">
-				<%-- <div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'"></div> --%>
-				<%-- 			<img class="profile" src = "<spring:url value = '/images/profile/${login.profile }'/>" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" /> --%>
 				<img class="profile" src="${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
 
 				<div class="info">
@@ -253,7 +251,7 @@ a:hover {
 		<c:if test="${login.pea_super == 'Y'}">
 			<h3>관리자</h3>
 			<ul>
-				<li><a onclick="info('itemWrite.do')">아이템 등록</a></li>
+				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
 				<li><a onclick="info('item-approval.do')">아이템 승인</a></li>
 				<li><a onclick="info('item-postpone.do')">보류</a></li>
 			</ul>

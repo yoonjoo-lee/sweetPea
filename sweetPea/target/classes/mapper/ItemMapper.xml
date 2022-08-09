@@ -117,26 +117,27 @@
 	
 	<!-- 장바구니함 리스트  -->
 <select id="basket_selectAll" parameterType="int" resultType="ItemVo">
-	<![CDATA[ 
+<!-- 	<![CDATA[ 
 	SELECT * FROM pea_item 
 		WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} AND cart='Y' and delyn='N')
-	]]>
+	]]> -->
+	
+	SELECT * FROM pea_item a 
+	JOIN (SELECT uiidx,iidx FROM pea_user_item 
+			WHERE uidx=#{uidx} 
+			AND cart='Y' 
+			AND delyn='N')b 
+	ON a.iidx = b.iidx
 </select>
 
-	<!-- 장바구니 추가 -->
-	<select id="basket_add" parameterType="ItemVo">
-		INSERT INTO pea_user_item(
-			  iidx
-			, uidx
-			, cart
-		)VALUES(
-			  #{iidx}
-			, #{uidx}
-			, 'Y'
-		)
-		 
-	</select>
-
+	<!-- 장바구니 리스트에 추가 -->
+	<update id="basketItemAdd" parameterType="int">
+		update pea_user_item set cart='Y' where uiidx=#{uiidx} 
+	</update>
+	<!-- 장바구니 리스트에 삭제  -->
+	<update id="basketItemDel" parameterType="int">
+		update pea_user_item set cart = 'N' where uiidx=#{uiidx}
+	</update>
 </mapper>
 
 
