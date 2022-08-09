@@ -4,7 +4,12 @@
 <%@ page session="true"%>
 <%@ page import="java.time.LocalDate"%>
 
-
+<style>
+.diary-box{
+	border-radius: 10px;
+	box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+}
+</style>
 <!-- 글 -->
 <div class='diary'>
 	<c:forEach var="board" items='${list }'>
