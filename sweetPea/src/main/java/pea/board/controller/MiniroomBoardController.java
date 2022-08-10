@@ -70,13 +70,7 @@ public class MiniroomBoardController {
 		return "minihome/diary";
 	}
 	
-	@RequestMapping(value="/photoAlbum.do", method=RequestMethod.GET)
-	public String iframe_photoAlbum(int uidx, Model model) {
-		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
-		
-		model.addAttribute("category",category);
-		return "minihome/photoAlbum";
-	}
+
 	
 	@RequestMapping(value="/diary-write.do", method=RequestMethod.GET)
 	public String diaryWrite(int uidx, Model model) {
