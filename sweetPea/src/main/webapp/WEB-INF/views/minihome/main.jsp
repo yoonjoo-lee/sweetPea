@@ -511,7 +511,7 @@ function inputLeftBoard(){
 		
 	</div>
 	<div id="centerBox">
-		<iframe id="miniIframe" scrolling="no" src="mini-home.do?uidx=${mini.uidx}"></iframe>
+		<iframe id="miniIframe"  src="mini-home.do?uidx=${mini.uidx}"></iframe>
 	</div>
 	<div id="buttonBox">
 		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>

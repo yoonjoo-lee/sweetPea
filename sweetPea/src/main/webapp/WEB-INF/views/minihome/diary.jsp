@@ -18,7 +18,7 @@
 	width: 100%;
 } */
 .main-content{
-	overflow-y: scroll;
+	/* overflow-y: scroll; */
 	height: 90vh;
 	width: 100%;
 }

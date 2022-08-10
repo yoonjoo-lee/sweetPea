@@ -173,7 +173,7 @@ public class MiniroomBoard2Controller {
 	
 	// 사진첩 등록
 	@RequestMapping(value = "/photoAlbumUpload.do", method = RequestMethod.POST)
-	public String photoAlbumUpload(MiniroomBoardVo vo, MultipartHttpServletRequest mtfRequest, HttpSession session, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+	public void photoAlbumUpload(MiniroomBoardVo vo, MultipartHttpServletRequest mtfRequest,HttpServletResponse response, HttpSession session, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/photoAlbum");
 		
 		session = request.getSession();
@@ -188,7 +188,6 @@ public class MiniroomBoard2Controller {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
             files += originFileName+"|";
             System.out.println("originFileName : " + originFileName);
-            
             
             File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
             
@@ -205,7 +204,10 @@ public class MiniroomBoard2Controller {
 		vo.setIp(ip);
 		
 		miniroomboard2Service.writemini(vo);
-		return "redirect:/";
+		
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
 	
 	// 파일 경로 찾기
@@ -225,5 +227,15 @@ public class MiniroomBoard2Controller {
 	    }
 	    System.out.println("result"+result);
 	    return result;
+	}
+	
+	// 사진첩 삭제
+	@RequestMapping(value="/photoDelete.do")
+	public void photoDelete(int mbidx, HttpServletResponse response, Model model) throws IOException {
+		miniroomboard2Service.deleteDiary(mbidx); 
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+		
 	}
 }
