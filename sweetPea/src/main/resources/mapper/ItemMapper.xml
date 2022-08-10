@@ -116,28 +116,53 @@
 	
 	
 	<!-- 장바구니함 리스트  -->
-<select id="basket_selectAll" parameterType="int" resultType="ItemVo">
-<!-- 	<![CDATA[ 
-	SELECT * FROM pea_item 
-		WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} AND cart='Y' and delyn='N')
-	]]> -->
-	
-	SELECT * FROM pea_item a 
-	JOIN (SELECT uiidx,iidx FROM pea_user_item 
-			WHERE uidx=#{uidx} 
-			AND cart='Y' 
-			AND delyn='N')b 
-	ON a.iidx = b.iidx
-</select>
+	<select id="basket_selectAll" parameterType="int" resultType="ItemVo">
+	<!-- 	<![CDATA[ 
+		SELECT * FROM pea_item 
+			WHERE iidx=(SELECT iidx FROM pea_user_item WHERE uidx=#{uidx} AND cart='Y' and delyn='N')
+		]]> -->
+		SELECT * FROM pea_item a 
+		JOIN (SELECT uiidx,iidx FROM pea_user_item 
+				WHERE uidx=#{uidx} 
+				AND cart='Y' 
+				AND delyn='N')b 
+		ON a.iidx = b.iidx
+	</select>
 
 	<!-- 장바구니 리스트에 추가 -->
-	<update id="basketItemAdd" parameterType="int">
+		<insert id="basketItemAdd" parameterType="ItemVo">
+			INSERT INTO pea_user_item(
+						  iidx
+						, uidx
+						, cart
+						
+			) 
+			VALUES(
+						  #{iidx}
+						, #{uidx}
+						, 'Y'
+
+			)
+	</insert>
+	<select id="basketListCheck" parameterType="ItemVo" resultType="String">
+		SELECT * FROM pea_user_item 
+			WHERE iidx = #{iidx} 
+			AND uidx = #{uidx}
+			AND cart='Y'
+			AND delyn='N'
+	</select>
+	
+	<update id="basketItemAdd2" parameterType="int">
 		update pea_user_item set cart='Y' where uiidx=#{uiidx} 
 	</update>
 	<!-- 장바구니 리스트에 삭제  -->
-	<update id="basketItemDel" parameterType="int">
+	<update id="basketItemDel2" parameterType="ItemVo">
 		update pea_user_item set cart = 'N' where uiidx=#{uiidx}
 	</update>
+	<delete id="basketItemDel" parameterType="ItemVo">
+		DELETE FROM pea_user_item
+			WHERE  uiidx=#{uiidx}
+	</delete>
 </mapper>
 
 

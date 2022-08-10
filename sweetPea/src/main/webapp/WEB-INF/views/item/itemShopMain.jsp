@@ -309,15 +309,14 @@ function openShoppingBasket(){
 			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg">GO!</p>
 		</div>
 	</div>
-
-
-
 	<br>
+	<!-- 아이템 리스트 뿌려주는 div -->
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
 	<br>
 
+	<!-- 모달 창  -->
 	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -355,69 +354,13 @@ function openShoppingBasket(){
       for (var i=0; i<test.length; i++){
          console.log(test[i]['value']);
       }
- 
-/* 장바구니 리스트 삭제  */
-      
-	async function basketItemDel(){
-		var valueArr = new Array();
-		var list = $("input[name='rowCheck']");
-		var ft = '<%=request.getContextPath()%>';
-		
-		var checkboxValues = [];
-	    $("input[name='rowCheck']:checked").each(function(i) {
-	        checkboxValues.push($(this).val());
-	    });
-		
-		var allData = {"checkBox": checkboxValues}
-		if(checkboxValues.length == 0){
-			Swal.fire({
-			      title: '실패',
-			      text: '삭제할 아이템이 없습니다',
-			      icon: 'error',
-		    });
-			return;
-		}else{
-			await Swal.fire({
-			  text: '선택한 아이템을 삭제하시겠습니까?',
-			  icon: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: '예',
-			  cancelButtonText: '아니오'
-			}).then((result) => {
-			   if (result.isConfirmed) {
-				   $.ajax({
-					  url: "/item/basketItemDel.do",
-					  type: "get",
-					  data: allData,
-					  success: async function(result){
-						  await Swal.fire({
-						      text: '삭제가 완료되었습니다',
-						      icon: 'error',
-					  		});
-					    window.location.reload();
-					  },
-					  error: function (error){
-					  	alert('다시 시도하세요');
-					  }
-					});
-			  }
-			  else{
-				window.location.reload();  
-			  }
-			})
-		}
-	
-}
-      
-      
+
 /* 아이템 리스트 나열 */	
  $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+1,
+	data:"cate="+1,"category="+${}
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
@@ -432,8 +375,8 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			<%-- html +="<a class='btn btn-outline-dark mt-auto' href='<%=request.getContextPath()%>/item/itemShoppingAdd.do?uiidx="+data[i].uiidx+"'>장바구니</a>"; --%>
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='addCart("+data[i].iidx+")'>장바구니</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -442,26 +385,50 @@ function openShoppingBasket(){
 			html +="</div>";
 		}
 			$("#itemList").html(html);
-							
 		}
-						
 	})
-					
 })
+/*  */
 function addCart(uiidx){
 	alert(uiidx);
 }
-
- /* 장바구니  */
- function itemShoppingAdd(){
+ /* 아이템 사기  */
+ function itemBuy(){
+	 Swal.fire({
+		icon:'info',
+		title:'아이템 구매 기능  준비중...',
+		toast:true,
+		timer: 2000,
+	    timerProgressBar: true,
+	 })
+ } 
+ /* 장바구니 리스트 추가  */
+ function itemShoppingAdd(iidx){
 	 console.log('itemShoppgAdd');
+	 var uidx = ${login.uidx};
 	$.ajax({
 		url:"itemShoppingAdd.do",
 		type:"get",
-	 	/* data: */
-		success:function(data){
-			
-			
+	 	data:{"uidx":uidx,"iidx":iidx},
+		success:async function(data){
+			if(data==0){
+				Swal.fire({
+					text: '장바구니에 존재한 아이템입니다.',
+					icon: 'warning',
+					timer: 2000,
+				    timerProgressBar: true,
+				});
+			}else{
+				/* alert("장바구니에 추가되었습니다."); */
+			 await Swal.fire({
+					text : '장바구니에 추가되었습니다.',
+					icon : 'success',
+					timer: 2000,
+					timerProgressBar: true,
+					}); 
+				console.log(uidx);
+				window.location.reload();
+			}
 		},
 		error:function(){
 			alert('장바구니에 추가되지 않았습니다.');
@@ -475,7 +442,7 @@ function itemSelectAll(cate){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+cate,
+	data:"cate="+cate,"category="+${category}
 	success:function(data){
 		/* 	alert(data[i].name); */
 		var html="";
@@ -491,7 +458,8 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto'  onclick='location.href=<%=request.getContextPath()%>/item/itemShoppingAdd.do?uiidx=${login.uidx}'>장바구니</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -500,9 +468,7 @@ function itemSelectAll(cate){
 			html +="</div>";
 		}
 			$("#itemList").html(html);
-							
 		}
-						
 	})
 					
 }

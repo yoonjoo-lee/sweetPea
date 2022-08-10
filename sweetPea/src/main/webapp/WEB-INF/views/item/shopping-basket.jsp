@@ -9,9 +9,9 @@
 <!-- Bootstrap icons-->
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
-<title>SHOPPING BASKET</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<title>SHOPPING BASKET</title>
 <style>
 * {
 	box-sizing: border-box;
@@ -100,7 +100,7 @@ $(function(){
 	    });
 		
 		var allData = {"checkBox": checkboxValues}
-		alert(checkboxValues);
+			/* alert(checkboxValues); */
 		if(checkboxValues.length == 0){
 			Swal.fire({
 			      title: '실패',
@@ -120,13 +120,13 @@ $(function(){
 				}).then((result) => {
 				   if (result.isConfirmed) {
 					   $.ajax({
-						  url: ft + "/item/basketItemDel.do",
+						  url: ft + "/item/basketItemDel.do?uidx="+${login.uidx},
 						  type: "get",
 						  data: allData,
 						  success: async function(result){
 							  await Swal.fire({
 							      text: '삭제가 완료되었습니다',
-							      icon: 'error',
+							      icon: 'success',
 						  		});
 						    window.location.reload();
 						  },
