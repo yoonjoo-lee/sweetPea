@@ -85,13 +85,18 @@ public class ItemServiceImple implements ItemService {
 	}
 
 	@Override
-	public int basketItemDel(int uiidx) {
-		return itemDao.basketItemDel(uiidx);
+	public int basketItemDel(ItemVo vo) {
+		return itemDao.basketItemDel(vo);
 	}
 
 	@Override
-	public int basketItemAdd(int uiidx) {
-		return itemDao.basketItemAdd(uiidx);
+	public int basketItemAdd(ItemVo vo) {
+		return itemDao.basketItemAdd(vo);
+	}
+
+	@Override
+	public String basketListCheck(ItemVo vo) {
+		return itemDao.basketListCheck(vo);
 	}
 
 

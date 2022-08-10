@@ -107,17 +107,21 @@ public class ItemDao {
 	public List<ItemVo> basket_selectAll(int uidx) {
 		return sqlSession.selectList(namespace+".basket_selectAll", uidx);
 	}
+	public String basketListCheck(ItemVo vo) {
+		
+		return sqlSession.selectOne(namespace+".basketListCheck", vo);
+	}
 	
 	//장바구니 추가
-	public int basketItemAdd(int uiidx) {
+	public int basketItemAdd(ItemVo vo) {
 		
-		return sqlSession.update(namespace+".basketItemAdd",uiidx);
+		return sqlSession.insert(namespace+".basketItemAdd",vo);
 	}
 	
 	// 장바구니 삭제 
-	public int basketItemDel(int uiidx) {
+	public int basketItemDel(ItemVo vo) {
 		
-		return sqlSession.update(namespace+".basketItemDel", uiidx);
+		return sqlSession.delete(namespace+".basketItemDel", vo);
 	}
 	
 	

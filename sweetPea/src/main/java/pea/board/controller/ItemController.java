@@ -260,14 +260,22 @@ public class ItemController {
 	}
 	
 	/* 장바구니 아이템 리스트 추가 */
-	@RequestMapping(value="item/itemShoppingAdd.do", method=RequestMethod.GET)
-	public String itemShoppingAdd(int uiidx){
-		int result = itemService.basketItemAdd(uiidx);
-		System.out.println("uidx : "+uiidx);
-		return "item/itemShopMain";
+	@ResponseBody
+	@RequestMapping(value="item/itemShoppingAdd.do", produces = "application/json;charset=utf8")
+	public int itemShoppingAdd(int iidx, int uidx){
+		ItemVo vo = new ItemVo();
+		vo.setIidx(iidx);
+		vo.setUidx(uidx);
+		String result2 = itemService.basketListCheck(vo);
+		System.out.println("vo : "+vo);
+		if(result2 == null) {
+			int result = itemService.basketItemAdd(vo);
+			return result;
+		}else {
+			return 0;
+		}
 		
 	}
-	
 	
 
 	/* 장바구니 리스트 삭제 */
@@ -277,10 +285,11 @@ public class ItemController {
 		int result = 0;
 		System.out.println(arrayParams);
 		int size = arrayParams.size();
+		ItemVo vo = new ItemVo();
 		
 		for(int i=0;i<size;i++) {
-			int delNum = Integer.parseInt(arrayParams.get(i));
-			result=itemService.basketItemDel(delNum);
+			vo.setUiidx(Integer.parseInt(arrayParams.get(i)));
+			result=itemService.basketItemDel(vo);
 		}
 		if(result ==1) {
 			return 1;
