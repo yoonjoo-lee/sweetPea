@@ -175,7 +175,7 @@ async function cancelFriends(bfidx){
 </script>
 </head>
 <body>
-<h3>친구 신청 목록</h3>
+<h3>친구 신청 목록dd</h3>
 <hr>
 <div class="decalBox">
 	<h4>친구 요청 받기</h4>
