@@ -169,10 +169,8 @@ public class MiniroomBoardController {
 	/* 미니홈피 - 관리자 */
 	@RequestMapping(value="/mini-option.do", method=RequestMethod.GET)
 	public String minihomeOption(int uidx, Model model) {
-		List<MiniroomBoardVo> category = miniroomBoardService.checkCategory(uidx);
-		model.addAttribute("category",category);
-		List<FriendsVo> list = miniroomBoardService.friendsCheck(uidx);
-		if(list.isEmpty()) {
+		String check = miniroomBoardService.friendsCheck(uidx);
+		if(check == null) {
 			model.addAttribute("newFriends","N");
 		}else {
 			model.addAttribute("newFriends","Y");
@@ -214,22 +212,27 @@ public class MiniroomBoardController {
 	@RequestMapping(value="/friendsCheckList.do", method=RequestMethod.GET)
 	public String friendsCheckList(int uidx, Model model, SearchVo searchVo, PagingVo vo
 			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			, @RequestParam(value="acceptNowPage", required=false)String acceptNowPage) {
 		
-		cntPerPage = "5";
+		String cntPerPage = "5";
 		if (nowPage == null) {nowPage = "1";}
+		if (acceptNowPage == null) {acceptNowPage = "1";}
 		
 		int checkTotal = miniroomBoardService.friendsCheckList_count(uidx);
-		System.out.println("checkTotal : "+checkTotal);
+		int acceptTotal = miniroomBoardService.friendsAcceptList_count(uidx);
 		vo = new PagingVo(checkTotal, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		PagingVo acceptVo = new PagingVo(acceptTotal, Integer.parseInt(acceptNowPage), Integer.parseInt(cntPerPage));
+		
 		model.addAttribute("checkPaging", vo);
+		model.addAttribute("acceptPaging",acceptVo);
 		vo.setUidx(uidx);
+		acceptVo.setUidx(uidx);
 		
 		List<FriendsVo> checkList = miniroomBoardService.friendsCheckList(vo);
+		List<FriendsVo> acceptList = miniroomBoardService.friendsAcceptList(acceptVo);
+		
 		model.addAttribute("checkSearchVo", vo);
-		
-		
-		List<FriendsVo> acceptList = miniroomBoardService.friendsAcceptList(uidx);
+		model.addAttribute("acceptSearchVo", acceptVo);
 		model.addAttribute("checkList",checkList);
 		model.addAttribute("acceptList",acceptList);
 		
@@ -243,8 +246,11 @@ public class MiniroomBoardController {
 		FriendsVo vo = new FriendsVo();
 		vo.setUidx(uidx);
 		vo.setBfidx(bfidx);
-		
-		return miniroomBoardService.acceptFriends(vo);
+		miniroomBoardService.acceptFriends(vo);
+		String result = miniroomBoardService.friendsCheck(uidx);
+		if(result == null) {
+			return 0;
+		}else return 1; 
 	}
 	
 	/* 미니홈피 - 친구추가 거절 */
@@ -269,5 +275,11 @@ public class MiniroomBoardController {
 		return miniroomBoardService.cancelFriends(vo);
 	}
 	
-	
+	/* 미니홈피 - 관리 - 친구관리 - 친구목록 */
+	@RequestMapping(value="/friendsList.do", method=RequestMethod.GET)
+	public String friendsList(int uidx, Model model) {
+		List<FriendsVo> list = miniroomBoardService.friendsAllList(uidx);
+			model.addAttribute("list", list);
+		return "minihome/option-friendsList";
+	}
 }

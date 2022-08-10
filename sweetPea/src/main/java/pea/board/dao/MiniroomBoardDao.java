@@ -63,8 +63,8 @@ public class MiniroomBoardDao {
 		return sqlSession.selectOne(namespace+".checkFriends",vo);
 	}
 	
-	public List<FriendsVo> friendsCheck(int uidx) {
-		return sqlSession.selectList(namespace+".friendsCheckList",uidx);
+	public String friendsCheck(int uidx) {
+		return sqlSession.selectOne(namespace+".friendsCheck",uidx);
 	} 
 	
 	public List<FriendsVo> friendsCheckList(SearchVo vo) {
@@ -83,11 +83,19 @@ public class MiniroomBoardDao {
 		return sqlSession.update(namespace+".refuseFriends",vo);
 	}
 	
-	public List<FriendsVo> friendsAcceptList(int uidx){
-		return sqlSession.selectList(namespace+".friendsAcceptList",uidx);
+	public int friendsAcceptList_count(int uidx) {
+		return sqlSession.selectOne(namespace+".friendsAcceptList_count",uidx);
+	}
+	
+	public List<FriendsVo> friendsAcceptList(SearchVo vo){
+		return sqlSession.selectList(namespace+".friendsAcceptList",vo);
 	}
 	
 	public int cancelFriends(FriendsVo vo) {
 		return sqlSession.update(namespace+".cancelFriends",vo);
+	}
+	
+	public List<FriendsVo> friendsAllList(int uidx){
+		return sqlSession.selectList(namespace+".friendsAllList",uidx);
 	}
 }

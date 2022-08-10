@@ -63,7 +63,7 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	}
 	
 	@Override
-	public List<FriendsVo> friendsCheck(int uidx) {
+	public String friendsCheck(int uidx) {
 		return miniroomBoardDao.friendsCheck(uidx);
 	}
 	
@@ -88,14 +88,25 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	}
 
 	@Override
-	public List<FriendsVo> friendsAcceptList(int uidx) {
-		return miniroomBoardDao.friendsAcceptList(uidx);
+	public int friendsAcceptList_count(int uidx) {
+		return miniroomBoardDao.friendsAcceptList_count(uidx);
+	}
+	
+	@Override
+	public List<FriendsVo> friendsAcceptList(SearchVo vo) {
+		return miniroomBoardDao.friendsAcceptList(vo);
 	}
 
 	@Override
 	public int cancelFriends(FriendsVo vo) {
 		return miniroomBoardDao.cancelFriends(vo);
 	}
+
+	@Override
+	public List<FriendsVo> friendsAllList(int uidx) {
+		return miniroomBoardDao.friendsAllList(uidx);
+	}
+
 
 
 }

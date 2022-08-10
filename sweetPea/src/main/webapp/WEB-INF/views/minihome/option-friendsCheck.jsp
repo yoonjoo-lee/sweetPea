@@ -89,17 +89,16 @@ async function addFriends(uidx){
 				type: "get",
 				data:{"uidx": uidx, "bfidx": ${login.uidx}},
 				success: async function(data){
+					await Swal.fire({
+						title: '일촌완료',
+						icon: 'success',
+						confirmButtonText: '확인'
+					});
 					if(data == 1){
-						await Swal.fire({
-							title: '일촌완료',
-							icon: 'success',
-							confirmButtonText: '확인'
-						});
-						window.location.reload();	
+						
+						$('#list-icon').css("color","red");
 					}
-					else{
-						alert("오류!");
-					}
+					window.location.reload();
 				}
 			});
 			
@@ -159,6 +158,7 @@ async function cancelFriends(bfidx){
 							icon: 'success',
 							confirmButtonText: '확인'
 						});
+						window.parent.location.load("#list-icon");
 						window.location.reload();	
 					}
 					else{
@@ -175,7 +175,7 @@ async function cancelFriends(bfidx){
 </script>
 </head>
 <body>
-<h3>친구 신청 목록d</h3>
+<h3>친구 신청 목록</h3>
 <hr>
 <div class="decalBox">
 	<h4>친구 요청 받기</h4>
@@ -194,7 +194,7 @@ async function cancelFriends(bfidx){
 	<div>
 		<ul class="myPaging">
 			<c:if test="${checkPaging.startPage != 1 }">
-				<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.startPage - 1 }&cntPerPage=${checkPaging.cntPerPage}">&lt;</a></li>
+				<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&nowPage=${checkPaging.startPage - 1 }">&lt;</a></li>
 			</c:if>
 			<c:forEach begin="${checkPaging.startPage }" end="${checkPaging.endPage }" var="p">
 				<c:choose>
@@ -202,12 +202,12 @@ async function cancelFriends(bfidx){
 						<li class="page-item  active"><b class="page-link">${p }</b></li>
 					</c:when>
 					<c:when test="${p != checkPaging.nowPage }">
-						<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${p }&cntPerPage=${checkPaging.cntPerPage}">${p }</a></li>
+						<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&nowPage=${p }">${p }</a></li>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${checkPaging.endPage != checkPaging.lastPage}">
-				<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${checkPaging.endPage+1 }&cntPerPage=${checkPaging.cntPerPage}">&gt;</a></li>
+				<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&nowPage=${checkPaging.endPage+1 }">&gt;</a></li>
 			</c:if>
 		</ul>
 	</div>
@@ -222,9 +222,30 @@ async function cancelFriends(bfidx){
 				<li>　본인 일촌명 : ${vo.uname}</li>
 				<li>상대방 일촌명 : ${vo.bfname}</li>
 			</ul>
-			<button class="btn" style="margin-left: 5px;" onclick="cancelFriends(${vo.bfidx})">취소</button>
+			<button class="btn" style="margin-left: 5px" onclick="cancelFriends(${vo.bfidx})">취소</button>
 		</div>
 	</c:forEach>
+	
+	<div>
+		<ul class="myPaging">
+			<c:if test="${acceptPaging.startPage != 1 }">
+				<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&acceptNowPage=${acceptPaging.startPage - 1 }">&lt;</a></li>
+			</c:if>
+			<c:forEach begin="${acceptPaging.startPage }" end="${acceptPaging.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == acceptPaging.nowPage }">
+						<li class="page-item  active"><b class="page-link">${p }</b></li>
+					</c:when>
+					<c:when test="${p != acceptPaging.nowPage }">
+						<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&acceptNowPage=${p }">${p }</a></li>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${acceptPaging.endPage != acceptPaging.lastPage}">
+				<li class="page-item"><a class="page-link" href="friendsCheckList.do?uidx=${login.uidx}&acceptNowPage=${acceptPaging.endPage+1 }">&gt;</a></li>
+			</c:if>
+		</ul>
+	</div>
 </div>
 </body>
 </html>
