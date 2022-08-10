@@ -215,7 +215,7 @@ ul{
 		});
 	}
 	function clickThis(e){
-		$(".boardBtn").removeClass('act');
+		$(".list-option").removeClass('act');
 		$(e).addClass('act');
 	}
 	
@@ -235,8 +235,8 @@ ul{
 				<div class="list">내 정보 관리</div>
 				<div class="list">친구 관리</div>
 				<div class="listBox">
-					<div>친구 목록</div>
-					<div id="list-icon" onclick="optionClick('friendsCheckList.do?uidx=${mini.uidx}'),clickThis(this)">친구 신청 목록</div>
+					<div class="list-option" onclick="optionClick('friendsList.do?uidx=${mini.uidx}'),clickThis(this)">친구 목록</div>
+					<div id="list-icon" class="list-option" onclick="optionClick('friendsCheckList.do?uidx=${mini.uidx}'),clickThis(this)">친구 신청 목록</div>
 				</div>
 				<div class="list">내 아이템 관리</div>
 				<div class="listBox">

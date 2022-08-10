@@ -17,11 +17,13 @@ public interface MiniroomBoardService {
 	int changeCategory(MiniroomBoardVo vo);
 	int addFriends(FriendsVo vo);
 	String checkFriends(FriendsVo vo);
-	List<FriendsVo> friendsCheck(int uidx);
+	String friendsCheck(int uidx);
 	List<FriendsVo> friendsCheckList(SearchVo vo);
 	int friendsCheckList_count(int uidx);
 	int acceptFriends(FriendsVo vo);
 	int refuseFriends(FriendsVo vo);
-	List<FriendsVo> friendsAcceptList(int uidx);
+	int friendsAcceptList_count(int uidx);
+	List<FriendsVo> friendsAcceptList(SearchVo vo);
 	int cancelFriends(FriendsVo vo);
+	List<FriendsVo> friendsAllList(int uidx);
 }
