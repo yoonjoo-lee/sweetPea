@@ -134,7 +134,7 @@
 .calendar {
 	margin: 20px 20px 10px 20px;
 	flex: 0.1;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
@@ -157,7 +157,6 @@
 }
 
 .diary-box {
-	border: 1px solid gray;
 	margin-bottom: 20px;
 	padding: 20px;
 }
@@ -198,7 +197,57 @@
 .body {
 	font-family: 'BMJUA';
 }
+
+
+
+/* 시스템 커서 안 보이게 숨기기 */
+  body {
+      cursor: none;
+  }
+  /* 커스텀 커서 스타일 정의해주기 */
+  .cursor {
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid #1d1d1d;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: all 0.3s ease;
+      transition-property: background, transform;
+      transform-origin: 100% 100%;
+      backdrop-filter: sepia(20%);
+      background-size: cover;
+  }
+  
+  .link-grow {
+    transform: scale(2);
+    background-color: #1d1d1d;
+}
+
+/* 점선이 들어갈 ::after(pseudo)요소 만들고 크기값 설정해주기*/
+  .eachdate:hover::after {
+    width: calc(100% - 2rem);
+    height: 3px;
+    background-size: contain; /* 배경 이미지(svg)가 알맞게 들어가도록*/
+  }
+/* hover된 링크의 글자 색상 정의(하얀색)*/
+/* .hovered-link 선택자명은 추후 JS로 추가할 예정!*/
+  .hovered-link {
+      color: #fff !important;
+  }
+/* .gnb li a:hover::after의 svg에 배경이미지 지정!*/
+  .hovered-link::after { 
+      background-image: url("<%=request.getContextPath()%>/resources/assets/img/portfolio/1.jpg"); 
+  }
+  
+  .calendar{
+  	border-radius: 10px;
+	box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+  }
 </style>
+
 <script>
 window.onload=()=>{
     document.querySelector('.dropbtn_click').onclick = ()=>{
@@ -344,9 +393,30 @@ window.onload=()=>{
 			}
 		}); 
 	}
+	
+	
+
 </script>
 </head>
 <body class="body">
+<!-- 마우스 커서 -->
+<div class="cursor"></div>	
+<script>
+let mouseCursor = document.querySelector(".cursor");
+let navLinks = document.querySelectorAll(".eachdate"); //메뉴 링크
+//window 객체에 scroll & mouse 이벤트를 추가하고 cursor함수 실행되도록 함
+window.addEventListener("scroll", cursor);
+window.addEventListener("mousemove", cursor);
+//커스텀 커서의 left값과 top값을 커서의 XY좌표값과 일치시킴
+function cursor(e) {
+  mouseCursor.style.left = e.pageX + "px";
+  mouseCursor.style.top = e.pageY - scrollY + "px";
+}	
+</script>
+  
+  
+  
+  
 	<div class="dropdown">
 		<button class="dropbtn">
 			<span class="dropbtn_icon"></span> 
@@ -393,9 +463,9 @@ window.onload=()=>{
 <div class='main-content'>
 	<!-- 달력 공간 -->
 	<div class='calendar'>
-		<i class='bi-caret-left-fill' onclick='monthDown2()'></i>
+		<i class='bi-caret-left-fill eachdate'  onclick='monthDown2()'></i>
 			<div id="calendar"><!-- 달력 날짜 공간 --></div> 
-		<i class='bi-caret-right-fill' onclick='monthUp2()'></i>
+		<i class='bi-caret-right-fill eachdate'  onclick='monthUp2()'></i>
 	</div>	
 	<div id="board"><!-- 글 공간 --></div>
 </div>
@@ -416,7 +486,7 @@ window.onload=()=>{
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
 			type: "GET",
-			data: {"day":<%=dayOfMonth%>},
+			data: {"category":1},
 			success: function(html){
 				$("#board").html(html);
 			},
@@ -448,7 +518,7 @@ window.onload=()=>{
  		$.ajax({
  			url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
  			type: "GET",
- 			data: {"year":year, "month":month, "day":day},
+ 			data: {"year":year, "month":month, "day":day, "category":1},
  			success: function(html){
  				console.log("글 리스트 오픈 성공");
  				$("#board").html(html);
