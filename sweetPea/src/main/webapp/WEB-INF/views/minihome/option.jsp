@@ -158,8 +158,31 @@ ul{
 	    margin: 0 auto;
 	    display: block;
 	    border: 0;
+}
+
+.list, .listBox>div{
+	cursor: pointer;
+}	
+
+.act{
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+</style>
+<c:if test="${newFriends eq 'Y'}">
+<style>
+	#list-icon::after{
+		background-image: url('<%=request.getContextPath()%>/resources/images/n_red_alphabet_letters_icon.png');
+		background-size: 8px;
+	    width: 8px;
+	    height: 8px;
+	    content: "";
+	    background-repeat: no-repeat;
+	    position: absolute;
 	}
 </style>
+</c:if>
 <script>
 	$(function(){
 		$(".list").click(function(){
@@ -170,8 +193,8 @@ ul{
 <script>
 	function changeHeader(){
 		$("h3").html("<input type='text' id='changeHeader' value='${mini.h2}'>"
-				+"<input type='button' class='headerBtn' value='취소' oncdivck='location.reload()'>"
-				+"<input type='button' class='headerBtn' value='변경' oncdivck='inputHeader()'>");
+				+"<input type='button' class='headerBtn' value='취소' onclick='location.reload()'>"
+				+"<input type='button' class='headerBtn' value='변경' onclick='inputHeader()'>");
 		$("#changeHeader").focus();
 	}
 	function inputHeader(){
@@ -191,6 +214,14 @@ ul{
 			}
 		});
 	}
+	function clickThis(e){
+		$(".boardBtn").removeClass('act');
+		$(e).addClass('act');
+	}
+	
+	function optionClick(e){
+		$("#miniIframe").attr("src",e);
+	}
 </script>
 
 </head>
@@ -205,7 +236,7 @@ ul{
 				<div class="list">친구 관리</div>
 				<div class="listBox">
 					<div>친구 목록</div>
-					<div>친구 신청 목록</div>
+					<div id="list-icon" onclick="optionClick('friendsCheckList.do?uidx=${mini.uidx}'),clickThis(this)">친구 신청 목록</div>
 				</div>
 				<div class="list">내 아이템 관리</div>
 				<div class="listBox">
@@ -218,7 +249,7 @@ ul{
 	</div>
 	<div id="centerBox">
 	<div id="center-centerBox">
-	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" oncdivck="changeHeader()">
+	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()">
 	</h3>
 	<hr>
 	<iframe id="miniIframe" scrolling="no" src=""></iframe>

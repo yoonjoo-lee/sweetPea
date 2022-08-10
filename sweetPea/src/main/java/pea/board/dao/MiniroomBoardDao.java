@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import pea.board.vo.FriendsVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
+import pea.board.vo.SearchVo;
 
 @Repository
 public class MiniroomBoardDao {
@@ -60,5 +61,33 @@ public class MiniroomBoardDao {
 	
 	public String checkFriends(FriendsVo vo) {
 		return sqlSession.selectOne(namespace+".checkFriends",vo);
+	}
+	
+	public List<FriendsVo> friendsCheck(int uidx) {
+		return sqlSession.selectList(namespace+".friendsCheckList",uidx);
+	} 
+	
+	public List<FriendsVo> friendsCheckList(SearchVo vo) {
+		return sqlSession.selectList(namespace+".friendsCheckList",vo);
+	}
+	
+	public int friendsCheckList_count(int uidx) {
+		return sqlSession.selectOne(namespace+".friendsCheckList_count",uidx);
+	}
+	
+	public int acceptFriends(FriendsVo vo) {
+		return sqlSession.update(namespace+".acceptFriends",vo);
+	}
+	
+	public int refuseFriends(FriendsVo vo) {
+		return sqlSession.update(namespace+".refuseFriends",vo);
+	}
+	
+	public List<FriendsVo> friendsAcceptList(int uidx){
+		return sqlSession.selectList(namespace+".friendsAcceptList",uidx);
+	}
+	
+	public int cancelFriends(FriendsVo vo) {
+		return sqlSession.update(namespace+".cancelFriends",vo);
 	}
 }

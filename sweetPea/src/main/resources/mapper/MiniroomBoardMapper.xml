@@ -129,4 +129,92 @@
 		 WHERE (uidx = #{uidx} AND bfidx = #{bfidx})
 		    OR (uidx = #{bfidx} AND bfidx = #{uidx}) 
 	</select>
+	
+	<!-- 친구요청 목록 확인 -->
+	<select id="friendsCheck" parameterType="int" resultType="FriendsVo">
+		SELECT a.*,b.name,b.id
+		  FROM pea_friends a
+		  JOIN (SELECT uidx,name,id
+		  		  FROM pea_user
+		  )b
+		    ON a.uidx = b.uidx		     
+		 WHERE a.bfidx = #{uidx}
+		   AND a.delyn = 'N'
+		   AND a.consent = 'N'
+	</select>
+	
+	
+	<!-- 친구요청 목록 -->
+	<select id="friendsCheckList" parameterType="SearchVo" resultType="FriendsVo">
+		SELECT	A.* 
+	  	  FROM	(SELECT @rownum:=@rownum+1 AS rn, b.*,c.name,c.id
+			       FROM pea_friends b
+			       JOIN(SELECT uidx,name,id
+		  		          FROM pea_user
+		  				)c
+		  		     ON b.uidx = c.uidx
+			    WHERE b.bfidx = #{uidx}
+	  			  AND (@rownum:=0) = 0
+ 	 			  AND b.delyn = 'N'
+ 	 			  AND b.consent = 'N'
+		 	) A 
+	 	<if test="list == 1">
+	 	 WHERE rn LIMIT 5;
+	 	</if>
+	 	<if test="list != 1">
+	 	 WHERE rn BETWEEN #{start} AND #{end};
+ 		</if>
+	</select>
+	
+	<!-- 친구요청 카운트 -->
+	<select id="friendsCheckList_count" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM pea_friends a
+		  JOIN (SELECT uidx,name,id
+		  		  FROM pea_user
+		  )b
+		    ON a.uidx = b.uidx		     
+		 WHERE a.bfidx = #{uidx}
+		   AND a.delyn = 'N'
+		   AND a.consent = 'N'
+	</select>
+	
+	
+	<!-- 친구요청 승낙 -->
+	<update id="acceptFriends" parameterType="FriendsVo">
+		UPDATE pea_friends
+		   SET consent	= 'Y'
+		 WHERE uidx = #{uidx}
+		   AND bfidx = #{bfidx}
+		   AND delyn = 'N'
+	</update>
+	
+	<!-- 친구요청 거절 -->
+	<update id="refuseFriends" parameterType="FriendsVo">
+		UPDATE pea_friends
+		   SET delyn = 'Y'
+		 WHERE uidx = #{uidx}
+		   AND bfidx = #{bfidx}
+	</update>
+	
+	<!-- 친구신청 목록 -->
+	<select id="friendsAcceptList" parameterType="int" resultType="FriendsVo">
+		SELECT a.*,b.name,b.id
+		  FROM pea_friends a
+		  JOIN (SELECT uidx,name,id
+		  		  FROM pea_user
+		  )b
+		    ON a.bfidx = b.uidx		     
+		 WHERE a.uidx = #{uidx}
+		   AND a.delyn = 'N'
+		   AND a.consent = 'N'
+	</select>
+	
+	<!-- 친구신청 거절 -->
+	<update id="cancelFriends" parameterType="FriendsVo">
+		UPDATE pea_friends
+		   SET delyn = 'Y'
+		 WHERE uidx = #{uidx}
+		   AND bfidx = #{bfidx}
+	</update>
 </mapper>
