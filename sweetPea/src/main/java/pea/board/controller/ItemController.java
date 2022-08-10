@@ -51,6 +51,7 @@ public class ItemController {
 		System.out.println("uidx"+uidx);
 		
 		List<ItemVo> list = itemService.basketList(uidx);
+		System.out.println("list : "+list);
 		model.addAttribute("list",list);
 		for(ItemVo vo: list) {
 			System.out.println("vo: "+vo.getIidx());
@@ -77,7 +78,17 @@ public class ItemController {
 
 		return "item/leftBanner";
 	}
+	
+	
+	/* 아이템 등록 파일, BGM 선택 페이지 */
+	@RequestMapping(value="/item/itemFileChoice.do", method=RequestMethod.GET)
+	public String itemFileChoice() {
+		
+		return "item/itemFileChoice";
+	}
 
+
+	
 //	/* 아이템 등록 구문 */
 
 	@RequestMapping(value = "/item/itemWrite.do", method = RequestMethod.GET)
@@ -87,7 +98,7 @@ public class ItemController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/item/itemWrite.do", produces = "application/json;charset=utf8")
+	@RequestMapping(value = "/item/itemFile.do", produces = "application/json;charset=utf8")
 	public void itemWrite(ItemVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
 
 		session = request.getSession();
@@ -128,6 +139,60 @@ public class ItemController {
 			pw.flush();
 		}
 
+	}
+	
+	/* 음악파일 업로드 페이지 */
+	
+	@RequestMapping(value="/item/bgmFile.do", method=RequestMethod.GET)
+	public String itemWriteBGM() {
+		
+		return "item/itemWriteBGM";
+	}
+	
+	
+	/* 음악 파일 업로드 */
+	@ResponseBody
+	@RequestMapping(value = "/item/bgmFile.do", produces = "application/json;charset=utf8")
+	public void bgmFile(ItemVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
+		
+		session = request.getSession();
+		UserVo login = (UserVo) session.getAttribute("login");
+		PrintWriter pw = response.getWriter();
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		vo.setUidx(login.getUidx());
+		vo.setImg(file.getOriginalFilename());
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemBGM");
+		
+		System.out.println(path);
+		System.out.println(vo.getImg());
+		
+		session.setAttribute("login", login);
+		
+		File dir = new File(path);
+		
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		if (!file.getOriginalFilename().isEmpty()) {
+			file.transferTo(new File(path, file.getOriginalFilename()));
+		} else {
+			
+		}
+		
+		int result = itemService.itemWrite(vo);
+		
+		response.setContentType("text/html;charset=utf-8");
+		
+		if (result <= 0) {
+			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
+			pw.flush();
+		} else {
+			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do'</script>");
+			pw.flush();
+		}
+		
 	}
 
 //	 /* 아이템 이름 중복체크 */
@@ -187,20 +252,41 @@ public class ItemController {
 	public String shoppingList(ItemVo vo, Model model, int uidx) {
 		
 		List<ItemVo> list = itemService.basketList(uidx);
-
+		System.out.println(list);
 		model.addAttribute("list", list);	
 		model.addAttribute("vo",vo);
 		System.out.println(list.isEmpty());
 		return "item/shopping-basket";
 	}
-	/* 장바구니 아이템 추가 */
 	
-	@RequestMapping(value="item/itemShoppingAdd.do", method=RequestMethod.POST)
-	public int itemShoppingAdd() {
+	/* 장바구니 아이템 리스트 추가 */
+	@RequestMapping(value="item/itemShoppingAdd.do", method=RequestMethod.GET)
+	public String itemShoppingAdd(int uiidx){
+		int result = itemService.basketItemAdd(uiidx);
+		System.out.println("uidx : "+uiidx);
+		return "item/itemShopMain";
 		
+	}
+	
+	
+
+	/* 장바구니 리스트 삭제 */
+	@ResponseBody
+	@RequestMapping(value="item/basketItemDel.do", produces = "application/json;charset=utf8")
+	public int basketItemDel(@RequestParam(value="checkBox[]") List<String> arrayParams) {
+		int result = 0;
+		System.out.println(arrayParams);
+		int size = arrayParams.size();
 		
-		
-		return 1;
+		for(int i=0;i<size;i++) {
+			int delNum = Integer.parseInt(arrayParams.get(i));
+			result=itemService.basketItemDel(delNum);
+		}
+		if(result ==1) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	
 
@@ -245,5 +331,6 @@ public class ItemController {
 		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
+
 
 }

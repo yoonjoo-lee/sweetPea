@@ -21,13 +21,13 @@ public class MiniroomBoard2Dao {
 	}
 	
 	//글 전부 출력
-	public List<MiniroomBoardVo> miniroomboardList(){
-		return sqlSession.selectList(namespace+".miniroomboardList");
+	public List<MiniroomBoardVo> miniroomboardList(MiniroomBoardVo vo){
+		return sqlSession.selectList(namespace+".miniroomboardList", vo);
 	}
 	
 	//날짜별 글 출력
-	public List<MiniroomBoardVo> boardByDate(String date) {
-		return sqlSession.selectList(namespace+".boardByDate", date);
+	public List<MiniroomBoardVo> boardByDate(MiniroomBoardVo vo) {
+		return sqlSession.selectList(namespace+".boardByDate", vo);
 	}
 
 	//삭제

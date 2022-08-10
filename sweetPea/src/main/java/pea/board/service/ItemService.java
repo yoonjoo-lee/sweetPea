@@ -22,4 +22,6 @@ public interface ItemService {
 	int itemDel(int iidx); // 아이템 삭제 
 	
 	List<ItemVo> basketList(int uidx); // 장바구니 리스트 
+	int basketItemDel(int uiidx); // 장바구니 리스트 삭제 
+	int basketItemAdd(int uiidx); //장바구니 리스트 추가 
 }

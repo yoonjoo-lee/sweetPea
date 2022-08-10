@@ -1,9 +1,11 @@
 package pea.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
@@ -61,12 +69,19 @@ public class MiniroomBoard2Controller {
 		pw.flush();
 	}
 
-	// 다이어리 글 전부 보내기
-	@ResponseBody
-	@RequestMapping(value = "/miniroomboardList.do", produces = "application/json;charset=utf8")
-	public List<MiniroomBoardVo> miniroomboardList() {
-		return miniroomboard2Service.miniroomboardList();
-	}
+	/*
+	 * // 다이어리 글 전부 보내기
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value = "/miniroomboardList.do", produces =
+	 * "application/json;charset=utf8") public List<MiniroomBoardVo>
+	 * miniroomboardList(HttpSession session) { MiniHomeVo mini = (MiniHomeVo)
+	 * session.getAttribute("mini"); int uidx = mini.getUidx(); // 미니홈피 주인 uidx
+	 * MiniroomBoardVo vo = new MiniroomBoardVo(); vo.setUidx(uidx);
+	 * 
+	 * return miniroomboard2Service.miniroomboardList(vo); }
+	 */
 
 	// 다이어리 삭제
 	@RequestMapping(value = "/deleteDiary.do")
@@ -98,25 +113,46 @@ public class MiniroomBoard2Controller {
 		pw.flush();
 	}
 																																		
-	// 다이어리 글 전부 조회 
+	// 다이어리, 사진첩 글 전부 조회 
 	@RequestMapping(value = "/boardList.do", method=RequestMethod.GET)
-	public String boardList(Model model, int day) {
-		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList();
+	public String boardList(Model model, int category, HttpSession session) {
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		int uidx = mini.getUidx(); // 미니홈피 주인 uidx
+		System.out.println("boardList login은 " + uidx);
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setUidx(uidx);
+		vo.setCategory(category);
+		
+		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList(vo);
 		model.addAttribute("list", list);
 
-		return "minihome/boardList";
+		System.out.println("boardlist category는"+ category);
+		if(category==1) {
+			return "minihome/boardList";
+		}else if(category==2) {
+			return "minihome/photoAlbum";
+		}
+		return "";
 	}
 	
 	// 다이어리 글 날짜별 조회
 	@RequestMapping(value = "/boardByDate.do", method=RequestMethod.GET)
-	public String boardByDate(Model model, int year, int month, int day) {
+	public String boardByDate(Model model, int year, int month, int day, int category, HttpSession session) {
 		String date = Integer.toString(year) +'-'+ Integer.toString(month) +'-'+ Integer.toString(day);
-		List<MiniroomBoardVo> list = miniroomboard2Service.boardByDate(date);
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		int uidx = mini.getUidx(); // 미니홈피 주인 uidx
+		
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setDate(date);
+		vo.setUidx(uidx);
+		
+		List<MiniroomBoardVo> list = miniroomboard2Service.boardByDate(vo);
 		model.addAttribute("list", list);
 
 		return "minihome/boardList";
 	}
 	
+	// 다이어리 캘린더 
 	@RequestMapping(value = "/calendar.do", method=RequestMethod.GET)
 	public String calendar(Model model, int year, int month, int monthByDate, int day) {
 		model.addAttribute("year", year);
@@ -125,5 +161,69 @@ public class MiniroomBoard2Controller {
 		model.addAttribute("day", day); 
 		
 		return "minihome/calendar";
+	}
+	
+	
+	// 사진첩 등록 페이지 이동
+	@RequestMapping(value = "/photoAlbumUpload.do", method = RequestMethod.GET)
+	public String photoAlbumUpload(int uidx, int category, Model model) {
+		model.addAttribute("category", category);
+		return "minihome/photoAlbumUpload";
+	}
+	
+	// 사진첩 등록
+	@RequestMapping(value = "/photoAlbumUpload.do", method = RequestMethod.POST)
+	public String photoAlbumUpload(MiniroomBoardVo vo, MultipartHttpServletRequest mtfRequest, HttpSession session, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/photoAlbum");
+		
+		session = request.getSession();
+		UserVo login = (UserVo) session.getAttribute("login");
+		vo.setWriter(login.getUidx()); // 작성자 uidx
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		vo.setUidx(mini.getUidx()); // 미니홈피 주인 uidx
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("file"); 
+		String files = "";
+		for (MultipartFile mf : fileList) {
+            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+            files += originFileName+"|";
+            System.out.println("originFileName : " + originFileName);
+            
+            
+            File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
+            
+            if(!mf.getOriginalFilename().isEmpty()) { 
+            	mf.transferTo(new File(path, mf.getOriginalFilename())); 
+            }else {
+            	
+            }
+		}
+		System.out.println("files: " + files);
+		vo.setContent(files);
+		
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		miniroomboard2Service.writemini(vo);
+		return "redirect:/";
+	}
+	
+	// 파일 경로 찾기
+	@RequestMapping(value="/imageView.do", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> getFile(String originFileName, HttpServletRequest request, HttpSession session){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/photoAlbum");
+		File file=new File(path, originFileName);
+		System.out.println("path + "+ path);
+	    ResponseEntity<byte[]> result=null;
+	    try {
+	        HttpHeaders headers=new HttpHeaders();
+	        headers.add("Content-Type", Files.probeContentType(file.toPath()));
+	        result=new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),headers,HttpStatus.OK );
+	    }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    System.out.println("result"+result);
+	    return result;
 	}
 }

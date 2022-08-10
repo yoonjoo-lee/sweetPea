@@ -516,7 +516,7 @@ function inputLeftBoard(){
 	<div id="buttonBox">
 		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>
 		<div class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
-		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>사진첩</p></div>
+		<div class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'),clickThis(this)"><p>사진첩</p></div>
 		<div class="boardBtn" onclick="clickBtn(),clickThis(this)"><p>방명록</p></div>
 		<c:if test="${mini.uidx == login.uidx}">
 		<div class="boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis(this)'><p>관리</p></div>

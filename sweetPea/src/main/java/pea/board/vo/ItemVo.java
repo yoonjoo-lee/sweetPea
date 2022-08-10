@@ -2,6 +2,7 @@ package pea.board.vo;
 
 public class ItemVo {
 
+	private int uiidx;
 	private int iidx;
 	private int price;
 	private int count;
@@ -12,7 +13,7 @@ public class ItemVo {
 	private String tag;
 	private String date;
 	private int uidx;
-
+	
 	private String like;
 	private String heart;
 	private String cart;
@@ -22,6 +23,12 @@ public class ItemVo {
 	private String ip;
 	
 	
+	public int getUiidx() {
+		return uiidx;
+	}
+	public void setUiidx(int uiidx) {
+		this.uiidx = uiidx;
+	}
 	public int getUidx() {
 		return uidx;
 	}

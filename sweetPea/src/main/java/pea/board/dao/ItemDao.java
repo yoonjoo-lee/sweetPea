@@ -103,8 +103,22 @@ public class ItemDao {
 		return sqlSession.update(namespace + ".itemBuy");
 	}
 	
+	// 장바구니 리스트 
 	public List<ItemVo> basket_selectAll(int uidx) {
 		return sqlSession.selectList(namespace+".basket_selectAll", uidx);
 	}
+	
+	//장바구니 추가
+	public int basketItemAdd(int uiidx) {
+		
+		return sqlSession.update(namespace+".basketItemAdd",uiidx);
+	}
+	
+	// 장바구니 삭제 
+	public int basketItemDel(int uiidx) {
+		
+		return sqlSession.update(namespace+".basketItemDel", uiidx);
+	}
+	
 	
 }

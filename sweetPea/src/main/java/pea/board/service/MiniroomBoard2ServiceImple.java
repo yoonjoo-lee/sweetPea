@@ -21,8 +21,8 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	}
 
 	@Override
-	public List<MiniroomBoardVo> miniroomboardList() {
-		return miniroomboardDao.miniroomboardList();
+	public List<MiniroomBoardVo> miniroomboardList(MiniroomBoardVo vo) {
+		return miniroomboardDao.miniroomboardList(vo);
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	}
 
 	@Override
-	public List<MiniroomBoardVo> boardByDate(String date) {
-		return miniroomboardDao.boardByDate(date);
+	public List<MiniroomBoardVo> boardByDate(MiniroomBoardVo vo) {
+		return miniroomboardDao.boardByDate(vo);
 	}
 
 }

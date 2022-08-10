@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> -->
-<!-- <meta name="description" content="" />
-<meta name="author" content="" />
- -->
+<!-- Bootstrap icons-->
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <title>SHOPPING BASKET</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -46,6 +45,7 @@ li {
 	font-size: 0.8em;
 	margin-top: 0.2em;
 }
+
 .header-ul>li:first-child, .content-ul>li:fist-child {
 	width: 10%;
 }
@@ -56,7 +56,6 @@ li {
 }
 
 /* 장바구니 리스트 순서   */
-
 .header-ul>li:first-child, .content-ul>li:fist-child {
 	width: 10%;
 }
@@ -74,7 +73,9 @@ li {
 	width: 25%;
 }
 
-
+.btn btn-secondary {
+	
+}
 </style>
 <script>
 $(function(){
@@ -88,7 +89,7 @@ $(function(){
 })
 /* 장바구니 목록삭제  */
 
-	async function delCheckItem(){
+	async function basketItemDel(){
 		var valueArr = new Array();
 		var list = $("input[name='rowCheck']");
 		var ft = '<%=request.getContextPath()%>';
@@ -99,6 +100,7 @@ $(function(){
 	    });
 		
 		var allData = {"checkBox": checkboxValues}
+		alert(checkboxValues);
 		if(checkboxValues.length == 0){
 			Swal.fire({
 			      title: '실패',
@@ -117,9 +119,8 @@ $(function(){
 				  cancelButtonText: '아니오'
 				}).then((result) => {
 				   if (result.isConfirmed) {
-					   
 					   $.ajax({
-						  url: ft + "/item/delCheckItem.do",
+						  url: ft + "/item/basketItemDel.do",
 						  type: "get",
 						  data: allData,
 						  success: async function(result){
@@ -133,74 +134,45 @@ $(function(){
 						  	alert('다시 시도하세요');
 						  }
 						});
-					  
 				  }
 				  else{
 					window.location.reload();  
 				  }
 				})
-			
-			
-			
 		}
-			
 	}
 </script>
 </head>
 <body>
-	<!-- 	<h3>SHOPPING-BASKET</h3> -->
-	<div class="btnBox">
-		<c:if test="${login.uidx >0 }">
-			<input type="button" onclick="location.href='itemBuy.do'" value="구매하기"> 
-		</c:if>
-		<input type="button" onclick="delCheckItem()" value="삭제">
-	</div>
-	<br>
 	<div>
+		<div style="text-align:right;">
+			<c:if test="${login.uidx >0 }">
+				<input type="button" class="btn btn-secondary" onclick="location.href='itemBuy.do'" value="구매하기">
+				<input type="button" class="btn btn-secondary" onclick="basketItemDel()" value="삭제">
+			</c:if>
+		</div>
 		<ul class="header-ul">
 			<li><input type="checkbox" id="allCheck"></li>
 			<li>사진</li>
 			<li>아이템명</li>
 			<li>상품금액</li>
+
 		</ul>
-		<c:if test="${list.size() == 0}">
+		<c:if test="${list.size() == 0 || login.uidx == null }">
 			<ul class="content-ul">
 				<li>등록된 아이템이 없습니다.</li>
 			</ul>
 		</c:if>
 		<c:if test="${list.size() >0 }">
 			<c:forEach var="vo" items="${list}">
-					<ul class="content-ul" style="color: lightgray;">
-						<li><input type="checkbox" name="rowCheck" value="${vo.uidx}" class="checkBox"></li>
-						<li>${vo.img}</li>
-						<li>${vo.name}</li>
-						<li>${vo.price}</li>
-					</ul>
+				<ul class="content-ul">
+					<li><input type="checkbox" name="rowCheck" value="${vo.uiidx}" class="checkBox"></li>
+					<li>${vo.img}</li>
+					<li>${vo.name}</li>
+					<li>${vo.price} 개</li>
+				</ul>
 			</c:forEach>
 		</c:if>
-		<!--  -->
-		<!-- 페이징  -->
-		<!--  -->
-		<div>
-			<ul class="myPaging">
-				<c:if test="${paging.startPage != 1 }">
-					<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-				</c:if>
-				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-					<c:choose>
-						<c:when test="${p == paging.nowPage }">
-							<li class="page-item  active"><b class="page-link">${p }</b></li>
-						</c:when>
-						<c:when test="${p != paging.nowPage }">
-							<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${paging.endPage != paging.lastPage}">
-					<li class="page-item"><a class="page-link" href="main.do?uidx=${login.uidx}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-				</c:if>
-			</ul>
-		</div>
 
 	</div>
 </body>
