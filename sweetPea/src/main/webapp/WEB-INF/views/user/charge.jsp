@@ -54,7 +54,7 @@ ul li {
 	font-size: 1vw;
 }
 
-.pea_package_list_box li{
+.buyText{
 	font-size: 1vw;
 }
 </style>
@@ -85,7 +85,7 @@ ul li {
 			<p>충전하기</p>
 			<div class="pea_package_list_box">
 				<ul>
-					<li>완두콩 1개 <input type="button" class="buyBtn" onclick="payment(100)" value="100원"></li>
+					<li><span class="buyText">완두콩 1개</span><input type="button" class="buyBtn" onclick="payment(100)" value="100원"></li>
 					<li>완두콩 10개 <input type="button" class="buyBtn" onclick="payment(1000)" value="1,000원"></li>
 					<li>완두콩 30개 <input type="button" class="buyBtn" onclick="payment(3000)" value="3,000원"></li>
 					<li>완두콩 50개 <input type="button" class="buyBtn" onclick="payment(5000)" value="5,000원"></li>
