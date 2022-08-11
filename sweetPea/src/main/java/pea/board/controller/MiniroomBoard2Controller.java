@@ -131,6 +131,8 @@ public class MiniroomBoard2Controller {
 			return "minihome/boardList";
 		}else if(category==2) {
 			return "minihome/photoAlbum";
+		}else if(category==3) {
+			return "minihome/guestBook";
 		}
 		return "";
 	}
