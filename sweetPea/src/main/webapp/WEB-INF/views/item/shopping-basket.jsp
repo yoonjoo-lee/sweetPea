@@ -120,7 +120,7 @@ $(function(){
 				}).then((result) => {
 				   if (result.isConfirmed) {
 					   $.ajax({
-						  url: ft + "/item/basketItemDel.do?uidx="+${login.uidx},
+						  url: ft + "/item/basketItemDel.do?uidx="+${login.uidx}+"",
 						  type: "get",
 						  data: allData,
 						  success: async function(result){
@@ -167,7 +167,7 @@ $(function(){
 			<c:forEach var="vo" items="${list}">
 				<ul class="content-ul">
 					<li><input type="checkbox" name="rowCheck" value="${vo.uiidx}" class="checkBox"></li>
-					<li>${vo.img}</li>
+					<li><img src="<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}" style="width:100px;height:100px;"></li>
 					<li>${vo.name}</li>
 					<li>${vo.price} 개</li>
 				</ul>

@@ -6,6 +6,7 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <title>item Write</title>
 <style type="text/css">
 body {
@@ -121,7 +122,7 @@ table {
 			<tr>
 				<td colspan=2><div class="upload_btn">
 						<div class="upload" style="width:100%;">
-							<input type="file" name="file" accept="image/jpeg, image/png, image/gif, audio/mp3, audio/wav, audio/mp4" id="photoBtn"><label for="photoBtn">아이템 파일</label>
+							<input type="file" name="file" accept="image/jpeg, image/png, image/gif, audio/mp3, audio/wav, audio/mp4" id="photoBtn" ><label for="photoBtn" >아이템 파일</label>
 						</div>
 					</div></td>
 			</tr>
