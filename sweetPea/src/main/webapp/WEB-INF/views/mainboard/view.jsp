@@ -67,7 +67,7 @@
     ${vo.name }
   </a>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><a class="dropdown-item" onclick="openMini()">미니홈피</a></li>
+    <li><a class="dropdown-item" onclick="openMini(${vo.uidx})">미니홈피</a></li>
     <li><a class="dropdown-item" href="#">선물하기</a></li>
   </ul>
 &nbsp ${vo.datetime }</div>
@@ -147,23 +147,6 @@
 <br>
 <footer id="footer"></footer>
 <script>
-
-function openMini(){
-	var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
-	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-	var popupY= (window.screen.height / 2) - 350;
-	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-	var uidx = ${login.uidx};
-	
-	var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
-	 
-	if (mobile) { 
-		window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx=${vo.uidx}";
-	}else{
-		window.open('<%=request.getContextPath()%>/mini/main.do?uidx=${vo.uidx}','name',
-				'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
-	}
-}
 
 function deletecheck(){
 	var check = confirm("정말로 삭제하시겠습니까?");	
