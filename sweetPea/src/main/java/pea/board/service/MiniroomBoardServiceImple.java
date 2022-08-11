@@ -107,6 +107,14 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 		return miniroomBoardDao.friendsAllList(uidx);
 	}
 
-
+	@Override
+	public int delFriends(FriendsVo vo) {
+		return miniroomBoardDao.delFriends(vo);
+	}
+	
+	@Override
+	public int changeFriends(FriendsVo vo) {
+		return miniroomBoardDao.changeFriends(vo);
+	}
 
 }

@@ -80,7 +80,7 @@ public class MiniroomBoardDao {
 	}
 	
 	public int refuseFriends(FriendsVo vo) {
-		return sqlSession.update(namespace+".refuseFriends",vo);
+		return sqlSession.delete(namespace+".refuseFriends",vo);
 	}
 	
 	public int friendsAcceptList_count(int uidx) {
@@ -92,10 +92,18 @@ public class MiniroomBoardDao {
 	}
 	
 	public int cancelFriends(FriendsVo vo) {
-		return sqlSession.update(namespace+".cancelFriends",vo);
+		return sqlSession.delete(namespace+".cancelFriends",vo);
 	}
 	
 	public List<FriendsVo> friendsAllList(int uidx){
 		return sqlSession.selectList(namespace+".friendsAllList",uidx);
+	}
+	
+	public int delFriends(FriendsVo vo) {
+		return sqlSession.delete(namespace+".delFriends",vo);
+	}
+	
+	public int changeFriends(FriendsVo vo) {
+		return sqlSession.update(namespace+".changeFriends",vo);
 	}
 }
