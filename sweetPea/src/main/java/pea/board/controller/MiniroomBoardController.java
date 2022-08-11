@@ -52,10 +52,10 @@ public class MiniroomBoardController {
 		}
 		session.setAttribute("mini", vo);
 		if (mobile1 || mobile2) {
-			model.addAttribute("device", "MOBILE");
+			session.setAttribute("device", "MOBILE");
 		    return "minihome/main";
 		} else {
-			model.addAttribute("device", "PC");
+			session.setAttribute("device", "PC");
 			return "minihome/main";
 		}
 	}
