@@ -16,7 +16,7 @@
 </style>
 <script>
 		$(function(){
-			$(".banner").load("resources/article/nav-banner.jsp");
+			$(".banner").load("<%=request.getContextPath()%>/resources/article/nav-banner.jsp");
 		});
 		<c:if test="${login != null}">
 			function openMessage(){

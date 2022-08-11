@@ -12,6 +12,7 @@
 <script>
 		$(function(){
 			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
+			$("#nav").load("<%=request.getContextPath()%>/resources/article/nav.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 		});
 	</script>
@@ -22,31 +23,39 @@
 	margin-bottom: 15em;
 	height: 100%;
 }
-
-section {
-	border: 1px solid black;
-	width: 49.2vw;
-	height: 100%;
-	float: right;
+input, button{
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
-
+h4{
+	text-indent: 5vw;
+}
+b{
+	color: #7dc75e;
+}
+.pea_package_box>p{
+	font-size: 1vw;
+    font-weight: bold;
+    text-indent: 2vw;
+    background-color: #e5e3e3;
+}
 ul li {
 	list-style-type: none;
 }
-
-.pea_package_box1, .pea_package_box2 {
+.pea_package_list_box{
 	float: left;
-	margin: 0 auto;
-	text-align: center;
+	margin: 0 2%;
+	width: 46%;
+}
+.buyBtn{
+	float: right;
+	font-size: 1vw;
 }
 
-.pea_package_box {
-	position: relative;
-	display: flex;
-}
-
-dt {
-	float: left;
+.pea_package_list_box li{
+	font-size: 1vw;
 }
 </style>
 </head>
@@ -66,38 +75,36 @@ dt {
 	</c:if>
 	<header id="header"></header>
 	<br>
-	<br>
-
-	<div id="saleView"></div>
+	<div id="view">
+	<nav id="nav"></nav>
 	<br>
 	<div class="pea_package">
-		<div class="pea_meaning">
-			<dl>
-				<dt>완두콩이란?</dt>
-				<dd>아이템(미니룸, BGM) 결제를 위해 필요한 전용 결제수단입니다.</dd>
-			</dl>
-		</div>
+		<h2>🟢  완두콩이란?</h2>
+		<h4>아이템(미니룸,BGM 등) 결제를 위해 필요한 <b>스위피</b>만의 전용 결제수단입니다.</h4>
 		<div class="pea_package_box">
-			<div class="pea_package_box1">
+			<p>충전하기</p>
+			<div class="pea_package_list_box">
 				<ul>
-					<li>완두콩 1개 <input type="button" onclick="payment(100)" value="100원"></li>
-					<li>완두콩 10개 <input type="button" onclick="payment(1000)" value="1,000원"></li>
-					<li>완두콩 30개 <input type="button" onclick="payment(3000)" value="3,000원"></li>
-					<li>완두콩 50개 <input type="button" onclick="payment(5000)" value="5,000원"></li>
-					<li>완두콩 100개 <input type="button" onclick="payment(10000)" value="10,000원"></li>
+					<li>완두콩 1개 <input type="button" class="buyBtn" onclick="payment(100)" value="100원"></li>
+					<li>완두콩 10개 <input type="button" class="buyBtn" onclick="payment(1000)" value="1,000원"></li>
+					<li>완두콩 30개 <input type="button" class="buyBtn" onclick="payment(3000)" value="3,000원"></li>
+					<li>완두콩 50개 <input type="button" class="buyBtn" onclick="payment(5000)" value="5,000원"></li>
+					<li>완두콩 100개 <input type="button" class="buyBtn" onclick="payment(10000)" value="10,000원"></li>
 				</ul>
 			</div>
-			<div class="pea_package_box2">
+			<div class="pea_package_list_box">
 				<ul>
-					<li>완두콩 200개 <input type="button" onclick="payment(20000)" value="20,000원"></li>
-					<li>완두콩 300개 <input type="button" onclick="payment(30000)" value="30,000원"></li>
-					<li>완두콩 500개 <input type="button" onclick="payment(50000)" value="50,000원"></li>
-					<li>완두콩 700개 <input type="button" onclick="payment(70000)" value="70,000원"></li>
-					<li>완두콩 1,000개 <input type="button" onclick="payment(100000)" value="100,000원"></li>
+					<li>완두콩 200개 <input type="button" class="buyBtn" onclick="payment(20000)" value="20,000원"></li>
+					<li>완두콩 300개 <input type="button" class="buyBtn" onclick="payment(30000)" value="30,000원"></li>
+					<li>완두콩 500개 <input type="button" class="buyBtn" onclick="payment(50000)" value="50,000원"></li>
+					<li>완두콩 700개 <input type="button" class="buyBtn" onclick="payment(70000)" value="70,000원"></li>
+					<li>완두콩 1,000개 <input type="button" class="buyBtn" onclick="payment(100000)" value="100,000원"></li>
 				</ul>
 			</div>
 		</div>
 	</div>
+	</div>
+	
 
 	<script type="text/javascript">
 	function payment(price){
@@ -112,87 +119,6 @@ dt {
 		})
 	}
 </script>
-
-
-
-
-
-
-
-
-	<!-- 	<div class="pea_package">
-		<div class="pea_package2"></div>
-		<div class="pea_package3">
-			<div class="pea_menu">
-				<ul>
-					<li>
-						<dl>
-							<dt>완두콩 1개</dt>
-							<dd>100원</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 10개</dt>
-							<dd>1,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 30개</dt>
-							<dd>3,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 50개</dt>
-							<dd>5,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 100개</dt>
-							<dd>10,000원</dd>
-						</dl>					
-					</li>
-				</ul>
-				<ul>
-					<li>
-						<dl>
-							<dt>완두콩 200개</dt>
-							<dd>20,000원</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 300개</dt>
-							<dd>30,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 500개</dt>
-							<dd>50,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 700개</dt>
-							<dd>70,000원</dd>
-						</dl>					
-					</li>
-					<li>
-						<dl>
-							<dt>완두콩 1,000개</dt>
-							<dd>100,000원</dd>
-						</dl>					
-					</li>
-				</ul>
-			</div>
-		</div>
-	
-	
-	</div>  -->
 
 	<br>
 	<footer id="footer"></footer>

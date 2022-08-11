@@ -95,6 +95,7 @@ $(function(){
 	border: 1px solid black;
 	width: 40%;
 	margin-left: 5%;
+	vertical-align: bottom;
 }
 
 .info {
