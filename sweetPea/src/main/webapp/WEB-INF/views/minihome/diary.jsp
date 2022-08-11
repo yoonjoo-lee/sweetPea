@@ -444,6 +444,8 @@ function cursor(e) {
 		</div>
 	</div>
 	
+	<input type="button"  id='writeDiary' onclick="reload()" value="전체글">
+	<script>function reload(){location.reload();}</script>
 	<c:if test="${login.uidx == mini.uidx }">
 		<input type="button" id='writeDiary' 
 		onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
