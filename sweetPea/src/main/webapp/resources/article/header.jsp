@@ -19,6 +19,20 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="<%=request.getContextPath()%>/resources/css/header.css" rel="stylesheet" />
+        <script>
+	        function openMini(uidx){
+				var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
+				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+				var popupY= (window.screen.height / 2) - 350;
+				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+				if ('${device}' == 'MOBILE') { 
+					window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+uidx;
+				}else{
+					window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name()',
+							'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
+				}
+			}
+        </script>
 </head>
 <body>
 	<!-- Navigation-->
@@ -53,14 +67,15 @@
                         	<li class="nav-item nav-hover">
 								<a class="nav-link" href="<%=request.getContextPath()%>"> 관리자 </a>   
 	                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
-								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/memberManagement.do"> 회원관리</a></li>
-								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=6"> 신고관리</a></li>
+								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/memberManagement.do">회원관리</a></li>
+								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=6">신고관리</a></li>
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/">아이템승인</a></li>
 							    </ul>
 							</li>                   	
                         </c:if>
 
                         <c:if test="${login != null}">
+                        	<li class="nav-item"><a class="nav-link header-a" style="cursor: pointer" onclick="openMini(${login.uidx})">미니홈피</a></li>
                         	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>
                         <c:if test="${login == null}">

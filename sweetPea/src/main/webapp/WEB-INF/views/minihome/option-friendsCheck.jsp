@@ -87,7 +87,7 @@ async function addFriends(uidx){
 			$.ajax({
 				url: "../mini/acceptFriends.do",
 				type: "get",
-				data:{"uidx": ${login.uidx}, "bfidx": uidx},
+				data:{"uidx": uidx, "bfidx": ${login.uidx}},
 				success: async function(data){
 					await Swal.fire({
 						title: '일촌완료',
