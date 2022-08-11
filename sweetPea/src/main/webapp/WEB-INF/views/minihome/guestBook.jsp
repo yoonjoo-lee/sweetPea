@@ -126,20 +126,9 @@ a {
 	
 <script>
 function openMini(writer){
-	<%-- location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+""; --%>
-	var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
-	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-	var popupY= (window.screen.height / 2) - 350;
-	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-	
-	var mobile = (/iphone|ipad|ipod|android/i.test(navigator.userAgent.toLowerCase()));
 	 
-	if (mobile) { 
-		window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx=${vo.uidx}";
-	}else{
-		window.open("<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"",'name',
-				'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
-	}
+		window.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"";
+	
 }
 </script>
 </body>

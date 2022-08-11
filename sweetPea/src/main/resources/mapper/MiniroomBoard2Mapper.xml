@@ -41,7 +41,7 @@
 	 	, a.secret
 	 	, b.name
 	 	, b.profile
-	  FROM pea_minihome_board a JOIN pea_user b ON a.uidx=b.uidx
+	  FROM pea_minihome_board a JOIN pea_user b ON a.writer=b.uidx
 	 WHERE a.delyn='N'
 	 AND a.uidx=#{uidx}
 	 AND a.category=#{category}
