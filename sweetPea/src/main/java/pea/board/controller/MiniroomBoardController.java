@@ -282,4 +282,35 @@ public class MiniroomBoardController {
 			model.addAttribute("list", list);
 		return "minihome/option-friendsList";
 	}
+	
+	/* 미니홈피 - 관리 - 친구관리 - 친구목록 - 친구삭제 */
+	@ResponseBody
+	@RequestMapping(value="/delFriends.do", produces = "application/json;charset=utf8")
+	public void delFriends(int uidx,int bfidx) {
+		FriendsVo vo = new FriendsVo();
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		miniroomBoardService.delFriends(vo);
+	}
+	
+	/* 미니홈피 - 관리 - 친구관리 - 친구목록 - 친구명 변경 */
+	@ResponseBody
+	@RequestMapping(value="/changeFriends.do", produces = "application/json;charset=utf8")
+	public int changeFriends(HttpServletRequest request) {
+		String uName = request.getParameter("uname");
+		String bfName = request.getParameter("bfname");
+		int uidx = Integer.parseInt(request.getParameter("uidx")); 
+		int bfidx = Integer.parseInt(request.getParameter("bfidx"));
+		FriendsVo vo = new FriendsVo();
+		vo.setUname(uName);
+		vo.setBfname(bfName);
+		vo.setUidx(uidx);
+		vo.setBfidx(bfidx);
+		
+		int result = miniroomBoardService.changeFriends(vo);
+		if(result >= 1) {
+			return 1;
+		}
+		else return 0;
+	}
 }

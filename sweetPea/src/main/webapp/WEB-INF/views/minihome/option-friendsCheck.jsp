@@ -31,14 +31,14 @@
 		padding: 0;
 		display: inline-block;
 		list-style: none;
-		font-size: 12px;
+		font-size: 11px;
 	}
 	ul>li:first-child{
 		font-weight: bold;
 	}
 	.btn{
 		float: right;
-	    width: 15%;
+	    width: 13%;
 	    font-size: 10px;
 	    display: block;
 	    height: 30px;
@@ -87,17 +87,16 @@ async function addFriends(uidx){
 			$.ajax({
 				url: "../mini/acceptFriends.do",
 				type: "get",
-				data:{"uidx": uidx, "bfidx": ${login.uidx}},
+				data:{"uidx": ${login.uidx}, "bfidx": uidx},
 				success: async function(data){
 					await Swal.fire({
 						title: '일촌완료',
 						icon: 'success',
 						confirmButtonText: '확인'
 					});
-					if(data == 1){
-						
+					/* if(data == 1){
 						$('#list-icon').css("color","red");
-					}
+					} */
 					window.location.reload();
 				}
 			});
@@ -139,6 +138,7 @@ async function refuseFriends(uidx){
 	});
 }
 
+/* 친구신청 취소 */
 async function cancelFriends(bfidx){
 	await Swal.fire({
 		title: '취소하시겠습니까?',
@@ -158,7 +158,6 @@ async function cancelFriends(bfidx){
 							icon: 'success',
 							confirmButtonText: '확인'
 						});
-						window.parent.location.load("#list-icon");
 						window.location.reload();	
 					}
 					else{

@@ -53,7 +53,7 @@ h3>img{
 .boardListBox{
 	display: inline-block;
     background-color: #f0f2e9;
-    width: 53vw;
+    width: 51vw;
     height: 25vh;
     border-radius: 15px;
 }

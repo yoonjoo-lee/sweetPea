@@ -202,7 +202,7 @@ ul{
 			url:"changeHeader.do",
 			type:"get",
 			data:{	"h2"	: $('#changeHeader').val(),
-					"uidx"	: ${mini.uidx}
+					"uidx"	: ${login.uidx}
 			},
 			success: function(data){
 				if(data == 1){
@@ -235,8 +235,8 @@ ul{
 				<div class="list">내 정보 관리</div>
 				<div class="list">친구 관리</div>
 				<div class="listBox">
-					<div class="list-option" onclick="optionClick('friendsList.do?uidx=${mini.uidx}'),clickThis(this)">친구 목록</div>
-					<div id="list-icon" class="list-option" onclick="optionClick('friendsCheckList.do?uidx=${mini.uidx}'),clickThis(this)">친구 신청 목록</div>
+					<div class="list-option" onclick="optionClick('friendsList.do?uidx=${login.uidx}'),clickThis(this)">친구 목록</div>
+					<div id="list-icon" class="list-option" onclick="optionClick('friendsCheckList.do?uidx=${login.uidx}'),clickThis(this)">친구 신청 목록</div>
 				</div>
 				<div class="list">내 아이템 관리</div>
 				<div class="listBox">

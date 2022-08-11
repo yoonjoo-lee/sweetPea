@@ -366,21 +366,21 @@ font-family: 'BMJUA';
 				})
 				
 				if (formValues) {
-					var $youName = formValues[0];
+					var $fName = formValues[0];
 					var $myName = formValues[1];
 					var $arrow = '<%=request.getContextPath()%>/resources/images/rocket_filled_icon.png';
 					await Swal.fire({
 						title: '<span style="color: red">신청</span> 되었습니다.',
 						html:
-							'<div><ul style="display: inline-block; list-style: none"><li>${mini.name}</li><li>('+$youName+')</li></ul>'+
+							'<div><ul style="display: inline-block; list-style: none"><li>${mini.name}</li><li>('+$fName+')</li></ul>'+
 							'<img style="margin: 0 0.5em" src='+$arrow+'>'+
 							'<ul style="display: inline-block; list-style: none"><li>${login.name}</li><li>('+$myName+')</li></ul></div>',
 						preConfirm: () => {
 							$.ajax({
 								url:"addFriends.do",
 								type:"get",
-								data:{"uname" : $youName
-									, "bfname" : $myName
+								data:{"uname" : $myName
+									, "bfname" : $fName
 									, "uidx" : ${login.uidx}
 									, "bfidx" : ${mini.uidx}
 									},
@@ -417,6 +417,7 @@ function clickBtn(link){
 	$("#miniIframe").attr("src",link);
 	$option = 'mini-option.do?uidx=${mini.uidx}';
 	if(link == $option){
+		$("#miniIframe").attr("scrolling","no");
 		$("#miniIframe").css({
 			'left': '0',
 		    'top': '0',
@@ -432,6 +433,7 @@ function clickBtn(link){
 		z-index: 9999; */
 	    });
 	}else{
+		$("#miniIframe").attr("scrolling","yes");
 		$("#miniIframe").css({
 			'left': 'inherit',
 			'top': 'inherit',
@@ -511,7 +513,7 @@ function inputLeftBoard(){
 		
 	</div>
 	<div id="centerBox">
-		<iframe id="miniIframe"  src="mini-home.do?uidx=${mini.uidx}"></iframe>
+		<iframe id="miniIframe" src="mini-home.do?uidx=${mini.uidx}"></iframe>
 	</div>
 	<div id="buttonBox">
 		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>

@@ -26,4 +26,6 @@ public interface MiniroomBoardService {
 	List<FriendsVo> friendsAcceptList(SearchVo vo);
 	int cancelFriends(FriendsVo vo);
 	List<FriendsVo> friendsAllList(int uidx);
+	int delFriends(FriendsVo vo);
+	int changeFriends(FriendsVo vo);
 }

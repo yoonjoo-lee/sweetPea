@@ -124,10 +124,10 @@
 	
 	<!-- 친구추가 확인 -->
 	<select id="checkFriends" parameterType="FriendsVo" resultType="string">
-		SELECT delyn
+		SELECT consent
 		  FROM pea_friends
 		 WHERE (uidx = #{uidx} AND bfidx = #{bfidx})
-		    OR (uidx = #{bfidx} AND bfidx = #{uidx}) 
+		    OR (uidx = #{bfidx} AND bfidx = #{uidx})
 	</select>
 	
 	<!-- 친구요청 목록 확인 -->
@@ -135,7 +135,6 @@
 		SELECT *
 		  FROM pea_friends		  		     
 		 WHERE bfidx = #{uidx}
-		   AND delyn = 'N'
 		   AND consent = 'N'
 		 LIMIT 1
 	</select>
@@ -154,7 +153,6 @@
 		  		     ON b.uidx = c.uidx
 			    WHERE b.bfidx = #{uidx}
 	  			  AND (@rownum:=0) = 0
- 	 			  AND b.delyn = 'N'
  	 			  AND b.consent = 'N'
  	 			ORDER by fidx desc
 		 	) A 
@@ -170,7 +168,6 @@
 		  )b
 		    ON a.uidx = b.uidx		     
 		 WHERE a.bfidx = #{uidx}
-		   AND a.delyn = 'N'
 		   AND a.consent = 'N'
 	</select>
 	
@@ -180,16 +177,15 @@
 		   SET consent	= 'Y'
 		 WHERE uidx = #{uidx}
 		   AND bfidx = #{bfidx}
-		   AND delyn = 'N'
 	</update>
 	
 	<!-- 친구요청 거절 -->
-	<update id="refuseFriends" parameterType="FriendsVo">
-		UPDATE pea_friends
-		   SET delyn = 'Y'
+	<delete id="refuseFriends" parameterType="FriendsVo">
+		DELETE 
+		  FROM pea_friends
 		 WHERE uidx = #{uidx}
 		   AND bfidx = #{bfidx}
-	</update>
+	</delete>
 	
 	<!-- 친구신청 카운트 -->
 	<select id="friendsAcceptList_count" parameterType="int" resultType="int">
@@ -200,7 +196,6 @@
 		  )b
 		    ON a.bfidx = b.uidx		     
 		 WHERE a.uidx = #{uidx}
-		   AND a.delyn = 'N'
 		   AND a.consent = 'N'
 	</select>
 	
@@ -218,7 +213,6 @@
 		  		     ON b.bfidx = c.uidx
 			    WHERE b.uidx = #{uidx}
 	  			  AND (@rownum:=0) = 0
- 	 			  AND b.delyn = 'N'
  	 			  AND b.consent = 'N'
  	 			ORDER by fidx desc
 		 	) A 
@@ -226,12 +220,13 @@
 	</select>
 	
 	<!-- 친구신청 거절 -->
-	<update id="cancelFriends" parameterType="FriendsVo">
-		UPDATE pea_friends
-		   SET delyn = 'Y'
+	<delete id="cancelFriends" parameterType="FriendsVo">
+		DELETE 
+		  FROM pea_friends
 		 WHERE uidx = #{uidx}
 		   AND bfidx = #{bfidx}
-	</update>
+		   AND consent = 'N'
+	</delete>
 	
 	<!-- 친구목록 리스트 -->
 	<select id="friendsAllList" parameterType="int" resultType="FriendsVo">
@@ -244,8 +239,32 @@
 		  			   WHEN a.uidx=b.uidx THEN a.bfidx=#{uidx}
 		  			    END
 		 WHERE (a.uidx = #{uidx} or a.bfidx = #{uidx})
-		   AND delyn='N'
 		   AND consent='Y'
 		 ORDER BY b.name; 
 	</select>
+	
+	<!-- 친구삭제 -->
+	<delete id="delFriends" parameterType="FriendsVo">
+		DELETE 
+		  FROM pea_friends
+		 WHERE consent = 'Y'
+		   AND (	(uidx =  #{uidx} AND bfidx = #{bfidx})
+		   		OR  (uidx = #{bfidx} AND bfidx =  #{uidx})
+		   )   
+	</delete>
+	
+	
+	<!-- 친구명 변경 -->
+	<update id="changeFriends" parameterType="FriendsVo">
+		UPDATE pea_friends
+		   SET  uname = CASE WHEN (uidx = #{uidx} AND bfidx = #{bfidx}) THEN #{uname}
+		   	   				 WHEN (bfidx = #{uidx} AND uidx = #{bfidx}) THEN #{bfname}
+		        		 END,
+			   bfname = CASE WHEN (uidx = #{uidx} AND bfidx = #{bfidx}) THEN #{bfname}
+		   	   				 WHEN (bfidx = #{uidx} AND uidx = #{bfidx}) THEN #{uname}
+		        		 END 		        			 
+		 WHERE (uidx=#{uidx} AND bfidx=#{bfidx}) OR (uidx=#{bfidx} AND bfidx=#{uidx})	
+	</update>
+
+	
 </mapper>

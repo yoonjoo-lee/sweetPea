@@ -107,6 +107,82 @@ button:disabled {
   opacity: 0.5;
 }
 </style>
+
+<script>
+function delBtn($fidx){
+	var $uidx = ${login.uidx};
+	Swal.fire({
+		html: '<span style="color: red">친구삭제</span> 하시겠습니까?',
+		icon: 'question',
+		showCancelButton: true,
+		confirmButtonText: '네',
+		cancelButtonText: '아니요',
+		position: 'top',
+		preConfirm: () => {
+			$.ajax({
+				url: '../mini/delFriends.do',
+				type: 'get',
+				data: {"uidx": $uidx, "bfidx": $fidx},
+				success: async function(){
+					await Swal.fire({
+						title: '삭제완료',
+						icon: 'success',
+						position: 'top'
+					});
+					window.location.reload();
+				},
+				error: function(){
+					alert("오류!");
+				}
+			})
+		}
+	});
+}
+
+async function changeName($myNicName,$fName,$fNicName,$fidx){
+	var $uidx = ${login.uidx};
+	const { value: formValues } = await Swal.fire({
+		  title: '친구명을  변경',
+		  html:
+			"<p>본인 일촌명</p>" +
+		    "<input id='swal-input1' class='swal2-input' value="+$myNicName+">" +
+		    "<p style='margin-top: 1em'>"+$fName+"님의 일촌명</p>" +
+		    "<input id='swal-input2' class='swal2-input' value="+$fNicName+">",
+		  focusConfirm: false,
+		  showCancelButton: true,
+		  confirmButtonText: "변경",
+		  cancelButtonText: "취소",
+		  preConfirm: () => {
+		    return [
+		      document.getElementById('swal-input1').value,
+		      document.getElementById('swal-input2').value
+		    ]
+		  }
+		})
+		
+		if (formValues) {
+					$myNicName = formValues[0];
+					$fNicName = formValues[1];
+					var $arrow = '<%=request.getContextPath()%>/resources/images/rocket_filled_icon.png';
+					$.ajax({
+						url:"changeFriends.do",
+						type:"get",
+						data:{"uname" : $myNicName
+							, "bfname" : $fNicName
+							, "uidx" : $uidx
+							, "bfidx" : $fidx
+							},
+						success: async function(data){
+							await Swal.fire({
+								title: '<span style="color: red">변경</span> 되었습니다.',
+								icon: 'success'
+							})
+							window.location.reload();
+						}
+					});
+				}
+}
+</script>
 </head>
 <body>
 <h3>친구목록</h3>
@@ -124,16 +200,16 @@ button:disabled {
 		<c:if test="${vo.uidx == login.uidx}">
 			<div class="friendsBox">${vo.name}(${vo.bfname})
 				<span class="listBtnBox">
-					<button class="btn-change">일촌명 변경</button>
-					<button class="btn-delete">삭제하기</button>
+					<button class="btn-change" onclick="changeName('${vo.uname}','${vo.name}','${vo.bfname}',${vo.bfidx})">친구명 변경</button>
+					<button class="btn-delete" onclick="delBtn(${vo.bfidx})">삭제하기</button>
 				</span>
 			</div>
 		</c:if>
 		<c:if test="${vo.bfidx == login.uidx}">
 			<div class="friendsBox">${vo.name}(${vo.uname})
 				<span class="listBtnBox">
-					<button class="btn-change">일촌명 변경</button>
-					<button class="btn-delete">삭제하기</button>
+					<button class="btn-change" onclick="changeName('${vo.bfname}','${vo.name}','${vo.uname}',${vo.uidx})">친구명 변경</button>
+					<button class="btn-delete" onclick="delBtn(${vo.uidx})">삭제하기</button>
 				</span>
 			</div>
 		</c:if>
