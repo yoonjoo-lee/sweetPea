@@ -360,13 +360,13 @@ function openShoppingBasket(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+1,"category="+${}
+	data:"cate="+1,
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
 			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
@@ -405,7 +405,7 @@ function addCart(uiidx){
  /* 장바구니 리스트 추가  */
  function itemShoppingAdd(iidx){
 	 console.log('itemShoppgAdd');
-	 var uidx = ${login.uidx};
+	 var uidx = '${login.uidx}';
 	$.ajax({
 		url:"itemShoppingAdd.do",
 		type:"get",
@@ -442,14 +442,16 @@ function itemSelectAll(cate){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+cate,"category="+${category}
+	data:"cate="+cate,
 	success:function(data){
 		/* 	alert(data[i].name); */
 		var html="";
 		for(var i=0; i<data.length;i++){
 			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			/* html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>"; */
+			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
+			console.log(data[i].img);
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";

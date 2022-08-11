@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -139,6 +144,25 @@ public class ItemController {
 			pw.flush();
 		}
 
+	}
+	
+	// 파일 경로 찾기
+	@RequestMapping(value="/item/imageView.do", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> getFile(String originFileName, HttpServletRequest request, HttpSession session){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg/");
+		File file=new File(path, originFileName);
+		System.out.println("path + "+ path);
+	    ResponseEntity<byte[]> result=null;
+	    try {
+	        HttpHeaders headers=new HttpHeaders();
+	        headers.add("Content-Type", Files.probeContentType(file.toPath()));
+	        result=new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),headers,HttpStatus.OK );
+	    }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    System.out.println("result"+result);
+	    return result;
 	}
 	
 	/* 음악파일 업로드 페이지 */
