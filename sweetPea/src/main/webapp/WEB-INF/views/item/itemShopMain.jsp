@@ -216,7 +216,10 @@ ul {
 .exampleModalCenter {
 	width: 100vw;
 }
-
+.col mb-5 {
+	width:200px;
+	height:150px;
+}
 /* 모달 사이즈  */
 </style>
 <script type="text/javascript">
@@ -239,7 +242,7 @@ function openShoppingBasket(){
 	<br>
 	<h4>item shop main</h4>
 	<!-- 종류 체크 박스  -->
-	<div class="search_option_wrap">
+<!-- 	<div class="search_option_wrap">
 
 		<br>
 		<div class="search_option_item">
@@ -276,7 +279,7 @@ function openShoppingBasket(){
 		<br>
 
 	</div>
-	<br>
+	<br> -->
 	<!-- 아이템 리스트  -->
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(2)">
 		<p class="btnText">인기상품순</p>
@@ -365,7 +368,7 @@ function openShoppingBasket(){
 		var html="";
 		for(var i=0; i<data.length;i++){
 			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
+			html +="<div class='card h-100' style='width:250px;height:300px;'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
@@ -375,7 +378,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a><span>&nbsp;</span>";
 			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";

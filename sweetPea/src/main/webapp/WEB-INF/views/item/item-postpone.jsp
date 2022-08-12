@@ -35,7 +35,7 @@ $(function itemSelectAll(){
 		for(var i=0; i<data.length;i++){
 			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>";
+			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
