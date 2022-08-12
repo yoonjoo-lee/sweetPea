@@ -83,9 +83,9 @@
 <!-- <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'><br> -->
 <input name='basic' id="tag"><br><br>
 
-<form action="" method="post">
+<form action="gowrite.do" method="post">
 <div id="title-box">
-	<input style="ime-mode:disabled;"id="title" name="title" placeholder="제목을 입력해 주세요">
+	<input style="ime-mode:disabled;" type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
 </div>
 
 <textarea id="summernote" name="content"></textarea>
@@ -114,8 +114,12 @@ $(document).ready(function () {
 });
 
 
-
-
+//input 태그에 엔터키 입력 후 바로 submit 막기
+$('input[type="text"]').keydown(function() {
+	  if (event.keyCode === 13) {
+	    event.preventDefault();
+	  };
+	});
 
 
 

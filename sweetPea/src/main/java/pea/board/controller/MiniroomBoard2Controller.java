@@ -39,15 +39,24 @@ public class MiniroomBoard2Controller {
 	MiniroomBoard2Service miniroomboard2Service;
 	@Autowired
 	MiniroomBoardService miniroomboardService;
+	
+	// 다이어리 페이지 이동
+	@RequestMapping(value="/mini-diary.do", method=RequestMethod.GET)
+	public String iframe_diary(int uidx, Model model) {
+		List<MiniroomBoardVo> category = miniroomboardService.checkCategory(uidx);
+		
+		model.addAttribute("category",category);
+		return "minihome/diary";
+	}
 
-	// 다이어리 작성 페이지 이동
+	// 다이어리, 방명록 작성 페이지 이동
 	@RequestMapping(value = "/diary_write.do", method = RequestMethod.GET)
-	public String diary_write(int uidx, int category, Model model) {
+	public String diary_write(int category, Model model) {
 		model.addAttribute("category", category);
 		return "minihome/diary-write";
 	}
 
-	// 다이어리 작성
+	// 다이어리, 방명록 작성
 	@RequestMapping(value = "/diary_write.do", method = RequestMethod.POST)
 	public void diary_write(MiniroomBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 		session = request.getSession();
@@ -55,17 +64,24 @@ public class MiniroomBoard2Controller {
 		vo.setWriter(login.getUidx()); // 작성자 uidx
 		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
 		vo.setUidx(mini.getUidx()); // 미니홈피 주인 uidx
+		int uidx = mini.getUidx();
 
-		List<MiniroomBoardVo> category = miniroomboardService.checkCategory(mini.getUidx());
-		model.addAttribute("subcategory", category);
+		List<MiniroomBoardVo> subcategory = miniroomboardService.checkCategory(mini.getUidx());
+		model.addAttribute("subcategory", subcategory);
 
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 
 		int result = miniroomboard2Service.writemini(vo);
-
+		
+		int category = vo.getCategory();
+		
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		if (category == 1) {
+			pw.append("<script>location.href='mini-diary.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		} else {
+			pw.append("<script>location.href='boardList.do?category="+category+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		}
 		pw.flush();
 	}
 
@@ -212,7 +228,7 @@ public class MiniroomBoard2Controller {
 		pw.flush();
 	}
 	
-	// 파일 경로 찾기
+	// 사진첩 파일 경로 찾기
 	@RequestMapping(value="/imageView.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(String originFileName, HttpServletRequest request, HttpSession session){
 		
@@ -238,6 +254,97 @@ public class MiniroomBoard2Controller {
 		PrintWriter pw = response.getWriter();
 		pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
+	}
+
+	// 방명록 삭제
+	@RequestMapping(value="/guestBookDelete.do")
+	public void guestBookDelete(int mbidx, HttpServletResponse response, Model model) throws IOException {
+		miniroomboard2Service.deleteDiary(mbidx); 
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.href='boardList.do?category=3'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
+	
+	// 홈에서 최신글 보기
+	@RequestMapping(value = "/homeList.do", method=RequestMethod.GET)
+	public String homeList(Model model, int category, HttpSession session) {
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		int uidx = mini.getUidx(); // 미니홈피 주인 uidx
+		System.out.println("boardList login은 " + uidx);
+		MiniroomBoardVo vo = new MiniroomBoardVo();
+		vo.setUidx(uidx);
+		vo.setCategory(category);
 		
+		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList(vo);
+		model.addAttribute("list", list);
+
+		System.out.println("boardlist category는"+ category);
+		
+		return "minihome/homeList";
+	}
+	
+	
+	
+	// 프로필 변경 페이지 이동
+	@RequestMapping(value="/changeProfile.do", method=RequestMethod.GET)
+	public String changeProfile( Model model) {
+		/*
+		 * List<MiniroomBoardVo> category = miniroomboardService.checkCategory(uidx);
+		 * 
+		 * model.addAttribute("category",category);
+		 */
+		return "minihome/changeProfile";
+	}
+	
+	// 프로필 등록
+	@RequestMapping(value = "/changeProfile.do", method = RequestMethod.POST)
+	public void changeProfile(MiniroomBoardVo vo, HttpServletResponse response, HttpSession session, MultipartFile file, HttpServletRequest request) throws IllegalStateException, IOException {
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/miniProfile");
+		
+		session = request.getSession();
+		UserVo login = (UserVo) session.getAttribute("login");
+		vo.setWriter(login.getUidx()); // 작성자 uidx
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		vo.setUidx(mini.getUidx()); // 미니홈피 주인 uidx
+		
+            
+		File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
+		
+		vo.setMiniProfile(file.getOriginalFilename());
+            
+        if(!file.getOriginalFilename().isEmpty()) { 
+        	file.transferTo(new File(path, file.getOriginalFilename())); 
+        }else {
+        	
+        }
+            
+		
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		vo.setIp(ip);
+		
+		miniroomboard2Service.changeProfile(vo);
+		
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
+	
+	// 프로필 파일 경로 찾기
+	@RequestMapping(value="/getProfile.do", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> getProfileFile(String originFileName, HttpServletRequest request, HttpSession session){
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/miniProfile");
+		File file=new File(path, originFileName);
+		System.out.println("path + "+ path);
+	    ResponseEntity<byte[]> result=null;
+	    try {
+	        HttpHeaders headers=new HttpHeaders();
+	        headers.add("Content-Type", Files.probeContentType(file.toPath()));
+	        result=new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),headers,HttpStatus.OK );
+	    }catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    System.out.println("result"+result);
+	    return result;
 	}
 }

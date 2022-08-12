@@ -490,7 +490,8 @@ function inputLeftBoard(){
 			<p>TOTAL <span>${mini.total}</span></p>
 		</div>
 		<div id="left-centerBox">
-			<br><img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile">
+			<br><img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${login.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+			<%-- <br><img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)"> --%>
 			<div id="left-boardBox">
 				<c:if test="${mini.uidx == login.uidx}">
 				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">

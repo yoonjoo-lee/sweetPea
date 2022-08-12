@@ -40,4 +40,9 @@ public class MiniroomBoard2Dao {
 		return sqlSession.update(namespace+".modify", vo);
 	}
 	
+	//프로필 변경
+	public int changeProfile(MiniroomBoardVo vo) {
+		return sqlSession.update(namespace+".changeProfile", vo);
+	}
+	
 }
