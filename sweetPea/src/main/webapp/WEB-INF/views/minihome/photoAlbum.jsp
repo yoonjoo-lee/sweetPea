@@ -117,7 +117,17 @@ box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
 <c:forEach var="board" items='${list }'>
 <div class="eachphoto">
 <br>
-<div class="profile" id="user"><img class="profile-img" src="${board.profile }" alt=''></div>
+
+<!-- 프로필 사진 -->
+<div class="profile" id="user">
+<c:if test="${board.miniProfile == null}">
+	<img class="profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
+</c:if>
+<c:if test="${board.miniProfile != null}">
+	<img class="profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+</c:if>
+</div>
+
 <div id="user"><b>${board.name }</b></div>
 <div id="user" class="manage"  style="color:grey;">
 
