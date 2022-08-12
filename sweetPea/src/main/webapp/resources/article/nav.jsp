@@ -66,7 +66,7 @@
 							<li>new</li>
 							<li>친구신청</li>
 							<li><a onclick="openMessage()">쪽지</a></li>
-							<li>완두콩 <input type="button" value="충전"></li>
+							<li>완두콩 <input type="button" onclick="location.href='<%=request.getContextPath()%>/user/charge.do'" value="충전"></li>
 						</ul>
 					</div>
 				</div>

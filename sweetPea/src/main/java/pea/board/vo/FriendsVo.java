@@ -12,7 +12,14 @@ public class FriendsVo {
 	private String name;
 	private String id;
 	private String fdate;
+	private String profile;
 		
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String getFdate() {
 		return fdate;
 	}
