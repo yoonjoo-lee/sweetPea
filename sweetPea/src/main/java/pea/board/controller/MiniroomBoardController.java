@@ -1,7 +1,9 @@
 package pea.board.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -312,5 +314,26 @@ public class MiniroomBoardController {
 			return 1;
 		}
 		else return 0;
+	}
+	
+	/* 미니홈피 - 관리 - 친구관리 - 친구목록 - 친구검색 */
+	@ResponseBody
+	@RequestMapping(value="/searchFriends.do", produces = "application/json;charset=utf8")
+	public Object searchFriends(String name, int uidx, Model model) {
+		FriendsVo vo = new FriendsVo();
+		vo.setUidx(uidx);
+		vo.setName(name);
+		System.out.println(name);
+		List<FriendsVo> list = miniroomBoardService.searchFriends(vo);
+		model.addAttribute("list2", list);
+		System.out.println(list);
+		
+		Map<String, Object> retVal = new HashMap<String, Object>();
+	        
+	        retVal.put("list2", list);
+	        retVal.put("code", "OK");
+	        
+	        return retVal;
+		
 	}
 }

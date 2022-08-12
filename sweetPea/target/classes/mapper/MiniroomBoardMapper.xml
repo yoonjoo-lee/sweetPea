@@ -266,5 +266,30 @@
 		 WHERE (uidx=#{uidx} AND bfidx=#{bfidx}) OR (uidx=#{bfidx} AND bfidx=#{uidx})	
 	</update>
 
+	<!-- 친구검색 -->
+	<select id="searchFriends" parameterType="FriendsVo" resultType="FriendsVo">
+		SELECT * 
+		  FROM pea_friends a
+		  JOIN (SELECT uidx,name,profile 
+		  		  FROM pea_user
+		  		) b ON CASE 
+		  			   WHEN a.bfidx=b.uidx THEN a.uidx=#{uidx}
+		  			   WHEN a.uidx=b.uidx THEN a.bfidx=#{uidx}
+		  			    END
+		 WHERE (a.uidx = #{uidx} or a.bfidx = #{uidx})
+		   AND consent='Y'
+		   AND (
+		   		CASE 
+		   		WHEN a.bfidx = #{uidx} THEN a.uname like concat('%',#{name},'%')
+		   		WHEN a.uidx = #{uidx} THEN a.bfname like concat('%',#{name},'%')
+		   		 END
+	   		OR
+	   			CASE
+	   			WHEN a.bfidx = #{uidx} THEN b.name like concat('%',#{name},'%')
+		   		WHEN a.uidx = #{uidx} THEN b.name like concat('%',#{name},'%')
+	   			 END
+		   )
+		 ORDER BY b.name; 
+	</select>
 	
 </mapper>

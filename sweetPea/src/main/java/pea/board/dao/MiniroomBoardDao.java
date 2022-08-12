@@ -106,4 +106,8 @@ public class MiniroomBoardDao {
 	public int changeFriends(FriendsVo vo) {
 		return sqlSession.update(namespace+".changeFriends",vo);
 	}
+	
+	public List<FriendsVo> searchFriends(FriendsVo vo){
+		return sqlSession.selectList(namespace+".searchFriends",vo);
+	}
 }

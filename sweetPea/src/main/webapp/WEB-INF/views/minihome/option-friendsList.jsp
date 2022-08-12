@@ -121,6 +121,7 @@ button:disabled {
 
 #listFullBox{
 	overflow: scroll;
+	overflow-x: hidden;
     height: 80vh;
     width: 35%;
     margin: 0 auto;
@@ -228,16 +229,49 @@ function onBtn(e,evnet){
 		});
 }
 
-function searchFrineds(e,uidx){
-	
-	$.ajax({
+function searchFriends(e,uidx){
+	var $name = e.value;
+	var values = [];
+	 $.ajax({
 		url: 'searchFriends.do',
 		type: 'get',
-		data: {"name": e,"uidx": uidx},
-		success: function(data){
-			
+		data: {"name": $name,"uidx": uidx},
+		success: function(retVal){
+			if(retVal.code == "OK"){
+				values = retVal.list2;
+				$("#listFullBox").empty();
+				$.each(values, function( index, value ) {
+					console.log(value.bfidx);
+                    if (value.uidx == ${login.uidx}){
+                    	$("#listFullBox").append("<div class='friendsBox boxOn' onclick='onBtn("+value.bfidx+",this)'>"
+                    				+"<img src='"+value.profile+"' class='fimg boxOn'>"
+                    				+""+value.name+"<span class='fname boxOn'>["+value.bfname+"]</span>"
+                    				+"<div class='listBtnBox' id='listBtn"+value.bfidx+"'>"
+                    				+"<button class='btn-mini' onclick='goMini("+value.bfidx+")'>미니홈피 가기</button>"
+                					+"<button class='btn-change' onclick='changeName('"+value.uname+"','"+value.name+"','"+value.bfname+"',"+value.bfidx+"')'>친구명 변경</button>"
+                					+"<button class='btn-delete' onclick='delBtn("+value.bfidx+")'>삭제하기</button>"
+                    				+"</div></div>");
+                    }
+                    else if (value.bfidx == ${login.uidx}){
+                    	$("#listFullBox").append("<div class='friendsBox boxOn' onclick='onBtn("+value.uidx+",this)'>"
+                    				+"<img src='"+value.profile+"' class='fimg boxOn'>"
+                    				+""+value.name+"<span class='fname boxOn'>["+value.uname+"]</span>"
+                    				+"<div class='listBtnBox' id='listBtn"+value.uidx+"'>"
+                    				+"<button class='btn-mini' onclick='goMini("+value.uidx+")'>미니홈피 가기</button>"
+                					+"<button class='btn-change' onclick='changeName('"+value.bfname+"','"+value.name+"','"+value.uname+"',"+value.uidx+")'>친구명 변경</button>"
+                					+"<button class='btn-delete' onclick='delBtn("+value.uidx+")'>삭제하기</button>"
+                    				+"</div></div>");
+                    }
+                 });
+			}
+			else{
+				alert("실패");
+			}
+		},
+		error:function(){
+			alert("오류");
 		}
-	})
+	}) 
 	
 }
 </script>
@@ -253,14 +287,14 @@ function searchFrineds(e,uidx){
 <c:if test="${list.size() == 0}">
 	<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
 </c:if>
-<c:if test="${list.size() > 0 }">
+<c:if test="${list.size() > 0}">
 	<div id="listFullBox">
 	<c:forEach var="vo" items="${list}">
 		<c:if test="${vo.uidx == login.uidx}">
 			<div class="friendsBox boxOn" onclick="onBtn('${vo.bfidx},this')">
 				<img src="${vo.profile}" class="fimg boxOn">
 				${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
-				<div class="listBtnBox" id="listBtn${vo.uidx}">
+				<div class="listBtnBox" id="listBtn${vo.bfidx}">
 					<button class="btn-mini" onclick="goMini(${vo.bfidx})">미니홈피 가기</button>
 					<button class="btn-change" onclick="changeName('${vo.uname}','${vo.name}','${vo.bfname}',${vo.bfidx})">친구명 변경</button>
 					<button class="btn-delete" onclick="delBtn(${vo.bfidx})">삭제하기</button>
