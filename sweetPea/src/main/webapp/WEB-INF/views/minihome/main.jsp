@@ -494,6 +494,7 @@ function inputLeftBoard(){
 			${mini.uidx}
 			${mini.name}dd
 			${mini.miniProfile }ss
+			${mini.miniProfile }ss
 			<div id="left-boardBox">
 				<c:if test="${mini.uidx == login.uidx}">
 				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">

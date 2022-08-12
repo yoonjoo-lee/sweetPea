@@ -1,6 +1,6 @@
 package pea.board.vo;
 
-public class MiniHomeVo {
+public class MiniHomeVo extends UserVo{
 
 	private int mnidx;
 	private int uidx;
@@ -13,14 +13,7 @@ public class MiniHomeVo {
 	private String background;
 	private String font;
 	private String name;
-	private String miniProfile;
-	
-	public String getMiniProfile() {
-		return miniProfile;
-	}
-	public void setMiniProfile(String miniProfile) {
-		this.miniProfile = miniProfile;
-	}
+
 	public String getName() {
 		return name;
 	}
