@@ -172,7 +172,7 @@ $(function(){
 	<hr>
 	
 	<div id="title-box">
-		<input id="title" name="title" placeholder="제목을 입력해 주세요">
+		<!-- <input id="title" name="title" placeholder="제목을 입력해 주세요"> -->
 		비밀글<input type="checkbox" name="secret" value="Y">
 		<div class="dropdown">
 		<button class="dropbtn" type="button" >

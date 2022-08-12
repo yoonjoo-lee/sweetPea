@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 /* #content {
 	display: inline-block;
@@ -105,14 +106,16 @@ a {
 							<b>${board.name }</b>
 							<i class="bi bi-house-heart" onclick="openMini(${board.writer })">미니홈피</i>
 							 (${board.date })
-							<i class="bi bi-eraser"></i><i class="bi bi-trash" onclick=""></i>
+							 <c:if test="${login.uidx == board.writer }">
+								<i class="bi bi-eraser"></i><i class="bi bi-trash" onclick="deletephoto(${board.mbidx})"></i>
+							 </c:if>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td width=120>
-							<img class="profile" src="${board.profile }" alt=''>
+							<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${login.miniProfile}">
 					</td>
 					<td>
 						${board.content }
@@ -125,10 +128,31 @@ a {
 	</c:forEach>
 	
 <script>
+// 게시글 작성자 미니홈피 방문하기
 function openMini(writer){
-	 
 		window.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"";
-	
+}
+
+/* 게시물 삭제 */
+async function deletephoto(mbidx){
+	Swal.fire({
+		  title: '정말로 삭제하시겠습니까?',
+		  text: "되돌릴 수 없어요!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '삭제'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+				location.href="<%=request.getContextPath()%>/miniroomboard2/guestBookDelete.do?mbidx="+mbidx+"";
+		    Swal.fire(
+		      '삭제 성공!',
+		      '삭제에 성공하였습니다.',
+		      'success'
+		    )
+		  }
+		})
 }
 </script>
 </body>

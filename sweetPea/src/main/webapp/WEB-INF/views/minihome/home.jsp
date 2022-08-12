@@ -110,12 +110,35 @@ font-family: 'EF_hyunydororong';
 	<div class="upDateBox">
 		<p>Update</p>
 		<hr>
+		<div id="homeList"></div>
 	</div>
-	<div class="boardListBox"></div>
+	<div class="boardListBox">
+		<table border=1>
+			<tr><td onclick="location.href='mini-diary.do?uidx=${mini.uidx}'">다이어리</td></tr>
+			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'">사진첩</td></tr>
+			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'">방명록</td></tr>
+		</table>
+	</div>
 	</div>
 	<hr>
 	<div class="miniRoomBox"></div>
 	<hr>
 	<h4>일촌평</h4>
+	
+	<script>
+	// 글 전부 불러오기
+	$(function (){
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/homeList.do",
+			type: "GET",
+			data: {"category":0},
+			success: function(html){
+				$("#homeList").html(html);
+			},
+			error: function(){
+			}
+		})
+	});
+	</script>
 </body>
 </html>

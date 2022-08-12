@@ -12,4 +12,7 @@ public interface MiniroomBoard2Service {
 	int modify(MiniroomBoardVo vo); //수정
 	
 	List<MiniroomBoardVo> boardByDate(MiniroomBoardVo vo); //날짜별 글 출력
+	
+	int changeProfile(MiniroomBoardVo vo); //프로필 변경
+
 }

@@ -44,8 +44,16 @@
 	  FROM pea_minihome_board a JOIN pea_user b ON a.writer=b.uidx
 	 WHERE a.delyn='N'
 	 AND a.uidx=#{uidx}
-	 AND a.category=#{category}
+	 <if test="category != 0">
+		 AND a.category=#{category}
+	 </if>
+	 <if test="category == 0">
+		 AND a.secret is null OR a.secret='N'
+	 </if>
 	 ORDER BY a.mbidx DESC
+	 <if test="category == 0">
+	 	LIMIT 5
+	 </if>
 
 </select>
 
@@ -83,6 +91,13 @@
 	 	,content=#{content}
 	 	,secret=#{secret}
 	WHERE mbidx=#{mbidx}
+</update>
+
+<!-- 프로필 변경 -->
+<update id="changeProfile" parameterType="MiniroomBoardVo">
+	UPDATE pea_user 
+	 SET miniProfile=#{miniProfile}
+	WHERE uidx=#{uidx}
 </update>
 
 

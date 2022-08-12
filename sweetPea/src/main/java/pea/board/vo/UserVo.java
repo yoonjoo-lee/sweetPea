@@ -17,9 +17,16 @@ public class UserVo {
 	private String pea_super;
 	private String profile;
 	private String delreason;
+	private String miniProfile;
 	
 	
 	
+	public String getMiniProfile() {
+		return miniProfile;
+	}
+	public void setMiniProfile(String miniProfile) {
+		this.miniProfile = miniProfile;
+	}
 	public String getDelreason() {
 		return delreason;
 	}

@@ -120,7 +120,10 @@ box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
 <div class="profile" id="user"><img class="profile-img" src="${board.profile }" alt=''></div>
 <div id="user"><b>${board.name }</b></div>
 <div id="user" class="manage"  style="color:grey;">
+
+<c:if test="${login.uidx == mini.uidx }">
 <i class="bi bi-eraser"></i><i class="bi bi-trash" onclick="deletephoto(${board.mbidx })"></i> 
+</c:if>
 </div>
 
 <div id="slider" class="slider${board.mbidx }">
