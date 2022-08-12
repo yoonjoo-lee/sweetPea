@@ -33,7 +33,7 @@ $(function itemSelectAll(){
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
+			html +="<div class='col mb-5' style='float:left;width:250px;'>";
 			html +="<div class='card h-100'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
@@ -44,7 +44,7 @@ $(function itemSelectAll(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval("+data[i].iidx+",1);'>등록</a>&nbsp;";
+			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemApproval("+data[i].iidx+",1);'>재등록</a>&nbsp;";
 			html +="<a class='btn btn-outline-dark mt-auto' href='javascript:void(0);' onclick='itemDel("+data[i].iidx+");'>삭제</a>";
 			html +="</div>";
 			html +="</div>";

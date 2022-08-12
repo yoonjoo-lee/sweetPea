@@ -159,24 +159,5 @@ body .dribbble img {
 document.querySelectorAll('.button').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
 </script>
 
-
-<%-- <article>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-sm-2">
-				<div class="serviceBox" onclick="location.href = '<%=request.getContextPath()%>/item/itemWrite.do'">
-					<h3 class="title">ITEM</h3>
-				</div>
-			</div>
-
-			<div class="col-md-6 col-sm-2">
-				<div class="serviceBox" onclick="location.href='<%=request.getContextPath()%>/item/bgmFile.do'">
-					<h3 class="title">BGM</h3>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</article>
-</body> --%>
+</body>
 </html>

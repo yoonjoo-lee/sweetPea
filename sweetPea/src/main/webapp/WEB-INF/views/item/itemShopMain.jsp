@@ -216,9 +216,10 @@ ul {
 .exampleModalCenter {
 	width: 100vw;
 }
+
 .col mb-5 {
-	width:200px;
-	height:150px;
+	width: 200px;
+	height: 150px;
 }
 /* 모달 사이즈  */
 </style>
@@ -242,7 +243,7 @@ function openShoppingBasket(){
 	<br>
 	<h4>item shop main</h4>
 	<!-- 종류 체크 박스  -->
-<!-- 	<div class="search_option_wrap">
+	<!-- 	<div class="search_option_wrap">
 
 		<br>
 		<div class="search_option_item">
@@ -325,7 +326,7 @@ function openShoppingBasket(){
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">SHOPPING-BASKET</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
 				</div>
 				<div class="modal-body">
 					<div class="btnBox" style="height: 750px;">
@@ -351,14 +352,7 @@ function openShoppingBasket(){
 	<span id="tmp"></span>
 	<script>
 
-	/* tagify value key 값 가져오는 구문 */
-	      var test = [{'value':"banana"},{'value':"yellow"}];
-      
-      for (var i=0; i<test.length; i++){
-         console.log(test[i]['value']);
-      }
-
-/* 아이템 리스트 나열 */	
+/* 아이템페이지 첫 로드 할 때  리스트 나열 구문 */	
  $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
@@ -367,8 +361,8 @@ function openShoppingBasket(){
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100' style='width:250px;height:300px;'>";
+			html +="<div class='col mb-5' style='float:left; width:230px;'>";
+			html +="<div class='card h-100' style='width:200px;height:300px;'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
@@ -391,11 +385,48 @@ function openShoppingBasket(){
 		}
 	})
 })
+ 
+/* 아이템 리스트 카테고리별 나열 */	
+function itemSelectAll(cate){
+	$.ajax({
+	url:"itemSelectAll.do",
+	type:"get",
+	data:"cate="+cate,
+	success:function(data){
+		/* 	alert(data[i].name); */
+		var html="";
+		for(var i=0; i<data.length;i++){
+			html +="<div class='col mb-5' style='float:left; width:230px;'>";
+			html +="<div class='card h-100' style='width:200px;height:300px;'>";
+			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a><span>&nbsp;</span>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+		}
+			$("#itemList").html(html);
+		}
+	})
+					
+}
+
 /*  */
 function addCart(uiidx){
 	alert(uiidx);
 }
- /* 아이템 사기  */
+ /* 아이템 구매  */
  function itemBuy(){
 	 Swal.fire({
 		icon:'info',
@@ -438,47 +469,12 @@ function addCart(uiidx){
 		}
 	})
 }
-
- 
-/* 아이템 리스트 카테고리별 나열 */	
-function itemSelectAll(cate){
-	$.ajax({
-	url:"itemSelectAll.do",
-	type:"get",
-	data:"cate="+cate,
-	success:function(data){
-		/* 	alert(data[i].name); */
-		var html="";
-		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			/* html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>"; */
-			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
-			console.log(data[i].img);
-			html +="<div class='card-body p-4'>";
-			html +="<div class='text-center'>";
-			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
-			html +="</div>";
-			html +="</div>";
-			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-			html +="</div>";
-		}
-			$("#itemList").html(html);
-		}
-	})
-					
-}
-
-
+	/* tagify value key 값 가져오는 구문 */
+	      var test = [{'value':"banana"},{'value':"yellow"}];
+   
+   for (var i=0; i<test.length; i++){
+      console.log(test[i]['value']);
+   }
 
 /* 모달 */
 </script>
