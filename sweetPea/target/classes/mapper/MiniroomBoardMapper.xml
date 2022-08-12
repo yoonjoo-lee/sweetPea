@@ -5,7 +5,7 @@
  
 <mapper namespace="pea.board.mapper.MiniroomBoardMapper">
 	<select id="joinMiniHome" parameterType="int" resultType="MiniHomeVo">
-		SELECT a.* , b.name
+		SELECT a.* , b.name, b.miniProfile
 		  FROM pea_minihome a
 		  JOIN pea_user b
 		    ON a.uidx = b.uidx

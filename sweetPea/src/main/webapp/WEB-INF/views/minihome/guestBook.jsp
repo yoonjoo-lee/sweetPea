@@ -115,7 +115,7 @@ a {
 			<tbody>
 				<tr>
 					<td width=120>
-							<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${login.miniProfile}">
+							<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}">
 					</td>
 					<td>
 						${board.content }

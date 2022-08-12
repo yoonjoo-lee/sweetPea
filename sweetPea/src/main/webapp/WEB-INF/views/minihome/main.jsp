@@ -425,7 +425,6 @@ function clickBtn(link){
 		    'width': '72vw',
 		    'height': '98vh',
 		    'margin': '1vh 1vw',
-		    'background-color': '#52C3BD',
 			'border-radius': '30px',
 		/* width: 99vw;
 		height: 98vh;
@@ -490,8 +489,11 @@ function inputLeftBoard(){
 			<p>TOTAL <span>${mini.total}</span></p>
 		</div>
 		<div id="left-centerBox">
-			<br><img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${login.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+			<br><img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
 			<%-- <br><img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)"> --%>
+			${mini.uidx}
+			${mini.name}dd
+			${mini.miniProfile }ss
 			<div id="left-boardBox">
 				<c:if test="${mini.uidx == login.uidx}">
 				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">

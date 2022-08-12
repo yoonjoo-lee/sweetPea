@@ -13,7 +13,14 @@ public class MiniHomeVo {
 	private String background;
 	private String font;
 	private String name;
+	private String miniProfile;
 	
+	public String getMiniProfile() {
+		return miniProfile;
+	}
+	public void setMiniProfile(String miniProfile) {
+		this.miniProfile = miniProfile;
+	}
 	public String getName() {
 		return name;
 	}

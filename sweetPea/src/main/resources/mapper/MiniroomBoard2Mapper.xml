@@ -41,6 +41,7 @@
 	 	, a.secret
 	 	, b.name
 	 	, b.profile
+	 	, b.miniProfile
 	  FROM pea_minihome_board a JOIN pea_user b ON a.writer=b.uidx
 	 WHERE a.delyn='N'
 	 AND a.uidx=#{uidx}
@@ -95,7 +96,7 @@
 
 <!-- 프로필 변경 -->
 <update id="changeProfile" parameterType="MiniroomBoardVo">
-	UPDATE pea_user 
+	UPDATE pea_minihome 
 	 SET miniProfile=#{miniProfile}
 	WHERE uidx=#{uidx}
 </update>
