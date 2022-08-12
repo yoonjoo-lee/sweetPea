@@ -492,7 +492,9 @@ function inputLeftBoard(){
 			<br>
 			<!-- 프로필 사진 -->
 			<c:if test="${mini.miniProfile == null}">
-				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile">
+
+				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+
 			</c:if>
 			<c:if test="${mini.miniProfile != null}">
 				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
