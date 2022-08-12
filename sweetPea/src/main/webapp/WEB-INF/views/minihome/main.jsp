@@ -9,7 +9,7 @@
 <title>SweetPea</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<c:if test="${device eq 'PC'}">
+<%-- <c:if test="${device eq 'PC'}"> --%>
 <style>
 	body{
 		background-image: url("<%=request.getContextPath()%>/resources/images/back7.jpg");
@@ -342,7 +342,7 @@
 font-family: 'BMJUA';
 }
 </style>
-</c:if>
+<%-- </c:if> --%>
 <script>
 	$(function(){
 		$("#addFr").click(async function(){
@@ -408,7 +408,7 @@ font-family: 'BMJUA';
 <c:if test="${device eq 'MOBILE'}">
 <style>
 	body{
-	background-color: black;
+	background-color: #fff;
 	}
 </style>
 </c:if>
@@ -482,7 +482,7 @@ function inputLeftBoard(){
 </script>
 </head>
 <body class="body">
-<c:if test="${device eq 'PC'}">
+<%-- <c:if test="${device eq 'PC'}"> --%>
 <div id="mainBox">
 	<div id="leftBox">
 		<div id="left-topBox">
@@ -522,7 +522,7 @@ function inputLeftBoard(){
 		<div class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'),clickThis(this)"><p>방명록</p></div>
 		<c:if test="${mini.uidx == login.uidx}">
 		<div class="boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis(this)'><p>관리</p></div>
-		</c:if>
+ 		</c:if> 
 	</div>
 </div>
 
@@ -546,12 +546,12 @@ function inputLeftBoard(){
 
 
 <img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png">
-</c:if>
+<%-- </c:if> --%>
 
-<c:if test="${device eq 'MOBILE'}">
+<%-- <c:if test="${device eq 'MOBILE'}">
 
 모바일입니다
 
-</c:if>
+</c:if> --%>
 </body>
 </html>
