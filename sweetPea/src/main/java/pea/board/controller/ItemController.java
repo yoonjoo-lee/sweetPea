@@ -92,6 +92,44 @@ public class ItemController {
 		return "item/itemFileChoice";
 	}
 
+//	 /* 아이템 리스트 가져오기 */
+
+	@ResponseBody
+	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemSelectAll(int cate) {
+
+		/* 아이템 리스트 전체 */
+		if (cate == 1) {
+			return itemService.itemSelectAll();
+		} else if (cate == 2) {
+			/* 아이템 리스트 인기상품순 */
+			return itemService.itemListCount();
+		} else if (cate == 3) {
+			/* 아이템 리스트 가격내림차순 */
+			return itemService.itemListDesc();
+		} else if (cate == 4) {
+			/* 아이템 리스트 가격오름차순 */
+			return itemService.itemListAsc();
+		} else if (cate == 5) {
+			/* 아이템 리스트 신상품순 */
+			return itemService.itemListNew();
+		} else if (cate == 6) {
+			/* 아이템 승인 전 들어가는 페이지 리스트 */
+			return itemService.itemApproval();
+		} else if (cate == 7) {
+
+			return itemService.postPone();
+		}
+		return itemService.itemSelectAll();
+	}
+
+	// 아이템 리스트 신상품 LIMIT 5개
+	@ResponseBody
+	@RequestMapping(value = "/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListNewLimit() {
+
+		return itemService.itemListNewLimit();
+	}
 
 	
 //	/* 아이템 등록 구문 */
@@ -228,44 +266,6 @@ public class ItemController {
 		return itemService.itemNameCheck(name);
 	}
 
-//	 /* 아이템 리스트 가져오기 */
-
-	@ResponseBody
-	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemSelectAll(int cate) {
-
-		/* 아이템 리스트 전체 */
-		if (cate == 1) {
-			return itemService.itemSelectAll();
-		} else if (cate == 2) {
-			/* 아이템 리스트 인기상품순 */
-			return itemService.itemListCount();
-		} else if (cate == 3) {
-			/* 아이템 리스트 가격내림차순 */
-			return itemService.itemListDesc();
-		} else if (cate == 4) {
-			/* 아이템 리스트 가격오름차순 */
-			return itemService.itemListAsc();
-		} else if (cate == 5) {
-			/* 아이템 리스트 신상품순 */
-			return itemService.itemListNew();
-		} else if (cate == 6) {
-			/* 아이템 승인 전 들어가는 페이지 리스트 */
-			return itemService.itemApproval();
-		} else if (cate == 7) {
-
-			return itemService.postPone();
-		}
-		return itemService.itemSelectAll();
-	}
-
-	// 아이템 리스트 신상품 LIMIT 5개
-	@ResponseBody
-	@RequestMapping(value = "/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListNewLimit() {
-
-		return itemService.itemListNewLimit();
-	}
 
 //	/* 아이템 장바구니  */
 

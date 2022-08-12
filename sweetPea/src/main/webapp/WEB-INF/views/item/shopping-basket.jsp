@@ -141,13 +141,24 @@ $(function(){
 				})
 		}
 	}
+	
+/* 아이템 구매  */
+function itemBuy(){
+	 Swal.fire({
+		icon:'info',
+		title:'아이템 구매 기능  준비중...',
+		toast:true,
+		timer: 2000,
+	    timerProgressBar: true,
+	 })
+} 
 </script>
 </head>
 <body>
 	<div>
 		<div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
-				<input type="button" class="btn btn-secondary" onclick="location.href='itemBuy.do'" value="구매하기">
+				<input type="button" class="btn btn-secondary" onclick="itemBuy()" value="구매하기">
 				<input type="button" class="btn btn-secondary" onclick="basketItemDel()" value="삭제">
 			</c:if>
 		</div>

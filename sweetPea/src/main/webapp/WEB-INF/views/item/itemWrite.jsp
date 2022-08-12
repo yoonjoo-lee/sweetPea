@@ -7,6 +7,9 @@
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Bootstrap icons-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
 <title>item Write</title>
 <style type="text/css">
 body {
@@ -18,11 +21,10 @@ table {
 	margin-right: auto;
 }
 
-.photo_box {
+/* .photo_box {
 	margin: 0 auto;
 	max-width: 500px;
-}
-
+} */
 .upload_btn {
 	overflow: hidden;
 	width: 100%;
@@ -50,15 +52,15 @@ table {
 	background: #ccc;
 }
 
-.photo_them {
+/* .photo_them {
 	position: relative;
 	margin-top: 20px;
 	width: 100%;
 	height: 250px;
 	background: #eee;
-}
+} */
 
-.them_img, .result_box {
+/* .them_img, .result_box {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -74,11 +76,11 @@ table {
 	display: block;
 	margin: 0 auto;
 	height: 100%;
-}
+} */
 /* .upload{
 	width:250px;
 } */
-#photoBtn, .upload_btn {
+/* #photoBtn, .upload_btn {
 	display: block;
 	margin-top: 20px;
 	padding: 15px 0;
@@ -87,17 +89,96 @@ table {
 	color: #fff;
 	text-decoration: none;
 	background-color: steelblue;
+} */
+
+
+.upload_btn input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
+.upload_btn label {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	
+	display: inline-block;
+	padding: .5em .75em;
+	font-size: xxx-large;
+	line-height: normal;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	
+}
+
 
 /* 아이템 이미지 크기 조절 */
 .item-image {
-	width: 250px;
+	width: 100%;
 	height: 250px;
 }
 
 .tagify {
 	width: 100%;
 	max-width: 250px;
+}
+
+/* 아이템등록 버튼  */
+.btnWrite_container {
+	position: absolute;
+	/*  left: 0;
+  right: 0;
+  top: 30%; */
+}
+
+.btnWrite {
+	border: none;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	text-transform: uppercase;
+	outline: none;
+	overflow: hidden;
+	position: relative;
+	color: #fff;
+	font-weight: 700;
+	font-size: 15px;
+	background-color: #222;
+	padding: 17px 60px;
+	margin: 0 auto;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+}
+
+.btnWrite span {
+	position: relative;
+	z-index: 1;
+}
+
+.btnWrite:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 490%;
+	width: 140%;
+	background: #78c7d2;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+	transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btnWrite:hover:after {
+	-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+	transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 </style>
 
@@ -120,11 +201,11 @@ table {
 
 
 			<tr>
-				<td colspan=2><div class="upload_btn">
-						<div class="upload" style="width:100%;">
-							<input type="file" name="file" accept="image/jpeg, image/png, image/gif, audio/mp3, audio/wav, audio/mp4" id="photoBtn" ><label for="photoBtn" >아이템 파일</label>
-						</div>
-					</div></td>
+				<td colspan=2>
+					<div class="upload_btn">
+						<input type="file" name="file" accept="image/jpeg, image/png, image/gif" id="write_file"><label for="write_file" style="">아이템 파일 </label>
+					</div>
+				</td>
 			</tr>
 		</table>
 		<!-- 아이템 내용들 -->
@@ -170,10 +251,14 @@ table {
 		</table>
 		<br> <br> <br>
 		<div>
-			<input type="button" id="btn" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
+	<div class="btnWrite_container" style="margin-left: 40vw;">
+		<button class="btnWrite" onclick="itemWrite()">
+			<span>아이템 등록</span>
+		</button>
+	</div>
 
 	<script>
 	
@@ -217,7 +302,7 @@ table {
 	
 	
 	/* 사진 업로드 jQuery */
-	$("#photoBtn").on("change", function(event) {
+	$("#write_file").on("change", function(event) {
 	 var file = event.target.files[0];
 	 var reader = new FileReader(); 
 	 reader.onload = function(e) {
@@ -232,11 +317,11 @@ table {
 	          /* price 숫자만 넣기 */
 	       $('#price').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9]/g,"") );});
 	          /* 만든이 한글과 영어 숫자 사용 가능 */
-	       $('#maker').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+	       $('#maker').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 	
 	/* 아이템 이름 중복 확인 및 ajax */
 																					/* 한글과 영어 숫자만 사용 가능 */	
-		$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
+		$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 			
 		$('#name').blur(function(){
 			if($('#name').val()==""){
