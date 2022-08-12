@@ -125,8 +125,9 @@
 		JOIN (SELECT uiidx,iidx FROM pea_user_item 
 				WHERE uidx=#{uidx} 
 				AND cart='Y' 
-				AND delyn='N')b 
-		ON a.iidx = b.iidx
+				AND delyn='N')b  
+				ON a.iidx = b.iidx 
+				WHERE a.delyn='N'
 	</select>
 
 	<!-- 장바구니 리스트에 추가 -->
@@ -135,13 +136,11 @@
 						  iidx
 						, uidx
 						, cart
-						
 			) 
 			VALUES(
 						  #{iidx}
 						, #{uidx}
 						, 'Y'
-
 			)
 	</insert>
 	<select id="basketListCheck" parameterType="ItemVo" resultType="String">
