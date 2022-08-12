@@ -50,11 +50,10 @@ h3{
 
 .friendsBox{
 	padding: 1vh 0;
-    border-bottom: 1px solid darkgray;
+    border-bottom: 1px solid #e5e5e5;
     text-indent: 10px;
-    width: 30%;
+    width: 100%;
     height: 4vh;
-    margin: 0 auto;
     font-size: 1em;
     cursor: pointer;
     line-height: 4vh;
@@ -119,6 +118,13 @@ button:focus {
 button:disabled {
   opacity: 0.5;
 }
+
+#listFullBox{
+	overflow: scroll;
+    height: 80vh;
+    width: 35%;
+    margin: 0 auto;
+}
 </style>
 
 <script>
@@ -159,12 +165,11 @@ function delBtn($fidx){
 
 async function changeName($myNicName,$fName,$fNicName,$fidx){
 	var $uidx = ${login.uidx};
-	var myNic = $myNicName;
 	const { value: formValues } = await Swal.fire({
 		  title: '친구명을  변경',
 		  html:
 			"<p>본인 일촌명</p>" +
-		    "<input id='swal-input1' class='swal2-input' value="+$myNicName+">" +
+		    "<input id='swal-input1' class='swal2-input' value='"+$myNicName+"'>" +
 		    "<p style='margin-top: 1em'>"+$fName+"님의 일촌명</p>" +
 		    "<input id='swal-input2' class='swal2-input' value="+$fNicName+">",
 		  focusConfirm: false,
@@ -201,38 +206,46 @@ async function changeName($myNicName,$fName,$fNicName,$fidx){
 					});
 				}
 }
-/* $(function(){
+</script>
+<script>
+
+$(function(){
 	$(document).click(function(e){
 		if(!$(e.target).hasClass('boxOn')){
 			$(".listBtnBox").css("display","none");
 		}
 	});
-	
-	$(".boxOn").click(function(e){
-		var x = e.pageX;
-		var y = e.pageY;
-		showInputBox(x,y)
-	});
-	
-	function showInputBox(x,y){
-		$(".listBtnBox").css(
-			{'left': x+5,
-			 'top': y,
-			 'display': 'block'
-			});
-	}
-}) */
+}) 
 
-function onBtn(e){
-	var $btn = '#onBtn'+e;
-	$($btn).css("display","block");
+function onBtn(e,evnet){
+	var x = event.pageX;
+	var y = event.pageY; 
+	var $btn = '#listBtn'+e;
+	$(".listBtnBox").css("display","none");
+	$($btn).css({'left': x+5,
+		 'top': y,
+		 'display': 'block'
+		});
+}
+
+function searchFrineds(e,uidx){
+	
+	$.ajax({
+		url: 'searchFriends.do',
+		type: 'get',
+		data: {"name": e,"uidx": uidx},
+		success: function(data){
+			
+		}
+	})
+	
 }
 </script>
 </head>
 <body>
 <h3>친구목록</h3>
 <div class="inputBox">
-  <input type="text" placeholder="이름 찾기" class="searchInput">
+  <input type="text" placeholder="이름 찾기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
   <button class="searchBtn" type="button">검색</button>
 </div>
 <hr>
@@ -241,12 +254,13 @@ function onBtn(e){
 	<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
 </c:if>
 <c:if test="${list.size() > 0 }">
+	<div id="listFullBox">
 	<c:forEach var="vo" items="${list}">
 		<c:if test="${vo.uidx == login.uidx}">
-			<div class="friendsBox boxOn">
+			<div class="friendsBox boxOn" onclick="onBtn('${vo.bfidx},this')">
 				<img src="${vo.profile}" class="fimg boxOn">
 				${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
-				<div class="listBtnBox">
+				<div class="listBtnBox" id="listBtn${vo.uidx}">
 					<button class="btn-mini" onclick="goMini(${vo.bfidx})">미니홈피 가기</button>
 					<button class="btn-change" onclick="changeName('${vo.uname}','${vo.name}','${vo.bfname}',${vo.bfidx})">친구명 변경</button>
 					<button class="btn-delete" onclick="delBtn(${vo.bfidx})">삭제하기</button>
@@ -254,18 +268,18 @@ function onBtn(e){
 			</div>
 		</c:if>
 		<c:if test="${vo.bfidx == login.uidx}">
-			<div class="friendsBox boxOn" onclick="onBtn('${vo.name}')">
+			<div class="friendsBox boxOn" onclick="onBtn('${vo.uidx},this')">
 				<img src="${vo.profile}" class="fimg boxOn">
-				${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
-				<div class="listBtnBox" id="lstBtn${vo.uidx}">
+				${vo.name}<span class="fname boxOn">[${vo.uname}]</span>
+				<div class="listBtnBox" id="listBtn${vo.uidx}">
 					<button class="btn-mini" onclick="goMini(${vo.uidx})">미니홈피 가기</button>
 					<button class="btn-change" onclick="changeName('${vo.bfname}','${vo.name}','${vo.uname}',${vo.uidx})">친구명 변경</button>
 					<button class="btn-delete" onclick="delBtn(${vo.uidx})">삭제하기</button>
 				</div>
 			</div>
 		</c:if>
-			
 	</c:forEach>
+	</div>
 </c:if>
 </body>
 </html>
