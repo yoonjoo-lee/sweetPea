@@ -36,17 +36,11 @@ $(function (){
 		success:function(data){
 			var html="";
 			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
-			html +="<img class='card-img-top' src='<spring:url value = '/images/itemImg/"+data[i].img+"'/>'>"; 
-			/* html +="<div class='card-body p-4'>"; */
-			/* html +="<div class='text-center'>"; */
-			 	html +="<h6 class='fw-bolder'>"+data[i].name+"</h6>";
-				html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price; 
-			/* html +="</div>"; */
-			/* html +="</div>"; */
-			/* html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
-			html +="</div>"; */
+			html +="<div class='col mb-5' style='width:100px;'>";
+			html +="<div class='card h-100' style='width:80px;text-align:center;'>";
+			html +="<img class='card-img-top'  src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
+			 	html +="<h6 class='fw-bolder' style='font-size:small;text-align:center;'>"+data[i].name+"</h6>";
+				html +="<i style='color:green' class='bi-circle-fill' style='text-align:center;'><span style='color:black;'>"+data[i].price+"</span></i>"; 
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";

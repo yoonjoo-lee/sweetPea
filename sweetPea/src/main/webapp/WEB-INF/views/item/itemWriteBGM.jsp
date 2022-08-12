@@ -74,6 +74,31 @@ table {
 	margin: 0 auto;
 	height: 100%;
 }
+.upload_btn input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+.upload_btn label {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	
+	display: inline-block;
+	padding: .5em .75em;
+	font-size: xxx-large;
+	line-height: normal;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	
 /* .upload{
 	width:250px;
 } */
@@ -90,7 +115,7 @@ table {
 
 /* 아이템 이미지 크기 조절 */
 .item-image {
-	width: 250px;
+	width: 100%;
 	height: 250px;
 }
 
@@ -121,7 +146,7 @@ table {
 			<tr>
 				<td colspan=2><div class="upload_btn">
 						<div class="upload" style="width:100%;">
-							<input type="file" name="file" accept="audio/mp3, audio/wav, audio/mp4" id="photoBtn"><label for="photoBtn">BGM FILE</label>
+							<input type="file" name="file" accept="audio/mp3, audio/wav, audio/mp4" id="write_file"><label for="write_file">BGM FILE</label>
 						</div>
 					</div></td>
 			</tr>
@@ -169,7 +194,7 @@ table {
 		</table>
 		<br> <br> <br>
 		<div>
-			<input type="button" id="btn" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
+			<input type="button" id="btn" class="btn btn-secondary" disabled="disabled" onclick="itemWrite()" value="아이템 등록">
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
@@ -215,8 +240,8 @@ table {
 	
 	
 	
-	/* 사진 업로드 jQuery */
-	$("#photoBtn").on("change", function(event) {
+	/* 음악 업로드 jQuery */
+	$("#write_file").on("change", function(event) {
 	 var file = event.target.files[0];
 	 var reader = new FileReader(); 
 	 reader.onload = function(e) {

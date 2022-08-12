@@ -241,7 +241,7 @@ a:hover {
 
 	</div>
 	<div class="categoryBox">
-		<h3>아이템상점</h3>
+		<h3><a onclick="location.href='shop.do'">아이템상점</a></h3>
 		<ul>
 			<li><a onclick="location.href='itemShopMain.do?category=1'">미니룸</a></li>
 			<li><a onclick="location.href='itemShopMain.do?category=2'">BGM</a></li>
