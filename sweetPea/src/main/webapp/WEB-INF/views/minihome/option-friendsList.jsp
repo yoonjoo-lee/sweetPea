@@ -49,23 +49,37 @@ h3{
 }
 
 .friendsBox{
-	padding: 10px 0;
+	padding: 1vh 0;
     border-bottom: 1px solid darkgray;
     text-indent: 10px;
-    width: 60%;
+    width: 30%;
+    height: 4vh;
     margin: 0 auto;
     font-size: 1em;
+    cursor: pointer;
+    line-height: 4vh;
 }
 
+.fname{
+	color: gray;
+	font-size: 0.8em;
+}
+.fimg{
+	width: 4vh;
+	float: left;
+    height: 100%;
+    border-radius: 25px;
+}
 .listBtnBox{
-	float: right;
+	display: none;
+	position: absolute;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 :root {
   --button-color: #ffffff;
-  --button-bg-color: #0d6efd;
-  --button-hover-bg-color: #025ce2;
+  /* --button-bg-color: #0d6efd;
+  --button-hover-bg-color: #025ce2; */
 }
 
 .listBtnBox>button{
@@ -82,15 +96,14 @@ h3{
 	text-align: center;
 	text-decoration: none;
 	border: none;
-	border-radius: 4px;
-	display: inline-block;
-	width: auto;
+	display: block;
+	width: 18vh;
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	cursor: pointer;
 	transition: 0.5s;
 }
-.btn-change{
-  --button-bg-color: #28a745;
+.btn-change,.btn-mini{
+  --button-bg-color: #7dc75e;
   --button-hover-bg-color: #218838;
 }
 .btn-delete {
@@ -109,6 +122,11 @@ button:disabled {
 </style>
 
 <script>
+
+function goMini($uidx){
+	window.parent.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+$uidx;
+}
+
 function delBtn($fidx){
 	var $uidx = ${login.uidx};
 	Swal.fire({
@@ -141,6 +159,7 @@ function delBtn($fidx){
 
 async function changeName($myNicName,$fName,$fNicName,$fidx){
 	var $uidx = ${login.uidx};
+	var myNic = $myNicName;
 	const { value: formValues } = await Swal.fire({
 		  title: '친구명을  변경',
 		  html:
@@ -182,6 +201,32 @@ async function changeName($myNicName,$fName,$fNicName,$fidx){
 					});
 				}
 }
+/* $(function(){
+	$(document).click(function(e){
+		if(!$(e.target).hasClass('boxOn')){
+			$(".listBtnBox").css("display","none");
+		}
+	});
+	
+	$(".boxOn").click(function(e){
+		var x = e.pageX;
+		var y = e.pageY;
+		showInputBox(x,y)
+	});
+	
+	function showInputBox(x,y){
+		$(".listBtnBox").css(
+			{'left': x+5,
+			 'top': y,
+			 'display': 'block'
+			});
+	}
+}) */
+
+function onBtn(e){
+	var $btn = '#onBtn'+e;
+	$($btn).css("display","block");
+}
 </script>
 </head>
 <body>
@@ -198,19 +243,25 @@ async function changeName($myNicName,$fName,$fNicName,$fidx){
 <c:if test="${list.size() > 0 }">
 	<c:forEach var="vo" items="${list}">
 		<c:if test="${vo.uidx == login.uidx}">
-			<div class="friendsBox">${vo.name}(${vo.bfname})
-				<span class="listBtnBox">
+			<div class="friendsBox boxOn">
+				<img src="${vo.profile}" class="fimg boxOn">
+				${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
+				<div class="listBtnBox">
+					<button class="btn-mini" onclick="goMini(${vo.bfidx})">미니홈피 가기</button>
 					<button class="btn-change" onclick="changeName('${vo.uname}','${vo.name}','${vo.bfname}',${vo.bfidx})">친구명 변경</button>
 					<button class="btn-delete" onclick="delBtn(${vo.bfidx})">삭제하기</button>
-				</span>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${vo.bfidx == login.uidx}">
-			<div class="friendsBox">${vo.name}(${vo.uname})
-				<span class="listBtnBox">
+			<div class="friendsBox boxOn" onclick="onBtn('${vo.name}')">
+				<img src="${vo.profile}" class="fimg boxOn">
+				${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
+				<div class="listBtnBox" id="lstBtn${vo.uidx}">
+					<button class="btn-mini" onclick="goMini(${vo.uidx})">미니홈피 가기</button>
 					<button class="btn-change" onclick="changeName('${vo.bfname}','${vo.name}','${vo.uname}',${vo.uidx})">친구명 변경</button>
 					<button class="btn-delete" onclick="delBtn(${vo.uidx})">삭제하기</button>
-				</span>
+				</div>
 			</div>
 		</c:if>
 			

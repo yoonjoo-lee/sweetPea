@@ -32,7 +32,7 @@
 			   #{uidx}
 			 , 'SweetPea에 오신걸 환영합니다.'
 			 , '최초 미니홈피가 생성되었습니다'
-			 , 1
+			 , #{uidx}
 			 , 'NoIP'
 			 , 1
 		)
@@ -232,7 +232,7 @@
 	<select id="friendsAllList" parameterType="int" resultType="FriendsVo">
 		SELECT * 
 		  FROM pea_friends a
-		  JOIN (SELECT uidx,name 
+		  JOIN (SELECT uidx,name,profile 
 		  		  FROM pea_user
 		  		) b ON CASE 
 		  			   WHEN a.bfidx=b.uidx THEN a.uidx=#{uidx}
