@@ -306,6 +306,7 @@ public class MiniroomBoard2Controller {
 		vo.setWriter(login.getUidx()); // 작성자 uidx
 		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
 		vo.setUidx(mini.getUidx()); // 미니홈피 주인 uidx
+		int uidx = mini.getUidx();
 		
             
 		File dir = new File(path); if(!dir.exists()) { dir.mkdirs(); }
@@ -325,7 +326,7 @@ public class MiniroomBoard2Controller {
 		miniroomboard2Service.changeProfile(vo);
 		
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.append("<script>window.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
 	
