@@ -115,7 +115,13 @@ a {
 			<tbody>
 				<tr>
 					<td width=120>
-							<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}">
+							<!-- 프로필 사진 -->
+							<c:if test="${board.miniProfile == null}">
+								<img class="profile" src="<%=request.getContextPath()%>/resources/upload/1.png">
+							</c:if>
+							<c:if test="${board.miniProfile != null}">
+								<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}">
+							</c:if>
 					</td>
 					<td>
 						${board.content }

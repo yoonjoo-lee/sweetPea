@@ -489,12 +489,15 @@ function inputLeftBoard(){
 			<p>TOTAL <span>${mini.total}</span></p>
 		</div>
 		<div id="left-centerBox">
-			<br><img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
-			<%-- <br><img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)"> --%>
-			${mini.uidx}
-			${mini.name}dd
-			${mini.miniProfile }ss
-			${mini.miniProfile }ss
+			<br>
+			<!-- 프로필 사진 -->
+			<c:if test="${mini.miniProfile == null}">
+				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile">
+			</c:if>
+			<c:if test="${mini.miniProfile != null}">
+				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+			</c:if>
+			
 			<div id="left-boardBox">
 				<c:if test="${mini.uidx == login.uidx}">
 				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">

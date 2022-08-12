@@ -118,6 +118,8 @@ font-family: 'EF_hyunydororong';
 			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'">사진첩</td></tr>
 			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'">방명록</td></tr>
 		</table>
+		
+		<button onclick="myMini(${login.uidx})">내 미니홈피</button>
 	</div>
 	</div>
 	<hr>
@@ -139,6 +141,11 @@ font-family: 'EF_hyunydororong';
 			}
 		})
 	});
+	
+	// 내 미니홈피 가기 
+	function myMini(writer){
+			window.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"";
+	}
 	</script>
 </body>
 </html>
