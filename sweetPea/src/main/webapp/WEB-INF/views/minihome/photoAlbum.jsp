@@ -207,12 +207,12 @@ async function deletephoto(mbidx){
 		  confirmButtonText: '삭제'
 		}).then((result) => {
 		  if (result.isConfirmed) {
-				location.href="<%=request.getContextPath()%>/miniroomboard2/photoDelete.do?mbidx="+mbidx+"";
 		    Swal.fire(
 		      '삭제 성공!',
 		      '삭제에 성공하였습니다.',
 		      'success'
 		    )
+				location.href="<%=request.getContextPath()%>/miniroomboard2/photoDelete.do?mbidx="+mbidx+"";
 		  }
 		})
 }

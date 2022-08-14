@@ -240,7 +240,7 @@ ul{
 				</div>
 				<div class="list">내 아이템 관리</div>
 				<div class="listBox">
-					<div>미니홈피 효과</div>
+					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeEffect.do?uidx=${login.uidx}'),clickThis(this)">미니홈피 효과</div>
 					<div>음악 설정</div>
 					<div>폰트 설정</div>
 				</div>
