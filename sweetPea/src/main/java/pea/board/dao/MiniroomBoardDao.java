@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.vo.FriendsVo;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.SearchVo;
@@ -113,5 +114,9 @@ public class MiniroomBoardDao {
 
 	public MiniHomeVo myMiniStyle(int uidx) {
 		return sqlSession.selectOne(namespace+".myMiniStyle",uidx);
+	}
+	
+	public List<ItemVo> myMiniroom(int uidx) {
+		return sqlSession.selectList(namespace+".myMiniroom",uidx);
 	}
 }

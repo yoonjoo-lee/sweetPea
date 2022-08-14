@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import pea.board.dao.MiniroomBoardDao;
 import pea.board.vo.FriendsVo;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.SearchVo;
@@ -126,5 +127,10 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	public MiniHomeVo myMiniStyle(int uidx) {
 		return miniroomBoardDao.myMiniStyle(uidx);
 	}
+
+	@Override
+	public List<ItemVo> myMiniroom(int uidx) {
+		return miniroomBoardDao.myMiniroom(uidx);
+	} 
 
 }

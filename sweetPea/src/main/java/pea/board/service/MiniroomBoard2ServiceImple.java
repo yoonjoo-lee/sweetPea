@@ -56,6 +56,16 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	public int changeBackground(MiniHomeVo vo) {
 		return miniroomboardDao.changeBackground(vo);
 	}
+
+	@Override
+	public int changeFont(MiniHomeVo vo) {
+		return miniroomboardDao.changeFont(vo);
+	}
+
+	@Override
+	public int addTominiroom(ItemVo vo) {
+		return miniroomboardDao.addTominiroom(vo);
+	}
 	
 	
 

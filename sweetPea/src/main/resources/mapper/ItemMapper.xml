@@ -30,7 +30,7 @@
 	VALUES(
 		  #{price}
 		, #{category}
-		, 1
+		, #{subcategory}
 		, #{name}
 		, #{tag}
 		, #{img}

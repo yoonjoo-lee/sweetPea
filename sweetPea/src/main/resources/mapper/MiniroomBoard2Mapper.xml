@@ -115,4 +115,18 @@
 	WHERE uidx=#{uidx}
 </update>
 
+<!-- 내 미니홈피 글꼴 변경  -->
+<update id="changeFont" parameterType="MiniHomeVo">
+ 	UPDATE  pea_minihome 
+	 SET font=#{font}
+	WHERE uidx=#{uidx}
+</update>
+
+<!-- 미니룸에 캐릭터 추가하 -->
+<update id="addTominiroom" parameterType="ItemVo">
+	UPDATE pea_user_item
+	 SET inyn='Y'
+	WHERE uidx=#{uidx}
+	 AND iidx=#{iidx}
+</update>
 </mapper>
