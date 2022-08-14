@@ -362,43 +362,43 @@ public class MiniroomBoard2Controller {
 	}
 	
 	// 강현님 miniroomBoard1Controller에서 가져옴 
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)
-	public String main(int uidx,HttpServletRequest request, HttpSession session, Model model){
-		
-		String userAgent = request.getHeader("user-agent");
-		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
-		                          +"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
-		boolean mobile2 = userAgent.matches(".*(LG|SAMSUNG|Samsung).*"); 
-		
-		MiniHomeVo vo = miniroomboardService.joinMiniHome(uidx);
-		session = request.getSession();
-		
-		UserVo login = (UserVo)	session.getAttribute("login");
-		
-		MiniHomeVo myMini =miniroomboardService.myMiniStyle(uidx);
-		model.addAttribute("myMini", myMini);
-		
-		if(login != null) {
-			int bfidx = login.getUidx();
-			FriendsVo vo_ = new FriendsVo();
-			vo_.setUidx(uidx);
-			vo_.setBfidx(bfidx);
-			String checkFriends = miniroomboardService.checkFriends(vo_);
-			session.setAttribute("checkFr", checkFriends);
-		}
-		session.setAttribute("mini", vo);
-		if (mobile1 || mobile2) {
-			session.setAttribute("device", "MOBILE");
-		    return "minihome/main";
-		} else {
-			session.setAttribute("device", "PC");
-			return "minihome/main";
-		}
-	}
+//	@RequestMapping(value="/main.do", method=RequestMethod.GET)
+//	public String main(int uidx,HttpServletRequest request, HttpSession session, Model model){
+//		
+//		String userAgent = request.getHeader("user-agent");
+//		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
+//		                          +"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
+//		boolean mobile2 = userAgent.matches(".*(LG|SAMSUNG|Samsung).*"); 
+//		
+//		MiniHomeVo vo = miniroomboardService.joinMiniHome(uidx);
+//		session = request.getSession();
+//		
+//		UserVo login = (UserVo)	session.getAttribute("login");
+//		
+//		MiniHomeVo myMini =miniroomboardService.myMiniStyle(uidx);
+//		model.addAttribute("myMini", myMini);
+//		
+//		if(login != null) {
+//			int bfidx = login.getUidx();
+//			FriendsVo vo_ = new FriendsVo();
+//			vo_.setUidx(uidx);
+//			vo_.setBfidx(bfidx);
+//			String checkFriends = miniroomboardService.checkFriends(vo_);
+//			session.setAttribute("checkFr", checkFriends);
+//		}
+//		session.setAttribute("mini", vo);
+//		if (mobile1 || mobile2) {
+//			session.setAttribute("device", "MOBILE");
+//		    return "minihome/main";
+//		} else {
+//			session.setAttribute("device", "PC");
+//			return "minihome/main";
+//		}
+//	}
 	
 	// 내 미니홈 변경 changeMyminihome
 	@RequestMapping(value="/changeMyminihome.do")
-	public void changeMyminihome(int uidx, String item, int category, Model model, HttpServletResponse response) throws IOException {
+	public void changeMyminihome(int uidx, String item, int category, Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		MiniHomeVo vo = new MiniHomeVo();
 
 		vo.setUidx(uidx);
@@ -407,7 +407,8 @@ public class MiniroomBoard2Controller {
 			miniroomboard2Service.changeBackground(vo);
 		}
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>location.parent.href='main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+	//	pw.append("<script>location.reload();location.href=location.href;history.go(-1);</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
 

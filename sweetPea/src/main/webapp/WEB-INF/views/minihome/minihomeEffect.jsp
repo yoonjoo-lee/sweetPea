@@ -8,13 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-body{
-		background-image: url("<%=request.getContextPath()%>/resources/images/back6.jpg");
-		background-repeat: no-repeat;
-		background-attachment: scroll;
-		background-position: center center;
-		background-size: cover;
-	}
+
 </style>
 </head>
 <body>
@@ -25,7 +19,14 @@ body{
 <img width="200" height="100" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
 ${item.name }
 <!-- 일단 배경을 카테로리 1로 함  -->
-<button onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br>
+<%-- <button onclick="location.href='<%=request.getContextPath()%>/mini/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> --%>
+<button onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> 
 </c:forEach>
+<button onclick="f5()">새로고침 </button>
+<script>
+function f5(){
+	window.parent.parent.location.href='<%=request.getContextPath()%>/mini/main.do?uidx=2';
+}
+</script>
 </body>
 </html>
