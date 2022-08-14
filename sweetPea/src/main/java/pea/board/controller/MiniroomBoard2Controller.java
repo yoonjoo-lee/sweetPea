@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
+import pea.board.vo.FriendsVo;
 import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
@@ -40,6 +41,7 @@ public class MiniroomBoard2Controller {
 	MiniroomBoard2Service miniroomboard2Service;
 	@Autowired
 	MiniroomBoardService miniroomboardService;
+	
 	
 	// 다이어리 페이지 이동
 	@RequestMapping(value="/mini-diary.do", method=RequestMethod.GET)
@@ -350,13 +352,63 @@ public class MiniroomBoard2Controller {
 	    return result;
 	}
 	
-	// 미니홈피 효과로 이
+	// 미니홈피 효과로 이동 
 	@RequestMapping(value="/minihomeEffect.do", method=RequestMethod.GET)
 	public String minihomeEffect(int uidx, Model model) {
 		List<ItemVo> list = miniroomboard2Service.myItemList(uidx);
 		
 		model.addAttribute("list", list);
 		return "minihome/minihomeEffect";
+	}
+	
+	// 강현님 miniroomBoard1Controller에서 가져옴 
+	@RequestMapping(value="/main.do", method=RequestMethod.GET)
+	public String main(int uidx,HttpServletRequest request, HttpSession session, Model model){
+		
+		String userAgent = request.getHeader("user-agent");
+		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
+		                          +"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
+		boolean mobile2 = userAgent.matches(".*(LG|SAMSUNG|Samsung).*"); 
+		
+		MiniHomeVo vo = miniroomboardService.joinMiniHome(uidx);
+		session = request.getSession();
+		
+		UserVo login = (UserVo)	session.getAttribute("login");
+		
+		MiniHomeVo myMini =miniroomboardService.myMiniStyle(uidx);
+		model.addAttribute("myMini", myMini);
+		
+		if(login != null) {
+			int bfidx = login.getUidx();
+			FriendsVo vo_ = new FriendsVo();
+			vo_.setUidx(uidx);
+			vo_.setBfidx(bfidx);
+			String checkFriends = miniroomboardService.checkFriends(vo_);
+			session.setAttribute("checkFr", checkFriends);
+		}
+		session.setAttribute("mini", vo);
+		if (mobile1 || mobile2) {
+			session.setAttribute("device", "MOBILE");
+		    return "minihome/main";
+		} else {
+			session.setAttribute("device", "PC");
+			return "minihome/main";
+		}
+	}
+	
+	// 내 미니홈 변경 changeMyminihome
+	@RequestMapping(value="/changeMyminihome.do")
+	public void changeMyminihome(int uidx, String item, int category, Model model, HttpServletResponse response) throws IOException {
+		MiniHomeVo vo = new MiniHomeVo();
+
+		vo.setUidx(uidx);
+		if (category==1){
+			vo.setBackground(item);
+			miniroomboard2Service.changeBackground(vo);
+		}
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.parent.href='main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
 
 }

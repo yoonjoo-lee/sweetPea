@@ -44,6 +44,9 @@ public class MiniroomBoardController {
 		
 		UserVo login = (UserVo)	session.getAttribute("login");
 		
+		MiniHomeVo myMini =miniroomBoardService.myMiniStyle(uidx);
+		model.addAttribute("myMini", myMini);
+		
 		if(login != null) {
 			int bfidx = login.getUidx();
 			FriendsVo vo_ = new FriendsVo();

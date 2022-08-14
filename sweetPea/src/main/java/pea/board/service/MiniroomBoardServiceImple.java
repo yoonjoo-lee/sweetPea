@@ -122,4 +122,9 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 		return miniroomBoardDao.searchFriends(vo);
 	}
 
+	@Override
+	public MiniHomeVo myMiniStyle(int uidx) {
+		return miniroomBoardDao.myMiniStyle(uidx);
+	}
+
 }

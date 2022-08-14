@@ -108,4 +108,11 @@
 	WHERE b.uidx=#{uidx} AND b.buy='Y'
 </select>
 
+<!-- 내 미니홈피 배경 변경  -->
+<update id="changeBackground" parameterType="MiniHomeVo">
+ 	UPDATE  pea_minihome 
+	 SET background=#{background}
+	WHERE uidx=#{uidx}
+</update>
+
 </mapper>

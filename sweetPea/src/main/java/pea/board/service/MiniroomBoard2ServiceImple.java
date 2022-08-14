@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pea.board.dao.MiniroomBoard2Dao;
 import pea.board.vo.ItemVo;
+import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 
 @Service
@@ -50,5 +51,12 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	public List<ItemVo> myItemList(int uidx) {
 		return miniroomboardDao.myItemList(uidx);
 	}
+
+	@Override
+	public int changeBackground(MiniHomeVo vo) {
+		return miniroomboardDao.changeBackground(vo);
+	}
+	
+	
 
 }

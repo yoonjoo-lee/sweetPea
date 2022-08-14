@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.vo.ItemVo;
+import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 
 @Repository
@@ -47,8 +48,13 @@ public class MiniroomBoard2Dao {
 	}
 	
 	//내 아이템 리스트 
-	public List<ItemVo> myItemList(int uidx){
+	public List<ItemVo> myItemList(int uidx) {
 		return sqlSession.selectList(namespace+".myItemList", uidx);
+	}
+	
+	//미니홈피 배경 변
+	public int changeBackground(MiniHomeVo vo) {
+		return sqlSession.update(namespace+".changeBackground", vo);
 	}
 	
 }

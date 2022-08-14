@@ -23,7 +23,9 @@ body{
 내 배경 <br>
 <c:forEach var="item" items="${list }">
 <img width="200" height="100" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
-${item.name }<br>
+${item.name }
+<!-- 일단 배경을 카테로리 1로 함  -->
+<button onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br>
 </c:forEach>
 </body>
 </html>
