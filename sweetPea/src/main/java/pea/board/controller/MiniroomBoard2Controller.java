@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.UserVo;
@@ -348,4 +349,14 @@ public class MiniroomBoard2Controller {
 	    System.out.println("result"+result);
 	    return result;
 	}
+	
+	// 미니홈피 효과로 이
+	@RequestMapping(value="/minihomeEffect.do", method=RequestMethod.GET)
+	public String minihomeEffect(int uidx, Model model) {
+		List<ItemVo> list = miniroomboard2Service.myItemList(uidx);
+		
+		model.addAttribute("list", list);
+		return "minihome/minihomeEffect";
+	}
+
 }

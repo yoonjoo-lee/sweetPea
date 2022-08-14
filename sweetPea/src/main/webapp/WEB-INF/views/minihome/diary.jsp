@@ -11,6 +11,7 @@
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
 <style>
 /* #tmp {
 	overflow-y: scroll;
@@ -447,7 +448,7 @@ function cursor(e) {
 	<input type="button"  id='writeDiary' onclick="reload()" value="전체글">
 	<script>function reload(){location.reload();}</script>
 	<c:if test="${login.uidx == mini.uidx }">
-		<input type="button" id='writeDiary' 
+		<input type="button" id='writeDiary' class="btn btn-secondary"
 		onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
 	</c:if>
 	<hr>

@@ -101,5 +101,11 @@
 	WHERE uidx=#{uidx}
 </update>
 
+<!-- 미니홈피 내 아이템 조회 -->
+<select id="myItemList" parameterType="int" resultType="ItemVo">
+	SELECT a.* FROM pea_item a JOIN pea_user_item b 
+	 ON a.iidx=b.iidx 
+	WHERE b.uidx=#{uidx} AND b.buy='Y'
+</select>
 
 </mapper>
