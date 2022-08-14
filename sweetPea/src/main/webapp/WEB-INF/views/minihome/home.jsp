@@ -70,9 +70,20 @@ h3>img{
     font-weight: normal;
     font-style: normal;
 }
-
+@font-face {
+    font-family: 'MabinogiClassicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HBIOS-SYS';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 .body{
-font-family: 'EF_hyunydororong';
+font-family: ${myMini.font};
 }
 </style>
 <script>
@@ -123,7 +134,9 @@ font-family: 'EF_hyunydororong';
 	</div>
 	</div>
 	<hr>
-	<div class="miniRoomBox"></div>
+	<div class="miniRoomBox">
+	
+	</div>
 	<hr>
 	<h4>일촌평</h4>
 	
@@ -136,6 +149,19 @@ font-family: 'EF_hyunydororong';
 			data: {"category":0},
 			success: function(html){
 				$("#homeList").html(html);
+			},
+			error: function(){
+			}
+		})
+	});
+	
+	//미니룸 불러오기 
+	$(function (){
+		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/miniRoomBox.do",
+			type: "GET",
+			success: function(html){
+				$(".miniRoomBox").html(html);
 			},
 			error: function(){
 			}

@@ -52,9 +52,20 @@ public class MiniroomBoard2Dao {
 		return sqlSession.selectList(namespace+".myItemList", uidx);
 	}
 	
-	//미니홈피 배경 변
+	//미니홈피 배경 변경 
 	public int changeBackground(MiniHomeVo vo) {
 		return sqlSession.update(namespace+".changeBackground", vo);
+	}
+	
+	
+	//미니홈피 글꼴  변경 
+	public int changeFont(MiniHomeVo vo) {
+		return sqlSession.update(namespace+".changeFont", vo);
+	}
+	
+	//미니룸에 캐릭터 추가 
+	public int addTominiroom(ItemVo vo) {
+		return sqlSession.update(namespace+".addTominiroom", vo);
 	}
 	
 }

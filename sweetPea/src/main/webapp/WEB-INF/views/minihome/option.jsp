@@ -242,7 +242,7 @@ ul{
 				<div class="listBox">
 					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeEffect.do?uidx=${login.uidx}'),clickThis(this)">미니홈피 효과</div>
 					<div>음악 설정</div>
-					<div>폰트 설정</div>
+					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeFont.do?uidx=${login.uidx}'),clickThis(this)">폰트 설정</div>
 				</div>
 		</div>
 		
@@ -252,7 +252,7 @@ ul{
 	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()">
 	</h3>
 	<hr>
-	<iframe id="miniIframe" scrolling="no" src=""></iframe>
+	<iframe id="miniIframe" scrolling="yes" src=""></iframe>
 	</div>
 	</div>
 </body>

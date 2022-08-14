@@ -3,6 +3,7 @@ package pea.board.service;
 import java.util.List;
 
 import pea.board.vo.FriendsVo;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.SearchVo;
@@ -31,4 +32,5 @@ public interface MiniroomBoardService {
 	List<FriendsVo> searchFriends(FriendsVo vo);
 	
 	MiniHomeVo myMiniStyle(int uidx); // 내 미니홈 스타일 출력 
+	List<ItemVo> myMiniroom(int uidx); // 미니룸 
 }

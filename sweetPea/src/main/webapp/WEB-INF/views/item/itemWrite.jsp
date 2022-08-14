@@ -228,6 +228,13 @@ table {
 					</select></td>
 				</tr>
 				<tr>
+					<th width="200px;">미니룸 종류 :</th>
+					<td width="500px;"><select id="subcategory" name="subcategory">
+							<option value="1">배경 </option>
+							<option value="2">캐릭터</option>
+					</select></td>
+				</tr>
+				<tr>
 					<th width="200px;">완두콩 :</th>
 					<td width="500px;"><input type="text" name="price" id="price" size="23" maxlength="2" required> 개</td>
 				</tr>

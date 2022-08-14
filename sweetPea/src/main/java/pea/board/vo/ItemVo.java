@@ -17,6 +17,23 @@ public class ItemVo {
 	private String approval;
 	private String postpone;
 	
+	
+	private String like;
+	private String heart;
+	private String cart;
+	private String buy;
+	private String inout;
+	private String img;
+	private String ip;
+	private String inyn;
+	
+	
+	public String getInyn() {
+		return inyn;
+	}
+	public void setInyn(String inyn) {
+		this.inyn = inyn;
+	}
 	public String getDelyn() {
 		return delyn;
 	}
@@ -35,15 +52,6 @@ public class ItemVo {
 	public void setPostpone(String postpone) {
 		this.postpone = postpone;
 	}
-	private String like;
-	private String heart;
-	private String cart;
-	private String buy;
-	private String inout;
-	private String img;
-	private String ip;
-	
-	
 	public int getUiidx() {
 		return uiidx;
 	}
