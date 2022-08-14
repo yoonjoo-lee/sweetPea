@@ -12,7 +12,7 @@
 <%-- <c:if test="${device eq 'PC'}"> --%>
 <style>
 	body{
-		background-image: url("<%=request.getContextPath()%>/resources/images/back7.jpg");
+		background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.background }");
 		background-repeat: no-repeat;
 		background-attachment: scroll;
 		background-position: center center;

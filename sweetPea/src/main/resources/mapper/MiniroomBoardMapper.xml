@@ -292,4 +292,10 @@
 		 ORDER BY b.name; 
 	</select>
 	
+	<!-- 내 미니홈피 스타일  -->
+	<select id="myMiniStyle" parameterType="int" resultType="MiniHomeVo">
+		SELECT *
+		 FROM pea_minihome
+		 WHERE uidx=#{uidx}
+	</select>
 </mapper>

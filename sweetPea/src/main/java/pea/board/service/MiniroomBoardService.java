@@ -29,4 +29,6 @@ public interface MiniroomBoardService {
 	int delFriends(FriendsVo vo);
 	int changeFriends(FriendsVo vo);
 	List<FriendsVo> searchFriends(FriendsVo vo);
+	
+	MiniHomeVo myMiniStyle(int uidx); // 내 미니홈 스타일 출력 
 }

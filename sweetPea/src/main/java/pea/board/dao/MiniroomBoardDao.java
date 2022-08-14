@@ -110,4 +110,8 @@ public class MiniroomBoardDao {
 	public List<FriendsVo> searchFriends(FriendsVo vo){
 		return sqlSession.selectList(namespace+".searchFriends",vo);
 	}
+
+	public MiniHomeVo myMiniStyle(int uidx) {
+		return sqlSession.selectOne(namespace+".myMiniStyle",uidx);
+	}
 }
