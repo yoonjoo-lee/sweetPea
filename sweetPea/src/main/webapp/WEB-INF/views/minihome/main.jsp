@@ -9,7 +9,7 @@
 <title>SweetPea</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<%-- <c:if test="${device eq 'PC'}"> --%>
+<c:if test="${device eq 'PC'}">
 <style>
 	body{
 		background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.background }");
@@ -328,7 +328,6 @@
 }
 
 
-
 	
 /* 폰트 */
 @font-face {
@@ -342,7 +341,7 @@
 font-family: 'BMJUA';
 }
 </style>
-<%-- </c:if> --%>
+</c:if>
 <script>
 	$(function(){
 		$("#addFr").click(async function(){
@@ -407,9 +406,7 @@ font-family: 'BMJUA';
 </script>
 <c:if test="${device eq 'MOBILE'}">
 <style>
-	body{
-	background-color: #fff;
-	}
+
 </style>
 </c:if>
 <script>
