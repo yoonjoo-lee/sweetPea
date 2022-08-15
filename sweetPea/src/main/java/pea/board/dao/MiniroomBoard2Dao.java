@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import pea.board.vo.ItemVo;
+import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 
 @Repository
@@ -43,6 +45,27 @@ public class MiniroomBoard2Dao {
 	//프로필 변경
 	public int changeProfile(MiniroomBoardVo vo) {
 		return sqlSession.update(namespace+".changeProfile", vo);
+	}
+	
+	//내 아이템 리스트 
+	public List<ItemVo> myItemList(int uidx) {
+		return sqlSession.selectList(namespace+".myItemList", uidx);
+	}
+	
+	//미니홈피 배경 변경 
+	public int changeBackground(MiniHomeVo vo) {
+		return sqlSession.update(namespace+".changeBackground", vo);
+	}
+	
+	
+	//미니홈피 글꼴  변경 
+	public int changeFont(MiniHomeVo vo) {
+		return sqlSession.update(namespace+".changeFont", vo);
+	}
+	
+	//미니룸에 캐릭터 추가 
+	public int addTominiroom(ItemVo vo) {
+		return sqlSession.update(namespace+".addTominiroom", vo);
 	}
 	
 }

@@ -27,6 +27,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
+import pea.board.vo.FriendsVo;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.UserVo;
@@ -39,6 +41,7 @@ public class MiniroomBoard2Controller {
 	MiniroomBoard2Service miniroomboard2Service;
 	@Autowired
 	MiniroomBoardService miniroomboardService;
+	
 	
 	// 다이어리 페이지 이동
 	@RequestMapping(value="/mini-diary.do", method=RequestMethod.GET)
@@ -347,5 +350,58 @@ public class MiniroomBoard2Controller {
 	    }
 	    System.out.println("result"+result);
 	    return result;
+	}
+	
+	// 미니홈피 효과로 이동 
+	@RequestMapping(value="/minihomeEffect.do", method=RequestMethod.GET)
+	public String minihomeEffect(int uidx, Model model) {
+		List<ItemVo> list = miniroomboard2Service.myItemList(uidx);
+		
+		model.addAttribute("list", list);
+		return "minihome/minihomeEffect";
+	}
+	
+	// 내 미니홈 변경 changeMyminihome
+	@RequestMapping(value="/changeMyminihome.do")
+	public void changeMyminihome(int uidx, String item, int category, Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		MiniHomeVo vo = new MiniHomeVo();
+
+		vo.setUidx(uidx);
+		if (category==1){
+			vo.setBackground(item);
+			miniroomboard2Service.changeBackground(vo);
+		} if(category==2) {
+			vo.setFont(item);
+			miniroomboard2Service.changeFont(vo);
+		}
+		PrintWriter pw = response.getWriter();
+	//	pw.append("<script>location.reload();location.href=location.href;history.go(-1);</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
+
+	// 미니홈피 효과로 이동 
+	@RequestMapping(value="/minihomeFont.do", method=RequestMethod.GET)
+	public String minihomeFont(int uidx, Model model) {
+		return "minihome/minihomeFont";
+	}
+	
+	// 미니룸 home.jsp의 miniRoomBox로 불러오기 
+	@RequestMapping(value="/miniRoomBox.do", method=RequestMethod.GET)
+	public String miniRoomBox() {
+		return "minihome/miniRoomBox";
+	}
+	
+	
+	@RequestMapping(value="/addTominiroom.do", method=RequestMethod.GET)
+	public void addTominiroom(int uidx, int iidx, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		ItemVo vo = new ItemVo();
+		vo.setUidx(uidx);
+		vo.setIidx(iidx);
+		miniroomboard2Service.addTominiroom(vo);
+		
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
 }

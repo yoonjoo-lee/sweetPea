@@ -13,6 +13,10 @@ public class ItemVo {
 	private String tag;
 	private String date;
 	private int uidx;
+	private String delyn;
+	private String approval;
+	private String postpone;
+	
 	
 	private String like;
 	private String heart;
@@ -21,8 +25,33 @@ public class ItemVo {
 	private String inout;
 	private String img;
 	private String ip;
+	private String inyn;
 	
 	
+	public String getInyn() {
+		return inyn;
+	}
+	public void setInyn(String inyn) {
+		this.inyn = inyn;
+	}
+	public String getDelyn() {
+		return delyn;
+	}
+	public void setDelyn(String delyn) {
+		this.delyn = delyn;
+	}
+	public String getApproval() {
+		return approval;
+	}
+	public void setApproval(String approval) {
+		this.approval = approval;
+	}
+	public String getPostpone() {
+		return postpone;
+	}
+	public void setPostpone(String postpone) {
+		this.postpone = postpone;
+	}
 	public int getUiidx() {
 		return uiidx;
 	}

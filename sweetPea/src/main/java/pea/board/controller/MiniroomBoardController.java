@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pea.board.service.MiniroomBoardService;
 import pea.board.vo.FriendsVo;
+import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
 import pea.board.vo.PagingVo;
@@ -39,6 +40,12 @@ public class MiniroomBoardController {
 		
 		UserVo login = (UserVo)	session.getAttribute("login");
 		
+		MiniHomeVo myMini =miniroomBoardService.myMiniStyle(uidx);
+		session.setAttribute("myMini", myMini);
+		
+		List<ItemVo> miniroom = miniroomBoardService.myMiniroom(uidx);
+		session.setAttribute("miniroom", miniroom);
+		
 		if(login != null) {
 			int bfidx = login.getUidx();
 			FriendsVo vo_ = new FriendsVo();
@@ -48,8 +55,14 @@ public class MiniroomBoardController {
 			session.setAttribute("checkFr", checkFriends);
 		}
 		session.setAttribute("mini", vo);
-		
-		return "minihome/main";
+    
+		if (mobile1 || mobile2) {
+			session.setAttribute("device", "MOBILE");
+		    return "minihome/main-m";
+		} else {
+			session.setAttribute("device", "PC");
+			return "minihome/main";
+		}
 	}
 	
 	@RequestMapping(value="/mini-home.do", method=RequestMethod.GET)
