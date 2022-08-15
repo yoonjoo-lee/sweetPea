@@ -332,9 +332,6 @@ public class MiniroomBoardController {
 		vo.setName(name);
 		System.out.println(name);
 		List<FriendsVo> list = miniroomBoardService.searchFriends(vo);
-		model.addAttribute("list2", list);
-		System.out.println(list);
-		
 		Map<String, Object> retVal = new HashMap<String, Object>();
 	        
 	        retVal.put("list2", list);

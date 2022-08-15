@@ -248,7 +248,7 @@ function searchFriends(e,uidx){
                     				+""+value.name+"<span class='fname boxOn'>["+value.bfname+"]</span>"
                     				+"<div class='listBtnBox' id='listBtn"+value.bfidx+"'>"
                     				+"<button class='btn-mini' onclick='goMini("+value.bfidx+")'>미니홈피 가기</button>"
-                					+"<button class='btn-change' onclick='changeName('"+value.uname+"','"+value.name+"','"+value.bfname+"',"+value.bfidx+"')'>친구명 변경</button>"
+                					+"<button class='btn-change' id='changeBtn' onclick=changeName('"+value.uname+"','"+value.name+"','"+value.bfname+"',"+value.bfidx+")>친구명 변경</button>"
                 					+"<button class='btn-delete' onclick='delBtn("+value.bfidx+")'>삭제하기</button>"
                     				+"</div></div>");
                     }
@@ -258,7 +258,7 @@ function searchFriends(e,uidx){
                     				+""+value.name+"<span class='fname boxOn'>["+value.uname+"]</span>"
                     				+"<div class='listBtnBox' id='listBtn"+value.uidx+"'>"
                     				+"<button class='btn-mini' onclick='goMini("+value.uidx+")'>미니홈피 가기</button>"
-                					+"<button class='btn-change' onclick='changeName('"+value.bfname+"','"+value.name+"','"+value.uname+"',"+value.uidx+")'>친구명 변경</button>"
+                					+"<button class='btn-change' onclick=changeName('"+value.bfname+"','"+value.name+"','"+value.uname+"',"+value.uidx+")>친구명 변경</button>"
                 					+"<button class='btn-delete' onclick='delBtn("+value.uidx+")'>삭제하기</button>"
                     				+"</div></div>");
                     }
