@@ -16,7 +16,7 @@
 		#view{
 			width: 60vw;
 			margin: 0 auto;
-			margin-bottom: 15em;
+			margin-bottom: 20vh;
 		}
 	</style>
 	<c:if test="${device eq 'MOBILE' }">

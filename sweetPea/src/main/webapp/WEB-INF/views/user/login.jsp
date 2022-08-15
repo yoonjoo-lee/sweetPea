@@ -10,17 +10,20 @@
 <script>
 	$(function(){
 		$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp");
-		$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 	});
 </script>
 <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet" />
+<script src="<%=request.getContextPath()%>/resources/js/header.js"></script>
 <c:if test="${device eq 'MOBILE' }">
-	<style>
-		.box{
-			width: 100%;
-		}
-	</style>
-	</c:if>
+<style>
+	body{
+		height: 100vh;
+	}
+	.box{
+		width: 100%;
+	}
+</style>
+</c:if>
 </head>
 <body>
 <header id="header"></header>
@@ -40,6 +43,5 @@
 	</div>
 </div><br>
 
-<footer id="footer"></footer>
 </body>
 </html>

@@ -7,32 +7,53 @@
 
 <head>
 <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<%=request.getContextPath()%>/resources/css/header.css" rel="stylesheet" />
-        <script>
-	        function openMini(uidx){
-				var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
-				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-				var popupY= (window.screen.height / 2) - 350;
-				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-				if ('${device}' == 'MOBILE') { 
-					window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+uidx;
-				}else{
-					window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name()',
-							'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
-				}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="<%=request.getContextPath()%>/resources/css/header.css" rel="stylesheet" />
+<script>
+	function openMini(uidx){
+		var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+		var popupY= (window.screen.height / 2) - 350;
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+		if ('${device}' == 'MOBILE') { 
+			window.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+uidx;
+		}else{
+			window.open('<%=request.getContextPath()%>/mini/main.do?uidx='+uidx,'name()',
+						'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
 			}
-        </script>
+	}
+</script>
+<c:if test="${device == 'MOBILE'}">
+	<style>
+	.mobile-header-idxBox{
+		display: inline-block;
+		color: white;
+	}
+	.mobile-header-idxBox>img{
+		width: 4vh;
+		height: 4vh;
+		border-radius: 25px;
+	}
+	.mobile-header-idxBox>span{
+		line-height: 4vh;
+	}
+	
+	.navbar-nav{
+		display: inline-block;
+		float: right;
+	}
+</style>
+</c:if>
 </head>
 <body>
 	<!-- Navigation-->
@@ -44,7 +65,13 @@
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+	                <c:if test="${device == 'MOBILE' && login != null}">
+						<div class = "mobile-header-idxBox">
+							<img src="${login.profile}">
+							<span>${login.name}님 환영합니다.</span>
+						</div>
+					</c:if>
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 ">
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/charge.do">결제/충전</a></li>
@@ -102,5 +129,7 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        
+
 </body>
 </html>
