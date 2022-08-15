@@ -34,11 +34,6 @@ public class MiniroomBoardController {
 	@RequestMapping(value="/main.do", method=RequestMethod.GET)
 	public String main(int uidx,HttpServletRequest request, HttpSession session, Model model){
 		
-		String userAgent = request.getHeader("user-agent");
-		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
-		                          +"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
-		boolean mobile2 = userAgent.matches(".*(LG|SAMSUNG|Samsung).*"); 
-		
 		MiniHomeVo vo = miniroomBoardService.joinMiniHome(uidx);
 		session = request.getSession();
 		
@@ -53,13 +48,8 @@ public class MiniroomBoardController {
 			session.setAttribute("checkFr", checkFriends);
 		}
 		session.setAttribute("mini", vo);
-		if (mobile1 || mobile2) {
-			session.setAttribute("device", "MOBILE");
-		    return "minihome/main";
-		} else {
-			session.setAttribute("device", "PC");
-			return "minihome/main";
-		}
+		
+		return "minihome/main";
 	}
 	
 	@RequestMapping(value="/mini-home.do", method=RequestMethod.GET)

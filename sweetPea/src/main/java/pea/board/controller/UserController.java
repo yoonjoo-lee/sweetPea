@@ -32,7 +32,6 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	private MailSendService mailService;
-	
 	private String uploadFolder;
 	
 	@RequestMapping(value="/user/home.do")
@@ -46,7 +45,7 @@ public class UserController {
 	//
 	//
 	@RequestMapping(value="/user/login.do", method=RequestMethod.GET)
-	public String login(){
+	public String login(HttpServletRequest request, HttpSession session){
 		return "user/login";
 	}
 	

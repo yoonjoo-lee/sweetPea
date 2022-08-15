@@ -48,6 +48,7 @@
 					<beans:prop key="mail.smtp.ssl.protocols">TLSv1.2</beans:prop>
 	            </beans:props>
 	      </beans:property>
+	      
 	   </beans:bean>
 	
 	<context:component-scan base-package="pea.board.controller" />
@@ -58,4 +59,12 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 	<!--  spring-upload -->
 	
+	<interceptors>
+           <interceptor>
+               <mapping path="/**"/>
+                   <beans:bean id="commonInterceptor" class="pea.board.interceptor.Interceptor"/>
+        </interceptor>
+    </interceptors>
+	
 </beans:beans>
+	

@@ -5,7 +5,7 @@
 			bottom: 0;
 			left: 0;
 			position: absolute;
-			height: 10vh;
+			height: 15vh;
 		}
 	.footer-box{
 		border-top: 1px solid black;
@@ -24,7 +24,7 @@
 		display: inline-block;
 	}
 	.footer-link{
-		font-size: 0.4vw;
+		font-size: 1.2vh;
 		text-decoration: none;
 	}
 	.footer-logo{

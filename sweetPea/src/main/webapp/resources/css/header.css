@@ -11236,8 +11236,8 @@ p {
 }
 
 #mainNav {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+   padding-top: 1vh;
+  padding-bottom: 1vh; 
   background-color: #212529;
 }
 #mainNav .navbar-toggler {
@@ -11276,6 +11276,7 @@ p {
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
+  	height: 3rem;
     font-size: 1.5em;
     transition: font-size 0.3s ease-in-out;
   }
@@ -11366,8 +11367,6 @@ header.masthead .masthead-heading {
 .nav-hover:hover .nav-list{
 	display: block;
 }
-
-
 
 
 
