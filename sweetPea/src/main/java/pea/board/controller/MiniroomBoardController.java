@@ -62,7 +62,7 @@ public class MiniroomBoardController {
 		session.setAttribute("mini", vo);
 		if (mobile1 || mobile2) {
 			session.setAttribute("device", "MOBILE");
-		    return "minihome/main";
+		    return "minihome/main-m";
 		} else {
 			session.setAttribute("device", "PC");
 			return "minihome/main";
