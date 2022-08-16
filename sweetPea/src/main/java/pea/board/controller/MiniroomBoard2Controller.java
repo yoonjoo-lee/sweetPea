@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -404,4 +405,29 @@ public class MiniroomBoard2Controller {
 		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
+	
+	// 미니룸 위치 변경
+	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
+	public void miniPosition(String box,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+//		System.out.println("boxsize"+box.size());
+//		for(int i=0;i<box.size();i++) {
+//			System.out.println(box.get(i));
+//		}
+		System.out.println(box);
+	}
+//	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
+//	public void miniPosition(int left, int top, int uiidx,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+//		ItemVo vo = new ItemVo();
+//		vo.setMleft(left);
+//		vo.setMtop(top);
+//		vo.setUiidx(uiidx);
+//		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+//		int uidx = mini.getUidx();
+//		
+//		miniroomboard2Service.miniPosition(vo);
+//		
+//		PrintWriter pw = response.getWriter();
+//		pw.append("<script>window.parent.location.href='"+request.getContextPath()+"/mini/mini-home.do?'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+//		pw.flush();
+//	}
 }

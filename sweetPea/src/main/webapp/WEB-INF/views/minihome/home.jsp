@@ -6,7 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+
+	<!--드레그 하기 위한 jquery들 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  
+
+
 <style>
 *{margin: 0; padding: 0;}
 hr:not(:first-of-type){
@@ -135,8 +143,9 @@ font-family: ${myMini.font};
 	</div>
 	<hr>
 	<div class="miniRoomBox">
-	
+
 	</div>
+	
 	<hr>
 	<h4>일촌평</h4>
 	

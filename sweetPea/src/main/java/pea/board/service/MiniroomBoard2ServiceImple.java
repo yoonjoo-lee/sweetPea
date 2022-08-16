@@ -66,6 +66,11 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	public int addTominiroom(ItemVo vo) {
 		return miniroomboardDao.addTominiroom(vo);
 	}
+
+	@Override
+	public int miniPosition(ItemVo vo) {
+		return miniroomboardDao.miniPosition(vo);
+	}
 	
 	
 
