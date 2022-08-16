@@ -11,9 +11,20 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
-<style type="text/css">
-
+<c:if test="${device == 'MOBILE'}">
+<style>
+	.loginBox{
+		display: none;
+	}
+	div.banner{
+		width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	display: block;
+	position: relative;
+	}
 </style>
+</c:if>
 <script>
 		$(function(){
 			$(".banner").load("<%=request.getContextPath()%>/resources/article/nav-banner.jsp");
