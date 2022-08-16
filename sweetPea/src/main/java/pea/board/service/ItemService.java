@@ -31,4 +31,5 @@ public interface ItemService {
 	String myItemListCheck(ItemVo vo); // 내 아이템 리스트 중복 확인 
 	
 	List<ItemVo> mostBuyItemList();
+	int myItemListUpdate(ItemVo vo);
 }

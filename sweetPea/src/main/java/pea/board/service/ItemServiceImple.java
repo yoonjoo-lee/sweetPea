@@ -119,6 +119,11 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.mostBuyItemList();
 	}
 
+	@Override
+	public int myItemListUpdate(ItemVo vo) {
+		return itemDao.myItemListUpdate(vo);
+	}
+
 
 
 }

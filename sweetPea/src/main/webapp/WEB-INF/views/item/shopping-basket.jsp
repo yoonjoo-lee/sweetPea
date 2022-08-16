@@ -158,7 +158,7 @@ function itemBuy(){
 	<div>
 		<div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
-				<input type="button" class="btn btn-secondary" onclick="itemBuy()" value="구매하기">
+				<input type="button" class="btn btn-secondary" onclick="myItemAdd(${vo.iidx})" value="구매하기">
 				<input type="button" class="btn btn-secondary" onclick="basketItemDel()" value="삭제">
 			</c:if>
 		</div>
@@ -186,6 +186,38 @@ function itemBuy(){
 		</c:if>
 
 	</div>
+	<script type="text/javascript">
+	 function myItemAdd(iidx){
+		 var uidx = '${login.uidx}';
+			$.ajax({
+				url:"myItemAdd.do",
+				type:"post",
+			 	data:{"uidx":uidx,"iidx":iidx},
+				success:async function(data){
+					if(data==0){
+						Swal.fire({
+							text: '내 아이템에 존재한 아이템입니다.',
+							icon: 'warning',
+							timer: 2000,
+						    timerProgressBar: true,
+						});
+					}else{
+						/* alert("장바구니에 추가되었습니다."); */
+					 await Swal.fire({
+							text : '내 아이템에 추가되었습니다.',
+							icon : 'success',
+							timer: 2000,
+							timerProgressBar: true,
+							}); 
+						console.log(uidx);
+						window.location.reload();
+					}
+				},
+				error:function(){
+					alert('내 아이템에 추가되지 않았습니다.');
+				}
+			})
+	</script>
 </body>
 </html>
 

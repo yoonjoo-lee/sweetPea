@@ -110,7 +110,6 @@ public class ItemDao {
 	}
 	// 장바구니 리스트 중복 확인 
 	public String basketListCheck(ItemVo vo) {
-		
 		return sqlSession.selectOne(namespace+".basketListCheck", vo);
 	}
 	
@@ -149,4 +148,8 @@ public class ItemDao {
 	public List<ItemVo> mostBuyItemList(){
 	      return sqlSession.selectList(namespace+".mostBuyItemList");
 	   }
+	//
+	public int myItemListUpdate(ItemVo vo) {
+		return sqlSession.update(namespace+".myItemListUpdate", vo);
+	}
 }

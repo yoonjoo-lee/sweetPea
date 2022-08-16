@@ -476,7 +476,7 @@ function addCart(uiidx){
 		success:async function(data){
 			if(data==0){
 				Swal.fire({
-					text: '장바구니에 존재한 아이템입니다.',
+					text: '내 아이템 또는 장바구니에 존재한 아이템입니다.',
 					icon: 'warning',
 					timer: 2000,
 				    timerProgressBar: true,
