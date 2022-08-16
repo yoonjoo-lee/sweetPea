@@ -4,15 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,13 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import pea.board.service.MiniroomBoard2Service;
 import pea.board.service.MiniroomBoardService;
-import pea.board.vo.FriendsVo;
 import pea.board.vo.ItemVo;
 import pea.board.vo.MiniHomeVo;
 import pea.board.vo.MiniroomBoardVo;
@@ -407,13 +407,38 @@ public class MiniroomBoard2Controller {
 	}
 	
 	// 미니룸 위치 변경
-	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
-	public void miniPosition(String box,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	
+	@ResponseBody
+	@RequestMapping(value="/miniPosition.do", produces = "application/json")
+	public int miniPosition(String list,@RequestParam Map<String, Object> paramMap) throws Exception {
 //		System.out.println("boxsize"+box.size());
 //		for(int i=0;i<box.size();i++) {
 //			System.out.println(box.get(i));
 //		}
-		System.out.println(box);
+		JSONArray jarr = new JSONArray();
+	    jarr = new JSONArray(list);
+		
+		
+		String jsonData = paramMap.get("list").toString();
+		System.out.println(paramMap);
+		System.out.println("jsonData : " + jsonData);
+		System.out.println(jarr);
+		
+		for(int i = 0 ; i< jarr.length() ; i++) {
+			System.out.println("i : "+i);
+			  System.out.println("top : " +jarr.getJSONObject(i).get("top"));
+			  System.out.println("left : "+jarr.getJSONObject(i).get("left"));
+			  System.out.println("uiidx : "+jarr.getJSONObject(i).get("uiidx"));
+			  
+		}
+		 
+		/*
+		 * for(int i=0;i<paramMap.size();i++) { System.out.println(paramMap.get(i)); }
+		 */
+		
+		
+		
+		return 1;
 	}
 //	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
 //	public void miniPosition(int left, int top, int uiidx,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
