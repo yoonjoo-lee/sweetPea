@@ -40,23 +40,59 @@
 </script>
 <c:if test="${device == 'MOBILE'}">
 	<style>
-	.mobile-header-idxBox{
-		display: inline-block;
-		color: white;
-	}
-	.mobile-header-idxBox>img{
-		width: 4vh;
-		height: 4vh;
-		border-radius: 25px;
-	}
-	.mobile-header-idxBox>span{
-		line-height: 4vh;
-	}
+#mainNav {
+  padding-top: 1vh;
+  padding-bottom: 1vh; 
+  background-color: #212529;
+} 
+#mainNav .navbar-toggler {
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-transform: uppercase;
+  font-weight: 700;
+}
+#mainNav .navbar-brand {
+  color: #ffc800;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  letter-spacing: 0.0625em;
+  text-transform: uppercase;
+}
+#mainNav .navbar-brand img {
+  height: 1.5rem;
+}
+#mainNav .navbar-nav .nav-item .nav-link {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.95rem;
+  color: #fff;
+  letter-spacing: 0.0625em;
+}
+#mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+  color: #ffc800;
+}
+
+.navbar-toggler {
+    display: block;
+  }
 	
-	.navbar-nav{
-		display: inline-block;
-		float: right;
-	}
+.mobile-header-idxBox{
+	display: inline-block;
+	color: white;
+}
+.mobile-header-idxBox>img{
+	width: 4vh;
+	height: 4vh;
+	border-radius: 25px;
+}
+.mobile-header-idxBox>span{
+	line-height: 4vh;
+}
+
+.navbar-nav{
+	display: inline-block;
+	float: right;
+}
 </style>
 </c:if>
 </head>

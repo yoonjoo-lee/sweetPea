@@ -349,9 +349,9 @@ font-family: 'BMJUA';
 				  title: '친구 신청을 하시겠습니까?',
 				  html:
 					'<p>상대방 일촌명</p>' +
-				    '<input id="swal-input1" class="swal2-input" placeholder="상대방의 일촌명을 입력해주세요">' +
+				    '<input id="swal-input1" class="swal2-input" onkeyup="noSpace(this)" placeholder="상대방의 일촌명을 입력해주세요">' +
 				    '<p style="margin-top: 1em">상대방에게 나의 일촌명</p>' +
-				    '<input id="swal-input2" class="swal2-input" placeholder="상대방에게 표시될 나의 일촌명을 입력해주세요">',
+				    '<input id="swal-input2" class="swal2-input" onkeyup="noSpace(this)" placeholder="상대방에게 표시될 나의 일촌명을 입력해주세요">',
 				  focusConfirm: false,
 				  showCancelButton: true,
 				  confirmButtonText: "신청",
@@ -474,6 +474,10 @@ function inputLeftBoard(){
 			}
 		}
 	}); 
+}
+
+function noSpace(e){
+	$(e).val($(e).val().replace(/ /gi,''));
 }
 </script>
 </head>

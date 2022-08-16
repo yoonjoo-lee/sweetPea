@@ -24,6 +24,7 @@
 		float: right;
 		height: 100%;
 		display: inline-block;
+		position: relative;
 	}
 @media (min-width: 1200px){
 /* 	div.banner{
