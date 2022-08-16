@@ -26,6 +26,25 @@ public class ItemVo {
 	private String img;
 	private String ip;
 	private String inyn;
+	private int mleft;
+	private int mtop;
+	
+	
+	
+	public int getMleft() {
+		return mleft;
+	}
+	public void setMleft(int mleft) {
+		this.mleft = mleft;
+	}
+	public int getMtop() {
+		return mtop;
+	}
+	public void setMtop(int mtop) {
+		this.mtop = mtop;
+	}
+	
+	
 	
 	
 	public String getInyn() {

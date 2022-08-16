@@ -68,4 +68,9 @@ public class MiniroomBoard2Dao {
 		return sqlSession.update(namespace+".addTominiroom", vo);
 	}
 	
+	//미니룸 위치 변경
+	public int miniPosition(ItemVo vo) {
+		return sqlSession.update(namespace+".miniPosition", vo);
+	}
+	
 }
