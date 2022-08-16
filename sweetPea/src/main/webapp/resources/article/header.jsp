@@ -32,6 +32,11 @@
 						'resizable=no width=1300 height=650,left='+popupX+',top='+popupY);
 			}
 	}
+	$(function(){
+		$(".masthead").click(function(){
+			window.location.href="<%=request.getContextPath()%>/";
+		})
+	})
 </script>
 <c:if test="${device == 'MOBILE'}">
 	<style>
@@ -113,7 +118,7 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead" style="cursor: pointer;">
             <!-- <div class="container">
                 <div class="masthead-subheading">0705</div>
                 <div class="masthead-heading text-uppercase">완두콩</div>
