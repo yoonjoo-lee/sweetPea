@@ -50,12 +50,22 @@ $(function (){
 		
 }); */
 	var $box = [];
-	var box = new Array();
-	var i = 0;
 function saveMini(){
     	console.log($box);
     	
-    	 location.href='<%=request.getContextPath()%>/miniroomboard2/miniPosition.do?box='+box+'';
+    	$.ajax({
+    		  url: "../miniroomboard2/miniPosition.do",
+    		  type: "POST",
+    		  dataType:"JSON",
+    		  traditional : true, //필수
+    		  data: {list: JSON.stringify($box)},
+    		  success: function(result){
+    		    alert("저장되었습니다.");
+    		  },
+    		  error: function (error){
+    		  	alert('다시 시도하세요');
+    		  }
+    		});
 }
 
 
@@ -69,7 +79,7 @@ $(function() {
     	
     	
     	var uiidx = ${item.uiidx};
-    	$box.push([uiidx,left,top]);
+    	$box.push({uiidx,left,top});
     	console.log($box);
     	/* box.push([uiidx,left,top]); */
     	/* box[i] = [uiidx,left,top];
@@ -81,11 +91,7 @@ $(function() {
     	console.log('uiidx', uiidx); */
     	
     	/* console.log($(".miniRoomBox").html()); */
-    	console.log($(".draggable").html());
-    	console.log(document.querySelector('.draggable').style.cssText);
 /*     	box.push('uiidx:'+uiidx+';'+document.querySelector('.draggable').style.cssText); */
-    	box.push(uiidx+','+left+','+top+'/');
-    	console.log(box);
     	<%-- $(".miniRoomBox").load('<%=request.getContextPath()%>/miniroomboard2/miniPosition.do?left='+left+'&top='+top+'&uiidx='+uiidx+''); --%>
     	 <%-- location.href='<%=request.getContextPath()%>/miniroomboard2/miniPosition.do?left='+left+'&top='+top+'&uiidx='+uiidx+''; --%>   	
     });
