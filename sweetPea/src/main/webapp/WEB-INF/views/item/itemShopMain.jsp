@@ -372,7 +372,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a><span>&nbsp;</span>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='myItemAdd("+data[i].iidx+")'>buy</a><span>&nbsp;</span>";
 			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
@@ -407,7 +407,7 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemBuy()'>buy</a><span>&nbsp;</span>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick='myItemAdd("+data[i].iidx+")'>buy</a><span>&nbsp;</span>";
 			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
@@ -427,14 +427,43 @@ function addCart(uiidx){
 	alert(uiidx);
 }
  /* 아이템 구매  */
- function itemBuy(){
-	 Swal.fire({
+ function myItemAdd(iidx){
+	 var uidx = '${login.uidx}';
+		$.ajax({
+			url:"myItemAdd.do",
+			type:"post",
+		 	data:{"uidx":uidx,"iidx":iidx},
+			success:async function(data){
+				if(data==0){
+					Swal.fire({
+						text: '내 아이템에 존재한 아이템입니다.',
+						icon: 'warning',
+						timer: 2000,
+					    timerProgressBar: true,
+					});
+				}else{
+					/* alert("장바구니에 추가되었습니다."); */
+				 await Swal.fire({
+						text : '내 아이템에 추가되었습니다.',
+						icon : 'success',
+						timer: 2000,
+						timerProgressBar: true,
+						}); 
+					console.log(uidx);
+					window.location.reload();
+				}
+			},
+			error:function(){
+				alert('내 아이템에 추가되지 않았습니다.');
+			}
+		})
+/* 	 Swal.fire({
 		icon:'info',
 		title:'아이템 구매 기능  준비중...',
 		toast:true,
 		timer: 2000,
 	    timerProgressBar: true,
-	 })
+	 }) */
  } 
  /* 장바구니 리스트 추가  */
  function itemShoppingAdd(iidx){

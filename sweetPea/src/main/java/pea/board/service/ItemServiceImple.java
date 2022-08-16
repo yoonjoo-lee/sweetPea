@@ -99,6 +99,26 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.basketListCheck(vo);
 	}
 
+	@Override
+	public List<ItemVo> myItemList(int uidx) {
+		return itemDao.myItemList(uidx);
+	}
+
+	@Override
+	public int myItemAdd(ItemVo vo) {
+		return itemDao.myItemAdd(vo);
+	}
+
+	@Override
+	public String myItemListCheck(ItemVo vo) {
+		return itemDao.myItemListCheck(vo);
+	}
+
+	@Override
+	public List<ItemVo> mostBuyItemList() {
+		return itemDao.mostBuyItemList();
+	}
+
 
 
 }

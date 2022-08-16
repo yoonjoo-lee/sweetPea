@@ -77,7 +77,7 @@
 	<select id="itemListNewLimit" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
-		ORDER BY iidx DESC LIMIT 1,5;
+		ORDER BY iidx DESC LIMIT 0,6;
 	</select>
 	
 	<!-- 아이템 승인 리스트  -->
@@ -147,21 +147,46 @@
 		SELECT * FROM pea_user_item 
 			WHERE iidx = #{iidx} 
 			AND uidx = #{uidx}
-			AND cart='Y'
+			AND (cart='Y' OR buy='Y')
 			AND delyn='N'
+			
 	</select>
 	
 	<update id="basketItemAdd2" parameterType="int">
 		update pea_user_item set cart='Y' where uiidx=#{uiidx} 
 	</update>
 	<!-- 장바구니 리스트에 삭제  -->
-	<update id="basketItemDel2" parameterType="ItemVo">
+<!-- 	<update id="basketItemDel2" parameterType="ItemVo">
 		update pea_user_item set cart = 'N' where uiidx=#{uiidx}
-	</update>
+	</update> -->
 	<delete id="basketItemDel" parameterType="ItemVo">
 		DELETE FROM pea_user_item
 			WHERE  uiidx=#{uiidx}
 	</delete>
+	<!-- 내 아이템 리스트에 추가  -->
+	<insert id="myItemAdd" parameterType="ItemVo">
+		insert into pea_user_item(iidx, uidx, buy) value(#{iidx},#{uidx},'Y')
+	</insert>
+	<!-- 내 아이템 리스트  -->
+	<select id="myItemList" parameterType="int" resultType="ItemVo">
+		select b.* from pea_user_item a join pea_item b on a.iidx=b.iidx where a.uidx=#{uidx} and a.buy='Y' and a.delyn='N' ORDER BY a.uiidx DESC
+	<!-- SELECT a.* FROM pea_item a 
+		 JOIN pea_user_item b 
+		ON a.iidx=b.iidx 
+		 WHERE b.uidx=#{uidx} AND b.buy='Y' -->
+ 	</select>
+ 	<!-- 내 아이템 리스트 중복체크 -->
+ 	<select id="myItemListCheck" parameterType="ItemVo" resultType="String">
+ 		select * from pea_user_item where iidx=#{iidx} and uidx=#{uidx}
+ 	</select>
+ 	<!-- 메인화면  인기상품 리스트  -->
+ 	<select id="mostBuyItemList" resultType="ItemVo">
+      SELECT * FROM pea_item 
+       WHERE delyn='N'
+         AND approval='Y'
+         AND postpone='N'
+       ORDER BY count DESC LIMIT 0,6;
+   </select>
 </mapper>
 
 

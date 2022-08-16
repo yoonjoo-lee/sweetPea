@@ -243,10 +243,10 @@ a:hover {
 	<div class="categoryBox">
 		<h3><a onclick="location.href='shop.do'">아이템상점</a></h3>
 		<ul>
-			<li><a onclick="location.href='itemShopMain.do?category=1'">미니룸</a></li>
-			<li><a onclick="location.href='itemShopMain.do?category=2'">BGM</a></li>
-			<li><a onclick="">커스텀</a></li>
-			<li><a onclick="">내 아이템</a></li>
+			<li><a onclick="info('itemShopMain.do?category=1')">미니룸</a></li>
+			<li><a onclick="info('itemShopMain.do?category=2')">BGM</a></li>
+			<li><a onclick="info('itemShopMain.do?category=3')">커스텀</a></li>
+			<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
 			<li><a onclick="">선물하기</a></li>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">

@@ -25,4 +25,10 @@ public interface ItemService {
 	int basketItemDel(ItemVo vo); // 장바구니 리스트 삭제 
 	int basketItemAdd(ItemVo vo); //장바구니 리스트 추가 
 	String basketListCheck(ItemVo vo); // 장바구니 리스트 중복 확인
+	
+	List<ItemVo> myItemList(int uidx); // 내 아이템 리스트
+	int myItemAdd(ItemVo vo);		// 내 아이템 리스트 추가 
+	String myItemListCheck(ItemVo vo); // 내 아이템 리스트 중복 확인 
+	
+	List<ItemVo> mostBuyItemList();
 }
