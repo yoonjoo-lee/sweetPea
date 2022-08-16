@@ -125,7 +125,8 @@
 		JOIN (SELECT uiidx,iidx FROM pea_user_item 
 				WHERE uidx=#{uidx} 
 				AND cart='Y' 
-				AND delyn='N')b  
+				AND delyn='N'
+				AND buy='N')b  
 				ON a.iidx = b.iidx 
 				WHERE a.delyn='N'
 	</select>
@@ -177,7 +178,7 @@
  	</select>
  	<!-- 내 아이템 리스트 중복체크 -->
  	<select id="myItemListCheck" parameterType="ItemVo" resultType="String">
- 		select * from pea_user_item where iidx=#{iidx} and uidx=#{uidx}
+ 		select buy from pea_user_item where iidx=#{iidx} and uidx=#{uidx}
  	</select>
  	<!-- 메인화면  인기상품 리스트  -->
  	<select id="mostBuyItemList" resultType="ItemVo">
@@ -187,6 +188,11 @@
          AND postpone='N'
        ORDER BY count DESC LIMIT 0,6;
    </select>
+   <!--  -->
+   <update id="myItemListUpdate" parameterType="ItemVo">
+   	update pea_user_item set buy='Y',cart='N' where uidx=#{uidx} and iidx=#{iidx}
+   
+   </update>
 </mapper>
 
 

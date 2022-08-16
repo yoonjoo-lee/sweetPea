@@ -348,6 +348,9 @@ public class ItemController {
 		if(result == null) {
 			int myItemAdd = itemService.myItemAdd(vo);
 			return myItemAdd;
+		}else if(result.equals("N")){
+			int myItemListUpdate = itemService.myItemListUpdate(vo);
+			return myItemListUpdate;
 		}else {
 			return 0;
 		}
