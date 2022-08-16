@@ -46,6 +46,8 @@ public class MiniroomBoardController {
 		List<ItemVo> miniroom = miniroomBoardService.myMiniroom(uidx);
 		session.setAttribute("miniroom", miniroom);
 		
+		
+		
 		if(login != null) {
 			int bfidx = login.getUidx();
 			FriendsVo vo_ = new FriendsVo();
