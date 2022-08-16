@@ -322,6 +322,37 @@ public class ItemController {
 		}
 	}
 	
+	/* 내 아이템 리스트 */
+	
+	@RequestMapping(value="item/myItemList.do", method=RequestMethod.GET)
+	public String myItemList(ItemVo vo, Model model, int uidx) {
+			List<ItemVo> list = itemService.myItemList(uidx);
+			model.addAttribute("ilist",list);
+			model.addAttribute("vo",vo);
+			model.addAttribute("test","ggg");
+			System.out.println("kk"+uidx);
+			System.out.println(vo.getUidx());
+		return "item/myItemList";
+	}
+	
+	/*  내 아이템 리스트 추가 */
+	@ResponseBody
+	@RequestMapping(value="item/myItemAdd.do", produces = "application/json;charset=utf8")
+	public int myItemAdd(int uidx, int iidx) {
+		ItemVo vo = new ItemVo();
+		vo.setIidx(iidx);
+		vo.setUidx(uidx);
+		
+		String result = itemService.myItemListCheck(vo);
+		
+		if(result == null) {
+			int myItemAdd = itemService.myItemAdd(vo);
+			return myItemAdd;
+		}else {
+			return 0;
+		}
+		
+	}
 
 	/* 아이템 승인 확인 */
 	@ResponseBody

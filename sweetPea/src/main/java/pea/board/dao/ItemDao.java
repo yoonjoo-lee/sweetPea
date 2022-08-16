@@ -26,6 +26,7 @@ public class ItemDao {
 			return 1;
 		}
 	}
+	
 
 	// 아이템 등록
 	public int itemWrite(ItemVo vo) {
@@ -107,6 +108,7 @@ public class ItemDao {
 	public List<ItemVo> basket_selectAll(int uidx) {
 		return sqlSession.selectList(namespace+".basket_selectAll", uidx);
 	}
+	// 장바구니 리스트 중복 확인 
 	public String basketListCheck(ItemVo vo) {
 		
 		return sqlSession.selectOne(namespace+".basketListCheck", vo);
@@ -124,5 +126,27 @@ public class ItemDao {
 		return sqlSession.delete(namespace+".basketItemDel", vo);
 	}
 	
+	// 내 아이템 리스트
+	public List<ItemVo> myItemList(int uidx) {
+		
+		return sqlSession.selectList(namespace+".myItemList", uidx);
+	}
 	
+	// 내 아이템 추가 
+	public int myItemAdd(ItemVo vo) {
+		
+		return sqlSession.insert(namespace+".myItemAdd", vo);
+		
+	}
+	
+	// 내 아이템 리스트 중복 확인 
+	
+	public String myItemListCheck(ItemVo vo) {
+		return sqlSession.selectOne(namespace+".myItemListCheck", vo);
+	}
+	
+	//
+	public List<ItemVo> mostBuyItemList(){
+	      return sqlSession.selectList(namespace+".mostBuyItemList");
+	   }
 }
