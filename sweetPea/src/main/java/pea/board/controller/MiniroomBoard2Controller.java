@@ -408,38 +408,82 @@ public class MiniroomBoard2Controller {
 	
 	// 미니룸 위치 변경
 	
-	@ResponseBody
-	@RequestMapping(value="/miniPosition.do", produces = "application/json")
-	public int miniPosition(String list,@RequestParam Map<String, Object> paramMap) throws Exception {
+//	@ResponseBody
+//	@RequestMapping(value="/miniPosition.do", produces = "application/json")
+//	public int miniPosition(String list,@RequestParam Map<String, Object> paramMap, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+////		System.out.println("boxsize"+box.size());
+////		for(int i=0;i<box.size();i++) {
+////			System.out.println(box.get(i));
+////		}
+//		JSONArray jarr = new JSONArray();
+//	    jarr = new JSONArray(list);
+//		
+//		
+//		String jsonData = paramMap.get("list").toString();
+//		System.out.println(paramMap);
+//		System.out.println("jsonData : " + jsonData);
+//		System.out.println(jarr);
+//		ItemVo vo = new ItemVo();
+//		for(int i = 0 ; i< jarr.length() ; i++) {
+//			System.out.println("i : "+i);
+//			  int uiidx = Integer.parseInt((String) jarr.getJSONObject(i).get("uiidx"));
+//			  int left = (int) jarr.getJSONObject(i).get("left");
+//			  int top = (int) jarr.getJSONObject(i).get("top");
+//			  System.out.println("top : " +top);
+//			  System.out.println("left : "+left);
+//			  System.out.println("uiidx : "+uiidx);
+//				vo.setMleft(left);
+//				vo.setMtop(top);
+//				vo.setUiidx(uiidx);
+//				miniroomboard2Service.miniPosition(vo);
+//		}
+//		 
+//		/*
+//		 * for(int i=0;i<paramMap.size();i++) { System.out.println(paramMap.get(i)); }
+//		 */
+//		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+//		int uidx = mini.getUidx();
+//		return 1;
+////		PrintWriter pw = response.getWriter();
+////		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+////		pw.flush();
+//	}
+	
+	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
+	public void miniPosition(String box,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 //		System.out.println("boxsize"+box.size());
 //		for(int i=0;i<box.size();i++) {
 //			System.out.println(box.get(i));
 //		}
-		JSONArray jarr = new JSONArray();
-	    jarr = new JSONArray(list);
-		
-		
-		String jsonData = paramMap.get("list").toString();
-		System.out.println(paramMap);
-		System.out.println("jsonData : " + jsonData);
-		System.out.println(jarr);
-		
-		for(int i = 0 ; i< jarr.length() ; i++) {
-			System.out.println("i : "+i);
-			  System.out.println("top : " +jarr.getJSONObject(i).get("top"));
-			  System.out.println("left : "+jarr.getJSONObject(i).get("left"));
-			  System.out.println("uiidx : "+jarr.getJSONObject(i).get("uiidx"));
-			  
+		System.out.println("box"+box);
+		String[] tmp = box.split(",");
+		System.out.println(tmp.length);
+		String[] num;
+		ItemVo vo = new ItemVo();
+		for (int i = 0; i < tmp.length; i++) {
+			System.out.println("tmp"+i+":"+tmp[i]);
+			num = tmp[i].split("/");
+			System.out.println(Integer.parseInt(num[0])+Integer.parseInt(num[1])+Integer.parseInt(num[2])); 
+			System.out.println("num0 " + num[0] + " num1 " + num[1] + " num2 " + num[2]);
+			
+			vo.setUiidx(Integer.parseInt(num[0]));
+			vo.setMleft(Integer.parseInt(num[1]));
+			vo.setMtop(Integer.parseInt(num[2]));
+			miniroomboard2Service.miniPosition(vo);
 		}
-		 
-		/*
-		 * for(int i=0;i<paramMap.size();i++) { System.out.println(paramMap.get(i)); }
-		 */
 		
+		session = request.getSession();
+		UserVo login = (UserVo) session.getAttribute("login");
+		int uidx = login.getUidx();
+//		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+//		int uidx = mini.getUidx();
 		
-		
-		return 1;
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
+	
+	
 //	@RequestMapping(value="/miniPosition.do", method=RequestMethod.GET)
 //	public void miniPosition(int left, int top, int uiidx,  HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 //		ItemVo vo = new ItemVo();
