@@ -2915,6 +2915,8 @@ textarea.form-control-lg {
   font-size: 0.8rem;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  width: 100%;
+  margin-bottom: 0.5vh;
 }
 @media (prefers-reduced-motion: reduce) {
   .btn {
