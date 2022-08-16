@@ -170,9 +170,9 @@ async function changeName($myNicName,$fName,$fNicName,$fidx){
 		  title: '친구명을  변경',
 		  html:
 			"<p>본인 일촌명</p>" +
-		    "<input id='swal-input1' class='swal2-input' value='"+$myNicName+"'>" +
+		    "<input id='swal-input1' class='swal2-input' onkeyup='noSpace(this)' value='"+$myNicName+"'>" +
 		    "<p style='margin-top: 1em'>"+$fName+"님의 일촌명</p>" +
-		    "<input id='swal-input2' class='swal2-input' value="+$fNicName+">",
+		    "<input id='swal-input2' class='swal2-input' onkeyup='noSpace(this)' value="+$fNicName+">",
 		  focusConfirm: false,
 		  showCancelButton: true,
 		  confirmButtonText: "변경",
@@ -273,6 +273,10 @@ function searchFriends(e,uidx){
 		}
 	}) 
 	
+}
+
+function noSpace(e){
+	$(e).val($(e).val().replace(/ /gi,''));
 }
 </script>
 </head>
