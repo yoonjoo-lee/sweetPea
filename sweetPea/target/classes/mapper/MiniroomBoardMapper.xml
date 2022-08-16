@@ -292,4 +292,18 @@
 		 ORDER BY b.name; 
 	</select>
 	
+	<!-- 내 미니홈피 스타일  -->
+	<select id="myMiniStyle" parameterType="int" resultType="MiniHomeVo">
+		SELECT *
+		 FROM pea_minihome
+		 WHERE uidx=#{uidx}
+	</select>
+	
+	<!-- 내 미니룸 -->
+	<select id="myMiniroom" parameterType="int" resultType="ItemVo">
+		SELECT a.* FROM pea_item a 
+		 JOIN pea_user_item b 
+		ON a.iidx=b.iidx 
+		 WHERE b.uidx=#{uidx} AND b.inyn='Y'
+	</select>
 </mapper>
