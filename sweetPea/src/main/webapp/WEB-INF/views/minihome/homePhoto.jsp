@@ -1,18 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page session="true"%>
+
 <!DOCTYPE html>
-<html>
-<head>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
-/* 이미지 슬라이더 */
 #slider {
   position: relative;
   overflow: hidden;
@@ -35,8 +32,10 @@
   float: left;
   margin: 0;
   padding: 0;
-  width: 660px;
-  height: 300px;
+  width: 100px;
+  height: 50px;
+/*   width: 660px;
+  height: 300px; */
  /*  background: #ccc; */
   text-align: center;
   line-height: 300px;
@@ -48,8 +47,8 @@ a.control_prev, a.control_next {
   z-index: 999;
   display: block;
   padding: 100% 3%;
-  width: auto;
-  height: auto;
+  /* width: auto;
+  height: auto; */
   /* background: #2a2a2a; */
   color: #2a2a2a;
   text-decoration: none;
@@ -75,35 +74,9 @@ a.control_next {
 }
 
 .image{
-width:400px;
-height:300px;
-}
-
-/* 프로필 사진 */
-.profile{
-    width: 40px;
-    height: 40px;
-    border-radius: 70%;
-    overflow: hidden; 
-}
-.profile-img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 사용자 정보 상단 */
-#user{
-display: inline-block;
-vertical-align: middle;
-}
-.manage{
-float: right;
-}
-/* 글작성 */
-.uploadIcon{
-text-align: right;
-}
+width:100px;
+height:50px;
+} 
 
 /* 각 게시물 */
 .eachphoto{
@@ -111,36 +84,13 @@ border-radius: 10px;
 box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
 }
 
-body{
-font-family: ${myMini.font};
-}
 </style>
-</head>
-<body>
-<h1 class="uploadIcon"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
 
+ddd
+${list }
 <c:forEach var="board" items='${list }'>
 <div class="eachphoto">
 <br>
-
-<!-- 프로필 사진 -->
-<div class="profile" id="user">
-<c:if test="${board.miniProfile == null}">
-	<img class="profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
-</c:if>
-<c:if test="${board.miniProfile != null}">
-	<img class="profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
-</c:if>
-</div>
-
-<div id="user"><b>${board.name }</b></div>
-<div id="user" class="manage"  style="color:grey;">
-
-<c:if test="${login.uidx == mini.uidx }">
-<i class="bi bi-eraser"></i><i class="bi bi-trash" onclick="deletephoto(${board.mbidx })"></i> 
-</c:if>
-</div>
-
 <div id="slider" class="slider${board.mbidx }">
   <a class="control_next" id="next${board.mbidx }">&gt;</a>
   <a class="control_prev" id="prev${board.mbidx }">&lt;</a>
@@ -155,7 +105,7 @@ font-family: ${myMini.font};
 	</script>
   </ul>  
 </div>
-
+</div>
 <script>
 /* 이미지 슬라이더 */
 jQuery(document).ready(function ($) {
@@ -196,31 +146,6 @@ jQuery(document).ready(function ($) {
 
 	});   
 </script> 
-<b>${board.name }</b>&nbsp;${board.title }<br>${board.date }<br><br>
-</div>
 </c:forEach>
-<script>
-/* 게시물 삭제 */
-async function deletephoto(mbidx){
-	Swal.fire({
-		  title: '정말로 삭제하시겠습니까?',
-		  text: "되돌릴 수 없어요!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: '삭제'
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '삭제 성공!',
-		      '삭제에 성공하였습니다.',
-		      'success'
-		    )
-				location.href="<%=request.getContextPath()%>/miniroomboard2/photoDelete.do?mbidx="+mbidx+"";
-		  }
-		})
-}
-</script>
-</body>
-</html>
+d
+

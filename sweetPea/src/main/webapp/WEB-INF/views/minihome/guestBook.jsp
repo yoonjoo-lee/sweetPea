@@ -10,6 +10,7 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 /* #content {
 	display: inline-block;
@@ -90,6 +91,10 @@ a {
 	td {
 		border-bottom: 1px solid #e5e5e5;
 	}
+}
+
+body{
+font-family: ${myMini.font};
 }
 </style>
 </head>

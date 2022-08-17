@@ -11,7 +11,7 @@
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 /* #tmp {
 	overflow-y: scroll;
@@ -186,17 +186,8 @@
 	margin-right: 5px;
 }
 
-@font-face {
-	font-family: 'BMJUA';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.body {
-	font-family: 'BMJUA';
+.body{
+font-family: ${myMini.font};
 }
 
 
@@ -439,17 +430,21 @@ function cursor(e) {
 				</div>
 			</c:forEach>
 			
+			<c:if test="${login != null }">
 			<c:if test="${login.uidx == mini.uidx}">
 				<script>$(".host").css("display","block");</script>
+			</c:if>
 			</c:if>
 		</div>
 	</div>
 	
 	<input type="button"  id='writeDiary' onclick="reload()" value="전체글">
 	<script>function reload(){location.reload();}</script>
+	<c:if test="${login != null }">
 	<c:if test="${login.uidx == mini.uidx }">
 		<input type="button" id='writeDiary' class="btn btn-secondary"
 		onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=1'" value="글 작성">
+	</c:if>
 	</c:if>
 	<hr>
 

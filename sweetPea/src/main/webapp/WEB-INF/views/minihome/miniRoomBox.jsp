@@ -49,9 +49,11 @@
   </script> -->
 </head>
 <body>
+
 <div class="bgSizeCover">
   <p>Try resizing this element!</p>
 </div>
+
 <button class="saveBtn" onclick="saveMini()" style="vertical-align:top;">save</button>
  <c:forEach var="item" items="${miniroom}">
 <img class="draggable" id="item${item.uiidx}" alt="${item.uiidx }" style="width:100px; height:100px; left:${item.mleft}px; top:${item.mtop}px; " src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }'/>

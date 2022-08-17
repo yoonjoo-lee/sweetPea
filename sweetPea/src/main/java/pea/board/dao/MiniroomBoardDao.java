@@ -119,4 +119,16 @@ public class MiniroomBoardDao {
 	public List<ItemVo> myMiniroom(int uidx) {
 		return sqlSession.selectList(namespace+".myMiniroom",uidx);
 	}
+	
+	public int visitMinihome(int uidx) {
+		return sqlSession.insert(namespace+".visitMinihome",uidx);
+	}
+	
+	public int visitTotal(int uidx) {
+		return sqlSession.selectOne(namespace+".visitTotal",uidx);
+	}
+	
+	public int visitToday(int uidx) {
+		return sqlSession.selectOne(namespace+".visitToday",uidx);
+	}
 }

@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>SweetPea</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <c:if test="${device eq 'PC'}">
 <style>
@@ -330,19 +331,32 @@
 
 	
 /* 폰트 */
-@font-face {
-    font-family: 'BMJUA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+/* @font-face {
+    font-family: 'EF_hyunydororong';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_hyunydororong.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
-
+@font-face {
+    font-family: 'MabinogiClassicR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HBIOS-SYS';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */
 .body{
-font-family: 'BMJUA';
+font-family: ${myMini.font};
 }
 </style>
 </c:if>
 <script>
+
+
 	$(function(){
 		$("#addFr").click(async function(){
 			const { value: formValues } = await Swal.fire({
@@ -410,6 +424,8 @@ font-family: 'BMJUA';
 </style>
 </c:if>
 <script>
+
+
 function clickBtn(link){
 	$("#miniIframe").attr("src",link);
 	$option = 'mini-option.do?uidx=${mini.uidx}';
@@ -486,8 +502,8 @@ function noSpace(e){
 <div id="mainBox">
 	<div id="leftBox">
 		<div id="left-topBox">
-			<p>TODAY <span style="color: red">${mini.today}</span></p>
-			<p>TOTAL <span>${mini.total}</span></p>
+			<p>TODAY <span style="color: red">${today}</span></p>
+			<p>TOTAL <span>${total}</span></p>
 		</div>
 		<div id="left-centerBox">
 			<br>
