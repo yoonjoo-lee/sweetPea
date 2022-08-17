@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -35,12 +37,13 @@ table {
   border-collapse: collapse;
   border-radius: 5px;
   overflow: hidden;
+  text-align: center;
 }
-
+/* 
 th {
   text-align: left;
 }
-  
+   */
 thead {
   font-weight: bold;
   color: #fff;
@@ -63,7 +66,7 @@ a {
   color: #73685d;
 }
   
- @media all and (max-width: 768px) {
+ /* @media all and (max-width: 768px) {
     
   table, thead, tbody, th, td, tr {
     display: block;
@@ -106,7 +109,7 @@ a {
   }
   
   
-  }
+  } */
   
   
   
@@ -116,14 +119,15 @@ a {
 .button {
   background: #3D4C53;
   margin : 20px auto;
-  width : 200px;
-  height : 50px;
+  width: 15%;
+  height : 5vh;
   overflow: hidden;
   text-align : center;
   transition : .2s;
   cursor : pointer;
   border-radius: 3px;
   box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+  float: left; 
 }
 .btnTwo {
   position : relative;
@@ -155,7 +159,68 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
-
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#view{width:100%}
+.button{
+	width: 48%;
+	height: 100%;
+	margin: 0 auto;
+    display: inline-block;
+}
+.buttonBox{
+    height: 5vh;
+    margin: 2vh auto;
+    width: 80%;
+}
+.btnText{
+	line-height: 5vh;
+    margin: 0;
+}
+.buttonBox>.button:last-child {
+	float: right;
+}
+tr,th{
+	font-size: 3vw;
+}
+</style>
+</c:if>
+<script>
+	function delUser($uidx,$name){
+		Swal.fire({
+			title: '회원삭제',
+			html: '['+$name+']' + ' 회원을 정말로 탈퇴시키겠습니까?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '예',
+			cancelButtonText: '아니오',
+			preConfirm: () => {
+				$.ajax({
+					url:'delUser.do',
+					type: 'get',
+					data: {"uidx": $uidx},
+					success: async function(data){
+						if(data == 1){
+							await Swal.fire({
+								title: '탈퇴완료',
+								text: '탈퇴 완료되었습니다',
+								icon: 'success'
+							})
+							window.location.reload();
+						}
+						else{
+							alert("오류!");
+						}
+					},
+					error: function(){
+						alert("오류발생");
+					}
+				});
+			}
+		});
+		      
+	}
+</script>
 </head>
 <body>
 <header id="header"></header>
@@ -163,20 +228,20 @@ a {
 <!-- <h2>회원관리</h2><br>
 <button class="btn btn-secondary" onclick="userList()">회원</button>
 <button class="btn btn-secondary" onclick="deleteAccountList()">탈퇴회원</button>  -->
-
-<div style="float: left; width: 15%;" class="button" onclick="userList()">
+<div class="buttonBox">
+<div class="button" onclick="userList()">
    <p class="btnText">회원</p>
    <div class="btnTwo">
      <p class="btnText2">really?</p>
    </div>
 </div>
-<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="deleteAccountList()">
+<div style="margin-left:1vw;" class="button" onclick="deleteAccountList()">
    <p class="btnText">탈퇴회원</p>
    <div class="btnTwo">
      <p class="btnText2">really?</p>
    </div>
 </div>
-
+</div>
 <div id="userList">
 </div>
 </div>
@@ -194,6 +259,7 @@ $(function (){
 			html += "<th>이름</th>";
 			html += "<th>성별</th>";
 			html += "<th>가입일</th>";
+			html += "<th></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -203,6 +269,7 @@ $(function (){
 				html+="<td><a href=''>"+data[i].name+"</a></td>";
 				html+="<td>"+data[i].gender+"</td>";
 				html+="<td>"+data[i].udate+"</td>";
+				html+="<td><button onclick=delUser("+data[i].uidx+",'"+data[i].name+"')>강퇴하기</button></td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
@@ -226,6 +293,7 @@ function userList(){
 			html += "<th>이름</th>";
 			html += "<th>성별</th>";
 			html += "<th>가입일</th>";
+			html += "<th></th>";
 			html += "</tr>";
 			html += "</thead>";
 			html += "<tbody>";
@@ -235,6 +303,7 @@ function userList(){
 				html+="<td><a href=''>"+data[i].name+"</a></td>";
 				html+="<td>"+data[i].gender+"</td>";
 				html+="<td>"+data[i].udate+"</td>";
+				html+="<td><button onclick=delUser("+data[i].uidx+",'"+data[i].name+"')>강퇴하기</button></td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";

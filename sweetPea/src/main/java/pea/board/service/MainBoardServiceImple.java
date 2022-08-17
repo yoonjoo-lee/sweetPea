@@ -99,4 +99,8 @@ public class MainBoardServiceImple implements MainBoardService{
 		return mainboardDao.selectAlldeleteuser();
 	}
 
+	@Override
+	public int delUser(int uidx) {
+		return mainboardDao.delUser(uidx);
+	}
 }
