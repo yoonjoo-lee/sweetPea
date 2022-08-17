@@ -67,7 +67,7 @@ BootPay.request({
 	show_agree_window: 0, 
 	items: [
 		{
-			item_name: '완두콩10개', 
+			item_name: '', 
 			qty: 1, 
 			unique: '123', 
 			price: 1000,
@@ -75,7 +75,7 @@ BootPay.request({
 		}
 	],
 	user_info: {
-		username: 'uidx',
+		username: '',
 		email: 'beomjun12@naver.com',
 		addr: 'addr',
 		phone: '010-1234-4567'
