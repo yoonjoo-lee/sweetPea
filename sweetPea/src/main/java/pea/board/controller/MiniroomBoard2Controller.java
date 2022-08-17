@@ -76,15 +76,20 @@ public class MiniroomBoard2Controller {
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
 
-		int result = miniroomboard2Service.writemini(vo);
+		miniroomboard2Service.writemini(vo);
 		
 		int category = vo.getCategory();
-		
 		PrintWriter pw = response.getWriter();
-		if (category == 1) {
-			pw.append("<script>location.href='mini-diary.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-		} else {
-			pw.append("<script>location.href='boardList.do?category="+category+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+
+		String device = (String) session.getAttribute("device");
+		if(device == "MOBILE") {
+			pw.append("<script>window.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>");
+		}else {
+			if (category == 1) {
+				pw.append("<script>location.href='mini-diary.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			} else {
+				pw.append("<script>location.href='boardList.do?category="+category+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			}
 		}
 		pw.flush();
 	}
@@ -265,10 +270,18 @@ public class MiniroomBoard2Controller {
 
 	// 방명록 삭제
 	@RequestMapping(value="/guestBookDelete.do")
-	public void guestBookDelete(int mbidx, HttpServletResponse response, Model model) throws IOException {
+	public void guestBookDelete(int mbidx, HttpServletResponse response, Model model, HttpSession session, HttpServletRequest request) throws IOException {
 		miniroomboard2Service.deleteDiary(mbidx); 
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>location.href='boardList.do?category=3'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		int uidx = mini.getUidx();
+		String device = (String) session.getAttribute("device");
+		if(device == "MOBILE") {
+			pw.append("<script>window.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>");
+		}else {
+			pw.append("<script>location.href='boardList.do?category=3'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		}
 		pw.flush();
 	}
 	

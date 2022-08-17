@@ -97,10 +97,45 @@ body{
 font-family: ${myMini.font};
 }
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+h1{
+	margin:0;
+}
+.bi-plus-square-fill{
+    font-size: 4vh;
+    float: right;
+    margin: 1vh;
+}
+table{
+	margin-top: 2vh;
+}
+th,td{
+	font-size: 3.5vw;
+}
+#mainBox{
+	margin:0;
+	margin-bottom: 10vh;
+}
+</style>
+<script>
+	function mobileWrite(){
+		$("#mainBox").load("<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3");
+	}
+</script>
+</c:if>
 </head>
 <body>
 	<h1>
-		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
+<c:if test="${login != null}">
+	<c:if test="${device eq 'PC'}">
+	<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
+	</c:if>
+	<c:if test="${device eq 'MOBILE'}">
+	<i class="bi bi-plus-square-fill" style="color: grey;" onclick="mobileWrite()"></i>
+	</c:if>
+</c:if>
 	</h1>
 	<c:forEach var="board" items='${list }'>
 		<table>

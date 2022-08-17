@@ -48,8 +48,10 @@ public class MiniroomBoardController {
 		
 
 //		방문 시 데이터 추가 후, 방문자수 가져온 뒤 세션에 등록
-		if(uidx != login.getUidx()) {
-			miniroomBoardService.visitMinihome(uidx);
+		if(login != null) {
+			if(uidx != login.getUidx()) {
+				miniroomBoardService.visitMinihome(uidx);
+			}
 		}
 		int total = miniroomBoardService.visitTotal(uidx);
 		int today = miniroomBoardService.visitToday(uidx);

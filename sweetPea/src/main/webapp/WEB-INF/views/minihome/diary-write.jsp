@@ -165,6 +165,10 @@ $(function(){
   }
 </script>
 
+<c:if test="${device eq 'MOBILE'}">
+
+</c:if>
+
 </head>
 <body>
 <form action="<%=request.getContextPath()%>/miniroomboard2/diary_write.do" method="post">
@@ -187,7 +191,7 @@ $(function(){
 		</div>
 	</div>
 	</div>
-		<textarea id="summernote" name="content"></textarea>
+	<textarea id="summernote" name="content"></textarea>
 	<input type="hidden" name="category" value=${category }>
 </form>
 </body>

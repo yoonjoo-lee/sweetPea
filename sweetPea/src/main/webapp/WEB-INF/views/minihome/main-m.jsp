@@ -75,14 +75,12 @@ $(function(){
 
 <style>
 body{
-	background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.background }");
     margin: 0;
     padding: 0;
-    background-repeat: repeat-y;
-    background-position: right;
 }
 #mainBox{
-    margin-bottom: 15vw;
+	margin: 0;
+    margin-bottom: 8vh;
 }
 /* 프로필  */
 #profile{
@@ -98,10 +96,10 @@ body{
 /* 하단 메뉴바 */
 #m-buttonBox { 
 	position: fixed; 
-	bottom: 0px; 
-	left: 0px; 
+	bottom: 0; 
+	left: 0; 
 	width: 100%; 
-	height: 12vw; 
+	height: 8vh; 
 	z-index:100; 
 	border-top: 1px solid black; 
 	background-color: white; 
@@ -109,15 +107,15 @@ body{
 .m-boardBtn { 
 	float: left;
     width: 25%;
-    height: 100%;
+    height: 7vh;
     text-align: center;
-    padding-top: 13px;
-    border-top: 2vw solid white;
+    border-top: 1vh solid white;
     background-color: white;
 }
 #m-buttonBox > div > img {
-	height:60px;
-	width: 60px;
+	height: 4vh;
+    margin: 1.5vh 0;
+    width: 30%;
 }
 
 /* 프로필 글귀 변경 아이 */
@@ -128,11 +126,14 @@ body{
 
 .act2{
 	background-color: gainsboro;
-    border-top: 2vw solid black;
+    border-top: 1vh solid black;
 }
 
 .backBox{
-	background-color: skyblue;
+	background-color: #40adad;
+	background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.background }");
+    background-size: cover;
+    background-repeat: no-repeat;
     height: 60vw;
     position: relative;
     margin-bottom: 20vw;
@@ -192,7 +193,11 @@ body{
     margin: 2vw 2vw;
     
 }
-
+.upDateBox{
+	background-color: white;
+	padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+}
 .upDateBox>p{
     font-size: 5vw;
     margin: 3vw 2vw;
@@ -201,37 +206,15 @@ body{
 	font-size: 4vw;
 	margin-left: 3vw;
 }
+
+.list-box>p{
+	margin: 0;
+}
 </style>
 
 <script>
 function clickBtn(link){
 	$("#mainBox").load(link);
-	$option = 'mini-option.do?uidx=${mini.uidx}';
-	/* if(link == $option){
-		$("#miniIframe").attr("scrolling","no");
-		$("#miniIframe").css({
-			'left': '0',
-		    'top': '0',
-		    'position': 'fixed',
-		    'width': '72vw',
-		    'height': '98vh',
-		    'margin': '1vh 1vw',
-			'border-radius': '30px',
-	    });
-	}else{
-		$("#miniIframe").attr("scrolling","yes");
-		$("#miniIframe").css({
-			'left': 'inherit',
-			'top': 'inherit',
-			'position': 'relative',
-		    'width': '97%',
-		    'height': '100%',
-		    'margin': '0 auto',
-		    'background-color': 'white',
-			'border-radius': '0',
-		});
-	} */
-	
 }
 function clickThis2(e){
 	$(".m-boardBtn").removeClass('act2');
@@ -272,7 +255,7 @@ $(function(){
 		$(".m-boardBtn").css("width","20%");
 	}
 	
-	$.ajax({
+	<%-- $.ajax({
 		url: "<%=request.getContextPath()%>/miniroomboard2/miniRoomBox.do",
 		type: "GET",
 		success: function(html){
@@ -280,7 +263,7 @@ $(function(){
 		},
 		error: function(){
 		}
-	});
+	}); --%>
 	
 	$.ajax({
 		url: "<%=request.getContextPath()%>/miniroomboard2/homeList.do",
@@ -306,7 +289,7 @@ $(function(){
 			<c:if test="${login != null}">
 			<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/logoutMini.do?uidx=${mini.uidx}'">로그아웃</span>
 			</c:if>
-			<c:if test="${login.uidx != mini.uidx}">
+			<c:if test="${login != null && login.uidx != mini.uidx}">
 			<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">내 미니홈피</span>
 			</c:if>
 		</div>
@@ -376,12 +359,12 @@ $(function(){
 --%>
 </div> 
 	<div id="m-buttonBox">
-		<div class="m-boardBtn act2"  onclick='clickBtn("main.do?uidx=${mini.uidx}"),clickThis2(this)'><img src="<%=request.getContextPath()%>/resources/icon/home.png"></div>
+		<div class="m-boardBtn act2" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${mini.uidx}'"><img src="<%=request.getContextPath()%>/resources/icon/home.png"></div>
 		<div class="m-boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis2(this)"><img src="<%=request.getContextPath()%>/resources/icon/diary.png"></div>
 		<div class="m-boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'),clickThis2(this)"><img src="<%=request.getContextPath()%>/resources/icon/photo.png"></div>
 		<div class="m-boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'),clickThis2(this)"><img src="<%=request.getContextPath()%>/resources/icon/guestbook.png"></div>
-		<div class="m-boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis2(this)'><img src="<%=request.getContextPath()%>/resources/icon/setting.png"></div>
 		<c:if test="${mini.uidx == login.uidx}">
+		<div class="m-boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis2(this)'><img src="<%=request.getContextPath()%>/resources/icon/setting.png"></div>
  		</c:if> 
 	</div>
 
