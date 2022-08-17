@@ -14,7 +14,7 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   
 
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 *{margin: 0; padding: 0;}
 hr:not(:first-of-type){
@@ -66,35 +66,28 @@ h3>img{
     border-radius: 15px;
 }
 .miniRoomBox{
+    background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.miniroom_background }"); 
 	width: 90vw;
     height: 45vh;
     margin: 2vh auto;
-    background-color: gray;
+    object-position: left bottom;
+    object-fit: contain;
+    /* background-color: gray; */
 }
 
-@font-face {
-    font-family: 'EF_hyunydororong';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/EF_hyunydororong.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'MabinogiClassicR';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/MabinogiClassicR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'HBIOS-SYS';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
+
 .body{
 font-family: ${myMini.font};
 }
 </style>
 <script>
+/* $(function(){
+	if(${login == null}){
+		alert("로그인해주세요.");
+		window.close();
+	}
+}); */
+
 	function changeHeader(){
 		$("h3").html("<input type='text' id='changeHeader' value='${mini.h2}'>"
 				+"<input type='button' class='headerBtn' value='취소' onclick='location.reload()'>"
@@ -132,13 +125,13 @@ font-family: ${myMini.font};
 		<div id="homeList"></div>
 	</div>
 	<div class="boardListBox">
-		<table border=1>
+		<%-- <table border=1>
 			<tr><td onclick="location.href='mini-diary.do?uidx=${mini.uidx}'">다이어리</td></tr>
 			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'">사진첩</td></tr>
 			<tr><td onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'">방명록</td></tr>
-		</table>
+		</table> --%>
 		
-		<button onclick="myMini(${login.uidx})">내 미니홈피</button>
+		<%-- <button onclick="myMini(${login.uidx})">내 미니홈피</button> --%>
 	</div>
 	</div>
 	<hr>
@@ -162,10 +155,7 @@ font-family: ${myMini.font};
 			error: function(){
 			}
 		})
-	});
-	
 	//미니룸 불러오기 
-	$(function (){
 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/miniRoomBox.do",
 			type: "GET",
@@ -175,7 +165,19 @@ font-family: ${myMini.font};
 			error: function(){
 			}
 		})
+	// 사진첩 글 불러오기
+<%-- 		$.ajax({
+			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
+			type: "GET",
+			data: {"category":9},
+			success: function(html){
+				$(".boardListBox").html(html);
+			},
+			error: function(){
+			}
+		}) --%>
 	});
+	
 	
 	// 내 미니홈피 가기 
 	function myMini(writer){

@@ -13,7 +13,14 @@ public class MiniHomeVo extends UserVo{
 	private String background;
 	private String font;
 	private String name;
+	private String miniroom_background;
 
+	public String getMiniroom_background() {
+		return miniroom_background;
+	}
+	public void setMiniroom_background(String miniroom_background) {
+		this.miniroom_background = miniroom_background;
+	}
 	public String getName() {
 		return name;
 	}

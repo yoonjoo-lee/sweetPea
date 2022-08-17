@@ -142,6 +142,7 @@ public class MiniroomBoard2Controller {
 		MiniroomBoardVo vo = new MiniroomBoardVo();
 		vo.setUidx(uidx);
 		vo.setCategory(category);
+		if(category==9) {vo.setCategory(2);}
 		
 		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList(vo);
 		model.addAttribute("list", list);
@@ -153,6 +154,8 @@ public class MiniroomBoard2Controller {
 			return "minihome/photoAlbum";
 		}else if(category==3) {
 			return "minihome/guestBook";
+		}else if(category==9) {
+			return "minihome/homePhoto";
 		}
 		return "";
 	}
@@ -374,6 +377,9 @@ public class MiniroomBoard2Controller {
 		} if(category==2) {
 			vo.setFont(item);
 			miniroomboard2Service.changeFont(vo);
+		} if(category==3) {
+			vo.setMiniroom_background(item);
+			miniroomboard2Service.changeMiniBackground(vo);
 		}
 		PrintWriter pw = response.getWriter();
 	//	pw.append("<script>location.reload();location.href=location.href;history.go(-1);</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
@@ -400,6 +406,18 @@ public class MiniroomBoard2Controller {
 		vo.setUidx(uidx);
 		vo.setIidx(iidx);
 		miniroomboard2Service.addTominiroom(vo);
+		
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
+	
+	@RequestMapping(value="/removeFromMiniroom.do", method=RequestMethod.GET)
+	public void removeFromMiniroom(int uidx, int iidx, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		ItemVo vo = new ItemVo();
+		vo.setUidx(uidx);
+		vo.setIidx(iidx);
+		miniroomboard2Service.removeFromMiniroom(vo);
 		
 		PrintWriter pw = response.getWriter();
 		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.

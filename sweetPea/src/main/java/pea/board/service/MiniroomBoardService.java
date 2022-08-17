@@ -33,4 +33,8 @@ public interface MiniroomBoardService {
 	
 	MiniHomeVo myMiniStyle(int uidx); // 내 미니홈 스타일 출력 
 	List<ItemVo> myMiniroom(int uidx); // 미니룸 
+	int visitMinihome(int uidx); // 방문자 수 증가 (날짜 입력)
+	
+	int visitTotal(int uidx); // 전체 방문자 수 
+	int visitToday(int uidx); // 일 방문자 수 
 }

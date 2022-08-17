@@ -3,11 +3,15 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <%@ page session="true"%>
 <%@ page import="java.time.LocalDate"%>
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 .diary-box{
 	border-radius: 10px;
 	box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+}
+
+.body{
+font-family: ${myMini.font};
 }
 </style>
 <!-- 글 -->

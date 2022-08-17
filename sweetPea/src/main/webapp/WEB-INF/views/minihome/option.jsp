@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 *{margin: 0; padding: 0;}
@@ -169,6 +170,9 @@ ul{
 	font-weight: bold;
 }
 
+body{
+font-family: ${myMini.font};
+}
 </style>
 <c:if test="${newFriends eq 'Y'}">
 <style>

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <title>Insert title here</title>
 <style>
 table {
@@ -86,6 +87,10 @@ float:right;
 width:60px; 
 margin:5px 10px;
 }
+
+body{
+font-family: ${myMini.font};
+}
 </style>
 </head>
 <body>
@@ -98,8 +103,12 @@ margin:5px 10px;
 <!-- 일단 배경을 카테로리 1로 함  -->
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> 
 </c:if>
-<c:if test="${item.subcategory==2}">
+<c:if test="${item.subcategory==2}"><!-- 캐릭터 --> 
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/addTominiroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">추가 </button><br> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/removeFromMiniroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">제거 </button><br> 
+</c:if>
+<c:if test="${item.subcategory==3}"><!-- 미니룸 배경 --> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=3'">m변경 </button><br> 
 </c:if>
 </div>
 </c:forEach>

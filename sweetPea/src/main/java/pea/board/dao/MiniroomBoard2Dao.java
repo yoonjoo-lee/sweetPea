@@ -57,6 +57,10 @@ public class MiniroomBoard2Dao {
 		return sqlSession.update(namespace+".changeBackground", vo);
 	}
 	
+	//미니룸 배경 변경 
+	public int changeMiniBackground(MiniHomeVo vo) {
+		return sqlSession.update(namespace+".changeMiniBackground", vo);
+	}
 	
 	//미니홈피 글꼴  변경 
 	public int changeFont(MiniHomeVo vo) {
@@ -68,9 +72,15 @@ public class MiniroomBoard2Dao {
 		return sqlSession.update(namespace+".addTominiroom", vo);
 	}
 	
+	//미니룸에 캐릭터 제거
+	public int removeFromMiniroom(ItemVo vo) {
+		return sqlSession.update(namespace+".removeFromMiniroom", vo);
+	}
+	
 	//미니룸 위치 변경
 	public int miniPosition(ItemVo vo) {
 		return sqlSession.update(namespace+".miniPosition", vo);
 	}
+	
 	
 }

@@ -20,6 +20,9 @@ public interface MiniroomBoard2Service {
 	List<ItemVo> myItemList(int uidx); //미니홈피 내 아이템 리스트 
 	int changeBackground(MiniHomeVo vo); //미니홈피 배경 변경 
 	int changeFont(MiniHomeVo vo); //미니홈피 글꼴 변경 
+	int changeMiniBackground(MiniHomeVo vo); //미니룸 배경 변경 
+	
 	int addTominiroom(ItemVo vo); //미니룸에 캐릭터 추가 
+	int removeFromMiniroom(ItemVo vo); //미니룸에 캐릭터 추가 
 	int miniPosition(ItemVo vo); //미니룸 위치 저장
 }

@@ -131,6 +131,21 @@ public class MiniroomBoardServiceImple implements MiniroomBoardService{
 	@Override
 	public List<ItemVo> myMiniroom(int uidx) {
 		return miniroomBoardDao.myMiniroom(uidx);
+	}
+
+	@Override
+	public int visitMinihome(int uidx) {
+		return miniroomBoardDao.visitMinihome(uidx);
+	}
+
+	@Override
+	public int visitTotal(int uidx) {
+		return miniroomBoardDao.visitTotal(uidx);
+	}
+
+	@Override
+	public int visitToday(int uidx) {
+		return miniroomBoardDao.visitToday(uidx);
 	} 
 
 }
