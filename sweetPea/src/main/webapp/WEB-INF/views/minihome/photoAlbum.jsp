@@ -115,6 +115,23 @@ body{
 font-family: ${myMini.font};
 }
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#mainBox{
+	margin:0;
+}
+h1{
+	margin:0;
+}
+.bi-plus-square-fill{
+    font-size: 4vh;
+    float: right;
+    margin: 1vh;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 <h1 class="uploadIcon"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>

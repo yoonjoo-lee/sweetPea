@@ -19,10 +19,6 @@ public class ItemVo {
 	private int mleft;
 	private int mtop;
 	
-	private int mleft;
-	private int mtop;
-	
-	
 	private String like;
 	private String heart;
 	private String cart;

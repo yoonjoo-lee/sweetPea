@@ -385,10 +385,12 @@ window.onload=()=>{
 			}
 		}); 
 	}
-	
-	
-
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+
+</c:if>
+
 </head>
 <body class="body">
 <!-- 마우스 커서 -->
