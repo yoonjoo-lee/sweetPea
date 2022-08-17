@@ -55,13 +55,13 @@ public class ItemServiceImple implements ItemService {
 	}
 
 	@Override
-	public List<ItemVo> itemApproval() {
-		return itemDao.itemApproval();
+	public List<ItemVo> itemApproval(int category) {
+		return itemDao.itemApproval(category);
 	}
 
 	@Override
-	public List<ItemVo> postPone() {
-		return itemDao.postpone();
+	public List<ItemVo> postPone(int category) {
+		return itemDao.postpone(category);
 	}
 
 	@Override

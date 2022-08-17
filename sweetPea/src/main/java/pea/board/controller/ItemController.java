@@ -123,6 +123,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
 	public List<ItemVo> itemSelectAll(int cate, int category) {
 		System.out.println("selectAll category :"+category);
+		System.out.println("selectAll cate :"+cate);
 		/* 아이템 리스트 전체 */
 		if (cate == 1) {
 			return itemService.itemSelectAll(category);
@@ -140,10 +141,10 @@ public class ItemController {
 			return itemService.itemListNew(category);
 		} else if (cate == 6) {
 			/* 아이템 승인 전 들어가는 페이지 리스트 */
-			return itemService.itemApproval();
+			return itemService.itemApproval(category);
 		} else if (cate == 7) {
 
-			return itemService.postPone();
+			return itemService.postPone(category);
 		}
 		return itemService.itemSelectAll(category);
 	}
@@ -224,7 +225,7 @@ public class ItemController {
 			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
 			pw.flush();
 		} else {
-			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do'</script>");
+			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do?category=4'</script>");
 			pw.flush();
 		}
 
@@ -297,7 +298,7 @@ public class ItemController {
 			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
 			pw.flush();
 		} else {
-			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do'</script>");
+			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do?category=4'</script>");
 			pw.flush();
 		}
 		

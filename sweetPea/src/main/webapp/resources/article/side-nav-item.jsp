@@ -7,7 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-
+<link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(function(){
 	$(".banner").load("resources/article/nav-banner.jsp");
@@ -244,10 +245,12 @@ a:hover {
 		<h3><a onclick="location.href='shop.do?category=4'">아이템상점</a></h3>
 		<ul>
 			<li><a onclick="location.href='shop.do?category=1'">미니룸</a></li>
-			<li><a onclick="location.href='shop.do?category=2'">BGM</a></li>
+			<li><a onclick="location.href='shop.do?category=2'">음악</a></li>
 			<li><a onclick="location.href='shop.do?category=3'">커스텀</a></li>
-			<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
-			<li><a onclick="">선물하기</a></li>
+			<c:if test="${login.uidx > 0 }">
+				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
+				<li><a onclick="gift()">선물하기</a></li>
+			</c:if>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">
 			<h3>관리자</h3>
@@ -266,6 +269,19 @@ a:hover {
 	function info(url){
 		$('#itemShopMain').attr('src',url);
 	}
+/* 선물하기 페이지 준비 */
+	function gift(){
+		Swal.fire({
+		      title: '준비중입니다.',
+		      text: '선물하기 페이지는 추후에 추가될 예정입니다.',
+		      icon: 'info',
+				timer: 4000,
+			    timerProgressBar: true,
+	    });
+} 
+
+	
+	
 </script>
 
 

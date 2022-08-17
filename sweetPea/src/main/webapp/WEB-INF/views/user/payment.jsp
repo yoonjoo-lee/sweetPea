@@ -57,6 +57,7 @@
 <script>
 var $name = $("#item_name").val();
 
+
 BootPay.request({
 	price: ${price}, 
 	application_id: "62d74a86e38c3000215afd75",
@@ -93,22 +94,25 @@ BootPay.request({
 	}
 }).error(function (data) {
 	console.log(data);
+	alert("결제 중 오류가 발생하였습니다. 다시 결제 시도 하세요");
 }).cancel(function (data) {
 	console.log(data);
-}).ready(function (data) {
-	console.log(data);
-}).confirm(function (data) {
-	console.log(data);
-	var enable = true; 
-	if (enable) {
-		BootPay.transactionConfirm(data); 
-	} else {
-		BootPay.removePaymentWindow(); 
-	}
+	alert("결제가 취소되었습니다.");
 }).close(function (data) {
     console.log(data);
 }).done(function (data) {
 	console.log(data);
+	$.ajax({
+		url:"",
+		type:"post",
+		data:data,
+		dataType:"json",
+		success:function(data){
+			alert("결제 성공");
+			console.log("성공");
+		}
+	})
+	
 });
 </script>  
 
