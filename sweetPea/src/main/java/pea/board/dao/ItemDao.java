@@ -34,37 +34,37 @@ public class ItemDao {
 	}
 
 	// 아이템 내림차순
-	public List<ItemVo> itemSelectAll() {
+	public List<ItemVo> itemSelectAll(int category) {
 
-		return sqlSession.selectList(namespace + ".itemList");
+		return sqlSession.selectList(namespace + ".itemList", category);
 
 	}
 
 	// 아이템 인기상품순
-	public List<ItemVo> itemListCount() {
+	public List<ItemVo> itemListCount(int category) {
 
-		return sqlSession.selectList(namespace + ".itemListCount");
+		return sqlSession.selectList(namespace + ".itemListCount", category);
 
 	}
 
 	// 아이템 가격 내림차순
-	public List<ItemVo> itemListDesc() {
+	public List<ItemVo> itemListDesc(int category) {
 
-		return sqlSession.selectList(namespace + ".itemListDesc");
+		return sqlSession.selectList(namespace + ".itemListDesc", category);
 
 	}
 
 	// 아이템 가격 오름차순
-	public List<ItemVo> itemListAsc() {
+	public List<ItemVo> itemListAsc(int category) {
 
-		return sqlSession.selectList(namespace + ".itemListAsc");
+		return sqlSession.selectList(namespace + ".itemListAsc", category);
 
 	}
 
 	// 아이템 신상품순
-	public List<ItemVo> itemListNew() {
+	public List<ItemVo> itemListNew(int category) {
 
-		return sqlSession.selectList(namespace + ".itemListNew");
+		return sqlSession.selectList(namespace + ".itemListNew", category);
 
 	}
 
@@ -152,4 +152,11 @@ public class ItemDao {
 	public int myItemListUpdate(ItemVo vo) {
 		return sqlSession.update(namespace+".myItemListUpdate", vo);
 	}
+	
+	// 카테고리 별 리스트
+/*	
+	public List<ItemVo> itemListCate(int category){
+		
+		return sqlSession.selectList(namespace+".itemListCate",category);
+	}*/
 }

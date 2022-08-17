@@ -25,28 +25,28 @@ public class ItemServiceImple implements ItemService {
 	}
 
 	@Override
-	public List<ItemVo> itemSelectAll() {
-		return itemDao.itemSelectAll();
+	public List<ItemVo> itemSelectAll(int category) {
+		return itemDao.itemSelectAll(category);
 	}
 
 	@Override
-	public List<ItemVo> itemListDesc() {
-		return itemDao.itemListDesc();
+	public List<ItemVo> itemListDesc(int category) {
+		return itemDao.itemListDesc(category);
 	}
 
 	@Override
-	public List<ItemVo> itemListAsc() {
-		return itemDao.itemListAsc();
+	public List<ItemVo> itemListAsc(int category) {
+		return itemDao.itemListAsc(category);
 	}
 
 	@Override
-	public List<ItemVo> itemListNew() {
-		return itemDao.itemListNew();
+	public List<ItemVo> itemListNew(int category) {
+		return itemDao.itemListNew(category);
 	}
 
 	@Override
-	public List<ItemVo> itemListCount() {
-		return itemDao.itemListCount();
+	public List<ItemVo> itemListCount(int category) {
+		return itemDao.itemListCount(category);
 	}
 
 	@Override
@@ -123,6 +123,11 @@ public class ItemServiceImple implements ItemService {
 	public int myItemListUpdate(ItemVo vo) {
 		return itemDao.myItemListUpdate(vo);
 	}
+/*
+	@Override
+	public List<ItemVo> itemListCate(int category) {
+		return itemDao.itemListCate(category);
+	}*/
 
 
 
