@@ -40,6 +40,7 @@
 }
 .item-span{
 	color: gray;
+	font-size: 0.8vw;
 }
 </style>
 </head>
@@ -111,5 +112,13 @@
 			</c:forEach>
 		</div>
 	</div>
+<c:if test="${device eq 'PC'}">	
+	<script>
+		var length = $(".col").length / 2;
+		if(length == 6){
+			$(".col").css("width","16.6%");
+		}
+	</script>
+</c:if>	
 </body>
 </html>
