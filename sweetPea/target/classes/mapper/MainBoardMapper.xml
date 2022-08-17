@@ -240,6 +240,13 @@
 	SELECT * FROM pea_user WHERE delyn='Y' ORDER BY uidx DESC
 </select>
 
+<update id="delUser" parameterType="int">
+	UPDATE pea_user
+	   SET delyn = 'Y'
+	     , delreason = '운영자에게 강퇴당함'
+	 WHERE uidx = #{uidx}
+</update>
+
 </mapper>
 
 

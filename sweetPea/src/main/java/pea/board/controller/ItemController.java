@@ -445,6 +445,20 @@ public class ItemController {
 		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
-
+	
+	/* 결제  */
+/*	
+	@RequestMapping(value="item/insertAmount.do", method=RequestMethod.POST)
+	public int insertAmount(ItemVo vo,HttpServletRequest request, HttpSession session) {
+		
+		session = request.getSession();
+		session.getAttribute("login");
+		
+		UserVo login = (UserVo) session.getAttribute("login");
+		
+		
+		return 1;
+	}
+*/
 
 }

@@ -306,4 +306,24 @@
 		ON a.iidx=b.iidx 
 		 WHERE b.uidx=#{uidx} AND b.inyn='Y'
 	</select>
+	
+	<!-- 방문자 수 증가 -->
+	<insert id="visitMinihome" parameterType="int">
+		INSERT INTO pea_minihome_visit(uidx, visit_date) 
+		 VALUES(#{uidx}, sysdate()); 
+	</insert>
+	
+	<!-- 전체 방문자 수 출력 -->
+	<select id="visitTotal" parameterType="int" resultType="int">
+		SELECT count(*) FROM pea_minihome_visit 
+		 WHERE uidx=#{uidx};
+	</select>
+	
+	<!-- 오늘 방문자 수 출력 -->
+	<select id="visitToday" parameterType="int" resultType="int">
+		SELECT count(*) FROM pea_minihome_visit 
+			WHERE  DATE_FORMAT(visit_date, 'yy/MM/dd') =  DATE_FORMAT(sysdate(), 'yy/MM/dd') 
+		AND uidx=#{uidx};
+
+	</select>
 </mapper>
