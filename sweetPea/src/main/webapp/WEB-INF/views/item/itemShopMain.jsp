@@ -59,6 +59,8 @@ h4 {
 /* 카테고리 셀렉트 부분 스타일  */
 body {
 	text-align: left;
+	overflow-x:hidden;
+	overflow-y:auto;
 }
 
 div {
@@ -354,10 +356,12 @@ function openShoppingBasket(){
 
 /* 아이템페이지 첫 로드 할 때  리스트 나열 구문 */	
  $(function itemSelectAll(){
+	var category= ${category};	 
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+1,
+/* 	data:"cate="+1, */
+	data:{"cate":1,"category":category},
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
@@ -385,13 +389,15 @@ function openShoppingBasket(){
 		}
 	})
 })
+
  
 /* 아이템 리스트 카테고리별 나열 */	
 function itemSelectAll(cate){
+	 var category= ${category};	 
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+cate,
+	data:{"cate":cate,"category":category},
 	success:function(data){
 		/* 	alert(data[i].name); */
 		var html="";

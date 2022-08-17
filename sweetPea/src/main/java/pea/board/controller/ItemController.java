@@ -67,16 +67,41 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = "/item/shop.do", method = RequestMethod.GET)
-	public String shop() {
-
+	public String shop(HttpServletRequest request, HttpSession session,int category) {
+		session.setAttribute("category", category);
+		System.out.println("컨트롤러categoty"+category);
+		
+		
+		
 		return "item/shop";
 	}
 
 	@RequestMapping(value = "/item/itemShopMain.do", method = RequestMethod.GET)
 	public String itemShopMain() {
-
+			
 		return "item/itemShopMain";
 	}
+	
+	/* 만들어 본 것 확인 받기 */
+	/* 만들어 본 것 확인 받기 */
+	/* 만들어 본 것 확인 받기 */
+	/* 만들어 본 것 확인 받기 */
+	/* 만들어 본 것 확인 받기 */
+	/*
+	@ResponseBody
+	@RequestMapping(value = "/item/itemShopMain.do", produces= "application/json;charset=utf8")
+	public List<ItemVo> itemShopMain(int category) {
+		if(category == 1) {
+			return itemService.itemListCate(category);
+		} else if(category == 2) {
+			return itemService.itemListCate(category);
+		}else if(category == 3) {
+			return itemService.itemListCate(category);
+		}
+		
+		return itemService.itemListCate(category);
+		
+	}*/
 
 	@RequestMapping(value = "/item/leftBanner.do")
 	public String itemLeftBanner() {
@@ -96,23 +121,23 @@ public class ItemController {
 
 	@ResponseBody
 	@RequestMapping(value = "/item/itemSelectAll.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemSelectAll(int cate) {
-
+	public List<ItemVo> itemSelectAll(int cate, int category) {
+		System.out.println("selectAll category :"+category);
 		/* 아이템 리스트 전체 */
 		if (cate == 1) {
-			return itemService.itemSelectAll();
+			return itemService.itemSelectAll(category);
 		} else if (cate == 2) {
 			/* 아이템 리스트 인기상품순 */
-			return itemService.itemListCount();
+			return itemService.itemListCount(category);
 		} else if (cate == 3) {
 			/* 아이템 리스트 가격내림차순 */
-			return itemService.itemListDesc();
+			return itemService.itemListDesc(category);
 		} else if (cate == 4) {
 			/* 아이템 리스트 가격오름차순 */
-			return itemService.itemListAsc();
+			return itemService.itemListAsc(category);
 		} else if (cate == 5) {
 			/* 아이템 리스트 신상품순 */
-			return itemService.itemListNew();
+			return itemService.itemListNew(category);
 		} else if (cate == 6) {
 			/* 아이템 승인 전 들어가는 페이지 리스트 */
 			return itemService.itemApproval();
@@ -120,9 +145,30 @@ public class ItemController {
 
 			return itemService.postPone();
 		}
-		return itemService.itemSelectAll();
+		return itemService.itemSelectAll(category);
 	}
-
+	
+	/* 카테고리별 아이템 가져오기 */
+	/* 카테고리별 아이템 가져오기 */
+	/* 카테고리별 아이템 가져오기 */
+	/* 카테고리별 아이템 가져오기 */
+	/* 카테고리별 아이템 가져오기 */
+	/*
+	@ResponseBody
+	@RequestMapping(value="item/itemListCate.do", produces = "application/json;charset=utf8")
+	public List<ItemVo> itemListCate(int category){
+		
+		if(category == 1) {
+			return itemService.itemListCate(category);
+		} else if(category == 2) {
+			return itemService.itemListCate(category);
+		}else if(category == 3) {
+			return itemService.itemListCate(category);
+		}
+		
+		return itemService.itemListCate(category);
+	}
+*/
 	// 아이템 리스트 신상품 LIMIT 5개
 	@ResponseBody
 	@RequestMapping(value = "/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
