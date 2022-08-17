@@ -76,7 +76,7 @@
 }
 .login-top>span{
 	float: left;
-	font-size: 9em;
+	font-size: 0.8vw;
 	margin-left: 1em;
 	color: silver;
 }
@@ -110,7 +110,7 @@
 	padding: 0;
 }
 .login-bottom>input{
-	width: 85%;
+	width: 92%;
 	display: block;
 	margin: 0 auto;
 	font-size: 0.8em;

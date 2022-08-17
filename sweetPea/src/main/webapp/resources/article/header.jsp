@@ -76,6 +76,10 @@
     display: block;
   }
 	
+.collapse:not(.show) {
+    display: none;
+}
+	
 .mobile-header-idxBox{
 	display: inline-block;
 	color: white;
@@ -113,8 +117,8 @@
 						</div>
 					</c:if>
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 ">
-                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do">아이템상점</a></li>
-                        <li class="nav-item"><a class="nav-link header-a" href="#portfolio">선물하기</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do?category=4">아이템상점</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" onclick="gift()">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/charge.do">결제/충전</a></li>
                         <li class="nav-item nav-hover" >
                         	<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
@@ -133,7 +137,7 @@
                         </li>
                         <c:if test="${login.pea_super == 'Y' }">
                         	<li class="nav-item nav-hover">
-								<a class="nav-link" href="<%=request.getContextPath()%>"> 관리자 </a>   
+								<a class="nav-link" href="#"> 관리자 </a>   
 	                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/memberManagement.do">회원관리</a></li>
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=6">신고관리</a></li>
@@ -170,6 +174,17 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script type="text/javascript">
+    	function gift(){
+    		Swal.fire({
+    		      title: '준비중입니다.',
+    		      text: '선물하기 페이지는 추후에 추가될 예정입니다.',
+    		      icon: 'info',
+    				timer: 4000,
+    			    timerProgressBar: true,
+    	    });
+    } 
+        </script>
         
 
 </body>

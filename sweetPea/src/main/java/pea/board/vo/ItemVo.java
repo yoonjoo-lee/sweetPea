@@ -16,6 +16,8 @@ public class ItemVo {
 	private String delyn;
 	private String approval;
 	private String postpone;
+	private int mleft;
+	private int mtop;
 	
 	private int mleft;
 	private int mtop;

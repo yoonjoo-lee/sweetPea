@@ -74,6 +74,7 @@ table {
 	margin: 0 auto;
 	height: 100%;
 }
+
 .upload_btn input[type="file"] { /* 파일 필드 숨기기 */
 	position: absolute;
 	width: 1px;
@@ -84,11 +85,11 @@ table {
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
+
 .upload_btn label {
 	color: #fff;
 	background-color: #5cb85c;
 	border-color: #4cae4c;
-	
 	display: inline-block;
 	padding: .5em .75em;
 	font-size: xxx-large;
@@ -98,12 +99,9 @@ table {
 	border: 1px solid #ebebeb;
 	border-bottom-color: #e2e2e2;
 	border-radius: .25em;
-	
-/* .upload{
+	/* .upload{
 	width:250px;
-} */
-#photoBtn, .upload_btn {
-	display: block;
+} */ # photoBtn , .upload_btn { display : block;
 	margin-top: 20px;
 	padding: 15px 0;
 	width: 100%;
@@ -145,9 +143,7 @@ table {
 
 			<tr>
 				<td colspan=2><div class="upload_btn">
-						<div class="upload" style="width:100%;">
 							<input type="file" name="file" accept="audio/mp3, audio/wav, audio/mp4" id="write_file"><label for="write_file">BGM FILE</label>
-						</div>
 					</div></td>
 			</tr>
 		</table>
@@ -165,9 +161,17 @@ table {
 				<tr>
 					<th width="200px;">아이템 종류 :</th>
 					<td width="500px;"><select id="category" name="category">
-							<option value="1">미니룸</option>
 							<option value="2">BGM</option>
-							<option value="3">커스텀</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>음악 종류 :</th>
+					<td width="500px;"><select id="subcategory" name="subcategory" style="width: 100%; height: 3vh;">
+							<option value="6">힙합</option>
+							<option value="7">OST</option>
+							<option value="8">발라드</option>
+							<option value="9">클래식</option>
+							<option value="10">CCM</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -308,7 +312,8 @@ table {
 					return;
 				}
 				
-			fm.action="<%=request.getContextPath()%>/item/itemFile.do";
+			fm.action="<%=request.getContextPath()%>
+		/item/itemFile.do";
 			fm.method = "post";
 			fm.enctype = "multipart/form-data";
 			fm.submit();

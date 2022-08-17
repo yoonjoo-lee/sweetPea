@@ -86,4 +86,8 @@ public class MainBoardDao {
 	public List<UserVo> selectAlldeleteuser(){
 		return sqlSession.selectList("pea.board.mapper.MainBoardMapper.selectAlldeleteuser");
 	}
+	
+	public int delUser(int uidx) {
+		return sqlSession.update("pea.board.mapper.MainBoardMapper.delUser",uidx);
+	}
 }

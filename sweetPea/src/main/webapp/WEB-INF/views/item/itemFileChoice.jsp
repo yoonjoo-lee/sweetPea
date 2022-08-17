@@ -8,6 +8,8 @@
 <!-- 부트스트랩 아이콘 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <title>item file choice</title>
 <style>
@@ -152,12 +154,32 @@ body .dribbble img {
 <body>
 
 <a  onclick="location.href = '<%=request.getContextPath()%>/item/itemWrite.do'"  class="button reverse dark">ITEM</a>
-<a  onclick="location.href = '<%=request.getContextPath()%>/item/bgmFile.do'"  class="button reverse dark">BGM</a>
-<!-- dribbble -->
-<!-- <a class="dribbble" href="https://dribbble.com/shots/7441241-Button-Hover-Effects" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a> -->
+<a  onclick="bgmWrite()"  class="button reverse dark">BGM</a>
+<%-- <a  onclick="location.href = '<%=request.getContextPath()%>/item/bgmFile.do'"  class="button reverse dark">BGM</a> --%>
+
 <script type="text/javascript">
+/* <!-- 버튼  --> */
 document.querySelectorAll('.button').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
+
+/* BGM 준비중 */
+	function bgmWrite(){
+		Swal.fire({
+		      title: '준비중입니다.',
+		      text: 'BGM은 추후에 추가될 예정입니다.',
+		      icon: 'info',
+				timer: 4000,
+			    timerProgressBar: true,
+	    });
+} 
+
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+

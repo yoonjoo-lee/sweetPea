@@ -20,6 +20,12 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <title>leftBanner</title>
+<style type="text/css">
+body {
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+</style>
 </head>
 <body>
 

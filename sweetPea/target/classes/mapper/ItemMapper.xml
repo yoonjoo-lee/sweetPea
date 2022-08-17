@@ -40,36 +40,46 @@
 	</insert>
 		
 	<!-- 아이템 리스트  -->
-	<select id="itemList" resultType="ItemVo">
+	<select id="itemList" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' and postpone='N'
+			<if test="value!=4">and category=#{category}</if>
 		ORDER BY iidx DESC
 	</select>
+	<!-- 아이템 리스트  카테고리 미니룸 (1)  -->
+<!-- 	<select id="itemListCate" parameterType="int" resultType="ItemVo">
+		select * from pea_item where delyn='N' and approval='Y' and postpone='N' and category=#{category}
+		ORDER BY iidx DESC
+	</select> -->
 	
 	<!-- 아이템 인기 상품순 -->
-	<select id="itemListCount" resultType="ItemVo">
+	<select id="itemListCount" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y'  and postpone='N'
+			<if test="value!=4">and category=#{category}</if>
 		ORDER BY count DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 내림차순 -->
-	<select id="itemListDesc" resultType="ItemVo">
+	<select id="itemListDesc" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
+			<if test="value!=4">and category=#{category}</if>
 		ORDER BY price DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 오름차순 -->
-	<select id="itemListAsc" resultType="ItemVo">
+	<select id="itemListAsc" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
+			<if test="value!=4">and category=#{category}</if>
 		ORDER BY price 
 		ASC, iidx 
 		DESC
 	</select>
 	<!-- 아이템 리스트 신상품순 -->
-	<select id="itemListNew" resultType="ItemVo">
+	<select id="itemListNew" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
+			<if test="value!=4">and category=#{category}</if>
 		ORDER BY iidx DESC
 	</select>
 	
@@ -77,24 +87,27 @@
 	<select id="itemListNewLimit" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
+		
 		ORDER BY iidx DESC LIMIT 0,6;
 	</select>
 	
 	<!-- 아이템 승인 리스트  -->
-	<select id="itemApproval" resultType="ItemVo">
+	<select id="itemApproval" parameterType="int" resultType="ItemVo">
 		SELECT * FROM pea_item 
 			WHERE delyn='N' 
 			AND approval='N' 
 			AND	postpone='N'
+				<if test="value!=4">and category=#{category}</if>
 			ORDER BY iidx 
 			DESC;
 	</select>
 	<!-- 아이템 보류 리스트  -->
-	<select id="postpone" resultType="ItemVo">
+	<select id="postpone" parameterType="int" resultType="ItemVo">
 		SELECT * FROM pea_item
 			WHERE delyn='N'
 			AND approval='N'
 			AND postpone='Y'
+				<if test="value!=4">and category=#{category}</if>
 			ORDER BY iidx 
 			DESC;
 	
