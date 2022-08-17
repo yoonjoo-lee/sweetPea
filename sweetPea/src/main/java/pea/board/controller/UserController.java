@@ -401,8 +401,17 @@ public class UserController {
 		return "user/payment";
 	}
 	
-	
-	
+	/* 미니홈피 로그아웃 */
+	@RequestMapping(value="/user/logoutMini.do")
+	public void logoutMini(HttpServletRequest request, HttpSession session, HttpServletResponse response, int uidx) throws IOException {
+		session = request.getSession();
+		session.invalidate();
+		
+		PrintWriter pw = response.getWriter();
+		
+		pw.append("<script>window.location.href='/controller/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
+	}
 	
 	
 	

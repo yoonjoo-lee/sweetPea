@@ -359,4 +359,11 @@ public class MainBoardController {
 	public List<UserVo> deleteAccountList() {
 		return mainboardService.selectAlldeleteuser();
 	}
+	
+	// 회원 강퇴시키기
+		@ResponseBody
+		@RequestMapping(value = "mainboard/delUser.do", produces = "application/json;charset=utf8")
+		public int delUser(int uidx) {
+			return mainboardService.delUser(uidx);
+		}
 }

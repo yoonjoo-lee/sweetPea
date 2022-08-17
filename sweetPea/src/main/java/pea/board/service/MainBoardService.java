@@ -34,5 +34,5 @@ public interface MainBoardService {
 	List<UserVo> selectAlluser(); //회원 정보 리스트
 	List<UserVo> selectAlldeleteuser(); //탈퇴 회원 정보 리스트
 	
-
+	int delUser(int uidx); //회원강퇴
 }

@@ -165,13 +165,6 @@ function openMini(){
 			<li><a onclick="info('myPage-del.do')">회원 탈퇴</a></li>
 			<li><a>보유아이템 및 결제내역</a></li>
 		</ul>
-		<c:if test="${login.pea_super == 'Y'}">
-		<h3>관리자</h3>
-		<ul>
-			<li><a>신고 관리</a></li>
-			<li><a>신청글 관리</a></li>
-		</ul>	
-		</c:if>
 	</div>
 	<div class="categoryBox leftBanner"></div>
 </div>
