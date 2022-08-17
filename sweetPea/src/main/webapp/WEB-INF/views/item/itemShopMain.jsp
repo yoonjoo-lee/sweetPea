@@ -357,6 +357,7 @@ function openShoppingBasket(){
 /* 아이템페이지 첫 로드 할 때  리스트 나열 구문 */	
  $(function itemSelectAll(){
 	var category= ${category};	 
+	console.log(category);
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",

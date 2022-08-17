@@ -76,8 +76,8 @@ public class ItemDao {
 	}
 
 	// 아이템 보류 리스트
-	public List<ItemVo> postpone() {
-		return sqlSession.selectList(namespace + ".postpone");
+	public List<ItemVo> postpone(int category) {
+		return sqlSession.selectList(namespace + ".postpone",category);
 	}
 
 	public int postponeCheck(int iidx) {
@@ -85,8 +85,8 @@ public class ItemDao {
 	}
 
 	// 아이템 승인 리스트
-	public List<ItemVo> itemApproval() {
-		return sqlSession.selectList(namespace + ".itemApproval");
+	public List<ItemVo> itemApproval(int category) {
+		return sqlSession.selectList(namespace + ".itemApproval",category);
 	}
 
 	public int approvalCheck(int iidx) {

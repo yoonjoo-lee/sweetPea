@@ -26,10 +26,11 @@
 
 /* 아이템 리스트 나열 */	
 $(function itemSelectAll(){
+	var category = ${category};
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:"cate="+7,
+	data:{"cate":7,"category":4},
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
