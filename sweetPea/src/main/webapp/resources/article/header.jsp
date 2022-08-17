@@ -76,6 +76,10 @@
     display: block;
   }
 	
+.collapse:not(.show) {
+    display: none;
+}
+	
 .mobile-header-idxBox{
 	display: inline-block;
 	color: white;
@@ -133,7 +137,7 @@
                         </li>
                         <c:if test="${login.pea_super == 'Y' }">
                         	<li class="nav-item nav-hover">
-								<a class="nav-link" href="<%=request.getContextPath()%>"> 관리자 </a>   
+								<a class="nav-link" href="#"> 관리자 </a>   
 	                        	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/memberManagement.do">회원관리</a></li>
 								  <li><a class="nav-link" href="<%=request.getContextPath()%>/mainboard/list.do?category=6">신고관리</a></li>

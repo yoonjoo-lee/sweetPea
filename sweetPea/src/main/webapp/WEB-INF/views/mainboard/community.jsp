@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,13 +29,6 @@
 			position: absolute;
 			
 		}
-		
-		
-		
-		
-		
-
-
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
@@ -163,6 +157,13 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
+<c:if test="${device eq 'MOBILE'}">
+<style>
+	#view{
+		width: 100%;
+	}
+</style>
+</c:if>
 </head>
 
 <body>
