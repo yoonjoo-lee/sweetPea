@@ -13,9 +13,10 @@
 /* 이미지 슬라이더 */
 #slider {
   position: relative;
-  overflow: hidden;
-  margin: 20px auto 0 auto;
+  overflow: hidden; 
+  /* margin: 20px auto 0 auto; */
   border-radius: 4px;
+  height: 100%;
   
 }
 
@@ -23,7 +24,7 @@
   position: relative;
   margin: 0;
   padding: 0;
-  height: 200px;
+  /* height: 200px; */
   list-style: none;
   float: right;
 }
@@ -34,17 +35,17 @@
   float: center;
   margin: 0;
   padding: 0;
-  width: 350px;
-  height: 150px;
+  width: 51vw;
+  height: 26vh;
   text-align: center;
-  line-height: 150px;
+  
 }
 
 a.control_prev, a.control_next {
   position: absolute;
   z-index: 999;
   display: block;
-  padding: 100% 3%;
+  padding: 11vh 3%;
   width: auto;
   height: auto;
   color: #2a2a2a;
@@ -70,10 +71,24 @@ a.control_next {
   border-radius: 2px 0 0 2px;
 }
 
+
 .image{
-width:330px;
-height:150px;
+/* width:20vw; */
+height:23vh;
+margin: 1vh 0;
 }
+.list-box>p:not(:first-child){
+	display: none;
+} 
+.list-box>p:first-child {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/* .image{
+object-fit: scale-down;
+} */
 
 </style>
 <c:forEach var="board" items='${list }'>

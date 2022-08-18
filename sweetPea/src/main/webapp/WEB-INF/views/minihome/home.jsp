@@ -73,6 +73,9 @@ h3>img{
     object-position: left bottom;
     object-fit: contain;
     /* background-color: gray; */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 

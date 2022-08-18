@@ -435,10 +435,10 @@ function clickBtn(link){
 			'left': '0',
 		    'top': '0',
 		    'position': 'fixed',
-		    'width': '72vw',
-		    'height': '98vh',
-		    'margin': '1vh 1vw',
-			'border-radius': '30px',
+		    'width': '70vw',
+		    'height': '88vh',
+		    'margin': '6vh 2vw',
+			'border-radius': '3vh',
 		/* width: 99vw;
 		height: 98vh;
 		margin: 1vh 1vw;
