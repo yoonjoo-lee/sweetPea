@@ -219,9 +219,28 @@ ul {
 	width: 100vw;
 }
 
-.col mb-5 {
+/* .col mb-5 {
 	width: 200px;
 	height: 150px;
+} */
+
+.mb-5{
+	margin-bottom: 3rem !important;
+    width: 20%;
+    margin: 2vw;
+}
+.card-img-top{
+    width: fit-content;
+    height: 15vh;
+    max-width: 190px;
+    margin: 0 auto;
+}
+h5{
+	font-size: 2vw;
+}
+
+.dealImg{
+	cursor: pointer;
 }
 /* 모달 사이즈  */
 </style>
@@ -244,45 +263,6 @@ function openShoppingBasket(){
 <body>
 	<br>
 	<h4>item shop main</h4>
-	<!-- 종류 체크 박스  -->
-	<!-- 	<div class="search_option_wrap">
-
-		<br>
-		<div class="search_option_item">
-			<div class="search_category_title">테마별</div>
-			<div class="search_category_contents">
-				<ul>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="theme" value="봄"><span class="item_text">봄</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="theme" value="여름"><span class="item_text">여름</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="theme" value="가을"><span class="item_text">가을</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="theme" value="겨울"><span class="item_text">겨울</span>
-					</label></li>
-				</ul>
-			</div>
-		</div>
-		<br>
-		<div class="search_option_item">
-			<div class="search_category_title">가격별</div>
-			<div class="search_category_contents">
-				<ul>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="pea_price" value="10개"><span class="item_text">10개</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="pea_price" value="20개"><span class="item_text">20개</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="pea_price" value="30개"><span class="item_text">30개</span>
-					</label></li>
-					<li class="search_cate_item"><label class="item_checkbox"> <input type="checkbox" name="pea_price" value="40개"><span class="item_text">40개</span>
-					</label></li>
-				</ul>
-			</div>
-		</div>
-		<br>
-
-	</div>
-	<br> -->
 	<!-- 아이템 리스트  -->
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(2)">
 		<p class="btnText">인기상품순</p>
@@ -356,7 +336,8 @@ function openShoppingBasket(){
 
 /* 아이템페이지 첫 로드 할 때  리스트 나열 구문 */	
  $(function itemSelectAll(){
-	var category= ${category};	 
+	var category = ${category};	 
+	
 	console.log(category);
 	$.ajax({
 	url:"itemSelectAll.do",
@@ -366,19 +347,19 @@ function openShoppingBasket(){
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left; width:230px;'>";
+			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100' style='width:200px;height:300px;'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price+"";
 			html +="</div>";
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>buy</a><span>&nbsp;</span>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>";
+			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -403,7 +384,7 @@ function itemSelectAll(cate){
 		/* 	alert(data[i].name); */
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left; width:230px;'>";
+			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100' style='width:200px;height:300px;'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
@@ -414,8 +395,8 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>buy</a><span>&nbsp;</span>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>";
+			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
@@ -436,8 +417,7 @@ function addCart(uiidx){
  /* 아이템 구매  */
  function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
-	 
-	 if (${login.pea_amount}<price){
+	 if ('${login.pea_amount}'<price){
 		 alert('보유하신 완두콩 갯수가 부족합니다.');
 			window.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
 	 }else{
@@ -486,6 +466,7 @@ function addCart(uiidx){
 			});
 		
 	 }
+ 
 /* 	 Swal.fire({
 		icon:'info',
 		title:'아이템 구매 기능  준비중...',

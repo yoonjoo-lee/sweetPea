@@ -16,6 +16,22 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <title>item-approval</title>
+<style type="text/css">
+.mb-5{
+	margin-bottom: 3rem !important;
+    width: 20%;
+    margin: 2vw;
+}
+.card-img-top{
+    width: fit-content;
+    height: 15vh;
+    max-width: 96%;
+    margin: 0 auto;
+}
+h5{
+	font-size: 2vw;
+}
+</style>
 </head>
 <body>
 	<h3 style="text-align:center;">ITEM-APPROVAL</h3>
