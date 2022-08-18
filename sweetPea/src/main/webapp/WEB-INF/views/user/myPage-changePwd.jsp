@@ -102,7 +102,7 @@ function changePwd(){
 <body>
 <br><br><br>
 	<div class="afterCheckBox">
-		<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
+		<c:if test="${mini==0 }"><img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img"></c:if>
 		<h4>비밀번호 재설정</h4>
 		<br>
 		<div class="inputBox">

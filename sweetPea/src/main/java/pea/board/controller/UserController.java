@@ -262,18 +262,20 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/myPage-idx.do", method=RequestMethod.GET)
-	public String myIdx(int uidx, Model model) {
+	public String myIdx(int uidx, int mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
 		model.addAttribute("vo",vo);
+		model.addAttribute("mini",mini);
 		return "user/myPage-idx";
 	}
 	
 	@RequestMapping(value="/user/myPage-modify.do", method=RequestMethod.GET)
-	public String modifyIdx(int uidx, Model model) {
+	public String modifyIdx(int uidx, int mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
 		model.addAttribute("vo",vo);
+		model.addAttribute("mini",mini);
 		return "user/myPage-modify";
 	}
 	
@@ -301,10 +303,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/myPage-changePwd.do", method=RequestMethod.GET)
-	public String changePwd(int uidx, Model model) {
+	public String changePwd(int uidx, int mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
 		model.addAttribute("vo",vo);
+		model.addAttribute("mini",mini);
 		return "user/myPage-changePwd";
 	}
 	

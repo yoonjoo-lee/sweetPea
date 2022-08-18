@@ -28,9 +28,9 @@
 /* 		background-color: #52C3BD; */
 		border-radius: 10px;
 		width: 75vw;
-		height: 98vh;
+		height: 92vh;
 		position: relative;
-		margin: 1vh 1vw;
+		margin: 4vh 1vw;
 		z-index: 1050;
 	}
 	#leftBox{
@@ -120,7 +120,7 @@
 	#left-boardBox{
 		border: 1px solid;
 	    width: 11vw;
-	    height: 55vh;
+	    height: 50vh;
 	    border-radius: 15px;
 	    margin: 3vh auto;
 	    background-color: white;
@@ -543,16 +543,16 @@ function noSpace(e){
 	</div>
 	<div id="buttonBox">
 		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>
-		<div class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
-		<div class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'),clickThis(this)"><p>사진첩</p></div>
-		<div class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'),clickThis(this)"><p>방명록</p></div>
+		<div id="1" class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
+		<div id="2" class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'),clickThis(this)"><p>사진첩</p></div>
+		<div id="3" class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'),clickThis(this)"><p>방명록</p></div>
 		<c:if test="${mini.uidx == login.uidx}">
 		<div class="boardBtn" onclick='clickBtn("mini-option.do?uidx=${mini.uidx}"),clickThis(this)'><p>관리</p></div>
  		</c:if> 
 	</div>
 </div>
 
-<div class="box-container">
+<%-- <div class="box-container">
   <div class="icon-commentary">
     <div class="face arrow"></div>
     <div class="face below"></div>
@@ -569,9 +569,7 @@ function noSpace(e){
     </div>
   </div>
 </div>
-
-
-<img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png">
+<img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png"> --%>
 <%-- </c:if> --%>
 
 <%-- <c:if test="${device eq 'MOBILE'}">
@@ -579,5 +577,14 @@ function noSpace(e){
 모바일입니다
 
 </c:if> --%>
+<!-- 내 미니홈피 가기  -->
+<button style="top:0;right:0;margin:2vh;position:absolute" onclick="myMini(${login.uidx})">
+<img style="height:20px;width:20px;"src="<%=request.getContextPath()%>/resources/icon/home.png"></button>
+<script>
+//내 미니홈피 가기 
+function myMini(writer){
+		window.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"";
+}
+</script>
 </body>
 </html>

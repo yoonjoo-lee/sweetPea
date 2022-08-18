@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +43,7 @@
 </head>
 <body>
 	<br>
-	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
+	<c:if test="${mini==0 }"><img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img"></c:if><!-- 메인에서 들어갈 경우만 출력 -->
 	<h4>회원 정보</h4>
 	<br>
 	<div class="inputBox">
@@ -54,8 +55,8 @@
 		<div class = "inputIdx"><p>이메일 :</p>${vo.email}</div>
 		<div class = "inputIdx"><p>주소 :</p>${vo.addr}</div>
 		<span class = "aBox">
-		<a href="myPage-modify.do?uidx=${login.uidx}">회원정보 수정</a> |
-		<a href="myPage-changePwd.do?uidx=${login.uidx}">비밀번호 수정</a> |
+		<a href="myPage-modify.do?uidx=${login.uidx}&mini=${mini}">회원정보 수정</a> |
+		<a href="myPage-changePwd.do?uidx=${login.uidx}&mini=${mini}">비밀번호 수정</a> |
 		<a href="myPage-del.do">탈퇴하기</a> 
 		</span>
 	</div>

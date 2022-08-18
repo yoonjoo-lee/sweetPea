@@ -139,7 +139,9 @@ img{
 
 </head>
 <body>
+<c:if test="${mini.uidx==login.uidx }">
 <h1 class="uploadIcon"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
+</c:if>
 
 <c:forEach var="board" items='${list }'>
 <div class="eachphoto">

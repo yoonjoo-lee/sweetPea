@@ -140,7 +140,7 @@ font-family: ${myMini.font};
 	</div>
 	
 	<hr>
-	<h4>일촌평</h4>
+	<!-- <h4>일촌평</h4> -->
 	
 	<script>
 	// 글 전부 불러오기
@@ -166,7 +166,7 @@ font-family: ${myMini.font};
 			}
 		})
 	// 사진첩 글 불러오기
-<%-- 		$.ajax({
+ 		$.ajax({
 			url: "<%=request.getContextPath()%>/miniroomboard2/boardList.do",
 			type: "GET",
 			data: {"category":9},
@@ -175,7 +175,7 @@ font-family: ${myMini.font};
 			},
 			error: function(){
 			}
-		}) --%>
+		}) 
 	});
 	
 	
