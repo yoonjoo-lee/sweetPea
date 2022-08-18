@@ -52,7 +52,7 @@ public class MiniroomBoardController {
 			if(uidx != login.getUidx()) {
 				miniroomBoardService.visitMinihome(uidx);
 			}
-		} 
+		}  
 		int total = miniroomBoardService.visitTotal(uidx);
 		int today = miniroomBoardService.visitToday(uidx);
 		session.setAttribute("total", total);
