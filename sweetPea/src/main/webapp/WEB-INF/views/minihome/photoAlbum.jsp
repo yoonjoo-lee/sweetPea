@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -129,6 +130,10 @@ h1{
     float: right;
     margin: 1vh;
 }
+img{
+	width: 100px;
+	height: 100px;
+}
 </style>
 </c:if>
 
@@ -161,16 +166,14 @@ h1{
 <div id="slider" class="slider${board.mbidx }">
   <a class="control_next" id="next${board.mbidx }">&gt;</a>
   <a class="control_prev" id="prev${board.mbidx }">&lt;</a>
-  <ul class="ul${board.mbidx }">
 	<script>
 	var content = '${board.content }';
 	var files = content.split('|');
-	
+	$(".slider"+${board.mbidx}).append('<ul class="ul${board.mbidx }">');
 	for (var i=0; i<files.length-1; i++){
-	 	document.write('<li class="li${board.mbidx }"><img alt="img" class="image" src="<%=request.getContextPath() %>/miniroomboard2/imageView.do?originFileName='+files[i]+'"/></li>')
+	 	$(".ul"+${board.mbidx}).append('<li class="li${board.mbidx }"><img alt="img" class="image" src="<%=request.getContextPath() %>/miniroomboard2/imageView.do?originFileName='+files[i]+'"/></li>');
 	}
-	</script>
-  </ul>  
+	</script>  
 </div>
 
 <script>
