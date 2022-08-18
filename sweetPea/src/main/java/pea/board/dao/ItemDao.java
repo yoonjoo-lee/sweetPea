@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pea.board.vo.ItemVo;
+import pea.board.vo.UserVo;
 
 @Repository
 public class ItemDao {
@@ -134,7 +135,9 @@ public class ItemDao {
 	// 내 아이템 추가 
 	public int myItemAdd(ItemVo vo) {
 		
-		return sqlSession.insert(namespace+".myItemAdd", vo);
+		 sqlSession.insert(namespace+".myItemAdd", vo);
+		sqlSession.update(namespace+".myAmount-",vo);
+		return sqlSession.selectOne(namespace+".pea_amount",vo);
 		
 	}
 	
@@ -151,6 +154,12 @@ public class ItemDao {
 	//
 	public int myItemListUpdate(ItemVo vo) {
 		return sqlSession.update(namespace+".myItemListUpdate", vo);
+	}
+	//
+	public int insertAmount(UserVo vo) {
+		sqlSession.update(namespace+".insertAmount",vo);
+		
+		return sqlSession.selectOne(namespace+".pea_amount",vo);
 	}
 	
 	// 카테고리 별 리스트

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import pea.board.dao.ItemDao;
 import pea.board.vo.ItemVo;
+import pea.board.vo.UserVo;
 
 @Repository
 public class ItemServiceImple implements ItemService {
@@ -128,6 +129,12 @@ public class ItemServiceImple implements ItemService {
 	public List<ItemVo> itemListCate(int category) {
 		return itemDao.itemListCate(category);
 	}*/
+
+	@Override
+	public int insertAmount(UserVo vo) {
+		return itemDao.insertAmount(vo);
+	}
+
 
 
 

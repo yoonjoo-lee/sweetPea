@@ -19,6 +19,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/header.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	function openMini(uidx){
 		var popupX = (document.body.offsetWidth / 2) - (1100 / 2);
@@ -98,7 +99,19 @@
 	float: right;
 }
 </style>
+
 </c:if>
+<script type="text/javascript">
+function gift(){
+		Swal.fire({
+		      title: '준비중입니다.',
+		      text: '선물하기 페이지는 추후에 추가될 예정입니다.',
+		      icon: 'info',
+				timer: 4000,
+			    timerProgressBar: true,
+		  	    });
+		  } 
+        </script>
 </head>
 <body>
 	<!-- Navigation-->
@@ -118,7 +131,7 @@
 					</c:if>
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 ">
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do?category=4">아이템상점</a></li>
-                        <li class="nav-item"><a class="nav-link header-a" onclick="gift()">선물하기</a></li>
+                        <li class="nav-item"><a class="nav-link header-a" href="#" onclick="gift()">선물하기</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/charge.do">결제/충전</a></li>
                         <li class="nav-item nav-hover" >
                         	<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
@@ -174,17 +187,7 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-        <script type="text/javascript">
-    	function gift(){
-    		Swal.fire({
-    		      title: '준비중입니다.',
-    		      text: '선물하기 페이지는 추후에 추가될 예정입니다.',
-    		      icon: 'info',
-    				timer: 4000,
-    			    timerProgressBar: true,
-    	    });
-    } 
-        </script>
+        
         
 
 </body>
