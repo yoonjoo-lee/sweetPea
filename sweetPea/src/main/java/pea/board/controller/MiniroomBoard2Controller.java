@@ -394,7 +394,7 @@ public class MiniroomBoard2Controller {
 		} if(category==4) {
 			vo.setFont(item);
 			miniroomboard2Service.changeFont(vo);
-		}
+		} 
 		PrintWriter pw = response.getWriter();
 	//	pw.append("<script>location.reload();location.href=location.href;history.go(-1);</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
