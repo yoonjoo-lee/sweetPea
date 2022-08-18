@@ -15,7 +15,7 @@
 		/* background-color: #a0df93; */
 		background-color: white;
 		width: 22vw;
-		height: 95vh;
+		height: 92vh;
 		display: inline-block;
 		margin: 1.8% 0;
 		margin-left: 2vw;
