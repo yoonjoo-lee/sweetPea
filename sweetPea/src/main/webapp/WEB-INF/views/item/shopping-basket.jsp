@@ -217,6 +217,7 @@ function itemBuy(){
 					alert('내 아이템에 추가되지 않았습니다.');
 				}
 			})
+	 }
 	</script>
 </body>
 </html>

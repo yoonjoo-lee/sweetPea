@@ -385,16 +385,20 @@ public class ItemController {
 	/*  내 아이템 리스트 추가 */
 	@ResponseBody
 	@RequestMapping(value="item/myItemAdd.do", produces = "application/json;charset=utf8")
-	public int myItemAdd(int uidx, int iidx) {
+	public int myItemAdd(int uidx, int iidx,int price,HttpSession session) {
 		ItemVo vo = new ItemVo();
 		vo.setIidx(iidx);
 		vo.setUidx(uidx);
+		vo.setPrice(price);
 		
 		String result = itemService.myItemListCheck(vo);
 		
 		if(result == null) {
 			int myItemAdd = itemService.myItemAdd(vo);
-			return myItemAdd;
+			UserVo login = (UserVo) session.getAttribute("login");
+			login.setPea_amount(myItemAdd);
+			session.setAttribute("login", login);
+			return 1;
 		}else if(result.equals("N")){
 			int myItemListUpdate = itemService.myItemListUpdate(vo);
 			return myItemListUpdate;
@@ -447,18 +451,19 @@ public class ItemController {
 	}
 	
 	/* 결제  */
-/*	
-	@RequestMapping(value="item/insertAmount.do", method=RequestMethod.POST)
-	public int insertAmount(ItemVo vo,HttpServletRequest request, HttpSession session) {
-		
-		session = request.getSession();
-		session.getAttribute("login");
-		
+	@ResponseBody
+	@RequestMapping(value="item/insertAmount.do", produces = "application/json;charset=utf8")
+	public int insertAmount(int pea_amount,int uidx,HttpServletRequest request, HttpSession session) {
+		UserVo vo = new UserVo();
+		vo.setPea_amount(pea_amount);
+		vo.setUidx(uidx);
+		int pea = itemService.insertAmount(vo);
 		UserVo login = (UserVo) session.getAttribute("login");
-		
+		login.setPea_amount(pea);
+		session.setAttribute("login", login);
 		
 		return 1;
 	}
-*/
+
 
 }

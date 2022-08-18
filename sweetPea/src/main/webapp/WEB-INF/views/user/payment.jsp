@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.3.min.js" type="application/javascript"></script>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <input type="hidden" id="item_name">
 <c:if test="${price == 100}">
 	<script>
@@ -56,6 +55,7 @@
 </c:if>
 <script>
 var $name = $("#item_name").val();
+/* var $user_name = ${login.name}; */
 
 
 BootPay.request({
@@ -67,7 +67,7 @@ BootPay.request({
 	show_agree_window: 0, 
 	items: [
 		{
-			item_name: '', 
+			item_name: '$name', 
 			qty: 1, 
 			unique: '123', 
 			price: 1000,
@@ -75,10 +75,10 @@ BootPay.request({
 		}
 	],
 	user_info: {
-		username: '',
-		email: 'beomjun12@naver.com',
+		username: '${login.name}',
+		email: '${login.email}',
 		addr: 'addr',
-		phone: '010-1234-4567'
+		phone: 'phone'
 	},
 	order_id: 'id', 
 	params: {callback1: '1', callback2: '2', customvar1234: ''},
@@ -102,19 +102,23 @@ BootPay.request({
     console.log(data);
 }).done(function (data) {
 	console.log(data);
-	$.ajax({
-		url:"",
+    console.log(data.price);
+	
+	var amount = data.price/100;
+	var uidx = ${login.uidx};
+ 	$.ajax({
+		url:"<%=request.getContextPath()%>/item/insertAmount.do",
 		type:"post",
-		data:data,
-		dataType:"json",
+		data:{"pea_amount": amount , "uidx": uidx},
 		success:function(data){
 			alert("결제 성공");
 			console.log("성공");
-		}
-	})
+			window.location.reload();
+			}
+	}) 
 	
 });
-</script>  
+</script>
 
 
 

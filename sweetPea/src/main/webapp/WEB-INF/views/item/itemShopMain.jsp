@@ -59,8 +59,8 @@ h4 {
 /* 카테고리 셀렉트 부분 스타일  */
 body {
 	text-align: left;
-	overflow-x:hidden;
-	overflow-y:auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 div {
@@ -377,7 +377,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='myItemAdd("+data[i].iidx+")'>buy</a><span>&nbsp;</span>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>buy</a><span>&nbsp;</span>";
 			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
@@ -414,7 +414,7 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<a class='btn btn-outline-dark mt-auto' onclick='myItemAdd("+data[i].iidx+")'>buy</a><span>&nbsp;</span>";
+			html +="<a class='btn btn-outline-dark mt-auto' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>buy</a><span>&nbsp;</span>";
 			html +="<a class='btn btn-outline-dark mt-auto' onclick='itemShoppingAdd("+data[i].iidx+")'>add to cart</a>";
 			html +="</div>";
 			html +="</div>";
@@ -434,36 +434,58 @@ function addCart(uiidx){
 	alert(uiidx);
 }
  /* 아이템 구매  */
- function myItemAdd(iidx){
+ function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
-		$.ajax({
-			url:"myItemAdd.do",
-			type:"post",
-		 	data:{"uidx":uidx,"iidx":iidx},
-			success:async function(data){
-				if(data==0){
-					Swal.fire({
-						text: '내 아이템에 존재한 아이템입니다.',
-						icon: 'warning',
-						timer: 2000,
-					    timerProgressBar: true,
-					});
-				}else{
-					/* alert("장바구니에 추가되었습니다."); */
-				 await Swal.fire({
-						text : '내 아이템에 추가되었습니다.',
-						icon : 'success',
-						timer: 2000,
-						timerProgressBar: true,
-						}); 
-					console.log(uidx);
-					window.location.reload();
-				}
-			},
-			error:function(){
-				alert('내 아이템에 추가되지 않았습니다.');
-			}
-		})
+	 
+	 if (${login.pea_amount}<price){
+		 alert('보유하신 완두콩 갯수가 부족합니다.');
+			window.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
+	 }else{
+		 Swal.fire({
+			   title: '정말로 구매하시겠습니까?',
+			   html: '<b>['+name+']</b><span style="color:gray"><br><i style="color:green" class="bi-circle-fill"></i><span>&nbsp;</span>'+price+'</span>',
+			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			   confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+			   cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+			   imageUrl: '<%=request.getContextPath()%>/item/imageView.do?originFileName='+img,
+			   
+			}).then(result => {
+			   // 만약 Promise리턴을 받으면,
+			   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+				   $.ajax({
+						url:"myItemAdd.do",
+						type:"post",
+					 	data:{"uidx":uidx,"iidx":iidx,"price":price},
+						success:async function(data){
+							if(data==0){
+								Swal.fire({
+									text: '내 아이템에 존재한 아이템입니다.',
+									icon: 'warning',
+									timer: 2000,
+								    timerProgressBar: true,
+								});
+							}else{
+								/* alert("장바구니에 추가되었습니다."); */
+							 await Swal.fire({
+									text : '내 아이템에 추가되었습니다.',
+									icon : 'success',
+									timer: 2000,
+									timerProgressBar: true,
+									}); 
+								console.log(uidx);
+								window.location.reload();
+							}
+						},
+						error:function(){
+							alert('내 아이템에 추가되지 않았습니다.');
+						}
+					})
+			   }
+			});
+		
+	 }
 /* 	 Swal.fire({
 		icon:'info',
 		title:'아이템 구매 기능  준비중...',
