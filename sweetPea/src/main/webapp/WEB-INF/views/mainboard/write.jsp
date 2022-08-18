@@ -14,6 +14,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
 	
+	
 	<!-- include summernote css/js -->
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -81,7 +82,7 @@
 
 
 <!-- <input name='tags3' pattern='^[A-Za-z_✲ ]{1,15}$'><br> -->
-<input name='basic' id="tag"><br><br>
+<!-- <input name='basic' id="tag"><br><br> -->
 
 <form action="gowrite.do" method="post">
 <div id="title-box">
@@ -91,7 +92,7 @@
 <textarea id="summernote" name="content"></textarea>
 <input type="hidden" name="category" value=${category }>
 
-<button type="submit">작성</button>
+<button type="submit" style="float:right" class="btn btn-secondary" >작성</button>
 </form>
 </div>
 <br>

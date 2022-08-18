@@ -100,15 +100,15 @@ font-family: ${myMini.font};
 <b style='color:grey;'>${item.name }</b>
 <img width="200" height="100" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
 <c:if test="${item.subcategory==1}">
-<!-- 일단 배경을 카테로리 1로 함  -->
+<!-- 1.테마 2.미니룸 배경 3.캐릭터 4.글꼴 5.가구  -->
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> 
 </c:if>
-<c:if test="${item.subcategory==2}"><!-- 캐릭터 --> 
+<c:if test="${item.subcategory==2}"><!-- 미니룸 배경 --> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=2'">m변경 </button><br> 
+</c:if>
+<c:if test="${item.subcategory==3 || item.subcategory==5}"><!-- 캐릭터 --> 
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/addTominiroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">추가 </button><br> 
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/removeFromMiniroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">제거 </button><br> 
-</c:if>
-<c:if test="${item.subcategory==3}"><!-- 미니룸 배경 --> 
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=3'">m변경 </button><br> 
 </c:if>
 </div>
 </c:forEach>
