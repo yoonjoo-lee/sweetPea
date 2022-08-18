@@ -322,7 +322,7 @@
 	<!-- 오늘 방문자 수 출력 -->
 	<select id="visitToday" parameterType="int" resultType="int">
 		SELECT count(*) FROM pea_minihome_visit 
-			WHERE  DATE_FORMAT(visit_date, 'yy/MM/dd') =  DATE_FORMAT(sysdate(), 'yy/MM/dd') 
+			WHERE  DATE_FORMAT(visit_date, '%y-%m-%d') =  DATE_FORMAT(sysdate(), '%y-%m-%d') 
 		AND uidx=#{uidx};
 
 	</select>
