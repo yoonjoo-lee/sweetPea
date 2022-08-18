@@ -102,7 +102,7 @@ h3>button{
     padding-top: 0.25vw;
 }
 </style>
-
+<c:if test="${category == 1 }">
 <script>
 $(function(){
     document.querySelector('.dropbtn_click').onclick = ()=>{
@@ -129,23 +129,9 @@ $(function(){
 			dropbtn_content.style.color = '#252525';
 			dropbtn.style.borderColor = '#3992a8';
     }
-	
-	$('#summernote').summernote({
-        height: 380,
-        maxHeight: 400,
-        toolbar: [
-        	  ['style', ['style']],
-        	  ['font', ['bold', 'underline', 'clear']],
-        	  ['color', ['color']],
-        	  ['para', ['ul', 'ol', 'paragraph']],
-        	  ['table', ['table']],
-        	  ['insert', ['link', 'picture', 'video']],
-        	  ['height', ['height']]
-        	],
-        placeholder: '내용을 입력하세요'
-    });
 });
-  window.onclick= (e)=>{
+
+window.onclick= (e)=>{
     if(!e.target.matches('.dropbtn_click')){
       var dropdowns = document.getElementsByClassName("dropdown-content");
 
@@ -163,6 +149,26 @@ $(function(){
       }
     }
   }
+  
+</script>
+</c:if>
+<script>
+$(function(){
+	$('#summernote').summernote({
+        height: 380,
+        maxHeight: 400,
+        toolbar: [
+        	  ['style', ['style']],
+        	  ['font', ['bold', 'underline', 'clear']],
+        	  ['color', ['color']],
+        	  ['para', ['ul', 'ol', 'paragraph']],
+        	  ['table', ['table']],
+        	  ['insert', ['link', 'picture', 'video']],
+        	  ['height', ['height']]
+        	],
+        placeholder: '내용을 입력하세요'
+    });
+});
 </script>
 
 <c:if test="${device eq 'MOBILE'}">
@@ -178,18 +184,20 @@ $(function(){
 	<div id="title-box">
 		<!-- <input id="title" name="title" placeholder="제목을 입력해 주세요"> -->
 		비밀글<input type="checkbox" name="secret" value="Y">
+		<c:if test="${category == 1}">
 		<div class="dropdown">
-		<button class="dropbtn" type="button" >
-			<span class="dropbtn_icon"></span>
-			<span class="dropbtn_content">카테고리1d1</span>
-			<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
-		</button>
-		<div class="dropdown-content">
-			<c:forEach var="cate" items="${subcategory}">
-				<div class="diary-category" onclick="showMenu(this.innerText)">${cate.subcategory}</div>
-			</c:forEach>
+			<button class="dropbtn" type="button" >
+				<span class="dropbtn_icon"></span>
+				<span class="dropbtn_content">카테고리1d1</span>
+				<img class="dropbtn_click" src="<%=request.getContextPath()%>/resources/images/arrow-down.png" onclick="dropdown()">
+			</button>
+			<div class="dropdown-content">
+				<c:forEach var="cate" items="${subcategory}">
+					<div class="diary-category" onclick="showMenu(this.innerText)">${cate.subcategory}</div>
+				</c:forEach>
+			</div>
 		</div>
-	</div>
+		</c:if>
 	</div>
 	<textarea id="summernote" name="content"></textarea>
 	<input type="hidden" name="category" value=${category }>
