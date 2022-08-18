@@ -232,11 +232,16 @@ font-family: ${myMini.font};
 <body>
 	<div id="leftBox">
 		<div id="left-topBox">
-			<p>TODAY <span style="color: red">${mini.today}</span></p>
-			<p>TOTAL <span>${mini.total}</span></p>
+			<p>TODAY <span style="color: red">${today}</span></p>
+			<p>TOTAL <span>${total}</span></p>
 		</div>
 		<div id="left-centerBox"><br>
 				<div class="list">내 정보 관리</div>
+				<div class="listBox">
+					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-idx.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원 정보</div>
+					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-modify.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원정보 수정</div>
+					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-changePwd.do?uidx=${login.uidx}&mini=1'),clickThis(this)">비밀번호 수정</div>
+				</div>
 				<div class="list">친구 관리</div>
 				<div class="listBox">
 					<div class="list-option" onclick="optionClick('friendsList.do?uidx=${login.uidx}'),clickThis(this)">친구 목록</div>
@@ -245,7 +250,7 @@ font-family: ${myMini.font};
 				<div class="list">내 아이템 관리</div>
 				<div class="listBox">
 					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeEffect.do?uidx=${login.uidx}'),clickThis(this)">미니홈피 효과</div>
-					<div>음악 설정</div>
+					<div onclick="gettingReady()">음악 설정</div>
 					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeFont.do?uidx=${login.uidx}'),clickThis(this)">폰트 설정</div>
 				</div>
 		</div>
@@ -256,8 +261,13 @@ font-family: ${myMini.font};
 	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()">
 	</h3>
 	<hr>
-	<iframe id="miniIframe" scrolling="yes" src=""></iframe>
+	<iframe id="miniIframe" scrolling="yes" src="<%=request.getContextPath() %>/user/myPage-idx.do?uidx=${login.uidx}&mini=1"></iframe>
 	</div>
 	</div>
+	<script type="text/javascript">
+	function gettingReady(){
+		alert("페이지 준비중입니다.");
+	}
+	</script>
 </body>
 </html>

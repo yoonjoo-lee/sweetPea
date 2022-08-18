@@ -106,9 +106,9 @@
 </script>
 </head>
 <body>
-	<br><br><br>
+	<c:if test="${mini==0 }"><br><br><br></c:if>
 	<div class="afterCheckBox">
-		<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
+		<c:if test="${mini==0 }"><img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img"></c:if>
 		<h4>회원 정보 수정</h4>
 		<h5>이메일 인증번호 받기 필수</h5>
 		<form id="frm">

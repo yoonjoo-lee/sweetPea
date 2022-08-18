@@ -50,9 +50,9 @@
 </head>
 <body>
 
-<div class="bgSizeCover">
+<!-- <div class="bgSizeCover">
   <p>Try resizing this element!</p>
-</div>
+</div> -->
 
 <button class="saveBtn" onclick="saveMini()" style="vertical-align:top;">save</button>
  <c:forEach var="item" items="${miniroom}">

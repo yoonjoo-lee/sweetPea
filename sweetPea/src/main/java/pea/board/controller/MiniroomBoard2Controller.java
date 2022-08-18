@@ -147,7 +147,8 @@ public class MiniroomBoard2Controller {
 		MiniroomBoardVo vo = new MiniroomBoardVo();
 		vo.setUidx(uidx);
 		vo.setCategory(category);
-		if(category==9) {vo.setCategory(2);}
+		vo.setCheckHomePhoto(null);
+		if(category==9) {vo.setCategory(2); vo.setCheckHomePhoto("homePhoto");}//미니홈피 홈에 뜨는 사진 
 		
 		List<MiniroomBoardVo> list = miniroomboard2Service.miniroomboardList(vo);
 		model.addAttribute("list", list);

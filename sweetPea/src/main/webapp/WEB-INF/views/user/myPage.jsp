@@ -55,7 +55,7 @@
 	<div id="view">
 	<nav id="nav"></nav>
 	<section id="section">
-		<iframe id="myIframe" src="myPage-idx.do?uidx=${login.uidx}"></iframe>
+		<iframe id="myIframe" src="myPage-idx.do?uidx=${login.uidx}&mini=0"></iframe>
 	</section>
 	</div>
 	<br>
