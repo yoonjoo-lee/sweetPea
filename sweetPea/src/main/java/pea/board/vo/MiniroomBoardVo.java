@@ -15,7 +15,6 @@ public class MiniroomBoardVo extends UserVo{
 	private String subcategory;
 	private String checkHomePhoto; // (미니홈피 홈에 뜨는 사진)구분하기 위한 임의 값(디비엔 없음)	
 	
-	
 	public String getCheckHomePhoto() {
 		return checkHomePhoto;
 	}
