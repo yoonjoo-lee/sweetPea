@@ -38,7 +38,6 @@
   width: 51vw;
   height: 26vh;
   text-align: center;
-  
 }
 
 a.control_prev, a.control_next {
@@ -89,6 +88,7 @@ margin: 1vh 0;
 /* .image{
 object-fit: scale-down;
 } */
+
 
 </style>
 <c:forEach var="board" items='${list }'>

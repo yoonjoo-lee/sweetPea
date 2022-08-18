@@ -23,7 +23,9 @@
 					</c:if>
 				</c:if>
 				<c:if test="${board.category != 2}">
-					<li><div class='list-box' id='g' onclick="switchPage(${board.category})">${board.content }</div></li>
+
+					<li><div class='list-box' id='basic-text' onclick="switchPage(${board.category})">${board.content }</div></li>
+
 				</c:if>
 	</c:forEach>
 </ul>
@@ -34,7 +36,9 @@ function switchPage(category){
 	$(".boardBtn").removeClass('act');
 	$("#"+category).addClass('act');
 	
-	if(category==1){
+
+if(category==1){
+
 		location.href="mini-diary.do?uidx=${mini.uidx}";
 	}else if(category==2){
 		location.href="<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2";
@@ -42,7 +46,6 @@ function switchPage(category){
 		location.href="<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3";
 	} 
 }
-
 
 </script>
 
