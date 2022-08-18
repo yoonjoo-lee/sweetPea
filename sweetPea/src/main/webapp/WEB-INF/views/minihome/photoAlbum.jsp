@@ -81,13 +81,13 @@ height:300px;
 }
 
 /* 프로필 사진 */
-.profile{
+.photo-profile{
     width: 40px;
     height: 40px;
     border-radius: 70%;
     overflow: hidden; 
 }
-.profile-img{
+.photo-profile-img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -148,12 +148,12 @@ img{
 <br>
 
 <!-- 프로필 사진 -->
-<div class="profile" id="user">
+<div class="photo-profile" id="user">
 <c:if test="${board.miniProfile == null}">
-	<img class="profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
+	<img class="photo-profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
 </c:if>
 <c:if test="${board.miniProfile != null}">
-	<img class="profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+	<img class="photo-profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
 </c:if>
 </div>
 
