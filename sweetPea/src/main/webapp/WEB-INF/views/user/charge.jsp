@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<!-- <script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script>  -->
+<script language="javascript" type="text/javascript" src="https://stdpay.inicis.com/stdjs/INIStdPay.js" charset="UTF-8"></script> 
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.3.min.js" type="application/javascript"></script>
 <title>SweetPea</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>

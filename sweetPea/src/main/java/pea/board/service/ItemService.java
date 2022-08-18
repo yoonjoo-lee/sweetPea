@@ -3,6 +3,7 @@ package pea.board.service;
 import java.util.List;
 
 import pea.board.vo.ItemVo;
+import pea.board.vo.UserVo;
 
 public interface ItemService {
 	
@@ -34,4 +35,5 @@ public interface ItemService {
 	List<ItemVo> mostBuyItemList(); 
 	int myItemListUpdate(ItemVo vo);
 	
+	int insertAmount(UserVo vo);
 }

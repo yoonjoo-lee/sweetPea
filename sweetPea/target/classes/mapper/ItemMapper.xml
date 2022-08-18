@@ -181,6 +181,11 @@
 	<insert id="myItemAdd" parameterType="ItemVo">
 		insert into pea_user_item(iidx, uidx, buy) value(#{iidx},#{uidx},'Y')
 	</insert>
+	<!-- 내 아이템 업데이트  -->
+	<update id="myAmount-" parameterType="ItemVo">
+		update pea_user set pea_amount=(pea_amount-#{price}) where uidx=#{uidx}
+	</update>
+	<select id="myItemSelect"></select>
 	<!-- 내 아이템 리스트  -->
 	<select id="myItemList" parameterType="int" resultType="ItemVo">
 		select b.* from pea_user_item a join pea_item b on a.iidx=b.iidx where a.uidx=#{uidx} and a.buy='Y' and a.delyn='N' ORDER BY a.uiidx DESC
@@ -206,6 +211,13 @@
    	update pea_user_item set buy='Y',cart='N' where uidx=#{uidx} and iidx=#{iidx}
    
    </update>
+   <update id="insertAmount" parameterType="UserVo" >
+   	update pea_user set pea_amount= (pea_amount + #{pea_amount}) where uidx=#{uidx}
+   </update>
+   
+   <select id="pea_amount" parameterType="UserVo" resultType="int">
+   		select pea_amount from pea_user where uidx=#{uidx}  
+   </select>
 </mapper>
 
 

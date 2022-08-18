@@ -66,6 +66,8 @@ public class UserController {
 			login.setProfile(user.getProfile());
 			login.setPea_super(user.getPea_super());
 			login.setMiniProfile(user.getMiniProfile());
+			login.setEmail(user.getEmail());
+			login.setPea_amount(user.getPea_amount());
 			
 			session.setAttribute("login", login);
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.

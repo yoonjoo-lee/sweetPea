@@ -11,6 +11,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <title>MY ITEM LIST</title>
 <script type="text/javascript">
 $(function(){
@@ -89,22 +90,31 @@ li {
 .btn btn-secondary {
 	
 }
+
+.mb-5{
+	margin-bottom: 3rem !important;
+    width: 20%;
+    margin: 2vw;
+}
+.card-img-top{
+	height: 15vh;
+}
+h5{
+	font-size: 2vw;
+}
+.item-span{
+	color: gray;
+	font-size: 1.2vw;
+}
 </style>
 </head>
 <body>
-	<div>
-		<div style="text-align:right;">
+	<div style="width:90%;margin:0 auto;">
+		<%-- <div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
 				<!-- <input type="button" class="btn btn-secondary" onclick="myItemDel()" value="삭제"> -->
 			</c:if>
-		</div>
-		<ul class="header-ul">
-			<li><input type="checkbox" id="allCheck"></li>
-			<li>사진</li>
-			<li>아이템명</li>
-			<!-- <li>상품금액</li> -->
-
-		</ul>
+		</div> --%>
 		<c:if test="${ilist.size() == 0 || login.uidx == null }">
 			<ul class="content-ul">
 				<li>등록된 아이템이 없습니다.</li>
@@ -112,15 +122,36 @@ li {
 		</c:if>
 		<c:if test="${ilist.size() >0 }">
 			<c:forEach var="vo" items="${ilist}">
-				<ul class="content-ul">
+			
+			
+			<div class='col mb-5' style='float:left;'>
+				<div class='card h-100'>
+				<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
+					<div class='card-body p-4'>
+						<div class='text-center'>
+							<c:choose>
+		                    <c:when test="${vo.subcategory == 1}">
+		                    	<span class="item-span">[배경]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 2}">
+		                    	<span class="item-span">[꾸미기]</span>
+		                    </c:when>
+		                    </c:choose>
+							<h5 class='fw-bolder'>${vo.name }</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+				<%-- <ul class="content-ul">
 					<li><input type="checkbox" name="rowCheck" value="${vo.iidx}" class="checkBox"></li>
 					<li><img src="<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}" style="width:100px;height:100px;"></li>
 					<li>${vo.name}</li>
-				<%-- 	<li>${vo.price} 개</li> --%>
-				</ul>
+					<li>${vo.price} 개</li>
+				</ul> --%>
 			</c:forEach>
 		</c:if>
 	</div>
-	
 </body>
 </html>
