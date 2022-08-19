@@ -198,7 +198,7 @@ table th {
 
 		<table style="text-align: center;">
 			<tr>
-				<td style="text-align:center;"><img class="item-image" name="img" id="newImg"></td>
+				<td style="text-align:center;"><img class="item-image" name="img" id="newImg" width="450" height="300"></td>
 			</tr>
 
 
