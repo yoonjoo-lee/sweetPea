@@ -392,16 +392,18 @@ public class ItemController {
 		vo.setPrice(price);
 		
 		String result = itemService.myItemListCheck(vo);
+		UserVo login = (UserVo) session.getAttribute("login");
 		
 		if(result == null) {
 			int myItemAdd = itemService.myItemAdd(vo);
-			UserVo login = (UserVo) session.getAttribute("login");
 			login.setPea_amount(myItemAdd);
 			session.setAttribute("login", login);
 			return 1;
 		}else if(result.equals("N")){
 			int myItemListUpdate = itemService.myItemListUpdate(vo);
-			return myItemListUpdate;
+			login.setPea_amount(myItemListUpdate);
+			session.setAttribute("login", login);
+			return 1;
 		}else {
 			return 0;
 		}
@@ -465,5 +467,28 @@ public class ItemController {
 		return 1;
 	}
 
+	/* 장바구니 리스트 구매 */
+	@ResponseBody
+	@RequestMapping(value="item/buyBasketList.do", produces = "application/json;charset=utf8")
+	public int buyBasketList(@RequestParam(value="checkBox[]") List<String> arrayParams, int price, HttpSession session) {
+		int size = arrayParams.size();
+		
+		ItemVo vo = new ItemVo();
+		UserVo login = (UserVo) session.getAttribute("login");
+		
+		for(int i=0;i<size;i++) {
+			vo.setUiidx(Integer.parseInt(arrayParams.get(i)));
+			itemService.buyBasketList(vo);
+		}
+		vo.setPrice(price);
+		vo.setUidx(login.getUidx());
+		
+		int result = itemService.afterBuyBasketList(vo);
+		login.setPea_amount(result);
+		session.setAttribute("login", login);
+		
+		return 1;
+		
+	}
 
 }

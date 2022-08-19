@@ -135,6 +135,16 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.insertAmount(vo);
 	}
 
+	@Override
+	public int buyBasketList(ItemVo vo) {
+		return itemDao.buyBasketList(vo);
+	}
+	
+	@Override
+	public int afterBuyBasketList(ItemVo vo) {
+		return itemDao.afterBuyBasketList(vo);
+	}
+
 
 
 
