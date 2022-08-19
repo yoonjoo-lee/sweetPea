@@ -135,7 +135,7 @@ public class ItemDao {
 	// 내 아이템 추가 
 	public int myItemAdd(ItemVo vo) {
 		
-		 sqlSession.insert(namespace+".myItemAdd", vo);
+		sqlSession.insert(namespace+".myItemAdd", vo);
 		sqlSession.update(namespace+".myAmount-",vo);
 		return sqlSession.selectOne(namespace+".pea_amount",vo);
 		
@@ -153,12 +153,25 @@ public class ItemDao {
 	   }
 	//
 	public int myItemListUpdate(ItemVo vo) {
-		return sqlSession.update(namespace+".myItemListUpdate", vo);
+		sqlSession.update(namespace+".myItemListUpdate", vo);
+		sqlSession.update(namespace+".myAmount-",vo);
+		return sqlSession.selectOne(namespace+".pea_amount",vo);
+		
 	}
 	//
 	public int insertAmount(UserVo vo) {
 		sqlSession.update(namespace+".insertAmount",vo);
 		
+		return sqlSession.selectOne(namespace+".pea_amount",vo);
+	}
+	
+	
+	public int buyBasketList(ItemVo vo) {
+		return sqlSession.update(namespace+".buyBasketList",vo);
+	}
+	
+	public int afterBuyBasketList(ItemVo vo) {
+		sqlSession.update(namespace+".myAmount-",vo);
 		return sqlSession.selectOne(namespace+".pea_amount",vo);
 	}
 	

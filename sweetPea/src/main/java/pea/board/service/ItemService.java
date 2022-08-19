@@ -36,4 +36,7 @@ public interface ItemService {
 	int myItemListUpdate(ItemVo vo);
 	
 	int insertAmount(UserVo vo);
+	
+	int buyBasketList(ItemVo vo);
+	int afterBuyBasketList(ItemVo vo);
 }
