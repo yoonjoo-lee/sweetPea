@@ -79,7 +79,7 @@ $(function itemSelectAll(){
 					
 })
 
-function itemApproval(iidx, check){
+ function itemApproval(iidx, check){
 	console.log(iidx);
 	console.log(check);
 	$.ajax({
@@ -87,13 +87,14 @@ function itemApproval(iidx, check){
 		type:"post",
 		data:{"iidx":iidx,"check":check},
 		success:function(data){
-			Swal.fire({
+			alert('승인이 되었습니다.');
+/* 		 await Swal.fire({
 				text : '아이템 승인이 되었습니다.',
 				icon : 'success',
 				timer: 2000,
 				timerProgressBar: true, 
-			})
-			
+			});
+			 */
 			document.location.reload();
 			
 		}

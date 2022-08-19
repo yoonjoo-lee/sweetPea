@@ -296,7 +296,7 @@
 	<select id="myMiniStyle" parameterType="int" resultType="MiniHomeVo">
 		SELECT *
 		 FROM pea_minihome
-		 WHERE uidx=#{uidx}
+		 WHERE uidx=#{uidx} 
 	</select>
 	
 	<!-- 내 미니룸 -->

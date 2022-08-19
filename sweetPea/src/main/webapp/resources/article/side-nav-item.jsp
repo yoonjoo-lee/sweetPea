@@ -245,7 +245,8 @@ a:hover {
 		<h3><a onclick="location.href='shop.do?category=4'">아이템상점</a></h3>
 		<ul>
 			<li><a onclick="location.href='shop.do?category=1'">미니룸</a></li>
-			<li><a onclick="location.href='shop.do?category=2'">음악</a></li>
+		
+			<li><a onclick="music()">음악</a></li>
 			<li><a onclick="location.href='shop.do?category=3'">커스텀</a></li>
 			<c:if test="${login.uidx > 0 }">
 				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
@@ -280,8 +281,18 @@ a:hover {
 			    timerProgressBar: true,
 	    });
 } 
+/* 음악 준비 중 */
+	function music(){
+		Swal.fire({
+		      title: '준비중입니다.',
+		      text: '음악 아이템은 추후 추가될 예정입니다.',
+		      icon: 'info',
+				timer: 4000,
+			    timerProgressBar: true,
+	    });
+}  
+ 
 
-	
 	
 </script>
 

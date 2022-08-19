@@ -204,7 +204,9 @@ $(function (){
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			if ('${login.pea_super}'=='Y'){
+				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				}
 			$("#boardList").html(html);
 		}
 	});
@@ -234,7 +236,9 @@ function boardList4(){
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			if ('${login.pea_super}'=='Y'){
+				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				}
 			$("#boardList").html(html);
 		}
 	});
@@ -258,13 +262,13 @@ function boardList5(){
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
 				html+="<td>"+data[i].bidx+"</td>";
-				html+="<td><a href='view.do?bidx="+data[i].bidx+"'>"+data[i].title+"</a></td>";
+				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
 			$("#boardList").html(html);
 		}
 	});
