@@ -39,7 +39,8 @@
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 } */
 .viewDiv{
-	height: 400px;
+	height: auto;
+	padding-bottom:20px;
 	border-radius: 10px;
 	box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
 }
