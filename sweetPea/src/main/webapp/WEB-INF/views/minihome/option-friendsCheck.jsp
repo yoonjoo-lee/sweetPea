@@ -181,7 +181,7 @@ async function cancelFriends(bfidx){
 	<c:forEach var="vo" items="${checkList}">
 		<div class="listBox">
 			<ul class="content-ul">
-				<li>${vo.name}(${vo.id}) <span style="color: gray">${vo.fdate}</span></li>
+				<li>${vo.name}(${vo.id})</li>
 				<li>요청자 일촌명 : ${vo.uname}</li>
 				<li>　본인 일촌명 : ${vo.bfname}</li>
 			</ul>
@@ -217,7 +217,7 @@ async function cancelFriends(bfidx){
 	<c:forEach var="vo" items="${acceptList}">
 		<div class="listBox">
 			<ul class="content-ul">
-				<li>${vo.name}(${vo.id}) <span style="color: gray">${vo.fdate}</span></li>
+				<li>${vo.name}(${vo.id}) </li>
 				<li>　본인 일촌명 : ${vo.uname}</li>
 				<li>상대방 일촌명 : ${vo.bfname}</li>
 			</ul>

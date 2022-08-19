@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 <c:if test="${login != null}">
 function openMessage(){
@@ -161,9 +162,9 @@ function openMini(){
 			<li><a onclick="info('myPage-modify.do?uidx=${login.uidx}')">정보 수정</a></li>
 			<li><a onclick="info('myPage-changePwd.do?uidx=${login.uidx}')">비밀번호 수정</a></li>
 			<li><a onclick="info('myPage-profile.do')">프로필 변경</a></li>
-			<li><a>신청 글 보기</a></li>
+			<li><a onclick="after()">신청 글 보기</a></li>
 			<li><a onclick="info('myPage-del.do')">회원 탈퇴</a></li>
-			<li><a>보유아이템 및 결제내역</a></li>
+			<li><a onclick="after()">보유아이템 및 결제내역</a></li>
 		</ul>
 	</div>
 	<div class="categoryBox leftBanner"></div>
@@ -172,4 +173,14 @@ function openMini(){
 	function info(url){
 		$('#myIframe').attr('src',url);
 	}
+	
+	function after(){
+		Swal.fire({
+			text : '추후 추가 예정입니다.',
+			icon : 'info',
+			timer: 3000,
+			timerProgressBar: true,
+			}); 
+	}
+	
 </script>
