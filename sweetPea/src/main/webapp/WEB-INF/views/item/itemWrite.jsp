@@ -122,8 +122,6 @@ table td {
 
 /* 아이템 이미지 크기 조절 */
 .item-image {
-	width: 100%;
-	height: 250px;
 }
 
 .tagify {

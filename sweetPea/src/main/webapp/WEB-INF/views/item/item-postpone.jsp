@@ -15,7 +15,24 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <title>item-postpone</title>
+<style type="text/css">
+.mb-5{
+	margin-bottom: 3rem !important;
+    width: 20%;
+    margin: 2vw;
+}
+.card-img-top{
+    width: fit-content;
+    height: 15vh;
+    max-width: 96%;
+    margin: 0 auto;
+}
+h5{
+	font-size: 2vw;
+}
+</style>
 </head>
 <body>
 	<h3 style="text-align:center;">ITEM-POSTPONE</h3>
@@ -34,7 +51,7 @@ $(function itemSelectAll(){
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;width:250px;'>";
+			html +="<div class='col mb-5' style='float:left;'>";
 			html +="<div class='card h-100'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";

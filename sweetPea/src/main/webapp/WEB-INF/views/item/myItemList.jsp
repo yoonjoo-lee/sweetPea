@@ -97,7 +97,10 @@ li {
     margin: 2vw;
 }
 .card-img-top{
-	height: 15vh;
+    width: fit-content;
+    height: 15vh;
+    max-width: 96%;
+    margin: 0 auto;
 }
 h5{
 	font-size: 2vw;
