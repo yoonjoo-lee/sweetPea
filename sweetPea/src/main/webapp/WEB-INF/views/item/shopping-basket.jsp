@@ -73,8 +73,11 @@ li {
 	width: 25%;
 }
 
-.btn btn-secondary {
-	
+.pea-amount{
+    position: absolute;
+	bottom: 0;
+    right: 0;
+    margin-right: 4vw;
 }
 </style>
 <script>
@@ -85,6 +88,7 @@ $(function(){
 		else{
 			$(".checkBox").prop("checked",false);
 		}
+		allPeaAmount();
 	});
 })
 /* 장바구니 목록삭제  */
@@ -142,64 +146,8 @@ $(function(){
 		}
 	}
 	
-/* 장바구니 리스트 구매 버튼  */
-function myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}'){
-	var valueArr = new Array();
-	var list = $("input[name='rowCheck']");
-	var ft = '<%=request.getContextPath()%>';
-	
-	var checkboxValues = [];
-    $("input[name='rowCheck']:checked").each(function(i) {
-        checkboxValues.push($(this).val());
-    });
-	
-	var allData = {"checkBox": checkboxValues}
-		/* alert(checkboxValues); */
-	if(checkboxValues.length == 0){
-		Swal.fire({
-		      title: '실패',
-		      text: '구매 할 아이템이 없습니다',
-		      icon: 'info',
-	    });
-		return;
-	}else{
-		await Swal.fire({
-			  text: '선택한 아이템을 구매하시겠습니까?',
-			  icon: 'info',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: '예',
-			  cancelButtonText: '아니오'
-			}).then((result) => {
-			   if (result.isConfirmed) {
-				   $.ajax({
-					  url: ft + "/item/basketListAdd.do?uidx="+${login.uidx}+"",
-					  type: "get",
-					  data: allData,
-					  success: async function(result){
-						  await Swal.fire({
-						      text: '구매가 완료되었습니다',
-						      icon: 'success',
-					  		});
-					    window.location.reload();
-					  },
-					  error: function (error){
-					  	alert('다시 시도하세요');
-					  }
-					});
-			  }
-			  else{
-				window.location.reload();  
-			  }
-			})
-	}
-}
-	
-	
-	
-	
-}
+
+
 /* 아이템 구매  */
 function itemBuy(){
 	 Swal.fire({
@@ -210,13 +158,102 @@ function itemBuy(){
 	    timerProgressBar: true,
 	 })
 } 
+
+/* 체크시 완두콩 총개수 표시 */
+function allPeaAmount()  {
+	/* var length = $("input[name=rowCheck]").length; */
+	var length = document.getElementsByName("rowCheck").length;
+	var check = document.getElementsByName("rowCheck");
+	var sum = 0;
+	for(var i=0; i<length; i++){
+		var checkVal = check[i].value;
+		
+		if(check[i].checked == true){
+		    sum += parseInt($("#price"+checkVal+"").val());
+		  }
+	}
+	$("#totalPrice").html(sum);
+	}
+
+/* 결제/충전 홈페이지로 이동 */
+function charge(){
+	window.parent.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
+	
+}
+
+/* 장바구니 리스트 구매 버튼  */
+function myItemAdd(){
+	var totalPrice = parseInt($("#totalPrice").html());
+	var valueArr = new Array();
+	var list = $("input[name='rowCheck']");
+	var ft = '<%=request.getContextPath()%>';
+	
+	var checkboxValues = [];
+    $("input[name='rowCheck']:checked").each(function(i) {
+        checkboxValues.push($(this).val());
+    });
+	
+	var allData = {"checkBox": checkboxValues}
+	if(checkboxValues.length == 0){
+		Swal.fire({
+		      title: '실패',
+		      text: '구매 할 아이템이 없습니다',
+		      icon: 'info',
+	    });
+		return;
+	}else{
+		if ('${login.pea_amount}'<totalPrice){
+			 Swal.fire({
+					text : '보유하신 완두콩 갯수가 부족합니다.',
+					icon : 'info',
+					footer: '<a href="#" onclick="charge()">결제/충전 GO!</a>'
+			 })
+		 }else{
+			Swal.fire({
+				  text: '선택한 아이템을 구매하시겠습니까?',
+				  icon: 'info',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '예',
+				  cancelButtonText: '아니오'
+				}).then((result) => {
+				   if (result.isConfirmed) {
+					   $.ajax({
+						  url: ft + "/item/buyBasketList.do?price="+totalPrice,
+						  type: "get",
+						  data: allData,
+						  success: async function(result){
+							  await Swal.fire({
+							      text: '구매가 완료되었습니다',
+							      icon: 'success',
+						  		});
+						    window.parent.parent.location.reload();
+						  },
+						  error: function (error){
+						  	alert('다시 시도하세요');
+						  }
+						});
+				  }
+				  else{
+					window.location.reload();  
+				  }
+				})
+		 }
+		
+		
+	}
+
+	
+}
+	
 </script>
 </head>
 <body>
 	<div>
 		<div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
-				<input type="button" class="btn btn-secondary" onclick="myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}')" value="구매하기">
+				<input type="button" class="btn btn-secondary" onclick="myItemAdd()" value="구매하기">
 				<input type="button" class="btn btn-secondary" onclick="basketItemDel()" value="삭제">
 			</c:if>
 		</div>
@@ -235,14 +272,19 @@ function itemBuy(){
 		<c:if test="${list.size() >0 }">
 			<c:forEach var="vo" items="${list}">
 				<ul class="content-ul">
-					<li><input type="checkbox" name="rowCheck" value="${vo.uiidx}" class="checkBox"></li>
+					<li><input type="checkbox" name="rowCheck" value="${vo.uiidx}" class="checkBox" onclick="allPeaAmount()"></li>
 					<li><img src="<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}" style="width:100px;height:100px;"></li>
 					<li>${vo.name}</li>
 					<li>${vo.price} 개</li>
 				</ul>
+				<input type="hidden" value="${vo.price}" id="price${vo.uiidx}">
 			</c:forEach>
 		</c:if>
 
+	</div>
+	
+	<div class="pea-amount">
+		총 완두콩 갯수 : <span id="totalPrice"></span>개
 	</div>
 	<script type="text/javascript">
 /* 	 function myItemAdd(iidx){
@@ -276,14 +318,12 @@ function itemBuy(){
 			})
 	 } */
 	 /* 아이템 구매  */
-	 async function myItemAdd(iidx,price,name,img){
+	 <%-- async function myItemAdd(iidx,price,name,img){
 		 var uidx = '${login.uidx}';
 		 if ('${login.pea_amount}'<price){
 			 Swal.fire({
 					text : '보유하신 완두콩 갯수가 부족합니다.',
 					icon : 'info',
-	/* 				timer: 2000,
-					timerProgressBar: true, */
 					
 					footer: '<a href="#" onclick="charge()">결제/충전 GO!</a>'
 			 		 
@@ -333,7 +373,7 @@ function itemBuy(){
 				   }
 				});
 		 }
-	 } 
+	 }  --%>
 	</script>
 </body>
 </html>
