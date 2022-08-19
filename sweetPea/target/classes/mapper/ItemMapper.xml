@@ -32,7 +32,7 @@
 		, #{category}
 		, #{subcategory}
 		, #{name}
-		, #{tag}
+		, '1'
 		, #{img}
 		, #{maker}
 		, #{ip}
@@ -55,7 +55,7 @@
 	<!-- 아이템 인기 상품순 -->
 	<select id="itemListCount" parameterType="int" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'  and postpone='N'
+		WHERE delyn='N' and approval='Y'  and postpone='N' 
 			<if test="value!=4">and category=#{category}</if>
 		ORDER BY count DESC, iidx DESC
 	</select>
@@ -181,6 +181,11 @@
 	<insert id="myItemAdd" parameterType="ItemVo">
 		insert into pea_user_item(iidx, uidx, buy) value(#{iidx},#{uidx},'Y')
 	</insert>
+	<!-- 아이템 카운트 업데이트  -->
+	<update id="countAdd" parameterType="ItemVo">
+		update pea_item set count=count+1 where iidx=#{iidx}
+	</update>
+	<!-- 아이템  -->
 	<!-- 내 아이템 업데이트  -->
 	<update id="myAmount-" parameterType="ItemVo">
 		update pea_user set pea_amount=(pea_amount-#{price}) where uidx=#{uidx}
@@ -218,6 +223,22 @@
    <select id="pea_amount" parameterType="UserVo" resultType="int">
    		select pea_amount from pea_user where uidx=#{uidx}  
    </select>
+   
+   <update id="buyBasketList" parameterType="ItemVo">
+		UPDATE pea_user_item
+		   SET buy='Y'
+		     , cart='N'
+		 WHERE uiidx =#{uiidx}
+   </update>
+   
+   <select id="selectBasketUiidx" parameterType="ItemVo" resultType="int">
+   		SELECT iidx
+   		  FROM pea_user_item
+   		 WHERE uiidx = #{uiidx}
+   </select>
+   <update id="basketCountAdd" parameterType="int">
+		update pea_item set count=count+1 where iidx=#{iidx}
+	</update>
 </mapper>
 
 

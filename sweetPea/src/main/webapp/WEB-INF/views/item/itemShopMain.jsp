@@ -477,7 +477,7 @@ function charge(){
 									timerProgressBar: true,
 									}); 
 								console.log(uidx);
-								window.location.reload();
+								window.parent.location.reload();
 							}
 						},
 						error:function(){

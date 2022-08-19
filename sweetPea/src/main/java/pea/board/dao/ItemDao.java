@@ -137,6 +137,7 @@ public class ItemDao {
 		
 		sqlSession.insert(namespace+".myItemAdd", vo);
 		sqlSession.update(namespace+".myAmount-",vo);
+		sqlSession.update(namespace+".countAdd",vo);
 		return sqlSession.selectOne(namespace+".pea_amount",vo);
 		
 	}
@@ -167,6 +168,8 @@ public class ItemDao {
 	
 	
 	public int buyBasketList(ItemVo vo) {
+		int iidx = sqlSession.selectOne(namespace+".selectBasketUiidx",vo);
+		sqlSession.update(namespace+".basketCountAdd",iidx);
 		return sqlSession.update(namespace+".buyBasketList",vo);
 	}
 	
