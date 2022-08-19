@@ -90,7 +90,7 @@ h3{
 	margin: 0;
 	padding: 0.2em 0.5em;
 	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 0.86rem;
+	font-size: 2vw;
 	font-weight: 400;
 	text-align: center;
 	text-decoration: none;

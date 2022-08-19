@@ -262,20 +262,31 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/myPage-idx.do", method=RequestMethod.GET)
-	public String myIdx(int uidx, int mini, Model model) {
+	public String myIdx(int uidx, String mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
-		
+		int mini_ = 0;
+		if(mini != null) {
+			mini_ = Integer.parseInt(mini);
+		}else {
+			mini_ = 0;
+		}
 		model.addAttribute("vo",vo);
-		model.addAttribute("mini",mini);
+		model.addAttribute("mini",mini_);
 		return "user/myPage-idx";
 	}
 	
 	@RequestMapping(value="/user/myPage-modify.do", method=RequestMethod.GET)
-	public String modifyIdx(int uidx, int mini, Model model) {
+	public String modifyIdx(int uidx, String mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
+		int mini_ = 0;
+		if(mini != null) {
+			mini_ = Integer.parseInt(mini);
+		}else {
+			mini_ = 0;
+		}
 		model.addAttribute("vo",vo);
-		model.addAttribute("mini",mini);
+		model.addAttribute("mini",mini_);
 		return "user/myPage-modify";
 	}
 	
@@ -303,11 +314,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/myPage-changePwd.do", method=RequestMethod.GET)
-	public String changePwd(int uidx, int mini, Model model) {
+	public String changePwd(int uidx, String mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
+		int mini_ = 0;
+		if(mini != null) {
+			mini_ = Integer.parseInt(mini);
+		}else {
+			mini_ = 0;
+		}
 		model.addAttribute("vo",vo);
-		model.addAttribute("mini",mini);
+		model.addAttribute("mini",mini_);
+		
 		return "user/myPage-changePwd";
 	}
 	
