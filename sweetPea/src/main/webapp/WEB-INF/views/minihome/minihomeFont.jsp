@@ -47,21 +47,21 @@ height:120px;
 <body>
 <h3>내글꼴 </h3>
 
-<!-- 일단 글꼴을 카테고리 2로 함 -->
+<!-- 글꼴 카테고리 4 --> 
 <div class="EF_hyunydororong">
 마비옛체
 <textarea>싫은 것만 피하면 좋은 걸 찾을 수 없어</textarea>
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=EF_hyunydororong&category=2'">변경</button><br> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=EF_hyunydororong&category=4'">변경</button><br> 
 </div>
 <div class="MabinogiClassicR">
 혀니도로롱
 <textarea>고양이 코고는 소리는 도로롱</textarea>
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=MabinogiClassicR&category=2'">변경</button><br> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=MabinogiClassicR&category=4'">변경</button><br> 
 </div> 
 <div class="HBIOS-SYS">
 HBIOS-SYS
 <textarea>내 취향을 알면 휘둘리지 않아 </textarea>
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=HBIOS-SYS&category=2'">변경</button><br> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=HBIOS-SYS&category=4'">변경</button><br> 
 </div> 
 </body>
 </html>

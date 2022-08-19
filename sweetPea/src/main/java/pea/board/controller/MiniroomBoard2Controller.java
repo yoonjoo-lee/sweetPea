@@ -389,12 +389,12 @@ public class MiniroomBoard2Controller {
 			vo.setBackground(item);
 			miniroomboard2Service.changeBackground(vo);
 		} if(category==2) {
-			vo.setFont(item);
-			miniroomboard2Service.changeFont(vo);
-		} if(category==3) {
 			vo.setMiniroom_background(item);
 			miniroomboard2Service.changeMiniBackground(vo);
-		}
+		} if(category==4) {
+			vo.setFont(item);
+			miniroomboard2Service.changeFont(vo);
+		} 
 		PrintWriter pw = response.getWriter();
 	//	pw.append("<script>location.reload();location.href=location.href;history.go(-1);</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.append("<script>window.parent.parent.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
@@ -412,7 +412,7 @@ public class MiniroomBoard2Controller {
 	public String miniRoomBox() {
 		return "minihome/miniRoomBox";
 	}
-	
+	 
 	
 	@RequestMapping(value="/addTominiroom.do", method=RequestMethod.GET)
 	public void addTominiroom(int uidx, int iidx, HttpServletResponse response, HttpServletRequest request) throws IOException {
