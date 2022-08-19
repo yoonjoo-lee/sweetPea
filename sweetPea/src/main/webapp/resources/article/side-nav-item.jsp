@@ -218,7 +218,7 @@ a:hover {
 						<li>new</li>
 						<li>친구신청</li>
 						<li><a onclick="openMessage()">쪽지</a></li>
-						<li>완두콩 <input type="button" onclick="location.href='<%=request.getContextPath()%>/user/charge.do'" value="충전"></li>
+						<li>완두콩 ${login.pea_amount}개<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/charge.do'" value="충전"></li>
 					</ul>
 				</div>
 			</div>
@@ -250,6 +250,7 @@ a:hover {
 			<c:if test="${login.uidx > 0 }">
 				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
 				<li><a onclick="gift()">선물하기</a></li>
+				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
 			</c:if>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">

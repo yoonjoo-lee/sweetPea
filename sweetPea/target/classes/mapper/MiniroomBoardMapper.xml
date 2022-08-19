@@ -304,7 +304,9 @@
 		SELECT a.*, b.mleft, b.mtop, b.uiidx FROM pea_item a 
 		 JOIN pea_user_item b 
 		ON a.iidx=b.iidx 
-		 WHERE b.uidx=#{uidx} AND b.inyn='Y'
+		 WHERE b.uidx=#{uidx} 
+		AND b.inyn='Y' 
+		 AND b.delyn='N'
 	</select>
 	
 	<!-- 방문자 수 증가 -->
@@ -325,5 +327,5 @@
 			WHERE  DATE_FORMAT(visit_date, '%y-%m-%d') =  DATE_FORMAT(sysdate(), '%y-%m-%d') 
 		AND uidx=#{uidx};
 
-	</select>
+	</select> 
 </mapper>

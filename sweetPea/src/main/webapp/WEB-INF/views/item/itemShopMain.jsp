@@ -232,7 +232,7 @@ ul {
 .card-img-top{
     width: fit-content;
     height: 15vh;
-    max-width: 190px;
+    max-width: 96%;
     margin: 0 auto;
 }
 h5{
@@ -241,6 +241,15 @@ h5{
 
 .dealImg{
 	cursor: pointer;
+}
+.container{
+    margin: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+}
+.justify-content-center{
+    width: 90%;
+    margin: 0 auto;
 }
 /* 모달 사이즈  */
 </style>
@@ -297,7 +306,7 @@ function openShoppingBasket(){
 	</div>
 	<br>
 	<!-- 아이템 리스트 뿌려주는 div -->
-	<div class="container px-4 px-lg-5 mt-5">
+	<div class="container px-4 px-lg-5 mt-5" >
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
 	<br>
@@ -347,8 +356,8 @@ function openShoppingBasket(){
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100' style='width:200px;height:300px;'>";
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
+			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
@@ -384,8 +393,8 @@ function itemSelectAll(cate){
 		/* 	alert(data[i].name); */
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100' style='width:200px;height:300px;'>";
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
+			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
@@ -414,14 +423,27 @@ function itemSelectAll(cate){
 function addCart(uiidx){
 	alert(uiidx);
 }
+/* 결제/충전 홈페이지로 이동 */
+function charge(){
+	window.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
+	
+}
+
  /* 아이템 구매  */
- function myItemAdd(iidx,price,name,img){
+ async function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
 	 if ('${login.pea_amount}'<price){
-		 alert('보유하신 완두콩 갯수가 부족합니다.');
-			window.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
-	 }else{
 		 Swal.fire({
+				text : '보유하신 완두콩 갯수가 부족합니다.',
+				icon : 'info',
+/* 				timer: 2000,
+				timerProgressBar: true, */
+				
+				footer: '<a href="#" onclick="charge()">결제/충전 GO!</a>'
+		 		 
+		 })
+	 }else{
+		 await Swal.fire({
 			   title: '정말로 구매하시겠습니까?',
 			   html: '<b>['+name+']</b><span style="color:gray"><br><i style="color:green" class="bi-circle-fill"></i><span>&nbsp;</span>'+price+'</span>',
 			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
@@ -464,19 +486,10 @@ function addCart(uiidx){
 					})
 			   }
 			});
-		
 	 }
- 
-/* 	 Swal.fire({
-		icon:'info',
-		title:'아이템 구매 기능  준비중...',
-		toast:true,
-		timer: 2000,
-	    timerProgressBar: true,
-	 }) */
  } 
  /* 장바구니 리스트 추가  */
- function itemShoppingAdd(iidx){
+ async function itemShoppingAdd(iidx){
 	 console.log('itemShoppgAdd');
 	 var uidx = '${login.uidx}';
 	$.ajax({

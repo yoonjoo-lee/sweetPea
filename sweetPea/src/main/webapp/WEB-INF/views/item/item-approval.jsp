@@ -15,6 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <title>item-approval</title>
 <style type="text/css">
 .mb-5{
@@ -86,7 +87,13 @@ function itemApproval(iidx, check){
 		type:"post",
 		data:{"iidx":iidx,"check":check},
 		success:function(data){
-			alert('변경 되었습니다.');
+			Swal.fire({
+				text : '아이템 승인이 되었습니다.',
+				icon : 'success',
+				timer: 2000,
+				timerProgressBar: true, 
+			})
+			
 			document.location.reload();
 			
 		}

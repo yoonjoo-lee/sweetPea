@@ -17,6 +17,9 @@
 	});
 </script>
 <style type="text/css">
+body{
+    margin-bottom: 10%;
+}
 		#view{
 			width: 60%;
 			margin: 0 auto;
