@@ -139,7 +139,7 @@
 	</c:if>
 	
 	<c:if test="${vo.category != 1}">
-		<c:if test="${ vo.pea_super=='Y' || vo.category==2 || vo.category==3 }">
+		<c:if test="${ login.pea_super=='Y' || vo.category==2 || vo.category==3 }">
 			<div id="reply"></div>	
 		</c:if>
 	</c:if>
