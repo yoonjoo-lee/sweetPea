@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -223,7 +224,9 @@ table th {
 				<tr>
 					<th>아이템 종류 :</th>
 					<td width="500px;"><select id="category" name="category" style="width: 100%; height: 3vh;">
-							<option value="1">미니룸</option>
+							<c:if test="${login.pea_super == 'Y'}">
+								<option value="1">미니룸</option>
+							</c:if>
 							<option value="3">커스텀</option>
 					</select></td>
 

@@ -204,7 +204,9 @@ $(function (){
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			if ('${login.pea_super}'=='Y'){
+				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				}
 			$("#boardList").html(html);
 		}
 	});
@@ -234,7 +236,9 @@ function boardList4(){
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			if ('${login.pea_super}'=='Y'){
+				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				}
 			$("#boardList").html(html);
 		}
 	});
@@ -264,7 +268,7 @@ function boardList5(){
 			}
 			html += "</tbody>";
 			html += "</table>";
-			
+			html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
 			$("#boardList").html(html);
 		}
 	});

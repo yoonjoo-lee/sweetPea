@@ -246,6 +246,7 @@ h5{
     margin: 0 !important;
     width: 100% !important;
     padding: 0 !important;
+    max-width: fit-content;
 }
 .justify-content-center{
     width: 90%;
@@ -298,7 +299,7 @@ function openShoppingBasket(){
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
-	<div style="float: right; width: 15%; margin-left: 5px;" class="button" onclick="">
+	<div style="float: right; width: 15%; margin-right: 5px;" class="button" onclick="">
 		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg">장바구니</p>
 		<div class="btnTwo">
 			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg">GO!</p>
@@ -351,7 +352,6 @@ function openShoppingBasket(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-/* 	data:"cate="+1, */
 	data:{"cate":1,"category":category},
 	success:function(data){
 		var html="";
@@ -399,7 +399,7 @@ function itemSelectAll(cate){
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
-			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price+"";
 			html +="</div>";
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
