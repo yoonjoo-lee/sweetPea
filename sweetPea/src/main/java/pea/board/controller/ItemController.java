@@ -149,27 +149,6 @@ public class ItemController {
 		return itemService.itemSelectAll(category);
 	}
 	
-	/* 카테고리별 아이템 가져오기 */
-	/* 카테고리별 아이템 가져오기 */
-	/* 카테고리별 아이템 가져오기 */
-	/* 카테고리별 아이템 가져오기 */
-	/* 카테고리별 아이템 가져오기 */
-	/*
-	@ResponseBody
-	@RequestMapping(value="item/itemListCate.do", produces = "application/json;charset=utf8")
-	public List<ItemVo> itemListCate(int category){
-		
-		if(category == 1) {
-			return itemService.itemListCate(category);
-		} else if(category == 2) {
-			return itemService.itemListCate(category);
-		}else if(category == 3) {
-			return itemService.itemListCate(category);
-		}
-		
-		return itemService.itemListCate(category);
-	}
-*/
 	// 아이템 리스트 신상품 LIMIT 5개
 	@ResponseBody
 	@RequestMapping(value = "/item/itemListNewLimit.do", produces = "application/json;charset=utf8")
