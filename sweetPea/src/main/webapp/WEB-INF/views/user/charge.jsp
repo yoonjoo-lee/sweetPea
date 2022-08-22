@@ -30,21 +30,21 @@
     line-height: inherit;
 } */
 h4{
-	text-indent: 5vw;
+	text-indent: 5em;
 }
 b{
 	color: #7dc75e;
 }
 .back-gray{
-	font-size: 2vh;
+	font-size: 1.2em;
     font-weight: bold;
-    text-indent: 2vw;
+    text-indent: 2em;
     background-color: #e5e3e3;
-    padding: 0.1vh 0;
+    padding: 0.1em 0;
 }
 .back-gray>p:not(:first-child){
 	font-weight: normal;
-	font-size: 1.5vh;
+	font-size: 0.8em;
 }
 ul{
 	list-style-type: none;
@@ -56,30 +56,30 @@ ul{
 	width: 46%;
 }
 .pea_package_box{
-	height: 40vh;
+	height: 25em;
 }
 .buyBtn{
 	float: right;
-    font-size: 1.8vh;
+    font-size: 1em;
     height: 100%;
     border: 0;
-    width: 10vh;
+    width: 6em;
     background-color: #7dc75e;
     color: white;
     transition: 0.5s;
+    line-height: 2em;
 }
 .buyBtn:hover{
 	background-color: #519933;
 }
 .buyText{
-	font-size: 1.8vh;
-    line-height: 3vh;
-    margin-left: 1vw;
+    line-height: 2em;
+    margin-left: 1em;
 }
 .pea_package_ul>li{
-	margin: 2.5vh 0;
+	margin: 1.5em 0;
     border-bottom: 1px solid #7dc75e;
-    height: 3.5vh;
+    height: 2em;
 }
 </style>
 
@@ -88,14 +88,27 @@ ul{
 #view{
 	width: 100%;
 }
+
 .pea_package_list_box{
 	float: left;
 	margin: 0 2%;
 	width: 96%;
 }
+
 .pea_package_box{
 	height: 80vh;
 }
+
+h4{
+	text-indent: 5vw;
+}
+
+.back-gray {
+    font-size: 3.5vw;
+    font-weight: bold;
+    text-indent: 2vw;
+}
+
 </style>
 </c:if>
 <script type="text/javascript">

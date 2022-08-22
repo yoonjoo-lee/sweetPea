@@ -14,18 +14,18 @@
 	box-sizing: border-box;
 }
 
-h3, ul {
+.megBox h3,.megBox ul {
 	text-align: center;
 	margin-bottom: 0;
 }
 
-ul {
+.megBox ul {
 	list-style-type: none;
 	padding: 0;
 	width: 100%;
 }
 
-li {
+.megBox li {
 	display: inline-block;
 	font-size: 1.1em;
 }
@@ -152,8 +152,48 @@ b.page-link {
 			
 	}
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+h3{
+    font-size: 6vw;
+    text-align: center;
+}
+.btnBox{
+	height: 3vh;
+}
+.btnBox>input{
+	float: right;
+    margin: 0 2vw;
+    width: 15vw;
+    height: 100%;
+    font-size: 3vw;
+}
+.megBox>ul{
+	height: 5vh;
+}
+.megBox>ul>li{
+	font-size: 2.5vw;
+    line-height: 5vh;
+}
+.header-ul>li>input[type="checkbox"],.content-ul>li>input[type="checkbox"]{
+	vertical-align: text-top;
+	margin: 0;
+}
+</style>
+<script>
+		$(function(){
+			$("#header").load("<%=request.getContextPath()%>/resources/article/header.jsp"); 
+		});
+</script>
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
+
+
+</c:if>
+
 </head>
 <body>
+	<header id="header"></header>
 	<h3>쪽지함</h3>
 	<div class="btnBox">
 		<c:if test="${login.pea_super eq 'Y'}">
@@ -162,7 +202,7 @@ b.page-link {
 		<input type="button" onclick="delMsg()" value="삭제">
 	</div>
 	<br>
-	<div>
+	<div class="megBox">
 		<ul class="header-ul">
 			<li><input type="checkbox" id="allCheck"></li>
 			<li>보낸 사람</li>

@@ -13,6 +13,7 @@
 	});
 </script>
 <link href="<%=request.getContextPath()%>/resources/css/login.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
 <script src="<%=request.getContextPath()%>/resources/js/header.js"></script>
 <c:if test="${device eq 'MOBILE' }">
 <style>
