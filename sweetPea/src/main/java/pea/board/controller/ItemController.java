@@ -82,26 +82,6 @@ public class ItemController {
 		return "item/itemShopMain";
 	}
 	
-	/* 만들어 본 것 확인 받기 */
-	/* 만들어 본 것 확인 받기 */
-	/* 만들어 본 것 확인 받기 */
-	/* 만들어 본 것 확인 받기 */
-	/* 만들어 본 것 확인 받기 */
-	/*
-	@ResponseBody
-	@RequestMapping(value = "/item/itemShopMain.do", produces= "application/json;charset=utf8")
-	public List<ItemVo> itemShopMain(int category) {
-		if(category == 1) {
-			return itemService.itemListCate(category);
-		} else if(category == 2) {
-			return itemService.itemListCate(category);
-		}else if(category == 3) {
-			return itemService.itemListCate(category);
-		}
-		
-		return itemService.itemListCate(category);
-		
-	}*/
 
 	@RequestMapping(value = "/item/leftBanner.do")
 	public String itemLeftBanner() {

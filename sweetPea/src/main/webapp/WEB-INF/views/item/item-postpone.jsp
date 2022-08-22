@@ -32,6 +32,10 @@
 h5{
 	font-size: 2vw;
 }
+.item-span{
+	color: gray;
+	font-size: 1em;
+}
 </style>
 </head>
 <body>
@@ -56,6 +60,17 @@ $(function itemSelectAll(){
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
+			if(data[i].subcategory == 1){
+					html +="<span class='item-span'>[테마배경]</span>";
+				}else if(data[i].subcategory == 2){
+					html +="<span class='item-span'>[미니룸배경]</span>";
+				}else if(data[i].subcategory == 3){
+					html +="<span class='item-span'>[캐릭터]</span>";
+				}else if(data[i].subcategory == 4){
+					html +="<span class='item-span'>[글꼴]</span>";
+				}else if(data[i].subcategory == 5){
+					html +="<span class='item-span'>[가구]</span>";
+				}
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
 			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
 			html +="</div>";
