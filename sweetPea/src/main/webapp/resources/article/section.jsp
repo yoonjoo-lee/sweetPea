@@ -63,6 +63,96 @@
 }
 </style>
 </c:if>
+
+<script>
+/* 아이템 구매  */
+function myItemAdd(iidx,price,name,img){
+	 var uidx = '${login.uidx}';
+	 if ('${login.pea_amount}'<price){
+		 Swal.fire({
+				text : '보유하신 완두콩 갯수가 부족합니다.',
+				icon : 'info',
+				footer: '<a href="<%=request.getContextPath()%>/user/charge.do">결제/충전 GO!</a>'
+		 })
+	 }else{
+		 Swal.fire({
+			   title: '정말로 구매하시겠습니까?',
+			   html: '<b>['+name+']</b><span style="color:gray"><br><i style="color:green" class="bi-circle-fill"></i><span>&nbsp;</span>'+price+'</span>',
+			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+			   confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+			   cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+			   imageUrl: '<%=request.getContextPath()%>/item/imageView.do?originFileName='+img,
+			   
+			}).then(result => {
+			   // 만약 Promise리턴을 받으면,
+			   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+				   $.ajax({
+						url:"item/myItemAdd.do",
+						type:"post",
+					 	data:{"uidx":uidx,"iidx":iidx,"price":price},
+						success:async function(data){
+							if(data==0){
+								Swal.fire({
+									text: '내 아이템에 존재한 아이템입니다.',
+									icon: 'warning',
+									timer: 2000,
+								    timerProgressBar: true,
+								});
+							}else{
+								/* alert("장바구니에 추가되었습니다."); */
+							 await Swal.fire({
+									text : '내 아이템에 추가되었습니다.',
+									icon : 'success',
+									timer: 2000,
+									timerProgressBar: true,
+									}); 
+								console.log(uidx);
+								window.parent.location.reload();
+							}
+						},
+						error:function(){
+							alert('내 아이템에 추가되지 않았습니다.');
+						}
+					})
+			   }
+			});
+	 }
+} 
+
+/* 장바구니 리스트 추가  */
+async function itemShoppingAdd(iidx){
+	var uidx = '${login.uidx}';
+	$.ajax({
+		url:"item/itemShoppingAdd.do",
+		type:"get",
+	 	data:{"uidx":uidx,"iidx":iidx},
+		success:async function(data){
+			if(data==0){
+				Swal.fire({
+					text: '내 아이템 또는 장바구니에 존재한 아이템입니다.',
+					icon: 'warning',
+					timer: 2000,
+				    timerProgressBar: true,
+				});
+			}else{
+			 await Swal.fire({
+					title : '장바구니에 추가되었습니다.',
+					text : '장바구니는 아이템상점에서 확인 가능합니다',
+					icon : 'success',
+					timer: 2000,
+					timerProgressBar: true,
+					}); 
+				window.location.reload();
+			}
+		},
+		error:function(){
+			alert('장바구니에 추가되지 않았습니다.');
+		}
+	})
+}
+</script>
 </head>
 <body>
 	<div class="lavel">신상품</div>
@@ -97,8 +187,8 @@
 		            </div>
 		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 		                <div class="text-center">
-			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick='itemShoppingAdd("+data[i].iidx+")'>
-			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick='itemBuy()'>
+			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick="myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}')">
+			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick="itemShoppingAdd(${vo.iidx})">
 			                <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'>
 		                </div>
 		            </div>
@@ -140,8 +230,8 @@
 		            </div>
 		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 		                <div class="text-center">
-			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick='itemShoppingAdd("+data[i].iidx+")'>
-			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick='itemBuy()'>
+			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick="myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}')">
+			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick="itemShoppingAdd(${vo.iidx})">
 			                <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'>
 		                </div>
 		            </div>
@@ -150,13 +240,5 @@
 			</c:forEach>
 		</div>
 	</div>
-<c:if test="${device eq 'PC'}">	
-<script>
-	var length = $(".col").length / 2;
-	if(length == 6){
-		$(".col").css("width","16.6%");
-	}
-</script>
-</c:if>	
 </body>
 </html>

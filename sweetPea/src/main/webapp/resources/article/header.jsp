@@ -40,7 +40,7 @@
 	})
 </script>
 <c:if test="${device == 'MOBILE'}">
-	<style>
+<style>
 #mainNav {
   padding-top: 1vh;
   padding-bottom: 1vh; 
@@ -61,7 +61,7 @@
   text-transform: uppercase;
 }
 #mainNav .navbar-brand img {
-  height: 1.5rem;
+  height: 2rem;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -83,16 +83,62 @@
 	
 .mobile-header-idxBox{
 	display: inline-block;
-	color: white;
-}
-.mobile-header-idxBox>img{
-	width: 4vh;
-	height: 4vh;
-	border-radius: 25px;
+    width: 55vw;
+    height: 100%;
+    border: 0;
+    margin: 2vh 5vw;
 }
 .mobile-header-idxBox>span{
 	line-height: 4vh;
 }
+
+.mobile-header-idxBox>.profile{
+	width: 25vw;
+    height: 25vw;
+    border: 0;
+    border-radius: 25vw;
+    margin: 0 auto;
+    display: block;
+    float: none;
+}
+.mobile-header-idxBox>.login-center>span{
+	font-size: 3vw;
+    line-height: 3vh;
+}
+.mobile-header-idxBox>.login-center>input{
+    height: 3vh;
+    width: 20vw;
+}
+
+.mobile-header-idxBox>.login-center>.info>ul{
+	font-size: 3vw;
+}
+.mobile-header-idxBox>.login-center>.info>ul>li{
+	color: white;
+}
+
+.mobile-header-idxBox>.login>.cameleon{
+    height: 10vh;
+    display: block;
+    width: 100%;
+    margin: 1vh 0;
+}
+.mobile-header-idxBox>.login>.longin-button-box {
+	width: 100%;
+    display: block;
+}
+
+.mobile-header-idxBox>.login>.longin-button-box>input {
+	margin: 1vh 0;
+    width: 100%;
+    height: 4vh;
+    font-size: 3vw;
+}
+
+.nav-link{
+	font-size: 4vw !important;
+}
+
 
 .navbar-nav{
 	display: inline-block;
@@ -101,6 +147,10 @@
 
 .masthead{
 	min-width: auto !important;
+}
+.py-4{
+	padding-top: 1vh !important;
+	padding-bottom: 6vh !important;
 }
 </style>
 
@@ -118,21 +168,57 @@ function gift(){
         </script>
 </head>
 <body>
-	<!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand header-a" href="home.do"><img src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" alt="..." /></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ms-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-	                <c:if test="${device == 'MOBILE' && login != null}">
-						<div class = "mobile-header-idxBox">
-							<img src="${login.profile}">
-							<span>${login.name}님 환영합니다.</span>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand header-a" href="<%=request.getContextPath()%>/home.do"><img src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" alt="..." /></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+   		Menu
+    	<i class="fas fa-bars ms-1"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+		<c:if test="${device == 'MOBILE'}">
+		<div class = "mobile-header-idxBox">
+			
+			
+			<!-- 로그인 상태 -->
+			<c:if test="${login != null}">
+				<img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
+				<div class="login-center">
+					<span>${login.name}님</span>
+					<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
+					<div class="info">
+						<ul>
+							<li>today <span style="color: red">${today}</span></li>
+							<li><a style="cursor: pointer; text-decoration: none; color: inherit;" href="<%=request.getContextPath()%>/message/main.do?uidx=${login.uidx}">쪽지</a></li>
+							<li>total &nbsp; ${total}</li>
+							<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
+						</ul>
+						<input type="button" style="width: 86%; height: 4vh; margin: 2vh 0; font-size: 3vw; position: absolute; bottom: 0; left: 7%; border: 0; border-radius: 4vh;" onclick="openMini(${login.uidx})" value="미니홈피 가기">
+					</div>
+				</div>
+			</c:if>
+			<!-- 로그인 상태 끝 -->
+			<!-- 로그아웃 상태 -->
+			<c:if test="${login == null}">
+				<div class="login">
+					<div class="cameleon"></div>
+					<div class="longin-button-box">
+						<input type="button" class="login-button" onclick="location.href='<%=request.getContextPath()%>/user/login.do'" value="로그인">
+						<div class="logout-bottom">
+							<span style="color: white; font-size: 3vw;"><a href="<%=request.getContextPath()%>/user/join.do">회원가입</a></span>
+							<span style="color: white; font-size: 3vw;">
+								<a href="<%=request.getContextPath()%>/user/findId.do">아이디</a> /
+								<a href="<%=request.getContextPath()%>/user/findPwd.do">비밀번호 찾기</a>
+							</span>
 						</div>
-					</c:if>
+					</div>
+				</div>
+			</c:if>
+			<!-- 로그아웃 상태 끝 -->
+				</div>
+			</c:if>
+					
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 ">
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do?category=4">아이템상점</a></li>
                         <li class="nav-item"><a class="nav-link header-a" href="#" onclick="gift()">선물하기</a></li>
@@ -163,24 +249,19 @@ function gift(){
 							</li>                   	
                         </c:if>
 
-                        <c:if test="${login != null}">
+                        <%-- <c:if test="${login != null}">
                         	<li class="nav-item"><a class="nav-link header-a" style="cursor: pointer" onclick="openMini(${login.uidx})">미니홈피</a></li>
                         	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>
                         <c:if test="${login == null}">
                         	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/login.do">로그인</a></li>
-                        </c:if>
+                        </c:if> --%>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Masthead-->
         <header class="masthead" style="cursor: pointer;">
-            <!-- <div class="container">
-                <div class="masthead-subheading">0705</div>
-                <div class="masthead-heading text-uppercase">완두콩</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
-            </div> -->
         </header>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
