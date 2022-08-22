@@ -12,18 +12,18 @@
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
+        <%-- <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" /> --%>
 <style type="text/css">
 .lavel{
 	width: 100%;
-	height: 1.5rem;
-	text-align: center;
-	font-size: 0.95rem;
-	background-color: #81c769;
-	color: red;
-}
-@media (min-width: 992px){
-	
+    height: 40px;
+    text-align: center;
+    font-size: 17px;
+    background-color: #81c769;
+    color: red;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 20px 0;
 }
 .centerBanner{
 	background-image: url("<%=request.getContextPath()%>/resources/images/banner3.png");
@@ -40,29 +40,58 @@
 }
 .item-span{
 	color: gray;
-	font-size: 0.8vw;
+	font-size: 1em;
+}
+
+.section-container{
+	width: 95%;
+	margin: 50px auto;
+}
+.container-content{
+	justify-content: center;
+	display: flex;
+    flex-wrap: wrap;
+}
+.mb-5{
+	margin: 10px;
 }
 </style>
+<c:if test="${device eq 'MOBILE' }">
+<style>
+.section-container{
+	margin: 0 auto;
+}
+</style>
+</c:if>
 </head>
 <body>
 	<div class="lavel">신상품</div>
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+	<div class="section-container">
+		<div class="container-content">
 			<c:forEach items="${newList}" var="vo">
 			<div class="col mb-5">
 		        <div class="card h-100">
-		            <img class="card-img-top" style="height: 12vh;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
+		            <img class="card-img-top" style="height: 130px;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
 		            <div class="card-body p-4">
 		                <div class="text-center">
 		                    <c:choose>
 		                    <c:when test="${vo.subcategory == 1}">
-		                    	<span class="item-span">[배경]</span>
+		                    	<span class="item-span">[테마배경]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 2}">
-		                    	<span class="item-span">[꾸미기]</span>
+		                    	<span class="item-span">[미니룸배경]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 3}">
+		                    	<span class="item-span">[캐릭터]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 4}">
+		                    	<span class="item-span">[글꼴]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 5}">
+		                    	<span class="item-span">[가구]</span>
 		                    </c:when>
 		                    </c:choose>
-		                    <h5 class="fw-bolder">${vo.name}</h5>
+		                    <h3 class="fw-bolder">${vo.name}</h3>
 		                    <i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>${vo.price}
 		                </div>
 		            </div>
@@ -80,23 +109,32 @@
 	</div>
 <div class="centerBanner"></div><br>
 <div class="lavel">인기상품</div>
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+	<div class="section-container">
+		<div class="container-content">
 			<c:forEach items="${mostList}" var="vo">
 			<div class="col mb-5">
 		        <div class="card h-100">
-		            <img class="card-img-top" style="height: 12vh;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
+		            <img class="card-img-top" style="height: 130px;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
 		            <div class="card-body p-4">
 		                <div class="text-center">
 		                    <c:choose>
 		                    <c:when test="${vo.subcategory == 1}">
-		                    	<span class="item-span">[배경]</span>
+		                    	<span class="item-span">[테마배경]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 2}">
-		                    	<span class="item-span">[꾸미기]</span>
+		                    	<span class="item-span">[미니룸배경]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 3}">
+		                    	<span class="item-span">[캐릭터]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 4}">
+		                    	<span class="item-span">[글꼴]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 5}">
+		                    	<span class="item-span">[가구]</span>
 		                    </c:when>
 		                    </c:choose>
-		                    <h5 class="fw-bolder">${vo.name}</h5>
+		                    <h3 class="fw-bolder">${vo.name}</h3>
 		                    <i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>${vo.price}
 		                </div>
 		            </div>
@@ -113,12 +151,12 @@
 		</div>
 	</div>
 <c:if test="${device eq 'PC'}">	
-	<script>
-		var length = $(".col").length / 2;
-		if(length == 6){
-			$(".col").css("width","16.6%");
-		}
-	</script>
+<script>
+	var length = $(".col").length / 2;
+	if(length == 6){
+		$(".col").css("width","16.6%");
+	}
+</script>
 </c:if>	
 </body>
 </html>

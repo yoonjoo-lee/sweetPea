@@ -23,6 +23,7 @@ body{
 		#view{
 			width: 60%;
 			margin: 0 auto;
+			margin-bottom: 200px;
 		}
 		#footer{
 			width: 100%;

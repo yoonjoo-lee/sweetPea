@@ -1,12 +1,8 @@
 package pea.board.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import pea.board.service.MiniroomBoardService;
 import pea.board.service.UserService;
 import pea.board.vo.UserVo;
 
@@ -31,8 +25,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	@Autowired
+	MiniroomBoardService miniroomBoardService;
+	
+	@Autowired
 	private MailSendService mailService;
-	private String uploadFolder;
 	
 	@RequestMapping(value="/user/home.do")
 	public String home() {
@@ -56,8 +52,13 @@ public class UserController {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html;charset=utf-8");
 		
+		
+		
+		
 		if(user != null) {
 			session = request.getSession();
+			
+			
 			// 세션에 담을 로그인 객체 생성해서 가져오기 
 			UserVo login = new UserVo();
 			login.setUidx(user.getUidx());
@@ -69,6 +70,11 @@ public class UserController {
 			login.setEmail(user.getEmail());
 			login.setPea_amount(user.getPea_amount());
 			
+			int total = miniroomBoardService.visitTotal(login.getUidx());
+			int today = miniroomBoardService.visitToday(login.getUidx());
+			
+			session.setAttribute("total", total);
+			session.setAttribute("today", today);
 			session.setAttribute("login", login);
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush();

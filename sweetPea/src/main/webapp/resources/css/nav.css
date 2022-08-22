@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #nav{
-	height: 17vh;
+	height: 130px;
 }
 /*.loginBox{
 		display: none;
@@ -15,12 +15,14 @@
 
 	.loginBox{
 		display: inline-block;
-		width: 10vw;
+		width: 350px;
 		height: 100%;
-		border: 1px solid black;
+		border: 0;
+		background-color: #e3e3e3;
+    	border-radius: 5px;
 	}
 	div.banner{
-		width: 48vw;
+		width: 920px;
 		float: right;
 		height: 100%;
 		display: inline-block;
@@ -40,15 +42,22 @@
 	background-attachment: scroll;
 	background-position: center center;
 	background-size: contain;
-	margin-top: 1em;
-	width: 100%;
-	height: 40%;
+	width: 40%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    margin: 0;
+}
+.longin-button-box{
+	display: inline-block;
+    width: 58%;
 }
 .login-button{
 	margin: 10% auto;
 	border: 0;
 	display: block;
-	width: 75%;
+	height: 40%;
+    width: 95%;
 	border-radius: 2em;
 	font-size: 0.5em;
 }
@@ -85,7 +94,15 @@
 	margin-right: 3em;
 }
 .login-center{
-	height: 55%;
+	float: right;
+    display: inline-block;
+    width: 200px;
+    margin: 10px 8px;
+}
+.login-center>span{
+	font-size: 1em;
+    color: darkgray;
+    line-height: 20px;
 }
 .login-bottom{
 	height: 22%;
@@ -95,20 +112,30 @@
 	height: 85%;
 }
 .profile{
-	height: 85%;
-	border: 1px solid black;
-	width: 40%;
-	margin-left: 5%;
-	vertical-align: bottom;
+    width: 110px;
+	height: 110px;
+    border: 0;
+    border-radius: 110px;
+    margin: 10px 10px;
+    float: left;
 }
 .info{
-	width: 50%;
+	width: 100%;
 }
 .info ul{
 	list-style: none;
-	font-size: 0.05em;
+	font-size: 0.8em;
 	padding: 0;
 }
+
+.info ul li{
+	width: 40%;
+	float: left;	
+}
+.info ul li:nth-child(2n){
+	float: right;	
+}
+
 .login-bottom>input{
 	width: 92%;
 	display: block;

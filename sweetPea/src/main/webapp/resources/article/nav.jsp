@@ -13,16 +13,16 @@
 <link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
 <c:if test="${device == 'MOBILE'}">
 <style>
-	.loginBox{
-		display: none;
-	}
-	div.banner{
-		width: 100%;
+.loginBox{
+	display: none;
+}
+div.banner{
+	width: 100%;
 	height: 100%;
 	border: 1px solid black;
 	display: block;
 	position: relative;
-	}
+}
 </style>
 </c:if>
 <script>
@@ -61,28 +61,19 @@
 		<div class="loginBox">
 			<!-- 로그인 상태 -->
 			<c:if test="${login != null}">
-				<div class="login-top">
-					<span>${login.name}님</span>
-					<input type="button" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
-				</div>
+				<img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
 				<div class="login-center">
-					<%-- <div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'"><img src = "<spring:url value = '/images/profile/${login.profile }'/>"></div>
-					 --%>
-<%-- 					 <img class="profile" src = "<spring:url value = '/images/profile/${login.profile }'/>" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" /> --%>
-					 <img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
-					 
+					<span>${login.name}님</span>
+					<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
 					<div class="info">
 						<ul>
-							<li>today</li>
-							<li>new</li>
-							<li>친구신청</li>
+							<li>today <span style="color: red">${today}</span></li>
 							<li><a style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
-							<li>완두콩 ${login.pea_amount}개<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/charge.do'" value="충전"></li>
+							<li>total &nbsp; ${total}</li>
+							<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 						</ul>
+						<input type="button" style="width: 100%; height: 30px; margin: 5px 0;" onclick="openMini(${login.uidx})" value="미니홈피 가기">
 					</div>
-				</div>
-				<div class="login-bottom">
-					<input type="button" onclick="openMini(${login.uidx})" value="미니홈피 가기">
 				</div>
 			</c:if>
 			<!-- 로그인 상태 끝 -->
@@ -90,13 +81,15 @@
 			<c:if test="${login == null}">
 				<div class="login">
 					<div class="cameleon"></div>
-					<input type="button" class="login-button" onclick="location.href='<%=request.getContextPath()%>/user/login.do'" value="로그인">
-					<div class="logout-bottom">
-						<span><a href="<%=request.getContextPath()%>/user/join.do">회원가입</a></span>
-						<span>
-							<a href="<%=request.getContextPath()%>/user/findId.do">아이디</a> /
-							<a href="<%=request.getContextPath()%>/user/findPwd.do">비밀번호 찾기</a>
-						</span>
+					<div class="longin-button-box">
+						<input type="button" class="login-button" onclick="location.href='<%=request.getContextPath()%>/user/login.do'" value="로그인">
+						<div class="logout-bottom">
+							<span><a href="<%=request.getContextPath()%>/user/join.do">회원가입</a></span>
+							<span>
+								<a href="<%=request.getContextPath()%>/user/findId.do">아이디</a> /
+								<a href="<%=request.getContextPath()%>/user/findPwd.do">비밀번호 찾기</a>
+							</span>
+						</div>
 					</div>
 				</div>
 			</c:if>
