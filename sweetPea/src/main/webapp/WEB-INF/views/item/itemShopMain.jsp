@@ -252,6 +252,10 @@ h5{
     width: 90%;
     margin: 0 auto;
 }
+.item-span{
+	color: gray;
+	font-size: 1em;
+}
 /* 모달 사이즈  */
 </style>
 <script type="text/javascript">
@@ -354,13 +358,26 @@ function openShoppingBasket(){
 	type:"get",
 	data:{"cate":1,"category":category},
 	success:function(data){
+		/* alert(data.subcategory); */
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
+			console.log("서브카테고리 :	 "+data[i].subcategory);
+		html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
+			if(data[i].subcategory == 1){
+					html +="<span class='item-span'>[테마배경]</span>";
+				}else if(data[i].subcategory == 2){
+					html +="<span class='item-span'>[미니룸배경]</span>";
+				}else if(data[i].subcategory == 3){
+					html +="<span class='item-span'>[캐릭터]</span>";
+				}else if(data[i].subcategory == 4){
+					html +="<span class='item-span'>[글꼴]</span>";
+				}else if(data[i].subcategory == 5){
+					html +="<span class='item-span'>[가구]</span>";
+				}
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
 			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price+"";
 			html +="</div>";
@@ -398,6 +415,17 @@ function itemSelectAll(cate){
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
+			if(data[i].subcategory == 1){
+					html +="<span class='item-span'>[테마배경]</span>";
+				}else if(data[i].subcategory == 2){
+					html +="<span class='item-span'>[미니룸배경]</span>";
+				}else if(data[i].subcategory == 3){
+					html +="<span class='item-span'>[캐릭터]</span>";
+				}else if(data[i].subcategory == 4){
+					html +="<span class='item-span'>[글꼴]</span>";
+				}else if(data[i].subcategory == 5){
+					html +="<span class='item-span'>[가구]</span>";
+				}
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
 			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price+"";
 			html +="</div>";

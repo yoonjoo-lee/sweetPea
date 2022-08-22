@@ -107,7 +107,7 @@ h5{
 }
 .item-span{
 	color: gray;
-	font-size: 1.2vw;
+	font-size: 1em;
 }
 </style>
 </head>
@@ -134,10 +134,16 @@ h5{
 						<div class='text-center'>
 							<c:choose>
 		                    <c:when test="${vo.subcategory == 1}">
-		                    	<span class="item-span">[배경]</span>
+           			        	<span class="item-span">[미니룸배경]</span>
 		                    </c:when>
-		                    <c:when test="${vo.subcategory == 2}">
-		                    	<span class="item-span">[꾸미기]</span>
+		                    <c:when test="${vo.subcategory == 3}">
+		                    	<span class="item-span">[캐릭터]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 4}">
+		                    	<span class="item-span">[글꼴]</span>
+		                    </c:when>
+		                    <c:when test="${vo.subcategory == 5}">
+		                    	<span class="item-span">[가구]</span>
 		                    </c:when>
 		                    </c:choose>
 							<h5 class='fw-bolder'>${vo.name }</h5>
