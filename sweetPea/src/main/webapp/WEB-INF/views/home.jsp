@@ -12,23 +12,23 @@
 			$("#footer").load("resources/article/footer.jsp");
 		});
 	</script>
-	<style type="text/css">
-		#view{
-			width: 60vw;
-			margin: 0 auto;
-			margin-bottom: 20vh;
-		}
-	</style>
-	<c:if test="${device eq 'MOBILE' }">
-	<style>
-		#view{
-			width: 100%;
-		}
-	</style>
-	
-	</c:if>
+<style type="text/css">
+#view{
+	width: 1300px;
+	margin: 0 auto;
+	margin-bottom: 220px;
+}
+</style>
+<c:if test="${device eq 'MOBILE' }">
+<style>
+article > *,#view{
+	width: 100% !important;
+}
+</style>
+
+</c:if>
 </head>
-<body>
+<body style="overflow: inherit;">
 <article>
 	<header id="header"></header>
 	<br>

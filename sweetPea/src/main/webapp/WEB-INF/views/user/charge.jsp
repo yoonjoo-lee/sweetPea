@@ -19,16 +19,16 @@
 	
 <style type="text/css">
 #view {
-	width: 60vw;
+	width: 1300px;
 	margin: 0 auto;
-	margin-bottom: 15em;
+	margin-bottom: 220px;
 }
-input, button{
+/* input, button{
     margin: 0;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
-}
+} */
 h4{
 	text-indent: 5vw;
 }

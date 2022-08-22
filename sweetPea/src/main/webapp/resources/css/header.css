@@ -11195,7 +11195,7 @@ html {
 
 body {
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 p {
@@ -11290,15 +11290,16 @@ p {
   
   
 header.masthead {
-  padding-top: 10.5rem;
-  padding-bottom: 6rem;
-  text-align: center;
-  color: #fff;
-  background-image: url("../images/pea_banner1.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
+	min-width: 1300px;
+	padding-top: 10.5rem;
+	padding-bottom: 6rem;
+	text-align: center;
+	color: #fff;
+	background-image: url("../images/pea_banner1.jpg");
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: center center;
+	background-size: cover;
 }
 header.masthead .masthead-subheading {
   font-size: 1.5rem;

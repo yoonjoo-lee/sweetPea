@@ -98,6 +98,10 @@
 	display: inline-block;
 	float: right;
 }
+
+.masthead{
+	min-width: auto !important;
+}
 </style>
 
 </c:if>
