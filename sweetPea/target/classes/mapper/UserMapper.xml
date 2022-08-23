@@ -42,7 +42,7 @@
 				, #{addr} 
 				, #{gender}
 				, #{ip}
-				, '/controller/resources/images/1.png'
+				, '/sweetPea/resources/images/1.png'
 		)
 	
 	</insert>
