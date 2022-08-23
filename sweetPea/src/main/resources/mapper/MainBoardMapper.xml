@@ -37,7 +37,7 @@
 		from pea_board b,pea_report r 
 		where b.bidx=r.bidx
 		</if>
-		
+		 
 		and category=#{category}
 		and (@rownum:=0)=0
 		<if test='searchType != null and searchType.equals("title")'>
@@ -48,6 +48,9 @@
 	 		OR u.name like concat('%',#{searchValue},'%')
 	 	</if>
 	 	 and b.delyn='N'
+	 	 <if test="reply != 0">
+	 		AND reply=#{reply}
+	 	</if> 
 	 	order by bidx desc
 	 	) 
 	 	<if test="list == 1">

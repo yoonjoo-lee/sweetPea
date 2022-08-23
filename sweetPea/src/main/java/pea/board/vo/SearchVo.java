@@ -7,7 +7,14 @@ public class SearchVo{
 	private int category;
 	private int list;
 	private int uidx;
+	private int reply;
 	
+	public int getReply() {
+		return reply;
+	}
+	public void setReply(int reply) {
+		this.reply = reply;
+	}
 	public int getUidx() {
 		return uidx;
 	}
