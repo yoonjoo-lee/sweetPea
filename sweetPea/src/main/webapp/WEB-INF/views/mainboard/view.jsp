@@ -137,7 +137,6 @@
 		<button class="btn btn-sm btn-warning" onclick="warningtroll()">경고</button> <!-- 트롤한테 경고 메시지 보내기 -->
 		<button class="btn btn-sm btn-success" onclick="">거절</button> <!-- 신고자한테 거절 메시지 보내기 -->
 	</c:if>
-	
 	<c:if test="${vo.category != 1}">
 		<c:if test="${ login.pea_super=='Y' || vo.category==2 || vo.category==3 }">
 			<div id="reply"></div>	
@@ -218,50 +217,61 @@ async function warningtroll(){
 		}
 }
 
-async function reportfn(){
+function reportfn(){
    /* const login = '${login.name}'; */
-   const { value: formValues } = await Swal.fire({
+   const { value: formValues } = Swal.fire({
         title: '신고',
         html:
-         '<form id="frm">'+
           '<textarea id="content" name="content" class="swal2-input" rows=6 cols=30></textarea>' +
           '<select id="report" name="report" class="swal2-input" style="width:22rem">'+
           '<option value="1">욕설/비방</option>'+
           '<option value="2">악성루머</option>'+
           '<option value="3">광고글도배</option>'+
-          '<option value="4">기타</option>'+
-          '<input type="hidden" name="title" value="신고">'+
-          '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
-          '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
-          '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
-          '<input type="hidden" name="category" value='+${vo.category}+'>'+
-          '</form>',
+          '<option value="4">기타</option>'
+          ,
         focusConfirm: false,
         backdrop: false,
         showCancelButton: true,
         preConfirm: () => {
-          return [
+        	
+          /* return [
             document.getElementById('content').value,
             document.getElementById('report').value,
             
-          ]
+          ] */
         }
-      })
-          $("#frm").attr("action","report.do?bidx="+${vo.bidx});
-          $("#frm").attr("method","POST");
-          $("#frm").submit();
+      }).then((result) => {
+    	  if (result.isConfirmed) {
+    	  $(async function(){
+	            await Swal.fire({
+	    		  html: '<form id="frm" action="report.do?bidx='+${vo.bidx}+'" method="POST">'+
+	    		  '<input type="hidden" name="title" value="신고">'+
+	              '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
+	              '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
+	              '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
+	              '<input type="hidden" name="category" value='+${vo.category}+'>'+
+	              '<input type="hidden" name="content" value='+$("#content").val()+'>'+
+	              '<input type="hidden" name="report" value='+$("#report").val()+'>'+
+	              '</form>',
+	  		      title:'Deleted!',
+	  		      text:$("#content").val(),
+	  		      icon:'success'
+	  		      })
+	  		      /* reportGo(); */
+	            /* $("#frm").submit(); */
+    		  $("#frm").submit();
+      	})
+    		  }
+    		})
 
-        if (formValues) {
-          await Swal.fire({
-          	text: '신고완료',
-          });
-          const sw1 = $("#content").val();
-          const sw2 = $("#report").val();
-         // alert(sw1,sw2);
-        }
       
 }
-
+function reportGo(){
+	alert($("#frm").html());
+	$("#frm").attr("action","report.do?bidx="+${vo.bidx});
+    $("#frm").attr("method","POST");
+    $("#frm").submit();
+}
 
 </script>
 </body>
