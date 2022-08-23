@@ -274,6 +274,37 @@ function openShoppingBasket(){
 </c:if>
 
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.button{
+	width: 31% !important;
+    margin: 2vh 1vw;
+}
+.cartBtn{
+	background-color: #936060;
+}
+.row{
+   flex-wrap: nowrap !important;
+   justify-content: start !important;
+}
+.col{
+	width: 45% !important;
+}
+.container{
+	overflow-x: scroll;
+	height: 100%;
+	padding: 0 !important;
+	padding-bottom: 5vh !important;
+}
+.mb-5{
+	margin: 1vh 5vw !important;
+}
+
+</style>	
+</c:if>
+
+
 </head>
 <body>
 	<br>
@@ -304,7 +335,7 @@ function openShoppingBasket(){
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
-	<div style="float: right; width: 15%; margin-right: 5px;" class="button" onclick="">
+	<div style="float: right; width: 15%; margin-right: 5px;" class="button cartBtn" onclick="">
 		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg">장바구니</p>
 		<div class="btnTwo">
 			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg">GO!</p>
