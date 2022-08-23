@@ -78,8 +78,10 @@ public class MainBoardController {
 		model.addAttribute("paging", vo);
 		model.addAttribute("category", category);
 		vo.setCategory(category);
+//		System.out.println("카테고리="+ category);
 		List<MainBoardVo> list = mainboardService.list(vo);
-
+		
+//		System.out.println("카테고리="+ list.);
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", vo);
 		model.addAttribute("category", category);
@@ -140,6 +142,7 @@ public class MainBoardController {
 		mbo.setCategory(category);
 		mbo.setRidx(ridx);
 		MainBoardVo vo = mainboardService.view(mbo);
+//		vo.setBidx(bidx);
 		model.addAttribute("vo", vo);
 
 		session = request.getSession();
