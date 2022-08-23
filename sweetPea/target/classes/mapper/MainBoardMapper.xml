@@ -32,7 +32,7 @@
 		where b.uidx=u.uidx
 		</if>
 		<if test="category == 6">
-		SELECT  A.*
+		SELECT  A.bidx, A.uidx, A.title, CONVERT(A.content USING utf8) as content,A.category, A.datetime, A.hit, A.ridx, A.report, A.reply, A.troll
 		FROM (select @rownum:=@rownum+1 as rn,b.*,r.ridx, r.report,r.reply, r.troll
 		from pea_board b,pea_report r 
 		where b.bidx=r.bidx
@@ -68,15 +68,15 @@
 <!-- 게시물 각 글 조회-->
 <select id="view" parameterType="MainBoardVo" resultType="MainBoardVo">
 <if test="category != 6">
-	SELECT  b.uidx, b.title,CONVERT(b.content USING utf8) as content, b.category, b.datetime, b.hit, b.delyn, u.name, u.uidx
+	SELECT  b.uidx, b.title,CONVERT(b.content USING utf8) as content, b.category, b.datetime, b.hit, b.delyn, b.bidx, u.name, u.uidx,u.pea_super
 	 FROM pea_board b, pea_user u
 	WHERE b.uidx = u.uidx
 	AND b.bidx = #{bidx}
 </if>
 <if test="category == 6">
-	SELECT * FROM (SELECT  b.uidx, b.title,CONVERT(b.content USING utf8) as content, b.category, b.datetime, b.hit, b.delyn, u.name as reportername FROM pea_board b JOIN pea_report r ON b.bidx=r.bidx JOIN pea_user u ON b.uidx=u.uidx where ridx=#{ridx}) A,
+	SELECT * FROM (SELECT  b.uidx, b.title, CONVERT(b.content USING utf8) as content, b.category, b.datetime, b.hit, b.delyn, u.name as reportername FROM pea_board b JOIN pea_report r ON b.bidx=r.bidx JOIN pea_user u ON b.uidx=u.uidx where ridx=#{ridx}) A,
 	(SELECT u.name as trollname, r.*  FROM pea_board b JOIN pea_report r ON b.bidx=r.bidx JOIN pea_user u ON r.troll=u.uidx where ridx=#{ridx}) B,
-	(SELECT b.content as reportcontent FROM pea_board b JOIN pea_report r ON r.rbidx=b.bidx WHERE ridx=#{ridx}) C
+	(SELECT CONVERT(b.content USING utf8) as reportcontent FROM pea_board b JOIN pea_report r ON r.bidx=b.bidx WHERE ridx=#{ridx}) C
 </if>
 </select>
 
