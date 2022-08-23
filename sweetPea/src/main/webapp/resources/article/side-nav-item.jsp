@@ -12,6 +12,13 @@
 <script>
 $(function(){
 	$(".banner").load("resources/article/nav-banner.jsp");
+	if(${category == 1}){
+		$(".category1").css("font-weight","bold");
+		$(".category3").css("font-weight","none");
+	}else if(${category == 3}){
+		$(".category3").css("font-weight","bold");
+		$(".category1").css("font-weight","none");
+	}
 });
 <c:if test="${login != null}">
 	function openMessage(){
@@ -202,8 +209,14 @@ a:hover {
 	display: block;
 	margin: 0 auto;
 }
+.category1,.category3{
+	text-decoration:none;
+	color: inherit;
+}
 </style>
+
 <div class="side-nav">
+	<c:if test="${device eq 'PC' }">
 	<div class="loginBox">
 		<!-- 로그인 상태 -->
 		<c:if test="${login != null}">
@@ -239,25 +252,25 @@ a:hover {
 		<!-- 로그아웃 상태 끝 -->
 
 	</div>
+	</c:if>
 	<div class="categoryBox">
 		<h3><a onclick="location.href='shop.do?category=4'">아이템상점</a></h3>
 		<ul>
-			<li><a onclick="location.href='shop.do?category=1'">미니룸</a></li>
-		
-			<li><a onclick="music()">음악</a></li>
-			<li><a onclick="location.href='shop.do?category=3'">커스텀</a></li>
+			<li><a class="category1" onclick="location.href='shop.do?category=1'">미니룸</a>
+			</li><li><a onclick="music()">음악</a>
+			</li><li><a class="category3" onclick="location.href='shop.do?category=3'">커스텀</a></li>
 			<c:if test="${login.uidx > 0 }">
-				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a></li>
-				<li><a onclick="gift()">선물하기</a></li>
-				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
+				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a>
+				</li><li><a onclick="gift()">선물하기</a>
+				</li><li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
 			</c:if>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">
 			<h3>관리자</h3>
 			<ul>
-				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
-				<li><a onclick="info('item-approval.do')">아이템 승인</a></li>
-				<li><a onclick="info('item-postpone.do')">보류</a></li>
+				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a>
+				</li><li><a onclick="info('item-approval.do')">아이템 승인</a>
+				</li><li><a onclick="info('item-postpone.do')">보류</a></li>
 			</ul>
 		</c:if>
 	</div>
