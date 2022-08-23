@@ -29,12 +29,34 @@ body {
 	font-size: 1em;
 }
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.row{
+   flex-wrap: nowrap !important;
+   justify-content: start !important;
+}
+.col{
+	width: 45% !important;
+}
+.container{
+	overflow-x: scroll;
+	height: 100%;
+	padding: 0 !important;
+	padding-bottom: 5vh !important;
+}
+.mb-5{
+	margin: 1vh 0 !important;
+}
+</style>	
+</c:if>
+
 </head>
 <body>
 
 <h3 style="text-align:center; margin: 20px 0;">NEW ITEM!</h3>
 	
-	<div class="container px-4 px-lg-5 mt-5" style="width: 100%; padding: 0 !important; margin: 0 !important;">
+	<div class="container px-4 px-lg-5 mt-5" style="width: 100%; margin: 0 !important;">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%; margin:0;"></div>
 	</div>
 <script type="text/javascript">
