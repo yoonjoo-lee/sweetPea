@@ -62,15 +62,15 @@
 	font-size: 0.5em;
 }
 .logout-bottom>span{
-	font-size: 0.02vw;
+    font-size: 0.7em;
 	margin-bottom: 2em;
 }
 .logout-bottom>span:first-child {
-	margin-left: 0.5vw;
+	margin-left: 1em;
 	float: left;
 }
 .logout-bottom>span:last-child {
-	margin-right: 0.5vw;
+	margin-right: 1em;
 	float: right;
 }
 .logout-bottom a{

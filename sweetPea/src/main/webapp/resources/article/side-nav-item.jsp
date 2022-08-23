@@ -46,24 +46,19 @@ $(function(){
 </script>
 <style type="text/css">
 .side-nav {
-	display: inline-block;
-	float: left;
-	width: 10vw;
-	height: 60vh;
-	margin-bottom: 15em;
+	width: 100%;
 }
 
 .loginBox {
-	display: inline-block;
 	width: 100%;
-	height: 17vh;
-	border: 1px solid black;
+    height: 165px;
+    border: 1px solid black;
 }
 
 .login-top {
 	font-size: 0.1em;
-	margin-top: 3em;
-	height: 20%;
+    margin-top: 5%;
+    height: 18%;
 }
 
 .login-top>span {
@@ -79,7 +74,7 @@ $(function(){
 }
 
 .login-center {
-	height: 55%;
+	height: 72%;
 }
 
 .login-bottom {
@@ -88,25 +83,30 @@ $(function(){
 
 .login-center div {
 	display: inline-block;
-	height: 85%;
+    height: 100%;
+    position: relative;
+    margin-left: 7px;
 }
 
 .profile {
-	height: 85%;
-	border: 1px solid black;
-	width: 40%;
-	margin-left: 5%;
-	vertical-align: bottom;
+	height: 110px;
+    border: 0;
+    border-radius: 110px;
+    width: 110px;
+    margin-left: 3%;
+    vertical-align: bottom;
+    float: left;
 }
 
 .info {
-	width: 50%;
 }
 
 .info ul {
 	list-style: none;
-	font-size: 0.05em;
-	padding: 0;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+    text-indent: 5px;
 }
 
 .login-bottom>input {
@@ -125,11 +125,11 @@ input {
 
 .categoryBox {
 	border: 1px solid black;
-	margin-top: 1.5vh;
+	margin-top: 20px;
 }
 
 .categoryBox>h3 {
-	margin: 1vh 0;
+	margin: 10px 0;
 	text-align: center;
 }
 
@@ -144,9 +144,8 @@ a:hover {
 }
 
 .leftBanner {
-	background-image:;
 	width: 100%;
-	height: 100%;
+	height: 800px;
 	display: block;
 	background-repeat: no-repeat;
 	background-attachment: scroll;
@@ -155,26 +154,28 @@ a:hover {
 }
 
 .login-button {
-	margin: 10% auto;
-	border: 0;
-	display: block;
-	width: 75%;
-	border-radius: 2em;
-	font-size: 0.5em;
+	margin: 5% auto;
+    border: 0;
+    display: block;
+    width: 85%;
+    border-radius: 2em;
+    font-size: 1em;
+    height: 30px;
+    line-height: 30px;
 }
 
 .logout-bottom>span {
-	font-size: 0.02vw;
+	font-size: 0.5em;
 	margin-bottom: 2em;
 }
 
 .logout-bottom>span:first-child {
-	margin-left: 0.5vw;
+	margin-left: 10px;
 	float: left;
 }
 
 .logout-bottom>span:last-child {
-	margin-right: 0.5vw;
+	margin-right: 10px;
 	float: right;
 }
 
@@ -214,16 +215,13 @@ a:hover {
 
 				<div class="info">
 					<ul>
-						<li>today</li>
-						<li>new</li>
-						<li>친구신청</li>
-						<li><a onclick="openMessage()">쪽지</a></li>
-						<li>완두콩 ${login.pea_amount}개<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/charge.do'" value="충전"></li>
+						<li>today <span style="color: red">${today}</span></li>
+						<li>total &nbsp; ${total}</li>
+						<li><a style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
+						<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 					</ul>
+					<input type="button" style="position: absolute; bottom: 5%; font-size: 1em;" onclick="openMini()" value="미니홈피 가기">
 				</div>
-			</div>
-			<div class="login-bottom">
-				<input type="button" onclick="openMini()" value="미니홈피 가기">
 			</div>
 		</c:if>
 		<!-- 로그인 상태 끝 -->

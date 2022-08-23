@@ -41,6 +41,7 @@
 </script>
 <c:if test="${device == 'MOBILE'}">
 <style>
+
 #mainNav {
   padding-top: 1vh;
   padding-bottom: 1vh; 

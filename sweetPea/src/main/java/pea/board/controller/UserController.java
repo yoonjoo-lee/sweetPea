@@ -70,6 +70,7 @@ public class UserController {
 			login.setEmail(user.getEmail());
 			login.setPea_amount(user.getPea_amount());
 			
+			
 			int total = miniroomBoardService.visitTotal(login.getUidx());
 			int today = miniroomBoardService.visitToday(login.getUidx());
 			

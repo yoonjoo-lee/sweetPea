@@ -14,7 +14,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		String userAgent = request.getHeader("user-agent");
-		boolean mobile1 = userAgent.matches( ".*(iPhone|iPod|Android|Windows CE|BlackBerry|Symbian"
+		boolean mobile1 = userAgent.matches( ".*(iPhone|iPad|Android|Windows CE|BlackBerry|Symbian"
 				+"|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson).*");
 		boolean mobile2 = userAgent.matches(".*(LG|SAMSUNG|Samsung).*");
 		
