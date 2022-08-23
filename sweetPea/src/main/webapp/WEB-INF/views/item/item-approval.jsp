@@ -21,16 +21,16 @@
 .mb-5{
 	margin-bottom: 3rem !important;
     width: 20%;
-    margin: 2vw;
+    margin: 1em;
 }
 .card-img-top{
     width: fit-content;
-    height: 15vh;
+    height: 150px;
     max-width: 96%;
     margin: 0 auto;
 }
 h5{
-	font-size: 2vw;
+	font-size: 1.2em;
 }
 .item-span{
 	color: gray;

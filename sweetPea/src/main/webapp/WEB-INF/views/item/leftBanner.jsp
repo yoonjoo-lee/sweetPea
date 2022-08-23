@@ -22,17 +22,20 @@
 <title>leftBanner</title>
 <style type="text/css">
 body {
-	overflow-x:hidden;
-	overflow-y:auto;
+	margin:0;
+}
+.item-span{
+	color: gray;
+	font-size: 1em;
 }
 </style>
 </head>
 <body>
 
-<h3 style="text-align:center;">NEW ITEM!</h3>
+<h3 style="text-align:center; margin: 20px 0;">NEW ITEM!</h3>
 	
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
+	<div class="container px-4 px-lg-5 mt-5" style="width: 100%; padding: 0 !important; margin: 0 !important;">
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%; margin:0;"></div>
 	</div>
 <script type="text/javascript">
 $(function (){
@@ -42,11 +45,22 @@ $(function (){
 		success:function(data){
 			var html="";
 			for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='width:100px;'>";
-			html +="<div class='card h-100' style='width:80px;text-align:center;'>";
-			html +="<img class='card-img-top'  src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
-			 	html +="<h6 class='fw-bolder' style='font-size:small;text-align:center;'>"+data[i].name+"</h6>";
-				html +="<i style='color:green' class='bi-circle-fill' style='text-align:center;'><span style='color:black;'>"+data[i].price+"</span></i>"; 
+			html +="<div class='col mb-5' style='width:100%; padding:0;'>";
+			html +="<div class='card h-100' style='width:150px;text-align:center;margin:0 auto;'>";
+			html +="<img class='card-img-top'  style='width: fit-content; height: 100px; max-width: 96%; margin: 0 auto;' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
+			if(data[i].subcategory == 1){
+				html +="<span class='item-span'>[테마배경]</span>";
+			}else if(data[i].subcategory == 2){
+				html +="<span class='item-span'>[미니룸배경]</span>";
+			}else if(data[i].subcategory == 3){
+				html +="<span class='item-span'>[캐릭터]</span>";
+			}else if(data[i].subcategory == 4){
+				html +="<span class='item-span'>[글꼴]</span>";
+			}else if(data[i].subcategory == 5){
+				html +="<span class='item-span'>[가구]</span>";
+			}
+		 	html +="<h6 class='fw-bolder' style='font-size:1em;text-align:center;'>"+data[i].name+"</h6>";
+			html +="<i style='color:green' class='bi-circle-fill' style='text-align:center;'><span style='color:black;'>"+data[i].price+"</span></i>"; 
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";

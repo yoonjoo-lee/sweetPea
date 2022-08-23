@@ -227,26 +227,27 @@ ul {
 .mb-5{
 	margin-bottom: 3rem !important;
     width: 20%;
-    margin: 2vw;
+    margin: 1em;
 }
 .card-img-top{
     width: fit-content;
-    height: 15vh;
+    height: 150px;
     max-width: 96%;
     margin: 0 auto;
 }
 h5{
-	font-size: 2vw;
+	font-size: 1.2em;
 }
 
 .dealImg{
 	cursor: pointer;
+	width: 25%;
 }
 .container{
     margin: 0 !important;
     width: 100% !important;
     padding: 0 !important;
-    max-width: fit-content;
+    /* max-width: fit-content; */
 }
 .justify-content-center{
     width: 90%;
@@ -362,7 +363,7 @@ function openShoppingBasket(){
 		var html="";
 		for(var i=0; i<data.length;i++){
 			console.log("서브카테고리 :	 "+data[i].subcategory);
-		html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
+		html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
@@ -410,7 +411,7 @@ function itemSelectAll(cate){
 		/* 	alert(data[i].name); */
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1vh 1vw; padding: 0;'>";
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
