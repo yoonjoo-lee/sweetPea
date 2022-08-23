@@ -96,6 +96,10 @@
 		<input type="hidden" name="troll" value="${vo.troll }">
 		<input type="hidden" name="ridx" value="${vo.ridx }">
 	</form>
+	<form action="" id="rejectfrm">
+		<input type="hidden" name="troll" value="${vo.uidx }">
+		<input type="hidden" name="ridx" value="${vo.ridx }">
+	</form>
 </c:if>
 
 <%-- <div style="border:1px solid grey">
@@ -129,15 +133,17 @@
 		<button class="btn btn-sm btn-secondary" onclick=deletecheck()>삭제</button>
 	</c:if>
 	<c:if test="${login != null}">
-		<button class="btn btn-sm btn-secondary" onclick="reportfn()">신고</button>
+		<c:if test="${login.uidx ne vo.uidx && vo.category!=6 && vo.pea_super ne 'Y'}"> <!-- 본인 글이 아니며, 신고글이 아니며, 관리자글이 아닌 경우 -->
+			<button class="btn btn-sm btn-secondary" onclick="reportfn()">신고</button>
+		</c:if>
 	</c:if>
 	<button class="btn btn-sm btn-secondary "  onclick="location.href='list.do?category=${vo.category }'">목록</button>
 	<c:if test="${vo.category==6 && vo.reply==1}">
 		<button class="btn btn-sm btn-danger" onclick="withdrawal()">접수 </button> <!-- 트롤 탈퇴시키기 -->
 		<button class="btn btn-sm btn-warning" onclick="warningtroll()">경고</button> <!-- 트롤한테 경고 메시지 보내기 -->
-		<button class="btn btn-sm btn-success" onclick="">거절</button> <!-- 신고자한테 거절 메시지 보내기 -->
+		<button class="btn btn-sm btn-success" onclick="rejectReport()">거절</button> <!-- 신고자한테 거절 메시지 보내기 -->
 	</c:if>
-	<c:if test="${vo.category != 1}">
+	<c:if test="${vo.category != 1 && vo.category != 6}">
 		<c:if test="${ login.pea_super=='Y' || vo.category==2 || vo.category==3 }">
 			<div id="reply"></div>	
 		</c:if>
@@ -217,6 +223,27 @@ async function warningtroll(){
 		}
 }
 
+/* 신고 거절 (신고자에게) */
+async function rejectReport(){
+	const { value: text } = await Swal.fire({
+		  input: 'textarea',
+		  inputLabel: '신고거절',
+		  inputPlaceholder: '거절 메시지를 남겨주세요.',
+		  inputAttributes: {
+		    'aria-label': 'Type your message here'
+		  },
+		  showCancelButton: true
+		})
+
+		if (text) {
+		  Swal.fire(text)
+		  
+		  $("#rejectfrm").attr("action","messagetoreporter.do?rejectmessage="+text);
+          $("#rejectfrm").attr("method","POST");
+          $("#rejectfrm").submit();
+		}
+}
+
 function reportfn(){
    /* const login = '${login.name}'; */
    const { value: formValues } = Swal.fire({
@@ -242,35 +269,35 @@ function reportfn(){
         }
       }).then((result) => {
     	  if (result.isConfirmed) {
-    	  $(async function(){
-	            await Swal.fire({
-	    		  html: '<form id="frm" action="report.do?bidx='+${vo.bidx}+'" method="POST">'+
-	    		  '<input type="hidden" name="title" value="신고">'+
-	              '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
-	              '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
-	              '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
-	              '<input type="hidden" name="category" value='+${vo.category}+'>'+
-	              '<input type="hidden" name="content" value='+$("#content").val()+'>'+
-	              '<input type="hidden" name="report" value='+$("#report").val()+'>'+
-	              '</form>',
-	  		      title:'Deleted!',
-	  		      text:$("#content").val(),
-	  		      icon:'success'
-	  		      })
-	  		      /* reportGo(); */
-	            /* $("#frm").submit(); */
-    		  $("#frm").submit();
-      	})
+    		  if($("#content").val()==""){
+    			  Swal.fire({
+    				  title:'신고실패',
+		  		      text: '내용을 입력해주세요.',
+		  		      icon:'error'
+    			  })
+    		  }
+    		  else{
+		    	  $(async function(){
+			            await Swal.fire({
+			    		  html: '<form id="frm" action="report.do?bidx='+${vo.bidx}+'" method="POST">'+
+			    		  '<input type="hidden" name="title" value="신고">'+
+			              '<input type="hidden" name="rbidx" value='+${vo.bidx }+'>'+
+			              '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
+			              '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
+			              '<input type="hidden" name="category" value='+${vo.category}+'>'+
+			              '<input type="hidden" name="content" value='+$("#content").val()+'>'+
+			              '<input type="hidden" name="report" value='+$("#report").val()+'>'+
+			              '</form>',
+			  		      title:'신고완료!',
+			  		      text: '신고내용:'+ $("#content").val(),
+			  		      icon:'success'
+			  		      })
+			  		      
+		    		  		$("#frm").submit();
+		      			})
+    		  }
     		  }
     		})
-
-      
-}
-function reportGo(){
-	alert($("#frm").html());
-	$("#frm").attr("action","report.do?bidx="+${vo.bidx});
-    $("#frm").attr("method","POST");
-    $("#frm").submit();
 }
 
 </script>

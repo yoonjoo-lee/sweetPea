@@ -125,6 +125,49 @@ a {
     justify-content: center;
     padding: 0;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:700);
+.button {
+  background: #3D4C53;
+  /* margin : 20px auto; */
+  width : 200px;
+  height : 50px;
+  overflow: hidden;
+  text-align : center;
+  transition : .2s;
+  cursor : pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+}
+.btnTwo {
+  position : relative;
+  width : 200px;
+  height : 100px;
+  margin-top: -100px;
+  padding-top: 2px;
+  background : #26A69A;
+  left : -250px;
+  transition : .3s;
+}
+.btnText {
+  color : white;
+  transition : .3s;
+  margin-top : 10px;
+}
+.btnText2 {
+  margin-top : 53px;
+  margin-right : -130px;
+  color : #FFF;
+}
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+.button:hover .btnText{ /*When hovering over .button change .btnText*/
+  margin-left : 65px;
+}
+.button:active { /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+}
 </style>
 <body>
 
@@ -169,6 +212,7 @@ a {
 	
 	
 <!-- 검색 -->	
+<c:if test="${category ne 6 }">
 <form method="get" action="list.do">
 		<div class="searchDiv"><select  class="form-select" name="searchType">
 			<option value="title" <c:if test="${!empty SearchVo.searchType and SearchVo.searchType eq 'title' }">selected</c:if>>제목</option>
@@ -178,6 +222,35 @@ a {
 		<div class="searchDiv"><input type="hidden" name="category" value=${category }></div>
 		<div class="searchDiv"><input type="submit"  class="btn btn-secondary" value="검색"></div>
 </form>
+</c:if>
+<!-- 신고내역 페이지 정렬 -->	
+<c:if test="${category eq 6 }">
+	<div style="float: left; width: 15%;" class="button" onclick="location.href='reportPage.do?category=6&reply=1'">
+	   <p class="btnText">미확인</p>
+	   <div class="btnTwo">
+	     <p class="btnText2">go</p>
+	   </div>
+	</div>
+	<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="location.href='reportPage.do?category=6&reply=2'">
+	   <p class="btnText">접수</p>
+	   <div class="btnTwo">
+	     <p class="btnText2">go</p>
+	   </div>
+	</div>
+	<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="location.href='reportPage.do?category=6&reply=3'">
+	   <p class="btnText">경고</p>
+	   <div class="btnTwo">
+	     <p class="btnText2">go</p>
+	   </div>
+	</div>
+	<div style="float: left; width: 15%; margin-left:5px;" class="button" onclick="location.href='reportPage.do?category=6&reply=4'">
+	   <p class="btnText">거절</p>
+	   <div class="btnTwo">
+	     <p class="btnText2">go</p>
+	   </div>
+	</div>
+	<br>
+</c:if>
 <br><br>
 
 총 ${list.size()}건이 조회되었습니다.
@@ -254,6 +327,7 @@ a {
 <br>
 
 <!-- 페이징 -->
+<c:if test="${category ne 6 }">
 <div>
 	<ul class="myPaging">		
 		<c:if test="${paging.startPage != 1 }">
@@ -274,6 +348,30 @@ a {
 		</c:if>
 	</ul>
 </div>
+</c:if>
+<!-- 페이징 (신고내역 페이지)	  --> 
+<c:if test="${category eq 6 }">
+<div>
+	<ul class="myPaging">		
+		<c:if test="${paging.startPage != 1 }">
+			<li class="page-item"><a class="page-link" href="reportPage.do?category=${searchVo.category}&reply=${reply }&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		</c:if>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage }">
+					<li class="page-item  active"><b class="page-link">${p }</b></li>
+				</c:when>
+				<c:when test="${p != paging.nowPage }">
+					<li class="page-item"><a class="page-link" href="reportPage.do?category=${searchVo.category}&reply=${reply }&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<li class="page-item"><a class="page-link" href="reportPage.do?category=${searchVo.category}&reply=${reply }&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		</c:if>
+	</ul>
+</div>
+</c:if>
 
 
 <!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->

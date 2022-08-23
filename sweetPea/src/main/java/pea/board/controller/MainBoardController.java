@@ -88,6 +88,41 @@ public class MainBoardController {
 
 		return "mainboard/list";
 	}
+	
+	// 보드 리스트 신고 페이지
+	@RequestMapping(value = "mainboard/reportPage.do")
+	public String reportPage(int category, int reply, Model model, SearchVo searchVo, PagingVo vo, @RequestParam(value = "nowPage", required = false) String nowPage, @RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+
+		int total = mainboardService.countBoard(category);
+		System.out.println("tota:" + total);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+
+		vo = new PagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearchType(searchVo.getSearchType());
+		vo.setSearchValue(searchVo.getSearchValue());
+
+		model.addAttribute("paging", vo);
+		model.addAttribute("category", category);
+		vo.setCategory(category);
+		vo.setReply(reply);
+//			System.out.println("카테고리="+ category);
+		List<MainBoardVo> list = mainboardService.list(vo);
+		
+//			System.out.println("카테고리="+ list.);
+		model.addAttribute("list", list);
+		model.addAttribute("searchVo", vo);
+		model.addAttribute("category", category);
+		model.addAttribute("reply", reply);
+
+		return "mainboard/list";
+	}
 
 	// 보드 write 후 home으로 이동
 	@RequestMapping(value = "mainboard/home.do")
@@ -104,9 +139,10 @@ public class MainBoardController {
 
 	// 보드 작성하기
 	@RequestMapping(value = "mainboard/gowrite.do", method = RequestMethod.POST)
-	public String gowrite(int category, MainBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
+	public void gowrite(int category, MainBoardVo vo, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
 		session = request.getSession();
 		PrintWriter pw = response.getWriter();
+		
 		UserVo login = (UserVo) session.getAttribute("login");
 		vo.setUidx(login.getUidx());
 		vo.setCategory(category);
@@ -115,7 +151,9 @@ public class MainBoardController {
 		vo.setIp(ip);
 		int result = mainboardService.write(vo);
 
-		return "redirect:/";
+//		return "redirect:/";
+		pw.append("<script>location.href='list.do?category=" + category + "';</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.flush();
 	}
 
 	// 보드write 페이지 이동 (로그인 검열)
@@ -329,6 +367,23 @@ public class MainBoardController {
 		mvo.setWriter("관리자");
 
 		mainboardService.warningtroll(mvo); // 회원 경고
+		mainboardService.reportstate(vo); // 상태 변경
+
+		return "redirect:/";
+	}
+	
+	// 신고자에게 거절메세지 보내기
+	@RequestMapping(value = "mainboard/messagetoreporter", method = RequestMethod.POST)
+	public String messagetoreporter(ReportVo vo, String rejectmessage) {
+		vo.setReply(4);  // 거절은 4번
+		MessageVo mvo = new MessageVo();
+
+		mvo.setUidx(vo.getTroll());	//	신고자 uidx(임의로 troll에 넣어둠)
+		mvo.setContent(rejectmessage);
+		mvo.setTitle("신고 거절");
+		mvo.setWriter("관리자");
+
+		mainboardService.warningtroll(mvo); // 회원 경고 	
 		mainboardService.reportstate(vo); // 상태 변경
 
 		return "redirect:/";
