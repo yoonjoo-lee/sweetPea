@@ -587,12 +587,14 @@ function charge(){
 		}
 	})
 }
+ 
+ 
 	/* tagify value key 값 가져오는 구문 */
-	      var test = [{'value':"banana"},{'value':"yellow"}];
+   var test = [{'value':"banana"},{'value':"yellow"}];
    
    for (var i=0; i<test.length; i++){
-      console.log(test[i]['value']);
-   }
+	      console.log(test[i]['value']);
+	   }
 
 /* 모달 */
 </script>

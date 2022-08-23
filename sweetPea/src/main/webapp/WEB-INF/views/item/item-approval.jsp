@@ -16,7 +16,10 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <title>item-approval</title>
+
 <style type="text/css">
 .mb-5{
 	margin-bottom: 3rem !important;
@@ -94,28 +97,25 @@ $(function itemSelectAll(){
 					
 })
 
- function itemApproval(iidx, check){
+/*  */
+function itemApproval(iidx, check){
 	console.log(iidx);
 	console.log(check);
 	$.ajax({
 		url:"approvalCheck.do",
 		type:"post",
 		data:{"iidx":iidx,"check":check},
-		success:function(data){
-			alert('승인이 되었습니다.');
-/* 		 await Swal.fire({
-				text : '아이템 승인이 되었습니다.',
-				icon : 'success',
-				timer: 2000,
-				timerProgressBar: true, 
-			});
-			 */
-			document.location.reload();
-			
-		}
+		success:async function(data){
+			await Swal.fire({
+					text: '처리 완료',
+					icon: 'success',
+					timer: 2000,
+				    timerProgressBar: true,
+				})
+					window.location.reload();
+		}	
 	})
 }
-
 </script>
 </body>
 </html>
