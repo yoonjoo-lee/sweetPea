@@ -363,6 +363,7 @@ function openShoppingBasket(){
 		var html="";
 		for(var i=0; i<data.length;i++){
 			console.log("서브카테고리 :	 "+data[i].subcategory);
+			var img = data[i].img.replace(" ", "*");
 		html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
@@ -385,7 +386,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
 			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
@@ -393,6 +394,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
+			console.log(data[i].img);
 		}
 			$("#itemList").html(html);
 		}
@@ -411,6 +413,7 @@ function itemSelectAll(cate){
 		/* 	alert(data[i].name); */
 		var html="";
 		for(var i=0; i<data.length;i++){
+			var img = data[i].img.replace(" ", "*");
 			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
@@ -433,7 +436,7 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+data[i].img+"')>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
 			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
@@ -441,6 +444,7 @@ function itemSelectAll(cate){
 			html +="</div>";
 			html +="</div>";
 			html +="</div>";
+		
 		}
 			$("#itemList").html(html);
 		}
@@ -461,6 +465,8 @@ function charge(){
  /* 아이템 구매  */
  async function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
+	 var img = img.replace("*", " ");
+	 console.log(img);
 	 if ('${login.pea_amount}'<price){
 		 Swal.fire({
 				text : '보유하신 완두콩 갯수가 부족합니다.',
