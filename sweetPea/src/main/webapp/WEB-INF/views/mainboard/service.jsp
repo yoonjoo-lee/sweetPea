@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,17 +14,11 @@
 	});
 </script>
 <style type="text/css">
-		#view{
-			width: 60%;
-			margin: 0 auto;
-		}
-		#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-		}
-		
+#view{
+	width: 1300px;
+	margin: 0 auto;
+	margin-bottom: 220px;
+}
 		
 table {
   border: 1px #a39485 solid;
@@ -158,7 +151,10 @@ a {
 </head>
 <body>
 <header id="header"></header>
+<br>
 <div id="view">
+<nav id="nav"></nav>
+<br>
 <!-- <h2>고객센터</h2><br> -->
 <!-- <button class="btn btn-secondary" onclick="boardList4()">FAQ</button>
 <button class="btn btn-secondary" onclick="boardList5()">Q&A</button> -->
@@ -205,7 +201,9 @@ $(function (){
 			html += "</tbody>";
 			html += "</table>";
 			if ('${login.pea_super}'=='Y'){
+				html += "<br>";
 				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				html += "<br>";
 				}
 			$("#boardList").html(html);
 		}
@@ -237,7 +235,9 @@ function boardList4(){
 			html += "</tbody>";
 			html += "</table>";
 			if ('${login.pea_super}'=='Y'){
+				html += "<br>";
 				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=4`'>작성하기</button>";
+				html += "<br>";
 				}
 			$("#boardList").html(html);
 		}
@@ -268,10 +268,13 @@ function boardList5(){
 			}
 			html += "</tbody>";
 			html += "</table>";
+
+			html += "<br>";
+			html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
+			html += "<br>";
 			if (${login}!=null){
 				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
 			}
-			
 			$("#boardList").html(html);
 		}
 	});

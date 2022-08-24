@@ -103,12 +103,15 @@
     float: none;
 }
 .mobile-header-idxBox>.login-center>span{
-	font-size: 3vw;
+    font-size: 4vw;
     line-height: 3vh;
+    text-align: center;
+    display: block;
 }
 .mobile-header-idxBox>.login-center>input{
     height: 3vh;
     width: 20vw;
+    font-size: 3vw;
 }
 
 .mobile-header-idxBox>.login-center>.info>ul{
@@ -130,10 +133,12 @@
 }
 
 .mobile-header-idxBox>.login>.longin-button-box>input {
+
 	margin: 1vh 0;
     width: 100%;
     height: 4vh;
     font-size: 3vw;
+    
 }
 
 .nav-link{
@@ -152,6 +157,10 @@
 .py-4{
 	padding-top: 1vh !important;
 	padding-bottom: 6vh !important;
+}
+.login-center{
+	margin: 1vh auto !important;
+    width: 100% !important;
 }
 </style>
 
@@ -187,7 +196,7 @@ function gift(){
 				<img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
 				<div class="login-center">
 					<span>${login.name}님</span>
-					<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
+					<%-- <input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃"> --%>
 					<div class="info">
 						<ul>
 							<li>today <span style="color: red">${today}</span></li>
@@ -222,7 +231,7 @@ function gift(){
 					
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0 ">
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/item/shop.do?category=4">아이템상점</a></li>
-                        <li class="nav-item"><a class="nav-link header-a" href="#" onclick="gift()">선물하기</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link header-a" href="#" onclick="gift()">선물하기</a></li> -->
                         <li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/charge.do">결제/충전</a></li>
                         <li class="nav-item nav-hover" >
                         	<a class="nav-link header-a" href="<%=request.getContextPath()%>/mainboard/community.do">커뮤니티</a>
@@ -249,14 +258,15 @@ function gift(){
 							    </ul>
 							</li>                   	
                         </c:if>
-
-                        <%-- <c:if test="${login != null}">
+                        <c:if test="${login != null}">
+						<c:if test="${device eq 'PC'}">
                         	<li class="nav-item"><a class="nav-link header-a" style="cursor: pointer" onclick="openMini(${login.uidx})">미니홈피</a></li>
+                        </c:if>
                         	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                         </c:if>
                         <c:if test="${login == null}">
                         	<li class="nav-item"><a class="nav-link header-a" href="<%=request.getContextPath()%>/user/login.do">로그인</a></li>
-                        </c:if> --%>
+                        </c:if>
                     </ul>
                 </div>
             </div>

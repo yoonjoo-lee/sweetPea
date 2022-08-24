@@ -28,6 +28,9 @@ body {
 	color: gray;
 	font-size: 1em;
 }
+.px-4{
+	padding: 0 !important;
+}
 </style>
 
 <c:if test="${device eq 'MOBILE'}">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,18 +16,11 @@
 	});
 </script>
 <style type="text/css">
-		#view{
-			width: 60%;
-			margin: 0 auto;
-			margin-bottom: 15em;
-		}
-		#footer{
-			width: 100%;
-			bottom: 0;
-			left: 0;
-			position: absolute;
-			
-		}
+#view{
+	width: 1300px;
+	margin: 0 auto;
+	margin-bottom: 220px;
+}
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
@@ -65,7 +57,7 @@ a {
   color: #73685d;
 }
   
- @media all and (max-width: 768px) {
+/*  @media all and (max-width: 768px) {
     
   table, thead, tbody, th, td, tr {
     display: block;
@@ -108,7 +100,7 @@ a {
   }
   
   
-  }
+  } */
   
   
   
@@ -157,18 +149,37 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
+
 <c:if test="${device eq 'MOBILE'}">
 <style>
-	#view{
-		width: 100%;
-	}
+#view{
+	width: 100%;
+}
+td{
+	font-size: 3vw;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+tr>td:not(:nth-child(2)){
+	text-align: center;
+}
+th{
+	text-align: center;
+}	
 </style>
 </c:if>
+
 </head>
 
 <body>
+<article>
 <header id="header"></header>
+<br>
 <div id="view">
+<nav id="nav"></nav>
+<br>
+<section>
 <!-- <h2>커뮤니티</h2> -->
 <!-- <h4>공지게시판</h4> -->
 <div class="button" onclick="location.href='<%=request.getContextPath()%>/mainboard/list.do?category=1'">
@@ -198,6 +209,7 @@ a {
 </div>
 <div id="boardList3">
 </div>
+</section>
 </div>
 <br>
 <footer id="footer"></footer>
@@ -298,5 +310,7 @@ $(document).ready(function(){
 	});
 })
 </script>
+
+</article>
 </body>
 </html>

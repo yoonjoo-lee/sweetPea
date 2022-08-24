@@ -14,7 +14,6 @@
 		$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 	});
 </script>
-<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
 <style type="text/css">
 #view{
 	width: 1300px;
@@ -42,9 +41,17 @@
 </style>
 
 <c:if test="${device eq 'MOBILE' }">
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
 <style>
 article > *,#view,#nav,#section{
 	width: 100% !important;
+}
+#view{
+	min-height: auto;
+}
+#section{
+	float: inherit !important;
+    height: 70vh;
 }
 #nav{height: auto; margin-bottom: 5vh;}
 .categoryBox,#section{
@@ -66,6 +73,7 @@ article > *,#view,#nav,#section{
     text-align: center;
 }
 .leftBanner{
+	display: none !important;
 	height: 34vh !important;
 }
 #leftBanner{
@@ -76,7 +84,7 @@ article > *,#view,#nav,#section{
 </c:if>
 
 </head>
-<body>
+<body style="overflow: scroll;">
 <article>
 	<header id="header"></header>
 	<br>

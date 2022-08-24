@@ -88,13 +88,6 @@ $(function(){
 	height: 22%;
 }
 
-.login-center div {
-	display: inline-block;
-    height: 100%;
-    position: relative;
-    margin-left: 7px;
-}
-
 .profile {
 	height: 110px;
     border: 0;
@@ -103,17 +96,6 @@ $(function(){
     margin-left: 3%;
     vertical-align: bottom;
     float: left;
-}
-
-.info {
-}
-
-.info ul {
-	list-style: none;
-    font-size: 0.8em;
-    padding: 0;
-    margin: 0;
-    text-indent: 5px;
 }
 
 .login-bottom>input {
@@ -214,6 +196,35 @@ a:hover {
 	color: inherit;
 }
 </style>
+<c:if test="${device eq 'PC'}">
+<style>
+.info ul {
+	list-style: none;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+    text-indent: 5px;
+}
+
+.login-center div {
+	display: inline-block;
+    height: 100%;
+    position: relative;
+    margin-left: 7px;
+}
+</style>
+</c:if>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.py-4{
+	padding-top: 1vh !important;
+	padding-bottom: 6vh !important;
+}
+
+</style>
+</c:if>
+
 
 <div class="side-nav">
 	<c:if test="${device eq 'PC' }">
