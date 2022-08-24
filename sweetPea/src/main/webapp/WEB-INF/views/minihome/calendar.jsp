@@ -16,7 +16,7 @@ color:#fff;
 <span id='demo'></span>${year}.${month}.<span id="day"></span><br></div>
 <div class='month' id='basic-text'>
 	<c:forEach var="date" begin="1" end="${monthByDate}">
-		<span class="eachdate" onclick="openlist(${year},${month},${date})">${date}&nbsp;</span>	
+		<span class="eachdate" id="d${date}" onclick="openlist(${year},${month},${date})">${date}&nbsp;</span>	
 	</c:forEach>
 </div>
 <script>
@@ -24,7 +24,9 @@ color:#fff;
 function openlist(year,month,day){
 	sessionStorage.setItem("clickday", day ); // 저장
 	
- 	$("#day").text(day); 
+ 	$("#day").text(day);
+ 	$(".eachdate").css("color","inherit"); // inherit : 부모 값 
+	$("#d"+day).css("color","red");
 	$.ajax({
 		url: "<%=request.getContextPath()%>/miniroomboard2/boardByDate.do",
 		type: "GET",
@@ -44,9 +46,12 @@ var tmpday = ${day};
 $(function (){
 	if(sessionStorage.getItem("clickday")!=null){
 		var clickday=sessionStorage.getItem("clickday"); 
-		$("#day").text(clickday); 
+		$("#day").text(clickday);
+		$(".eachdate").css("color","inherit");
+		$("#d"+clickday).css("color","red");
 	}else{
-		$("#day").text(tmpday); 
+		$("#day").text(tmpday);
+		$("#d"+tmpday).css("color","red");
 	};
 	
  	$(".eachdate").mouseover(function(){

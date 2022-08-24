@@ -344,6 +344,7 @@ public class MainBoardController {
 		int rbidx = vo.getRbidx();
 		int result = mainboardService.writeReport(vo);
 		vo.setRbidx(rbidx);
+		System.out.println("신곡 접수 내용: "+vo.getContent());
 
 		PrintWriter pw = response.getWriter();
 		if (result == 1) {
@@ -357,7 +358,7 @@ public class MainBoardController {
 
 	// 트롤에게 메세지 보내기
 	@RequestMapping(value = "mainboard/warningtroll", method = RequestMethod.POST)
-	public String warningtroll(ReportVo vo, String warningmessage) {
+	public void warningtroll(ReportVo vo, String warningmessage, HttpServletResponse response) throws IOException {
 		vo.setReply(3); // 경고는 3번
 		MessageVo mvo = new MessageVo();
 
@@ -369,12 +370,15 @@ public class MainBoardController {
 		mainboardService.warningtroll(mvo); // 회원 경고
 		mainboardService.reportstate(vo); // 상태 변경
 
-		return "redirect:/";
+//		return "redirect:/";
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.href='list.do?category=6'</script>");
+		pw.flush();
 	}
 	
 	// 신고자에게 거절메세지 보내기
 	@RequestMapping(value = "mainboard/messagetoreporter", method = RequestMethod.POST)
-	public String messagetoreporter(ReportVo vo, String rejectmessage) {
+	public void messagetoreporter(ReportVo vo, String rejectmessage, HttpServletResponse response) throws IOException {
 		vo.setReply(4);  // 거절은 4번
 		MessageVo mvo = new MessageVo();
 
@@ -386,7 +390,10 @@ public class MainBoardController {
 		mainboardService.warningtroll(mvo); // 회원 경고 	
 		mainboardService.reportstate(vo); // 상태 변경
 
-		return "redirect:/";
+//		return "redirect:/";
+		PrintWriter pw = response.getWriter();
+		pw.append("<script>location.href='list.do?category=6'</script>");
+		pw.flush();
 	}
 
 	//
