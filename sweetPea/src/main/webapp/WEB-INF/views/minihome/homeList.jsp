@@ -33,16 +33,15 @@
 <script>
 // 글 클릭시 페이지 이동
 function switchPage(category){
-	$(".boardBtn").removeClass('act');
-	$("#"+category).addClass('act');
-	
 
 if(category==1){
-
+		parent.clickThis("#1");
 		location.href="mini-diary.do?uidx=${mini.uidx}";
 	}else if(category==2){
+		parent.clickThis("#2");
 		location.href="<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2";
 	}else if(category==3){
+		parent.clickThis("#3");
 		location.href="<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3";
 	} 
 }

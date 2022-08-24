@@ -147,7 +147,8 @@ th,td{
 							<i class="bi bi-house-heart" onclick="openMini(${board.writer })">미니홈피</i>
 							 (${board.date })
 							 <c:if test="${login.uidx == board.writer }">
-								<i class="bi bi-eraser"></i><i class="bi bi-trash" onclick="deletephoto(${board.mbidx})"></i>
+								<i class="bi bi-eraser" onclick="modifybook(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i>
+								<i class="bi bi-trash" onclick="deletephoto(${board.mbidx})"></i>
 							 </c:if>
 					</th>
 				</tr>
@@ -177,6 +178,11 @@ th,td{
 // 게시글 작성자 미니홈피 방문하기
 function openMini(writer){
 		window.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+writer+"";
+}
+
+/* 게시물 수정 */
+function modifybook(mbidx, title, content, category){
+	location.href="<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+mbidx+"&title="+title+"&content="+content+"&category="+category+"";
 }
 
 /* 게시물 삭제 */

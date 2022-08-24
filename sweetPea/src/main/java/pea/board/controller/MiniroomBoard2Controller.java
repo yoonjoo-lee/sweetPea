@@ -120,21 +120,29 @@ public class MiniroomBoard2Controller {
 
 	// 다이어리 수정 페이지 이동
 	@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
-	public String modify(int mbidx, String title, String content, Model model) {
+	public String modify(int mbidx, String title, String content, int category, Model model) {
 		model.addAttribute("mbidx", mbidx);
 		model.addAttribute("title", title);
 		model.addAttribute("content", content);
+		model.addAttribute("category", category);
 
 		return "minihome/modify";
 	}
 
 	// 다이어리 수정
 	@RequestMapping(value = "/modify.do", method = RequestMethod.POST)
-	public void modify(MiniroomBoardVo vo, HttpServletResponse response) throws IOException {
+	public void modify(MiniroomBoardVo vo, HttpServletResponse response, HttpSession session) throws IOException {
 		miniroomboard2Service.modify(vo);
+		
+		MiniHomeVo mini = (MiniHomeVo) session.getAttribute("mini");
+		int uidx = mini.getUidx(); // 미니홈피 주인 uidx
 
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>alert('수정 완료');history.back();history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		if (vo.getCategory()==1) {
+			pw.append("<script>location.href='mini-diary.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		} else if(vo.getCategory()==3) {
+			pw.append("<script>location.href='boardList.do?category=3'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		} 
 		pw.flush();
 	}
 																																		

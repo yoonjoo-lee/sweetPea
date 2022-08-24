@@ -32,7 +32,7 @@ $(document).ready(function() {
 	<hr>
 	
 	<div id="title-box">
-		<input id="title" name="title" placeholder="제목을 입력해 주세요" value="${title }">
+		<%-- <input id="title" name="title" placeholder="제목을 입력해 주세요" value="${title }"> --%>
 		비밀글<input type="checkbox" name="secret" value="Y">
 		<%-- <div class="dropdown">
 		<button class="dropbtn" type="button" >
@@ -43,6 +43,7 @@ $(document).ready(function() {
 	</div>
 		<textarea id="summernote" name="content">${content }</textarea>
 	<input type="hidden" name="mbidx" value=${mbidx }>
+	<input type="hidden" name="category" value=${category }>
 	<button type="submit">수정</button>
 </form>
 
