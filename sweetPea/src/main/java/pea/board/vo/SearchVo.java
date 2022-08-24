@@ -7,7 +7,7 @@ public class SearchVo{
 	private int category;
 	private int list;
 	private int uidx;
-	private int reply;
+	private int reply; 
 	
 	public int getReply() {
 		return reply;

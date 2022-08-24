@@ -32,7 +32,7 @@ font-family: ${myMini.font};
 				<div class='diary-date' id='bold-text'>
 					${board.date }<span style='float: right;'> 
 					<c:if test="${login.uidx == mini.uidx }">
-					<i class='bi-pencil' onclick='modifydiary("+data[i].mbidx+","+data[i].title+","+data[i].content+")'></i> 
+					<i class='bi-pencil' onclick="modifydiary(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i> 
 <%-- 					<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>  
 					<a class='bi-pencil' href='<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"'></a>--%>
 					<i class='bi-trash'onclick='deleteDiary(${board.mbidx })'></i>
@@ -46,8 +46,8 @@ font-family: ${myMini.font};
 </div>
 <script>
 /* 게시물 수정 */
-function modifydiary(mbidx, title, content){
-	location.href="<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+mbidx+"&title="+title+"&content="+content+"";
+function modifydiary(mbidx, title, content, category){
+	location.href="<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+mbidx+"&title="+title+"&content="+content+"&category="+category+"";
 }
 
 /* 게시물 삭제 */

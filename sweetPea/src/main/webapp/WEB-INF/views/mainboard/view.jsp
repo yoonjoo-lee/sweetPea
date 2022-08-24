@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -84,12 +85,12 @@
 	</c:if>
 	<div class="viewDiv">
 	<div class="titleDiv"><h3>${vo.title }</h3>
-	<div class="nameDiv"><b>신고자: ${vo.reportername}, 트롤: ${vo.trollname }</b>&nbsp ${vo.datetime }</div>
+	<div class="nameDiv"><%-- <b>신고자: ${vo.reportername}, 트롤: ${vo.trollname }</b> &nbsp--%> ${vo.datetime }</div>
 	</div>
 	
-	<div class="contentDiv">접수글: ${vo.content}
-	<br>
-	신고 내용: ${vo.reportcontent }
+	<div class="contentDiv"><i class="bi bi-caret-right"></i>접수글 (${vo.reportername}) <br> ${vo.content}
+	<br><br>
+	<i class="bi bi-caret-right"></i>신고 내용 (${vo.trollname })${vo.reportcontent }
 	</div>
 	</div>
 	<form action="" id="reportfrm">
@@ -249,7 +250,7 @@ function reportfn(){
    const { value: formValues } = Swal.fire({
         title: '신고',
         html:
-          '<textarea id="content" name="content" class="swal2-input" rows=6 cols=30></textarea>' +
+          '<textarea id="content" class="swal2-input" rows=6 cols=30></textarea>' +
           '<select id="report" name="report" class="swal2-input" style="width:22rem">'+
           '<option value="1">욕설/비방</option>'+
           '<option value="2">악성루머</option>'+
@@ -277,6 +278,7 @@ function reportfn(){
     			  })
     		  }
     		  else{
+    			 alert($("#content").val());
 		    	  $(async function(){
 			            await Swal.fire({
 			    		  html: '<form id="frm" action="report.do?bidx='+${vo.bidx}+'" method="POST">'+
@@ -285,7 +287,7 @@ function reportfn(){
 			              '<input type="hidden" name="troll" value='+${vo.uidx}+'>'+
 			              '<input type="hidden" name="uidx" value='+${login.uidx}+'>'+
 			              '<input type="hidden" name="category" value='+${vo.category}+'>'+
-			              '<input type="hidden" name="content" value='+$("#content").val()+'>'+
+			              '<input type="hidden" name="content" value="'+$("#content").val()+'">'+ 
 			              '<input type="hidden" name="report" value='+$("#report").val()+'>'+
 			              '</form>',
 			  		      title:'신고완료!',
