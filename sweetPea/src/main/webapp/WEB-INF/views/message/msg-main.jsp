@@ -14,7 +14,7 @@
 	box-sizing: border-box;
 }
 
-.megBox h3,.megBox ul {
+h3,.megBox ul {
 	text-align: center;
 	margin-bottom: 0;
 }
@@ -43,8 +43,10 @@
 	margin-top: 0.2em;
 }
 
-.header-ul>li:first-child, .content-ul>li:fist-child {
-	width: 10%;
+.header-ul>li, .content-ul>li{
+	width: 3%;
+	height: 2.5em;
+    line-height: 2.5em;
 }
 
 .header-ul>li:nth-child(2), .content-ul>li:nth-child(2) {
@@ -52,8 +54,12 @@
 }
 
 .header-ul>li:nth-child(3), .content-ul>li:nth-child(3) {
-	width: 45%;
+	width: 54%;
 	cursor: pointer;
+}
+.content-ul>li:nth-child(3):hover {
+	font-size: 1.5em;
+	font-weight: bold;
 }
 
 .header-ul>li:last-child, .content-ul>li:last-child {
@@ -157,7 +163,6 @@ b.page-link {
 <style>
 h3{
     font-size: 6vw;
-    text-align: center;
 }
 .btnBox{
 	height: 3vh;

@@ -16,7 +16,7 @@
 	min-width:100%;
 }
 .footer-ul>li{
-	margin-right: 10vw;
+	margin-right: 8vw;
 }
 .col {
     flex: 1 0 40%;

@@ -3,12 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="true" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -24,15 +23,9 @@
 </script>
 <style type="text/css">
 #view{
-	width: 60%;
+	width: 1300px;
 	margin: 0 auto;
-	margin-bottom: 15em;
-}
-#footer{
-	width: 100%;
-	bottom: 0;
-	left: 0;
-	position: absolute;
+	margin-bottom: 220px;
 }
 		
 .searchDiv{
@@ -76,8 +69,15 @@ thead {
 a {
   color: #73685d;
 }
+
+.myPaging {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+}
   
- @media all and (max-width: 768px) {
+ /* @media all and (max-width: 768px) {
     
   table, thead, tbody, th, td, tr {
     display: block;
@@ -119,12 +119,7 @@ a {
     border-bottom: 1px solid #e5e5e5;
   }
 }
-.myPaging {
-    display: flex;
-    list-style: none;
-    justify-content: center;
-    padding: 0;
-}
+ */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:700);
 .button {
@@ -169,11 +164,47 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#view{
+	width: 100%;
+}
+td{
+	font-size: 3vw;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+tr>td:not(:nth-child(2)){
+	text-align: center;
+}
+th,h2{
+	text-align: center;
+}
+
+.searchDiv{
+	padding: 0 !important;
+	margin: 1vh 0;
+}	
+.form-control{
+	width: 80vw !important;
+}
+.btn-secondary{
+	width: 18vw !important;
+	margin-left: 2vw;
+}
+</style>
+</c:if>
+
+</head>
 <body>
 
 <header id="header"></header>
 <br>
 <div id="view">
+<nav id="nav"></nav>
+<br>
 <c:if test="${searchVo.category == 1}">
 	<h2>공지게시판</h2>
 </c:if>
@@ -253,7 +284,7 @@ a {
 </c:if>
 <br><br>
 
-총 ${list.size()}건이 조회되었습니다.
+<span style="font-size: 3vw; float: right; margin: 1vh 3vw;">총 ${list.size()}건이 조회되었습니다.</span>
 <!-- 리스트 테이블 -->
 <table>
 		<thead>
@@ -326,6 +357,11 @@ a {
 
 <br>
 
+<!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
+<c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
+<button style="float:right" class="btn btn-secondary" onclick="location.href='write.do?category=${category }'">작성하기</button>
+</c:if>
+<br>
 <!-- 페이징 -->
 <c:if test="${category ne 6 }">
 <div>
@@ -372,13 +408,6 @@ a {
 	</ul>
 </div>
 </c:if>
-
-
-<!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
-<c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
-<button style="float:right" class="btn btn-secondary" onclick="location.href='write.do?category=${category }'">작성하기</button>
-</c:if>
-
 
 </div>
 <br>

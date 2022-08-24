@@ -247,7 +247,7 @@ h5{
     margin: 0 !important;
     width: 100% !important;
     padding: 0 !important;
-    /* max-width: fit-content; */
+    max-width: fit-content;
 }
 .justify-content-center{
     width: 90%;

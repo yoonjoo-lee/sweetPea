@@ -189,7 +189,7 @@ async function itemShoppingAdd(iidx){
 		                <div class="text-center">
 			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick="myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}')">
 			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick="itemShoppingAdd(${vo.iidx})">
-			                <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'>
+			                <!-- <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'> -->
 		                </div>
 		            </div>
 		        </div>
@@ -232,7 +232,7 @@ async function itemShoppingAdd(iidx){
 		                <div class="text-center">
 			                <img class = 'dealImg money' src="./resources/icon/money_icon.png" onclick="myItemAdd(${vo.iidx},${vo.price},'${vo.name}','${vo.img}')">
 			                <img class = 'dealImg cart' src="./resources/icon/cart_icon.png" onclick="itemShoppingAdd(${vo.iidx})">
-			                <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'>
+			                <!-- <img class = 'dealImg gift' src="./resources/icon/gift_icon.png" onclick='itemGift()'> -->
 		                </div>
 		            </div>
 		        </div>
