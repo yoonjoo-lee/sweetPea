@@ -105,7 +105,10 @@ function itemApproval(iidx, check){
 		url:"approvalCheck.do",
 		type:"post",
 		data:{"iidx":iidx,"check":check},
-		success:async function(data){
+		success: async function(data){
+			console.log(data);
+			console.log(check);
+			if(check==1){
 			await Swal.fire({
 					text: '처리 완료',
 					icon: 'success',
@@ -113,7 +116,17 @@ function itemApproval(iidx, check){
 				    timerProgressBar: true,
 				})
 					window.location.reload();
-		}	
+			}else{
+				await Swal.fire({
+				text: '보류로 이동',
+				icon: 'info',
+				timer: 2000,
+			    timerProgressBar: true,
+			})
+				window.location.reload();
+			}
+			
+		}
 	})
 }
 </script>

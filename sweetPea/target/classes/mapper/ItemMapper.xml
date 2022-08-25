@@ -40,10 +40,11 @@
 	</insert>
 		
 	<!-- 아이템 리스트  -->
-	<select id="itemList" parameterType="int" resultType="ItemVo">
+	<select id="itemList" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' and postpone='N'
-			<if test="value!=4">and category=#{category}</if>
+			<if test="category!=4">and category=#{category}</if>
+			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 		ORDER BY iidx DESC
 	</select>
 	<!-- 아이템 리스트  카테고리 미니룸 (1)  -->
@@ -53,33 +54,38 @@
 	</select> -->
 	
 	<!-- 아이템 인기 상품순 -->
-	<select id="itemListCount" parameterType="int" resultType="ItemVo">
+	<select id="itemListCount" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y'  and postpone='N' 
-			<if test="value!=4">and category=#{category}</if>
+			<if test="category!=4">and category=#{category}</if>
+			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+			
 		ORDER BY count DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 내림차순 -->
-	<select id="itemListDesc" parameterType="int" resultType="ItemVo">
+	<select id="itemListDesc" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="value!=4">and category=#{category}</if>
+			<if test="category!=4">and category=#{category}</if>
+			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 		ORDER BY price DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 오름차순 -->
-	<select id="itemListAsc" parameterType="int" resultType="ItemVo">
+	<select id="itemListAsc" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="value!=4">and category=#{category}</if>
+			<if test="category!=4">and category=#{category}</if>
+			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 		ORDER BY price 
 		ASC, iidx 
 		DESC
 	</select>
 	<!-- 아이템 리스트 신상품순 -->
-	<select id="itemListNew" parameterType="int" resultType="ItemVo">
+	<select id="itemListNew" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
 		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="value!=4">and category=#{category}</if>
+			<if test="category!=4">and category=#{category}</if>
+			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 		ORDER BY iidx DESC
 	</select>
 	
@@ -92,25 +98,33 @@
 	</select>
 	
 	<!-- 아이템 승인 리스트  -->
-	<select id="itemApproval" parameterType="int" resultType="ItemVo">
+	<select id="itemApproval" parameterType="ItemVo" resultType="ItemVo">
 		SELECT * FROM pea_item 
 			WHERE delyn='N' 
 			AND approval='N' 
 			AND	postpone='N'
-				<if test="value!=4">and category=#{category}</if>
+				<if test="category!=4">and category=#{category}</if>
+				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 			ORDER BY iidx 
 			DESC;
 	</select>
 	<!-- 아이템 보류 리스트  -->
-	<select id="postpone" parameterType="int" resultType="ItemVo">
+	<select id="postpone" parameterType="ItemVo" resultType="ItemVo">
 		SELECT * FROM pea_item
 			WHERE delyn='N'
 			AND approval='N'
 			AND postpone='Y'
-				<if test="value!=4">and category=#{category}</if>
+				<if test="category!=4">and category=#{category}</if>
+				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 			ORDER BY iidx 
 			DESC;
 	
+	</select>
+	<select id="subcategoryList" parameterType="ItemVo" resultType="ItemVo">
+		select * from pea_item where delyn='N' and approval='Y' and postpone='N'
+				<if test="category!=4">and category=#{category}</if>
+				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+				order by iidx DESC
 	</select>
 	
 	<!-- 아이템 승인 버튼 -->
