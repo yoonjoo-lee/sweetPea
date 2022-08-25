@@ -257,9 +257,47 @@ h5{
 	color: gray;
 	font-size: 1em;
 }
-/* 모달 사이즈  */
+/* 드랍메뉴 */
+.dropbtn {
+  background-color: #007500;
+  color: white ;
+  padding: 16px ;
+  font-size: 16px ;
+  border: none ;
+}
+.dropdown {
+  position: relative ;
+  display: inline-block ;
+}
+.dropdown-content {
+  display: none ;
+  position: absolute ;
+  background-color: #f1f1f1 ;
+  min-width: 160px ;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1 ;
+}
+.dropdown-content a {
+  color: black ;
+  padding: 12px 16px ;
+  text-decoration: none ;
+  display: block ;
+} 
+.dropdown-content a:hover {background-color: #ddd ;}
+ /* .dropdown:hover .dropdown-content {display: block !important;}  */
+.dropdown:hover .dropbtn {background-color: #3e8e41 ;}
+.show{
+	display: block;
+}
 </style>
 <script type="text/javascript">
+/* 아이템 종류  */
+$(function(){
+	$('.dropdown').click(function(){
+		$('.dropdown-content').toggleClass('show');
+	})
+})
+
 /* 장바구니 팝업 */
 <c:if test="${login != null}">
 function openShoppingBasket(){
@@ -301,6 +339,7 @@ function openShoppingBasket(){
 	margin: 1vh 5vw !important;
 }
 
+
 </style>	
 </c:if>
 
@@ -335,6 +374,24 @@ function openShoppingBasket(){
 			<p class="btnText2">GO?</p>
 		</div>
 	</div>
+	<div style="float: left; width: 15%; margin-left: 5px;" class=" dropdown">
+		<button class="dropbtn button" style="width:100%;">아이템 종류 </button>
+		<div class="dropdown-content" style="top:75px;" >
+	  		<a href="#" onclick="itemSubcategoryAll(1)" >　테마 배경　</a>
+	  		<a href="#" onclick="itemSubcategoryAll(2)" >　미니룸 배경　</a>
+	  		<a href="#" onclick="itemSubcategoryAll(3)" >　캐릭터　</a>
+	  		<a href="#" onclick="itemSubcategoryAll(4)" >　글꼴　</a>
+	  		<a href="#" onclick="itemSubcategoryAll(5)" >　가구　</a>
+		</div>
+	</div>
+<!-- 	
+<div class="nav-item nav-hover">
+	<a class="nav-link" href="#">아이템 종류</a>
+	<ul class="text-uppercase ms-auto py-4 py-lg-0 nav-list">
+		<li><a class="nav-link" href="#" onclick="itemSelectAll(11)">　테마배경　</a></li>
+		<li><a class="nav-link" href="#" onclick="itemSelectAll(12)">　미니룸배경　</a></li>
+	</ul>
+</div> -->
 	<div style="float: right; width: 15%; margin-right: 5px;" class="button cartBtn" onclick="">
 		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg">장바구니</p>
 		<div class="btnTwo">
@@ -383,12 +440,10 @@ function openShoppingBasket(){
 /* 아이템페이지 첫 로드 할 때  리스트 나열 구문 */	
  $(function itemSelectAll(){
 	var category = ${category};	 
-	
-	console.log(category);
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:{"cate":1,"category":category},
+	data:{"cate":1,"category":category,"subcategory":6},
 	success:function(data){
 		/* alert(data.subcategory); */
 		var html="";
@@ -432,14 +487,19 @@ function openShoppingBasket(){
 	})
 })
 
+var cate = 1;
+var subcategory = 6;
+
  
 /* 아이템 리스트 카테고리별 나열 */	
-function itemSelectAll(cate){
-	 var category= ${category};	 
+function itemSelectAll(cate_){
+	 var category= ${category};	
+	 console.log(${subcategory});
+	 cate = cate_;
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:{"cate":cate,"category":category},
+	data:{"cate":cate,"category":category,"subcategory":subcategory},
 	success:function(data){
 		/* 	alert(data[i].name); */
 		var html="";
@@ -482,6 +542,58 @@ function itemSelectAll(cate){
 	})
 					
 }
+/*  */
+function itemSubcategoryAll(subcategory_){
+	 var category= ${category};	
+	subcategory = subcategory_;
+	 
+	 $.ajax({
+	url:"itemSelectAll.do",
+	type:"get",
+	data:{"cate":cate,"category":category,"subcategory":subcategory},
+	success:function(data){
+		/* 	alert(data[i].name); */
+		var html="";
+		for(var i=0; i<data.length;i++){
+			var img = data[i].img.replace(" ", "*");
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
+			html +="<div class='card h-100' style='width:100%'>";
+			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
+			html +="<div class='card-body p-4'>";
+			html +="<div class='text-center'>";
+			if(data[i].subcategory == 1){
+					html +="<span class='item-span'>[테마배경]</span>";
+				}else if(data[i].subcategory == 2){
+					html +="<span class='item-span'>[미니룸배경]</span>";
+				}else if(data[i].subcategory == 3){
+					html +="<span class='item-span'>[캐릭터]</span>";
+				}else if(data[i].subcategory == 4){
+					html +="<span class='item-span'>[글꼴]</span>";
+				}else if(data[i].subcategory == 5){
+					html +="<span class='item-span'>[가구]</span>";
+				}
+			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
+			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price+"";
+			html +="</div>";
+			html +="</div>";
+			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
+			html +="<div class='text-center'>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
+			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+			html +="</div>";
+		
+		}
+			$("#itemList").html(html);
+		}
+	})
+					
+}
+
 
 /*  */
 function addCart(uiidx){

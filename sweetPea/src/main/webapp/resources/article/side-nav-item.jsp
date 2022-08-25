@@ -261,7 +261,7 @@ a:hover {
 			</li><li><a class="category3" onclick="location.href='shop.do?category=3'">커스텀</a></li>
 			<c:if test="${login.uidx > 0 }">
 				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a>
-				</li><li><a onclick="gift()">선물하기</a>
+				<!-- </li><li><a onclick="gift()">선물하기</a> -->
 				</li><li><a onclick="info('itemFileChoice.do')">아이템 등록</a></li>
 			</c:if>
 		</ul>

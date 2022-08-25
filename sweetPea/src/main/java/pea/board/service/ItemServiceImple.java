@@ -26,28 +26,28 @@ public class ItemServiceImple implements ItemService {
 	}
 
 	@Override
-	public List<ItemVo> itemSelectAll(int category) {
-		return itemDao.itemSelectAll(category);
+	public List<ItemVo> itemSelectAll(ItemVo vo) {
+		return itemDao.itemSelectAll(vo);
 	}
 
 	@Override
-	public List<ItemVo> itemListDesc(int category) {
-		return itemDao.itemListDesc(category);
+	public List<ItemVo> itemListDesc(ItemVo vo) {
+		return itemDao.itemListDesc(vo);
 	}
 
 	@Override
-	public List<ItemVo> itemListAsc(int category) {
-		return itemDao.itemListAsc(category);
+	public List<ItemVo> itemListAsc(ItemVo vo) {
+		return itemDao.itemListAsc(vo);
 	}
 
 	@Override
-	public List<ItemVo> itemListNew(int category) {
-		return itemDao.itemListNew(category);
+	public List<ItemVo> itemListNew(ItemVo vo) {
+		return itemDao.itemListNew(vo);
 	}
 
 	@Override
-	public List<ItemVo> itemListCount(int category) {
-		return itemDao.itemListCount(category);
+	public List<ItemVo> itemListCount(ItemVo vo) {
+		return itemDao.itemListCount(vo);
 	}
 
 	@Override
@@ -56,13 +56,13 @@ public class ItemServiceImple implements ItemService {
 	}
 
 	@Override
-	public List<ItemVo> itemApproval(int category) {
-		return itemDao.itemApproval(category);
+	public List<ItemVo> itemApproval(ItemVo vo) {
+		return itemDao.itemApproval(vo);
 	}
 
 	@Override
-	public List<ItemVo> postPone(int category) {
-		return itemDao.postpone(category);
+	public List<ItemVo> postPone(ItemVo vo) {
+		return itemDao.postpone(vo);
 	}
 
 	@Override
@@ -143,6 +143,11 @@ public class ItemServiceImple implements ItemService {
 	@Override
 	public int afterBuyBasketList(ItemVo vo) {
 		return itemDao.afterBuyBasketList(vo);
+	}
+
+	@Override
+	public List<ItemVo> subcategoryList11(ItemVo vo) {
+		return itemDao.subcategoryList11(vo);
 	}
 
 
