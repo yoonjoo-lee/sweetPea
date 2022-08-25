@@ -115,9 +115,52 @@ li {
 	font-size: 1em;
 }
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.row{
+   flex-wrap: nowrap !important;
+   justify-content: start !important;
+}
+.col{
+	width: 45% !important;
+}
+.container{
+	overflow-x: scroll;
+	height: 100%;
+	padding: 0 !important;
+	padding-bottom: 5vh !important;
+	width: 100% !important;
+}
+.mb-5{
+	margin: 1vh 5vw !important;
+}
+.p-4{
+	padding: 1rem !important;
+	height: 20vh;
+}
+.card-footer{
+	padding-top: 0 !important;
+}
+.card-img-top{
+    height: 20vh;
+}
+.text-center{
+	font-size: 3vw;
+}
+.text-center>h5{
+	font-size: 5vw;
+	margin: 1vh 0;
+}
+.h-100{
+	width: 45vw;
+}
+</style>	
+</c:if>
+
 </head>
 <body>
-	<div style="width:90%;margin:0 auto;">
+	<div style="width:90%;margin:0 auto;" class="container row">
 		<%-- <div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
 				<!-- <input type="button" class="btn btn-secondary" onclick="myItemDel()" value="삭제"> -->

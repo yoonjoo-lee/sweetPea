@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -56,7 +57,7 @@ a {
   color: #73685d;
 }
   
- @media all and (max-width: 768px) {
+/*  @media all and (max-width: 768px) {
     
   table, thead, tbody, th, td, tr {
     display: block;
@@ -100,7 +101,7 @@ a {
   
   
   }
-  
+   */
   
   
   
@@ -147,6 +148,19 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+#view{
+	width: 100% !important;
+}
+.button{
+	width: 46% !important;
+	margin: 1vh 2vw !important;
+}
+</style>
+
+</c:if>
 
 </head>
 <body>
@@ -198,6 +212,11 @@ $(function (){
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 			if ('${login.pea_super}'=='Y'){
@@ -230,6 +249,11 @@ function boardList4(){
 				html+="<td>"+data[i].bidx+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
+				html+="</tr>";
+			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
@@ -266,15 +290,19 @@ function boardList5(){
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 
 			html += "<br>";
-			html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
-			html += "<br>";
-			if (${login}!=null){
+			if ('${login}'!=''){
 				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
 			}
+			html += "<br>";
 			$("#boardList").html(html);
 		}
 	});

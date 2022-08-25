@@ -12,6 +12,7 @@ public interface MiniroomBoard2Service {
 	List<MiniroomBoardVo> miniroomboardList(MiniroomBoardVo vo); //글 전부 출력
 	int deleteDiary(int mbidx); //삭제
 	int modify(MiniroomBoardVo vo); //수정
+	MiniroomBoardVo viewPhoto(int mbidx);// 각 글 출력
 	
 	List<MiniroomBoardVo> boardByDate(MiniroomBoardVo vo); //날짜별 글 출력
 	

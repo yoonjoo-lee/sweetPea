@@ -42,6 +42,11 @@ public class MiniroomBoard2Dao {
 		return sqlSession.update(namespace+".modify", vo);
 	}
 	
+	//각 글 불러오기 
+	public MiniroomBoardVo viewPhoto(int mbidx) {
+		return sqlSession.selectOne(namespace+".viewPhoto", mbidx);
+	}
+	
 	//프로필 변경
 	public int changeProfile(MiniroomBoardVo vo) {
 		return sqlSession.update(namespace+".changeProfile", vo);

@@ -51,9 +51,9 @@ article > *,#view,#nav,#section{
 }
 #section{
 	float: inherit !important;
-    height: 70vh;
+    height: 65vh;
 }
-#nav{height: auto; margin-bottom: 5vh;}
+#nav{height: auto;}
 .categoryBox,#section{
     border: 1px solid black !important;
     margin-top: 5vh !important;
@@ -73,7 +73,6 @@ article > *,#view,#nav,#section{
     text-align: center;
 }
 .leftBanner{
-	display: none !important;
 	height: 34vh !important;
 }
 #leftBanner{
