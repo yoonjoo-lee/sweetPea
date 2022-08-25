@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet" />
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -56,6 +56,58 @@
 	padding-left: 20px;
 }
 </style>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+#view{
+	width: 100% !important;
+}
+.comments-container{
+	width: 100% !important;
+}
+
+.comments-list {
+    margin: 3vh 0 !important;
+    padding: 0;
+}
+.comment-head{
+    font-size: 3vw;
+    padding: 1vh 1vw !important;
+    height: 4vh;
+}
+.comment-head>span{
+	font-size: 3vw;
+    line-height: 2vh;
+}
+.comment-avatar{
+	width: 15vw;
+    height: 15vw;
+}
+.comment-box{
+	width: 72vw !important;
+    float: left !important;
+    margin-left: 5vw;
+}
+.comment-name{
+	font-size: 3.5vw !important;
+    margin-right: 3vw !important;
+}
+
+.comment-content{
+    font-size: 3.5vw !important;
+    padding: 1vh 3vw !important;
+}
+
+.reply-list{
+	padding-left: 10vw !important;
+}
+.reply-list .comment-box{
+	width: 65.5vw !important;
+}
+</style>
+</c:if>
+
+</head>
 <body>
 <header id="header"></header>
 <br>

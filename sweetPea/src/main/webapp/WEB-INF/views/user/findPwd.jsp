@@ -17,10 +17,14 @@
 	});
 </script>
 <style>
+#view{
+	width: 1300px;
+	margin: 0 auto;
+	margin-bottom: 220px;
+}
 	.box{
-		width: 25%;
+		width: 30%;
 		margin: 0 auto;
-		margin-bottom: 15em;
 	}
 	.afterBox{
 	display: none;
@@ -37,12 +41,21 @@
 	h3{font-size: 1.5em;}
 	h4{font-size: 1em; margin-bottom: 0;}
 	input{
-		width: 60%;
-		height: 2.5em;
-		margin: 0.4em 0 ;
-		display: block;
-		
-	}
+	width: 100%;
+	height: 2.5em;
+	margin: 0.8em 0 ;
+}
+#email{
+	width: 65%;
+}
+#mailCheckBtn{
+    height: 2.5em;
+    margin: 1em 0;
+    font-size: 0.8em;
+    margin-left: 3%;
+    border: 0;
+    width: 30%;
+}
 	#mail-check-warn{
 		font-size: 0.8em;
 	}
@@ -85,10 +98,31 @@
 		
 	}
 </script>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+#view{
+	width: 100% !important;
+}
+.box{
+	width: 92% !important;
+	margin: 0 auto;
+}
+.afterBox{
+	width: 90%;
+}
+.afterBox input {
+    float: right;
+}
+</style>
+
+</c:if>
+
 </head>
 <body>
 <header id="header"></header>
 <br><br>
+<div id="view">
 <div class="box">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<h3>비밀번호 찾기</h3>
@@ -220,6 +254,7 @@ $("#changeBtn").click(function(){
 		}	
 	});
 </script>
+</div>
 <br>
 <footer id="footer"></footer>
 </body>

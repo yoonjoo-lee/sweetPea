@@ -17,9 +17,9 @@
 <script src="<%=request.getContextPath()%>/resources/js/header.js"></script>
 <c:if test="${device eq 'MOBILE' }">
 <style>
-	body{
-		height: 100vh;
-	}
+	#view{
+	width: 100% !important;
+}
 	.box{
 		width: 100%;
 	}
@@ -29,6 +29,7 @@
 <body>
 <header id="header"></header>
 <br><br>
+<div id="view">
 <div class="box">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<form action="login.do" method="post">
@@ -42,7 +43,9 @@
 	<a href="findPwd.do">비밀번호찾기</a>
 	<a href="join.do">회원가입</a>
 	</div>
-</div><br>
+</div>
+</div>
+<br>
 
 </body>
 </html>

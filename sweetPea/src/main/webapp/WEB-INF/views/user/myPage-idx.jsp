@@ -40,6 +40,14 @@
 		text-decoration: none;
 	}
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.inputBox{
+	width: 90%;
+}
+</style>
+</c:if>
 </head>
 <body>
 	<br>
