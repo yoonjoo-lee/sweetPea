@@ -186,6 +186,37 @@ table th {
 }
 </style>
 
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.item-image{
+	max-width: 100%;
+}
+table{
+	width: 100% !important;
+}
+th{
+	font-size: 3.5vw;
+}
+td{
+    height: 5vh;
+    text-align: left !important;
+}
+td>input,td>select{
+    height: 5vh !important;
+    margin: 1vh 0;
+}
+#price{
+	width: 80% !important;
+}
+
+.btnWrite_container {
+    position: inherit;
+    margin: 0 auto !important;
+}
+</style>
+</c:if>
+
+
 </head>
 <body>
 
