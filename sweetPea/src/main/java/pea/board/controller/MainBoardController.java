@@ -250,6 +250,7 @@ public class MainBoardController {
 		vo.setUidx(login.getUidx());
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
+		System.out.println("댓글 달기 커멘트"+vo.getContent());
 
 		mainboardService.writeReply(vo);
 
