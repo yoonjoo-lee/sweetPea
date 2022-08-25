@@ -239,7 +239,7 @@ table th {
 							<option value="1">테마배경</option>
 							<option value="2">미니룸배경</option>
 							<option value="3">캐릭터</option>
-							<option value="4">글꼴</option>
+							<option value="4">동물</option>
 							<option value="5">가구</option>
 					</select></td>
 				</tr>

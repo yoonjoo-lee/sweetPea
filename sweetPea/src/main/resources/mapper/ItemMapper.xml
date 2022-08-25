@@ -42,9 +42,9 @@
 	<!-- 아이템 리스트  -->
 	<select id="itemList" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y' and postpone='N'
-			<if test="category!=4">and category=#{category}</if>
-			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+		WHERE delyn='N' AND approval='Y' AND postpone='N'
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 		ORDER BY iidx DESC
 	</select>
 	<!-- 아이템 리스트  카테고리 미니룸 (1)  -->
@@ -56,26 +56,26 @@
 	<!-- 아이템 인기 상품순 -->
 	<select id="itemListCount" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y'  and postpone='N' 
-			<if test="category!=4">and category=#{category}</if>
-			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+		WHERE delyn='N' AND approval='Y' AND postpone='N' 
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 			
 		ORDER BY count DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 내림차순 -->
 	<select id="itemListDesc" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="category!=4">and category=#{category}</if>
-			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+		WHERE delyn='N' AND approval='Y' AND postpone='N' 
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 		ORDER BY price DESC, iidx DESC
 	</select>
 	<!-- 아이템 리스트 가격 오름차순 -->
 	<select id="itemListAsc" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="category!=4">and category=#{category}</if>
-			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+		WHERE delyn='N' AND approval='Y' AND postpone='N' 
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 		ORDER BY price 
 		ASC, iidx 
 		DESC
@@ -83,16 +83,16 @@
 	<!-- 아이템 리스트 신상품순 -->
 	<select id="itemListNew" parameterType="ItemVo" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y' AND postpone='N'
-			<if test="category!=4">and category=#{category}</if>
-			<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+		WHERE delyn='N' AND approval='Y' AND postpone='N' 
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 		ORDER BY iidx DESC
 	</select>
 	
 	<!-- 아이템 리스트 신상품순 5개 -->
 	<select id="itemListNewLimit" resultType="ItemVo">
 	SELECT * FROM pea_item 
-		WHERE delyn='N' and approval='Y' AND postpone='N'
+		WHERE delyn='N' AND approval='Y' AND postpone='N'
 		
 		ORDER BY iidx DESC LIMIT 0,6;
 	</select>
@@ -103,10 +103,10 @@
 			WHERE delyn='N' 
 			AND approval='N' 
 			AND	postpone='N'
-				<if test="category!=4">and category=#{category}</if>
-				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 			ORDER BY iidx 
-			DESC;
+			ASC;
 	</select>
 	<!-- 아이템 보류 리스트  -->
 	<select id="postpone" parameterType="ItemVo" resultType="ItemVo">
@@ -117,14 +117,14 @@
 				<if test="category!=4">and category=#{category}</if>
 				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
 			ORDER BY iidx 
-			DESC;
+			ASC;
 	
 	</select>
 	<select id="subcategoryList" parameterType="ItemVo" resultType="ItemVo">
-		select * from pea_item where delyn='N' and approval='Y' and postpone='N'
-				<if test="category!=4">and category=#{category}</if>
-				<if test="subcategory!=6">and subcategory=#{subcategory}</if>
-				order by iidx DESC
+		SELECT* FROM pea_item WHERE delyn='N' AND approval='Y' AND postpone='N'
+			<if test="category!=4">AND category=#{category}</if>
+			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
+				ORDER BY iidx DESC
 	</select>
 	
 	<!-- 아이템 승인 버튼 -->
@@ -181,7 +181,9 @@
 	</select>
 	
 	<update id="basketItemAdd2" parameterType="int">
-		update pea_user_item set cart='Y' where uiidx=#{uiidx} 
+		UPDATE pea_user_item 
+			SET cart='Y' 
+			WHERE uiidx=#{uiidx} 
 	</update>
 	<!-- 장바구니 리스트에 삭제  -->
 <!-- 	<update id="basketItemDel2" parameterType="ItemVo">
@@ -193,21 +195,32 @@
 	</delete>
 	<!-- 내 아이템 리스트에 추가  -->
 	<insert id="myItemAdd" parameterType="ItemVo">
-		insert into pea_user_item(iidx, uidx, buy) value(#{iidx},#{uidx},'Y')
+		INSERT INTO pea_user_item(iidx, uidx, buy) 
+			VALUE(#{iidx},#{uidx},'Y')
 	</insert>
 	<!-- 아이템 카운트 업데이트  -->
 	<update id="countAdd" parameterType="ItemVo">
-		update pea_item set count=count+1 where iidx=#{iidx}
+		UPDATE pea_item 
+			SET count=count+1 
+			WHERE iidx=#{iidx}
 	</update>
 	<!-- 아이템  -->
 	<!-- 내 아이템 업데이트  -->
 	<update id="myAmount-" parameterType="ItemVo">
-		update pea_user set pea_amount=(pea_amount-#{price}) where uidx=#{uidx}
+		UPDATE pea_user 
+			SET pea_amount=(pea_amount-#{price}) 
+			WHERE uidx=#{uidx}
 	</update>
 	<select id="myItemSelect"></select>
 	<!-- 내 아이템 리스트  -->
 	<select id="myItemList" parameterType="int" resultType="ItemVo">
-		select b.* from pea_user_item a join pea_item b on a.iidx=b.iidx where a.uidx=#{uidx} and a.buy='Y' and a.delyn='N' ORDER BY a.uiidx DESC
+		SELECT b.* FROM pea_user_item a 
+			JOIN pea_item b 
+			ON a.iidx=b.iidx 
+			WHERE a.uidx=#{uidx} 
+			AND a.buy='Y' 
+			AND a.delyn='N' 
+		ORDER BY a.uiidx DESC
 	<!-- SELECT a.* FROM pea_item a 
 		 JOIN pea_user_item b 
 		ON a.iidx=b.iidx 
@@ -215,7 +228,9 @@
  	</select>
  	<!-- 내 아이템 리스트 중복체크 -->
  	<select id="myItemListCheck" parameterType="ItemVo" resultType="String">
- 		select buy from pea_user_item where iidx=#{iidx} and uidx=#{uidx}
+ 		SELECT buy FROM pea_user_item
+ 			 WHERE iidx=#{iidx} 
+ 			 AND uidx=#{uidx}
  	</select>
  	<!-- 메인화면  인기상품 리스트  -->
  	<select id="mostBuyItemList" resultType="ItemVo">
@@ -227,15 +242,21 @@
    </select>
    <!--  -->
    <update id="myItemListUpdate" parameterType="ItemVo">
-   	update pea_user_item set buy='Y',cart='N' where uidx=#{uidx} and iidx=#{iidx}
+   	UPDATE pea_user_item 
+   		SET buy='Y',cart='N' 
+   		WHERE uidx=#{uidx} 
+   		AND iidx=#{iidx}
    
    </update>
    <update id="insertAmount" parameterType="UserVo" >
-   	update pea_user set pea_amount= (pea_amount + #{pea_amount}) where uidx=#{uidx}
+   	UPDATE pea_user 
+   		SET pea_amount= (pea_amount + #{pea_amount}) 
+   		WHERE uidx=#{uidx}
    </update>
    
    <select id="pea_amount" parameterType="UserVo" resultType="int">
-   		select pea_amount from pea_user where uidx=#{uidx}  
+   		SELECT pea_amount FROM pea_user 
+   			WHERE uidx=#{uidx}  
    </select>
    
    <update id="buyBasketList" parameterType="ItemVo">
@@ -251,7 +272,9 @@
    		 WHERE uiidx = #{uiidx}
    </select>
    <update id="basketCountAdd" parameterType="int">
-		update pea_item set count=count+1 where iidx=#{iidx}
+		UPDATE pea_item 
+			SET count=count+1 
+			WHERE iidx=#{iidx}
 	</update>
 </mapper>
 

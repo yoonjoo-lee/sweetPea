@@ -175,7 +175,7 @@ async function itemShoppingAdd(iidx){
 		                    	<span class="item-span">[캐릭터]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 4}">
-		                    	<span class="item-span">[글꼴]</span>
+		                    	<span class="item-span">[동물]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 5}">
 		                    	<span class="item-span">[가구]</span>
@@ -218,7 +218,7 @@ async function itemShoppingAdd(iidx){
 		                    	<span class="item-span">[캐릭터]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 4}">
-		                    	<span class="item-span">[글꼴]</span>
+		                    	<span class="item-span">[동물]</span>
 		                    </c:when>
 		                    <c:when test="${vo.subcategory == 5}">
 		                    	<span class="item-span">[가구]</span>
