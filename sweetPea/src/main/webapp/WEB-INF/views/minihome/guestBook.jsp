@@ -95,6 +95,7 @@ a {
 
 body{
 font-family: ${myMini.font};
+margin-top:auto;
 }
 </style>
 
@@ -102,11 +103,6 @@ font-family: ${myMini.font};
 <style>
 h1{
 	margin:0;
-}
-.bi-plus-square-fill{
-    font-size: 4vh;
-    float: right;
-    margin: 1vh;
 }
 table{
 	margin-top: 2vh;
@@ -124,19 +120,29 @@ th,td{
 		$("#mainBox").load("<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3");
 	}
 </script>
-</c:if>
+</c:if> 
 </head>
 <body>
-	<h1>
-<c:if test="${login != null}">
-	<c:if test="${device eq 'PC'}">
-	<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
+
+
+	<h1 style="float:right;cursor:pointer;">
+	<c:if test="${login != null}">
+		<c:if test="${device eq 'PC'}">
+		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
+		</c:if>
+		<c:if test="${device eq 'MOBILE'}">
+		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="mobileWrite()"></i>
+		</c:if>
 	</c:if>
-	<c:if test="${device eq 'MOBILE'}">
-	<i class="bi bi-plus-square-fill" style="color: grey;" onclick="mobileWrite()"></i>
-	</c:if>
-</c:if>
 	</h1>
+	
+	
+	
+	<!-- 게시글이 없을 경우 -->
+	<c:if test="${list.size() == 0}">
+		<table><tr><td style="text-align:center;font-size:16px;"><br>첫 방명록을 남겨주세요:)<br><br></td></tr></table>
+	</c:if>
+	
 	<c:forEach var="board" items='${list }'>
 		<table>
 			<thead>
@@ -144,11 +150,11 @@ th,td{
 					<th colspan=2>
 					
 							<b>${board.name }</b>
-							<i class="bi bi-house-heart" onclick="openMini(${board.writer })">미니홈피</i>
+							<i class="bi bi-house-heart" style="cursor:pointer" onclick="openMini(${board.writer })">미니홈피</i>
 							 (${board.date })
 							 <c:if test="${login.uidx == board.writer }">
-								<i class="bi bi-eraser" onclick="modifybook(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i>
-								<i class="bi bi-trash" onclick="deletephoto(${board.mbidx})"></i>
+								<i class="bi bi-eraser" style="cursor:pointer" onclick="modifybook(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i>
+								<i class="bi bi-trash" style="cursor:pointer" onclick="deletephoto(${board.mbidx})"></i>
 							 </c:if>
 					</th>
 				</tr>
