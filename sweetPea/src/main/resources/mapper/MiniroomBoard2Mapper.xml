@@ -115,6 +115,7 @@
 	SELECT a.* FROM pea_item a JOIN pea_user_item b 
 	 ON a.iidx=b.iidx 
 	WHERE b.uidx=#{uidx} AND b.buy='Y' AND b.delyn='N'
+	ORDER BY date desc;
 </select>
 
 <!-- 내 미니홈피 배경 변경  -->

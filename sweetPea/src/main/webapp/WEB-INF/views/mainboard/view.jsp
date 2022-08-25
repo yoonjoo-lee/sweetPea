@@ -7,21 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:if test="${vo.category == 1}">
-	<title>커뮤니티(공지)</title>
-</c:if>
-<c:if test="${vo.category == 2}">
-	<title>커뮤니티(자유)</title>
-</c:if>
-<c:if test="${vo.category == 3}">
-	<title>커뮤니티(유머)</title>
-</c:if>
-<c:if test="${vo.category == 4}">
-	<title>공지사항(FAQ)</title>
-</c:if>
-<c:if test="${vo.category == 5}">
-	<title>공지사항(Q&A)</title>
-</c:if>
+<title>${vo.title } </title>
 <link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 </head>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
@@ -231,11 +217,18 @@ async function warningtroll(){
 		})
 
 		if (text) {
-		  Swal.fire(text)
+			$(async function(){
+			  await Swal.fire({
+				title: '경고 메시지가 전송되었습니다.',
+				icon: 'success'
+			  }
+			  )
+				
+			  $("#reportfrm").attr("action","warningtroll.do?warningmessage="+text);
+	          $("#reportfrm").attr("method","POST");
+	          $("#reportfrm").submit();
+			})
 		  
-		  $("#reportfrm").attr("action","warningtroll.do?warningmessage="+text);
-          $("#reportfrm").attr("method","POST");
-          $("#reportfrm").submit();
 		}
 }
 
@@ -252,11 +245,17 @@ async function rejectReport(){
 		})
 
 		if (text) {
-		  Swal.fire(text)
+			$(async function(){
+			  await Swal.fire({
+				title: '거절 메시지가 전송되었습니다.',
+				icon: 'success'
+			  }
+			  )
 		  
-		  $("#rejectfrm").attr("action","messagetoreporter.do?rejectmessage="+text);
-          $("#rejectfrm").attr("method","POST");
-          $("#rejectfrm").submit();
+			  $("#rejectfrm").attr("action","messagetoreporter.do?rejectmessage="+text);
+	          $("#rejectfrm").attr("method","POST");
+	          $("#rejectfrm").submit();
+			})
 		}
 }
 

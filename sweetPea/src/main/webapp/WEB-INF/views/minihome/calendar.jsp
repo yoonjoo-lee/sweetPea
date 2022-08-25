@@ -7,7 +7,8 @@
 <!DOCTYPE html>
 <style>
 .eachdate:hover{
-color:#fff;
+color:grey;
+cursor:pointer;
 }
 </style>
 

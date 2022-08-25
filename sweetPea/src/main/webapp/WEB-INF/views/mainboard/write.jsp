@@ -1,13 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%int category = Integer.parseInt(request.getParameter("category"));%>
 <%=category%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-    
+<c:if test="${category == 1}">
+	<title>공지사항 작성</title>
+</c:if>
+<c:if test="${category == 2}">
+	<title>자유게시판 작성</title>
+</c:if>
+<c:if test="${category == 3}">
+	<title>유머게시판 작성</title>
+</c:if>
+<c:if test="${category == 4}">
+	<title>FAQ 작성</title>
+</c:if>
+<c:if test="${category == 5}">
+	<title>Q&A 작성</title>
+</c:if>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">    
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <!-- include libraries(jQuery, bootstrap) -->
 	<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
