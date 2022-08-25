@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -56,7 +57,7 @@ a {
   color: #73685d;
 }
   
- @media all and (max-width: 768px) {
+/*  @media all and (max-width: 768px) {
     
   table, thead, tbody, th, td, tr {
     display: block;
@@ -100,7 +101,7 @@ a {
   
   
   }
-  
+   */
   
   
   
@@ -147,6 +148,19 @@ a {
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
 </style>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+#view{
+	width: 100% !important;
+}
+.button{
+	width: 46% !important;
+	margin: 1vh 2vw !important;
+}
+</style>
+
+</c:if>
 
 </head>
 <body>

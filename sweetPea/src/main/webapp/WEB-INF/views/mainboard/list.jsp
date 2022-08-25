@@ -223,6 +223,10 @@ th,h2{
 	float: right;
 	margin: 1vh 3vw;
 }
+.btn-write{
+	width: 22vw !important;
+    margin: 1vh 1vw;
+}
 </style>
 </c:if>
 
@@ -386,13 +390,11 @@ th,h2{
 		</tbody>
 </table>
 
-<br>
-
 <!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
 <c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
-<button style="float:right" class="btn btn-secondary" onclick="location.href='write.do?category=${category }'">작성하기</button>
+<button style="float:right" class="btn btn-secondary btn-write" onclick="location.href='write.do?category=${category }'">작성하기</button>
 </c:if>
-<br>
+<br><br>
 <!-- 페이징 -->
 <c:if test="${category ne 6 }">
 <div>
