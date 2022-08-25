@@ -163,6 +163,12 @@ a {
 .button:active { /*Clicked and held*/
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
+
+.listLookUp{
+	font-size: 1em;
+	float: right;
+	margin: 1em;
+}
 </style>
 
 <c:if test="${device eq 'MOBILE'}">
@@ -193,6 +199,12 @@ th,h2{
 .btn-secondary{
 	width: 18vw !important;
 	margin-left: 2vw;
+}
+
+.listLookUp{
+	font-size: 3vw;
+	float: right;
+	margin: 1vh 3vw;
 }
 </style>
 </c:if>
@@ -284,7 +296,7 @@ th,h2{
 </c:if>
 <br><br>
 
-<span style="font-size: 3vw; float: right; margin: 1vh 3vw;">총 ${list.size()}건이 조회되었습니다.</span>
+<span class= "listLookUp">총 ${list.size()}건이 조회되었습니다.</span>
 <!-- 리스트 테이블 -->
 <table>
 		<thead>
