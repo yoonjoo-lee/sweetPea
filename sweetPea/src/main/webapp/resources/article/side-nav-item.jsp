@@ -221,8 +221,13 @@ a:hover {
 	padding-top: 1vh !important;
 	padding-bottom: 6vh !important;
 }
-
 </style>
+
+<script>
+$(function(){
+	$(".categoryList").insertAfter(".leftBanner");
+})
+</script>
 </c:if>
 
 
@@ -264,7 +269,7 @@ a:hover {
 
 	</div>
 	</c:if>
-	<div class="categoryBox">
+	<div class="categoryBox categoryList">
 		<h3><a onclick="location.href='shop.do?category=4'">아이템상점</a></h3>
 		<ul>
 			<li><a class="category1" onclick="location.href='shop.do?category=1'">미니룸</a>
