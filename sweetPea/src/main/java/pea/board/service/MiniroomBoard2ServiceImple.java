@@ -81,6 +81,11 @@ public class MiniroomBoard2ServiceImple implements MiniroomBoard2Service{
 	public int removeFromMiniroom(ItemVo vo) {
 		return miniroomboardDao.removeFromMiniroom(vo);
 	}
+
+	@Override
+	public MiniroomBoardVo viewPhoto(int mbidx) {
+		return miniroomboardDao.viewPhoto(mbidx);
+	}
 	
 	
 

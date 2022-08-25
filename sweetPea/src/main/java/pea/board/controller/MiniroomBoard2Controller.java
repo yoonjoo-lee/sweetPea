@@ -276,6 +276,17 @@ public class MiniroomBoard2Controller {
 		pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
+	
+	// 사진첩 수정 페이지 이동
+	@RequestMapping(value="/photoAlbumModify.do", method=RequestMethod.GET)
+	public String photoAlbumModify(int mbidx, Model model) {
+		model.addAttribute("mbidx", mbidx);
+		
+		MiniroomBoardVo vo= miniroomboard2Service.viewPhoto(mbidx);
+		model.addAttribute("vo", vo);
+		
+		return "minihome/photoAlbumModify";
+	}
 
 	// 방명록 삭제
 	@RequestMapping(value="/guestBookDelete.do")

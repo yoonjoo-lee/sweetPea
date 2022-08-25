@@ -212,6 +212,11 @@ $(function (){
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 			if ('${login.pea_super}'=='Y'){
@@ -244,6 +249,11 @@ function boardList4(){
 				html+="<td>"+data[i].bidx+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
+				html+="</tr>";
+			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";
@@ -280,15 +290,19 @@ function boardList5(){
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 
 			html += "<br>";
-			html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
-			html += "<br>";
-			if (${login}!=null){
+			if ('${login}'!=''){
 				html += "<button style='float:right' class='btn btn-secondary' onclick='location.href=`write.do?category=5`'>작성하기</button>";
 			}
+			html += "<br>";
 			$("#boardList").html(html);
 		}
 	});

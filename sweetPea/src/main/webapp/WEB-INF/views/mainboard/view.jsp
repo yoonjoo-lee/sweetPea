@@ -7,7 +7,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<c:if test="${vo.category == 1}">
+	<title>커뮤니티(공지)</title>
+</c:if>
+<c:if test="${vo.category == 2}">
+	<title>커뮤니티(자유)</title>
+</c:if>
+<c:if test="${vo.category == 3}">
+	<title>커뮤니티(유머)</title>
+</c:if>
+<c:if test="${vo.category == 4}">
+	<title>공지사항(FAQ)</title>
+</c:if>
+<c:if test="${vo.category == 5}">
+	<title>공지사항(Q&A)</title>
+</c:if>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
+
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -140,9 +157,9 @@
 	<div class="nameDiv"><%-- <b>신고자: ${vo.reportername}, 트롤: ${vo.trollname }</b> &nbsp--%> ${vo.datetime }</div>
 	</div>
 	
-	<div class="contentDiv"><i class="bi bi-caret-right"></i>접수글 (${vo.reportername}) <br> ${vo.content}
+	<div class="contentDiv"><i class="bi bi-caret-right"></i>신고 내용 (${vo.reportername}) <br> ${vo.content}
 	<br><br>
-	<i class="bi bi-caret-right"></i>신고 내용 (${vo.trollname })${vo.reportcontent }
+	<i class="bi bi-caret-right"></i>접수글 (${vo.trollname })${vo.reportcontent }
 	</div>
 	</div>
 	<form action="" id="reportfrm">
@@ -330,7 +347,7 @@ function reportfn(){
     			  })
     		  }
     		  else{
-    			 alert($("#content").val());
+    			 /* alert($("#content").val()); */
 		    	  $(async function(){
 			            await Swal.fire({
 			    		  html: '<form id="frm" action="report.do?bidx='+${vo.bidx}+'" method="POST">'+

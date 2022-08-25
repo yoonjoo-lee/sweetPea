@@ -6,8 +6,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<c:if test="${searchVo.category == 1}">
+	<title>공지게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 2}">
+	<title>자유게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 3}">
+	<title>유머게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 4}">
+	<title>자주묻는질문</title>
+</c:if>
+<c:if test="${searchVo.category == 5}">
+	<title>질의응답</title>
+</c:if>
+<c:if test="${searchVo.category == 6}">
+	<title>신고관리</title>
+</c:if>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -300,7 +317,9 @@ th,h2{
 </c:if>
 <br><br>
 
+
 <span class= "listLookUp">총 ${list.size()}건이 조회되었습니다.</span>
+
 <!-- 리스트 테이블 -->
 <table>
 		<thead>

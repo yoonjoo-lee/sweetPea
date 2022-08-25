@@ -12,6 +12,8 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
+
+
 <style>
 /* 이미지 슬라이더 */
 #slider {
@@ -140,9 +142,15 @@ img{
 </head>
 <body>
 <c:if test="${mini.uidx==login.uidx }">
-<h1 class="uploadIcon"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
+<h1 class="uploadIcon" style="cursor:pointer"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
 </c:if>
 
+<!-- 게시물이 없을 경우 -->
+<c:if test="${list.size() == 0}">
+<div class="eachphoto"><br><br>
+<div style="text-align:center;">등록된 게시물이 없어요:(</div>
+<br><br></div>
+</c:if>
 <c:forEach var="board" items='${list }'>
 <div class="eachphoto">
 <br>
@@ -159,9 +167,10 @@ img{
 
 <div id="user"><b>${board.name }</b></div>
 <div id="user" class="manage"  style="color:grey;">
-
+<c:if test="${board.secret eq 'Y' }"><i class='bi-lock-fill'>비밀글 </i></c:if>
 <c:if test="${login.uidx == mini.uidx }">
-<i class="bi bi-eraser"></i><i class="bi bi-trash" onclick="deletephoto(${board.mbidx })"></i> 
+<i class="bi bi-eraser" style="cursor:pointer" onclick="location.href='<%=request.getContextPath() %>/miniroomboard2/photoAlbumModify.do?mbidx=${board.mbidx }'"></i>
+<i class="bi bi-trash" style="cursor:pointer" onclick="deletephoto(${board.mbidx })"></i> 
 </c:if>
 </div>
 
