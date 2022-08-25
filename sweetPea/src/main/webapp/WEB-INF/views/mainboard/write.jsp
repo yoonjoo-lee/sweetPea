@@ -46,6 +46,7 @@
 		$("#footer").load("<%= request.getContextPath()%>/resources/article/footer.jsp");
 	});
 	</script>
+	<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
 <style>
 #view{
 	width: 60%;
@@ -88,6 +89,24 @@
 	width : 42.8em;
 }
 </style>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+article > *,#view{
+	width: 100% !important;
+}
+.btn{
+    float: inherit !important;
+    margin: 2vh 0;
+    width: 100%;
+    height: 5vh;
+    font-size: 5vw !important;
+    line-height: 4vh !important;
+}
+</style>
+
+</c:if>
+
 </head>
 
 <body>

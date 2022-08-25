@@ -17,10 +17,31 @@
 		$("#footer").load("<%=request.getContextPath()%>/resources/article/footer.jsp");
 	});
 </script>
+
+<c:if test="${device eq 'MOBILE' }">
+<style>
+#view{
+	width: 100% !important;
+}
+.box{
+	width: 92% !important;
+	margin: 0 auto;
+}
+.afterBox{
+	width: 90%;
+}
+.afterBox input {
+    float: right;
+}
+</style>
+
+</c:if>
+
 </head>
 <body>
 <header id="header"></header>
 <br><br>
+<div id="view">
 <div class="box">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<h3>본인확인 이메일로 인증​</h3>
@@ -123,6 +144,7 @@ $("#idCheckBtn").click(function(){
 	<a href="findPwd.do">패스워드 찾기</a> |
 	<a href="login.do">로그인</a>
 	<input type="button" id="homeBtn" value="홈" onclick="location.href='home.do'">
+</div>
 </div>
 <br>
 <footer id="footer"></footer>
