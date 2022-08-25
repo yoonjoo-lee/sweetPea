@@ -35,37 +35,37 @@ public class ItemDao {
 	}
 
 	// 아이템 내림차순
-	public List<ItemVo> itemSelectAll(int category) {
+	public List<ItemVo> itemSelectAll(ItemVo vo) {
 
-		return sqlSession.selectList(namespace + ".itemList", category);
+		return sqlSession.selectList(namespace + ".itemList", vo);
 
 	}
 
 	// 아이템 인기상품순
-	public List<ItemVo> itemListCount(int category) {
+	public List<ItemVo> itemListCount(ItemVo vo) {
 
-		return sqlSession.selectList(namespace + ".itemListCount", category);
+		return sqlSession.selectList(namespace + ".itemListCount", vo);
 
 	}
 
 	// 아이템 가격 내림차순
-	public List<ItemVo> itemListDesc(int category) {
+	public List<ItemVo> itemListDesc(ItemVo vo) {
 
-		return sqlSession.selectList(namespace + ".itemListDesc", category);
+		return sqlSession.selectList(namespace + ".itemListDesc", vo);
 
 	}
 
 	// 아이템 가격 오름차순
-	public List<ItemVo> itemListAsc(int category) {
+	public List<ItemVo> itemListAsc(ItemVo vo) {
 
-		return sqlSession.selectList(namespace + ".itemListAsc", category);
+		return sqlSession.selectList(namespace + ".itemListAsc", vo);
 
 	}
 
 	// 아이템 신상품순
-	public List<ItemVo> itemListNew(int category) {
+	public List<ItemVo> itemListNew(ItemVo vo) {
 
-		return sqlSession.selectList(namespace + ".itemListNew", category);
+		return sqlSession.selectList(namespace + ".itemListNew", vo);
 
 	}
 
@@ -77,8 +77,8 @@ public class ItemDao {
 	}
 
 	// 아이템 보류 리스트
-	public List<ItemVo> postpone(int category) {
-		return sqlSession.selectList(namespace + ".postpone",category);
+	public List<ItemVo> postpone(ItemVo vo) {
+		return sqlSession.selectList(namespace + ".postpone",vo);
 	}
 
 	public int postponeCheck(int iidx) {
@@ -86,8 +86,8 @@ public class ItemDao {
 	}
 
 	// 아이템 승인 리스트
-	public List<ItemVo> itemApproval(int category) {
-		return sqlSession.selectList(namespace + ".itemApproval",category);
+	public List<ItemVo> itemApproval(ItemVo vo) {
+		return sqlSession.selectList(namespace + ".itemApproval",vo);
 	}
 
 	public int approvalCheck(int iidx) {
@@ -176,6 +176,12 @@ public class ItemDao {
 	public int afterBuyBasketList(ItemVo vo) {
 		sqlSession.update(namespace+".myAmount-",vo);
 		return sqlSession.selectOne(namespace+".pea_amount",vo);
+	}
+	
+	public List<ItemVo> subcategoryList11(ItemVo vo){
+		
+		return sqlSession.selectList(namespace+",subcategoryList",vo);
+		
 	}
 	
 	// 카테고리 별 리스트
