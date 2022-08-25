@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	MiniroomBoardService miniroomBoardService;
-	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private MailSendService mailService;
 	
@@ -127,6 +129,8 @@ public class UserController {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html;charset=utf-8");
 		
+		String encodePwd = passwordEncoder.encode(vo.getPwd());
+		vo.setPwd(encodePwd);
 		int result =userService.inserUser(vo);
 		if(result == 1) {
 			System.out.println("회원가입 성공");

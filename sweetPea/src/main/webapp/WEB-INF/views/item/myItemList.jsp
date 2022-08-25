@@ -92,9 +92,14 @@ li {
 }
 
 .mb-5{
-	margin-bottom: 3rem !important;
+/* 	margin-bottom: 3rem !important;
     width: 20%;
     margin: 2vw;
+ */    
+ float:left;
+ width: 20%;
+ margin: 1em; 
+ padding: 0;
 }
 .card-img-top{
     width: fit-content;
@@ -102,9 +107,9 @@ li {
     max-width: 96%;
     margin: 0 auto;
 }
-h5{
+/* h5{
 	font-size: 2vw;
-}
+} */
 .item-span{
 	color: gray;
 	font-size: 1em;
@@ -127,8 +132,8 @@ h5{
 			<c:forEach var="vo" items="${ilist}">
 			
 			
-			<div class='col mb-5' style='float:left;'>
-				<div class='card h-100'>
+			<div class='col mb-5' style='float:left; width: 20%;margin: 1em;padding: 0;'>
+				<div class='card h-100' style='width:100%; height:100% !important;'>
 				<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
 					<div class='card-body p-4'>
 						<div class='text-center'>
@@ -146,7 +151,7 @@ h5{
 		                    	<span class="item-span">[가구]</span>
 		                    </c:when>
 		                    </c:choose>
-							<h5 class='fw-bolder'>${vo.name }</h5>
+							<h5 class='fw-bolder' style="font-size:1rem;">${vo.name }</h5>
 						</div>
 					</div>
 				</div>

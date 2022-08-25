@@ -8,16 +8,12 @@
 		<div class="header-slides fade">
 			<img alt="nav-banner-3" src="<%=request.getContextPath()%>/resources/images/banner/banner-join.png" onclick='location.href="<%=request.getContextPath()%>/user/join.do"'>
 		</div>
-		<div class="header-slides fade">
-			<img alt="nav-banner-4" src="<%=request.getContextPath()%>/resources/images/banner/banner-covid2.png">
-		</div>
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
 		<div class="header-slide-dot" style="text-align: center;">
 			<span class="dot" onclick="currentSlide(1)"></span>
 			<span class="dot" onclick="currentSlide(2)"></span>
 			<span class="dot" onclick="currentSlide(3)"></span>
-			<span class="dot" onclick="currentSlide(4)"></span>
 		</div>
 	</div>
 	<script>
