@@ -186,6 +186,37 @@ table th {
 }
 </style>
 
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.item-image{
+	max-width: 100%;
+}
+table{
+	width: 100% !important;
+}
+th{
+	font-size: 3.5vw;
+}
+td{
+    height: 5vh;
+    text-align: left !important;
+}
+td>input,td>select{
+    height: 5vh !important;
+    margin: 1vh 0;
+}
+#price{
+	width: 80% !important;
+}
+
+.btnWrite_container {
+    position: inherit;
+    margin: 0 auto !important;
+}
+</style>
+</c:if>
+
+
 </head>
 <body>
 
@@ -239,7 +270,7 @@ table th {
 							<option value="1">테마배경</option>
 							<option value="2">미니룸배경</option>
 							<option value="3">캐릭터</option>
-							<option value="4">글꼴</option>
+							<option value="4">동물</option>
 							<option value="5">가구</option>
 					</select></td>
 				</tr>

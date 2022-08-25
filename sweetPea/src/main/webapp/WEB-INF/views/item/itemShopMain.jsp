@@ -316,8 +316,36 @@ function openShoppingBasket(){
 <c:if test="${device eq 'MOBILE'}">
 <style>
 .button{
-	width: 31% !important;
+	width: 31vw !important;
     margin: 2vh 1vw;
+    height: 7vh;
+    font-size: 4vw;
+    line-height: 7vh;
+}
+.button>p{
+	margin:0;
+}
+.dropbtn{
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+}
+.dropdown{
+    margin: 2vh 1vw !important;
+    width: 31vw !important;
+    height: 7vh;
+    font-size: 4vw;
+    line-height: 7vh;
+}
+.dropdown-content{
+	min-width: 31vw;
+    margin: 1vh 0;
+    font-size: 4vw;
+    top: inherit !important;
+    text-align: center;
+}
+.dropdown-content>a{
+	padding: 0;
 }
 .cartBtn{
 	background-color: #936060;
@@ -338,8 +366,29 @@ function openShoppingBasket(){
 .mb-5{
 	margin: 1vh 5vw !important;
 }
+.p-4{
+	padding: 1rem !important;
+}
+.card-footer{
+	padding-top: 0 !important;
+}
+.card-img-top{
+    height: 20vh;
+}
+.text-center{
+	font-size: 3vw;
+}
+.text-center>h5{
+	font-size: 5vw;
+	margin: 1vh 0;
+}
 
-
+.btnBox{
+	height: 80vh !important;
+}
+.btnBox>iframe {
+	height: 90% !important;
+}
 </style>	
 </c:if>
 
@@ -380,7 +429,7 @@ function openShoppingBasket(){
 	  		<a href="#" onclick="itemSubcategoryAll(1)" >　테마 배경　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(2)" >　미니룸 배경　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(3)" >　캐릭터　</a>
-	  		<a href="#" onclick="itemSubcategoryAll(4)" >　글꼴　</a>
+	  		<a href="#" onclick="itemSubcategoryAll(4)" >　동물　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(5)" >　가구　</a>
 		</div>
 	</div>
@@ -450,7 +499,7 @@ function openShoppingBasket(){
 		for(var i=0; i<data.length;i++){
 			console.log("서브카테고리 :	 "+data[i].subcategory);
 			var img = data[i].img.replace(" ", "*");
-		html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
 			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
@@ -462,7 +511,7 @@ function openShoppingBasket(){
 				}else if(data[i].subcategory == 3){
 					html +="<span class='item-span'>[캐릭터]</span>";
 				}else if(data[i].subcategory == 4){
-					html +="<span class='item-span'>[글꼴]</span>";
+					html +="<span class='item-span'>[동물]</span>";
 				}else if(data[i].subcategory == 5){
 					html +="<span class='item-span'>[가구]</span>";
 				}
@@ -517,7 +566,7 @@ function itemSelectAll(cate_){
 				}else if(data[i].subcategory == 3){
 					html +="<span class='item-span'>[캐릭터]</span>";
 				}else if(data[i].subcategory == 4){
-					html +="<span class='item-span'>[글꼴]</span>";
+					html +="<span class='item-span'>[동물]</span>";
 				}else if(data[i].subcategory == 5){
 					html +="<span class='item-span'>[가구]</span>";
 				}
@@ -568,7 +617,7 @@ function itemSubcategoryAll(subcategory_){
 				}else if(data[i].subcategory == 3){
 					html +="<span class='item-span'>[캐릭터]</span>";
 				}else if(data[i].subcategory == 4){
-					html +="<span class='item-span'>[글꼴]</span>";
+					html +="<span class='item-span'>[동물]</span>";
 				}else if(data[i].subcategory == 5){
 					html +="<span class='item-span'>[가구]</span>";
 				}
@@ -661,7 +710,7 @@ function charge(){
 						error:function(){
 							alert('내 아이템에 추가되지 않았습니다.');
 						}
-					})
+					}) 
 			   }
 			});
 	 }

@@ -248,9 +248,19 @@ function myItemAdd(){
 }
 	
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.basketItemList{
+	height: 92vh;
+    overflow-y: scroll;
+}
+</style>
+</c:if>
+
 </head>
 <body>
-	<div>
+	<div class="basketItemList">
 		<div style="text-align:right;">
 			<c:if test="${login.uidx >0 }">
 				<input type="button" class="btn btn-secondary" onclick="myItemAdd()" value="구매하기">
