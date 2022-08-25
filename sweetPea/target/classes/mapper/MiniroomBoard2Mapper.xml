@@ -76,6 +76,7 @@
 	 WHERE delyn='N'
 	  AND date(date)=#{date}
 	  AND uidx=#{uidx}
+	  AND category=1
 	 ORDER BY mbidx DESC
 </select>
  

@@ -50,7 +50,7 @@
 	 	 and b.delyn='N'
 	 	 <if test="reply != 0">
 	 		AND reply=#{reply}
-	 	</if> 
+	 	</if>  
 	 	order by bidx desc
 	 	) 
 	 	<if test="list == 1">
@@ -79,7 +79,7 @@
 <if test="category == 6">
 	SELECT * FROM (SELECT  b.uidx, b.title, CONVERT(b.content USING utf8) as content, b.category, b.datetime, b.hit, b.delyn, u.name as reportername FROM pea_board b JOIN pea_report r ON b.bidx=r.bidx JOIN pea_user u ON b.uidx=u.uidx where ridx=#{ridx}) A,
 	(SELECT u.name as trollname, r.*  FROM pea_board b JOIN pea_report r ON b.bidx=r.bidx JOIN pea_user u ON r.troll=u.uidx where ridx=#{ridx}) B,
-	(SELECT CONVERT(b.content USING utf8) as reportcontent FROM pea_board b JOIN pea_report r ON r.bidx=b.bidx WHERE ridx=#{ridx}) C
+	(SELECT CONVERT(b.content USING utf8) as reportcontent FROM pea_board b JOIN pea_report r ON r.rbidx=b.bidx WHERE ridx=#{ridx}) C
 </if>
 </select>
 

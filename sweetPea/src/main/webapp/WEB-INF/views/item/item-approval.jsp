@@ -54,12 +54,12 @@ $(function itemSelectAll(){
 	$.ajax({
 	url:"itemSelectAll.do",
 	type:"get",
-	data:{"cate":6,"category":4},
+	data:{"cate":6,"category":4,"subcategory":6},
 	success:function(data){
 		var html="";
 		for(var i=0; i<data.length;i++){
-			html +="<div class='col mb-5' style='float:left;'>";
-			html +="<div class='card h-100'>";
+			html +="<div class='col mb-5' style='float:left;width: 20%;margin: 1em; padding: 0;'>";
+			html +="<div class='card h-100' style='width:100%'>";
 			html +="<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName="+data[i].img+"'/>";
 			html +="<div class='card-body p-4'>";
 			html +="<div class='text-center'>";
