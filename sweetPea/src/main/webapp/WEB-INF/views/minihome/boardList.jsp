@@ -21,8 +21,8 @@ font-family: ${myMini.font};
 			<div class='diary-box'>
 				<div class='diary-date' id='bold-text'>
 					${board.date }<span style='float: right;'> <i class='bi-lock-fill'>비밀글&nbsp;&nbsp; </i>
-					<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i> 
-					<i class='bi-trash' onclick='deleteDiary(${board.mbidx })'></i></span>
+					<i class='bi-pencil' style="cursor:pointer;" onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i> 
+					<i class='bi-trash' style="cursor:pointer;" onclick='deleteDiary(${board.mbidx })'></i></span>
 				</div>
 				<div class='diary-text' id='basic-text'>${board.content }</div>
 			</div>
@@ -32,10 +32,10 @@ font-family: ${myMini.font};
 				<div class='diary-date' id='bold-text'>
 					${board.date }<span style='float: right;'> 
 					<c:if test="${login.uidx == mini.uidx }">
-					<i class='bi-pencil' onclick="modifydiary(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i> 
+					<i class='bi-pencil' style="cursor:pointer;" onclick="modifydiary(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i> 
 <%-- 					<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i>  
 					<a class='bi-pencil' href='<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"'></a>--%>
-					<i class='bi-trash'onclick='deleteDiary(${board.mbidx })'></i>
+					<i class='bi-trash'style="cursor:pointer;" onclick='deleteDiary(${board.mbidx })'></i>
 					</c:if>
 					</span>
 				</div>

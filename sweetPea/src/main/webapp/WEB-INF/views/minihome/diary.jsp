@@ -192,10 +192,10 @@ font-family: ${myMini.font};
 
 
 
-/* 시스템 커서 안 보이게 숨기기 */
+/* 시스템 커서 안 보이게 숨기기 
   body {
       cursor: none;
-  }
+  }*/
   /* 커스텀 커서 스타일 정의해주기 */
   .cursor {
       width: 1rem;
@@ -393,7 +393,7 @@ window.onload=()=>{
 
 </head>
 <body class="body">
-<!-- 마우스 커서 -->
+<!-- 마우스 커서 
 <div class="cursor"></div>	
 <script>
 let mouseCursor = document.querySelector(".cursor");
@@ -406,7 +406,7 @@ function cursor(e) {
   mouseCursor.style.left = e.pageX + "px";
   mouseCursor.style.top = e.pageY - scrollY + "px";
 }	
-</script>
+</script>-->
   
   
   

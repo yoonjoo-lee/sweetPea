@@ -1,10 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<c:if test="${vo.category == 1}">
+	<title>${vo.name } : 스위피 공지사항 수정</title>
+</c:if>
+<c:if test="${vo.category == 2}">
+	<title>${vo.name } : 스위피 자유게시판</title>
+</c:if>
+<c:if test="${vo.category == 3}">
+	<title>${vo.name } : 스위피 유머게시판</title>
+</c:if>
+<c:if test="${vo.category == 4}">
+	<title>${vo.name } : 스위피 FAQ</title>
+</c:if>
+<c:if test="${vo.category == 5}">
+	<title>${vo.name } : 스위피 Q&A</title>
+</c:if>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <!--  jQuery, bootstrap -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
