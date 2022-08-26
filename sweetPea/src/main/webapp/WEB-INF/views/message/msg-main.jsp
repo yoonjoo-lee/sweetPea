@@ -216,7 +216,7 @@ h3{
 		</ul>
 		<c:if test="${list.size() == 0}">
 			<ul class="content-ul">
-				<li>등록된 쪽지가 없습니다.</li>
+				<li style="width:100%">등록된 쪽지가 없습니다.</li>
 			</ul>
 		</c:if>
 		<c:if test="${list.size() > 0 }">
