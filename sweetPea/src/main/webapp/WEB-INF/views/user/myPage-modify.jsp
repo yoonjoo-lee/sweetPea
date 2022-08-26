@@ -59,6 +59,40 @@
 		margin: 0 auto;
 	}
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.inputBox{
+	width: 100%;
+    font-size: 3.5vw;
+}
+.inputIdx{
+    height: 6vh;
+}
+.inputIdx>p{
+	width: 18%;
+    text-align: right;
+    margin: 1vh 1vw;
+}
+.inputIdx>input[type=text], .inputIdx>select {
+	width: 76%;
+}
+#email,#addr{
+	width: 50%;
+}
+#mailCheckBtn,#addrBtn{
+	height: 6vh !important;
+    font-size: 3vw;
+    border: 0;
+    width: 23vw !important;
+}
+#btn{
+	width: 95%;
+    height: 6vh;
+}
+</style>
+</c:if>
+
 <script>
 var uidx = ${login.uidx};
 	$(async function(){
@@ -109,7 +143,7 @@ var uidx = ${login.uidx};
 </script>
 </head>
 <body>
-	<c:if test="${mini==0 }"><br><br><br></c:if>
+	<c:if test="${mini==0 && device eq 'PC'}"><br><br></c:if>
 	<div class="afterCheckBox">
 		<c:if test="${mini==0 }"><img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img"></c:if>
 		<h4>회원 정보 수정</h4>
@@ -155,7 +189,7 @@ var uidx = ${login.uidx};
 			<div class = "inputIdx">
 				<p>주소 :</p>
 				<input type="text" name="addr" id="addr" value="${vo.addr}">
-				<input type="button" style="height: 2.2em" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+				<input type="button" id="addrBtn" style="height: 2.2em" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 			</div>
 				<input type="button" onclick="change()" id="btn" value="변경" disabled="disabled">
 		</div>

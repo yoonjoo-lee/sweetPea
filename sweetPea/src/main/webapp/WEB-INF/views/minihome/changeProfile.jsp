@@ -8,30 +8,66 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<style>
+body{
+font-family: ${myMini.font};
+}
+
+.photo_box{margin:0 auto ;max-width:500px;} 
+.upload_btn{overflow:hidden;width:100%;margin-top:40px;}
+.upload_btn #photoBtn{display:none;}
+.upload_btn .upload, .upload_btn a{float:left;width:100%;text-align:center;text-decoration: none;color:#fff;padding:15px 0;}
+/* .upload_btn .upload, .upload_btn a{float:left;width:calc(50% - 10px);text-align:center;text-decoration: none;color:#fff;padding:15px 0;} */
+.upload_btn .upload{background-color:steelblue;} 
+.upload_btn a{margin-left:20px; background:#ccc;}
+.photo_them{position:relative;margin-top:0px;width:100%;height:250px;background:#eee;}
+.them_img, .result_box{position:absolute;top:0;left:0;width:100%;height:100%;}
+.result_box{background:#fff;}
+.them_img img, .result_box img{display:block;margin:0 auto;height:100%;}
+#complete{display:block;margin-top:0px;padding:15px 0;width:100%;text-align:center;color:#fff;text-decoration: none;background-color: steelblue;}
+</style>
 </head>
 <body>
 
-<h3>프로필 변경하귀</h3>
-<form action="changeProfile.do" method="post" enctype="multipart/form-data">
-	<table style="text-align: center;">
-		<tr>
-			<td><img class="profile-image" name="newImg" id="newImg"></td>
-		</tr>
-		<tr>
-			<td colspan=2><input id="input_img" type="file" name="file" accept="image/jpeg, image/png, image/gif"> <label class="btn btn-success" for="input_img">사진 업로드</label> <input type="submit" class="btn btn-success" id="btn" value="업로드" disabled="disabled"></td>
-		</tr>
-	</table>
+<br><h3 style="text-align:center;">프로필 변경하기</h3>
+
+	
+	<form action="changeProfile.do" method="post" enctype="multipart/form-data">
+	
+	<div class="photo_box">
+	  <div class="upload_btn">
+	    <div class="upload">
+	   		<input id="photoBtn" type="file" name="file" accept="image/jpeg, image/png, image/gif"> <label for="photoBtn">사진 업로드</label>
+	    </div>
+	  	<!-- <a href="javascript:void(0);" id="resetPhoto">다시 올리기</a> -->
+	  </div>
+	  <div class="photo_them">
+	    <div class="them_img">
+	    	<img class="profile-image" name="newImg" id="newImg">
+	    </div>
+	  </div>
+	  <div class="form-floating">
+	</div>
+	   <input type="submit" class="btn btn-success"  id="complete" value="업로드" disabled="disabled">
+	   
+	</div>
+	
+
 
 	<script>
-		$("#input_img").on("change", function(event) {
+		$("#photoBtn").on("change", function(event) {
 			var file = event.target.files[0];
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				$("#newImg").attr("src", e.target.result);
-				$('#btn').attr('disabled', false);
+				$('#complete').attr('disabled', false);
 			}
 			reader.readAsDataURL(file);
 		});
+		
 	</script>
 </form>
 </body>

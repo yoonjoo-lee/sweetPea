@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,6 +151,23 @@ body .dribbble img {
 }
 
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+body{
+	display: inherit !important;
+}
+a{
+    width: 80%;
+    margin: 5vh auto !important;
+}
+a>div{
+	width: 82%;
+    margin: 0 auto;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 

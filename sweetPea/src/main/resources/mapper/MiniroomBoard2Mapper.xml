@@ -87,7 +87,7 @@
 	WHERE mbidx=#{mbidx}
 </update>
 
-<!-- 글 수정 -->
+<!-- 글 수정(다이어리, 방명록) -->
 <update id="modify" parameterType="MiniroomBoardVo">
 	UPDATE pea_minihome_board
 	 SET title=#{title}
@@ -95,6 +95,13 @@
 	 	,secret=#{secret}
 	WHERE mbidx=#{mbidx}
 </update>
+
+<!-- 사진첩 각 글 불러오기(for 수정페이지) -->
+<select id="viewPhoto" parameterType="int" resultType="MiniroomBoardVo">
+	SELECT * 
+	FROM pea_minihome_board
+	WHERE mbidx=#{mbidx} 
+</select>
 
 <!-- 프로필 변경 -->
 <update id="changeProfile" parameterType="MiniroomBoardVo">

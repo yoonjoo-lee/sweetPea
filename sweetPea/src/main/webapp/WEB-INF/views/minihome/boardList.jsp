@@ -20,7 +20,7 @@ font-family: ${myMini.font};
 		<c:if test="${board.secret=='Y' && login.uidx == mini.uidx}">
 			<div class='diary-box'>
 				<div class='diary-date' id='bold-text'>
-					<i class='bi-lock-fill'>비밀이야 </i>${board.date }<span style='float: right;'> 
+					${board.date }<span style='float: right;'> <i class='bi-lock-fill'>비밀글&nbsp;&nbsp; </i>
 					<i class='bi-pencil' onclick='location.href=`<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+data[i].mbidx+"&title="+data[i].title+"&content="+data[i].content+"`'></i> 
 					<i class='bi-trash' onclick='deleteDiary(${board.mbidx })'></i></span>
 				</div>

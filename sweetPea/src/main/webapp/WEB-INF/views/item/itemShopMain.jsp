@@ -316,8 +316,36 @@ function openShoppingBasket(){
 <c:if test="${device eq 'MOBILE'}">
 <style>
 .button{
-	width: 31% !important;
+	width: 31vw !important;
     margin: 2vh 1vw;
+    height: 7vh;
+    font-size: 4vw;
+    line-height: 7vh;
+}
+.button>p{
+	margin:0;
+}
+.dropbtn{
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+}
+.dropdown{
+    margin: 2vh 1vw !important;
+    width: 31vw !important;
+    height: 7vh;
+    font-size: 4vw;
+    line-height: 7vh;
+}
+.dropdown-content{
+	min-width: 31vw;
+    margin: 1vh 0;
+    font-size: 4vw;
+    top: inherit !important;
+    text-align: center;
+}
+.dropdown-content>a{
+	padding: 0;
 }
 .cartBtn{
 	background-color: #936060;
@@ -337,6 +365,29 @@ function openShoppingBasket(){
 }
 .mb-5{
 	margin: 1vh 5vw !important;
+}
+.p-4{
+	padding: 1rem !important;
+}
+.card-footer{
+	padding-top: 0 !important;
+}
+.card-img-top{
+    height: 20vh;
+}
+.text-center{
+	font-size: 3vw;
+}
+.text-center>h5{
+	font-size: 5vw;
+	margin: 1vh 0;
+}
+
+.btnBox{
+	height: 80vh !important;
+}
+.btnBox>iframe {
+	height: 90% !important;
 }
 
 </style>	

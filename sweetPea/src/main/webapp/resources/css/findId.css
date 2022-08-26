@@ -1,9 +1,13 @@
 @charset "UTF-8";
 
-.box{
-	width: 25%;
+#view{
+	width: 1300px;
 	margin: 0 auto;
-	margin-bottom: 15em;
+	margin-bottom: 220px;
+}
+.box{
+	width: 30%;
+	margin: 0 auto;
 }
 .afterBox{
 	display: none;
@@ -20,10 +24,20 @@
 h3{font-size: 1.5em;}
 h4{font-size: 1em;}
 input{
-	width: 60%;
+	width: 100%;
 	height: 2.5em;
 	margin: 0.8em 0 ;
-	
+}
+#email{
+	width: 65%;
+}
+#mailCheckBtn{
+    height: 2.5em;
+    margin: 1em 0;
+    font-size: 0.8em;
+    margin-left: 3%;
+    border: 0;
+    width: 30%;
 }
 #mail-check-warn{
 	font-size: 0.8em;

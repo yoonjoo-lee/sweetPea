@@ -6,8 +6,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<c:if test="${searchVo.category == 1}">
+	<title>공지게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 2}">
+	<title>자유게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 3}">
+	<title>유머게시판</title>
+</c:if>
+<c:if test="${searchVo.category == 4}">
+	<title>자주묻는질문</title>
+</c:if>
+<c:if test="${searchVo.category == 5}">
+	<title>질의응답</title>
+</c:if>
+<c:if test="${searchVo.category == 6}">
+	<title>신고관리</title>
+</c:if>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -163,6 +180,12 @@ a {
 .button:active { /*Clicked and held*/
   box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
 }
+
+.listLookUp{
+	font-size: 1em;
+	float: right;
+	margin: 1em;
+}
 </style>
 
 <c:if test="${device eq 'MOBILE'}">
@@ -193,6 +216,16 @@ th,h2{
 .btn-secondary{
 	width: 18vw !important;
 	margin-left: 2vw;
+}
+
+.listLookUp{
+	font-size: 3vw;
+	float: right;
+	margin: 1vh 3vw;
+}
+.btn-write{
+	width: 22vw !important;
+    margin: 1vh 1vw;
 }
 </style>
 </c:if>
@@ -284,7 +317,9 @@ th,h2{
 </c:if>
 <br><br>
 
-<span style="font-size: 3vw; float: right; margin: 1vh 3vw;">총 ${list.size()}건이 조회되었습니다.</span>
+
+<span class= "listLookUp">총 ${list.size()}건이 조회되었습니다.</span>
+
 <!-- 리스트 테이블 -->
 <table>
 		<thead>
@@ -355,13 +390,11 @@ th,h2{
 		</tbody>
 </table>
 
-<br>
-
 <!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
 <c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
-<button style="float:right" class="btn btn-secondary" onclick="location.href='write.do?category=${category }'">작성하기</button>
+<button style="float:right" class="btn btn-secondary btn-write" onclick="location.href='write.do?category=${category }'">작성하기</button>
 </c:if>
-<br>
+<br><br>
 <!-- 페이징 -->
 <c:if test="${category ne 6 }">
 <div>

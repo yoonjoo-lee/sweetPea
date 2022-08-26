@@ -98,6 +98,16 @@ function changePwd(){
 	
 }
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.afterCheckBox{
+	width: 100%;
+    font-size: 3.5vw;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 <br><br><br>
