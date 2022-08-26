@@ -14,6 +14,20 @@ public class UserDao {
 	
 	private static final String namespace = "pea.board.mapper.UserMapper";
 	
+	
+	public UserVo selectId(UserVo vo) {
+		
+		return sqlSession.selectOne(namespace+".selectId",vo);
+	}
+	
+	public UserVo selectMy(UserVo vo) {
+		
+		return sqlSession.selectOne(namespace+".selectMy",vo);
+	}
+	
+	
+	
+	
 	public UserVo login(UserVo vo) {
 		return sqlSession.selectOne(namespace+".login",vo);
 	}

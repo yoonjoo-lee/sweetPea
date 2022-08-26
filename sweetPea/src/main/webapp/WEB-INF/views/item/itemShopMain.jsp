@@ -236,7 +236,7 @@ ul {
     margin: 0 auto;
 }
 h5{
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .dealImg{
@@ -389,6 +389,7 @@ function openShoppingBasket(){
 .btnBox>iframe {
 	height: 90% !important;
 }
+
 </style>	
 </c:if>
 
@@ -426,6 +427,7 @@ function openShoppingBasket(){
 	<div style="float: left; width: 15%; margin-left: 5px;" class=" dropdown">
 		<button class="dropbtn button" style="width:100%;">아이템 종류 </button>
 		<div class="dropdown-content" style="top:75px;" >
+			<a href="#" onclick="itemSubcategoryAll(6)" >　전체　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(1)" >　테마 배경　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(2)" >　미니룸 배경　</a>
 	  		<a href="#" onclick="itemSubcategoryAll(3)" >　캐릭터　</a>
