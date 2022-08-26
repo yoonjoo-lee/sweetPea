@@ -607,7 +607,7 @@ function getCommentList(){
               		html += "<li><div class='comment-main-level'>";
       				html += "<div class='comment-avatar'><img src="+data[i].profile+" alt=''></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'>" + data[i].writer + "</h6>";
-       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
+       				html += "<span>"+data[i].datetime+"</span>";
        				if (uidx != null){
 	       				if (data[i].depth==1){
 	       					html += "<div onClick='commentInComment(" + data[i].cidx + "," + data[i].origincidx + ", \"" + data[i].writer + "\", \"" + data[i].content + "\", \""+data[i].datetime+"\", \""+data[i].profile+"\")'><i class='fa fa-reply' ></i></div>";
@@ -630,7 +630,7 @@ function getCommentList(){
                 	else{
        				html += "<ul class='comments-list reply-list'><li><div class='comment-avatar'><img src="+data[i].profile+"></div>";
        				html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name'>" + data[i].writer + "</h6>";
-       				html += "<span>"+data[i].datetime+"</span><i class='fa fa-heart'></i>";
+       				html += "<span>"+data[i].datetime+"</span>";
        				
        				if (uidx != null){
 	       				if (data[i].depth==1){
@@ -760,7 +760,7 @@ function editComment(cidx, writer, content){
   		html += "<li><div class='comment-main-level'>";
 		html += "<div class='comment-avatar'><img src="+profile+"></div>";
 		html += "<div class='comment-box'><div class='comment-head'><h6 class='comment-name by-author'>" + writer + "</h6>";
-		html += "<span>"+datetime+"</span><i class='fa fa-heart'></i>";
+		html += "<span>"+datetime+"</span>";
 		html += "</div><div class='comment-content'>";
 		html += content+"</div></div>";
 		html += "</div></div>";

@@ -39,7 +39,7 @@
 
 <form action="photoAlbumUpload.do" method="post" enctype="multipart/form-data">
 <div class="photo_box">
-	<div class="upload_btn">
+	<div class="upload_btn" style="cursor:pointer">
 		<div class="upload">
 			<input id="input_img" multiple="multiple" type="file" name="file" accept="image/jpeg, image/png, image/gif"> 
 			<label for="input_img">사진 업로드</label>
@@ -52,9 +52,9 @@
 	</div>
 	<div class="form-floating">
 		<textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="title"></textarea>
-		<label for="floatingTextarea">제목</label>비밀글<input type="checkbox" name="secret" value="Y">
+		<label for="floatingTextarea">제목</label>비밀글<input type="checkbox" name="secret" value="Y" style="cursor:pointer">
 	</div>
-	<input type="submit" class="btn btn-success" id="complete" value="업로드" disabled="disabled">
+	<input type="submit" class="btn btn-success" id="complete" value="업로드" disabled="disabled" style="cursor:pointer">
 </div>
 <input type="hidden" name="category" value=${category }>
 
