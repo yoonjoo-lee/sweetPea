@@ -126,7 +126,7 @@
   </a>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <li><a class="dropdown-item" onclick="openMini(${vo.uidx})">미니홈피</a></li>
-    <li><a class="dropdown-item" href="#">선물하기</a></li>
+    <!-- <li><a class="dropdown-item" href="#">선물하기</a></li> -->
   </ul>
 &nbsp ${vo.datetime }</div>
 </div>

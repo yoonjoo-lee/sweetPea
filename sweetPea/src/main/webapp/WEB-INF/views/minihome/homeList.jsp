@@ -7,6 +7,9 @@
 <style>
 .list-box {
     margin: 1vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
 <!-- 글 -->

@@ -237,7 +237,7 @@ public class MainBoardController {
 	//
 	//
 	/* 댓글 */
-	//
+	// 
 	//
 	// 보드 댓글 작성 ajax
 	@ResponseBody
@@ -250,7 +250,8 @@ public class MainBoardController {
 		vo.setUidx(login.getUidx());
 		String ip = InetAddress.getLocalHost().getHostAddress();
 		vo.setIp(ip);
-		System.out.println("댓글 달기 커멘트"+vo.getContent());
+		System.out.println("댓글 달기 커멘트: "+vo.getContent());
+		System.out.println("댓글 달기 bidx: "+vo.getBidx());
 
 		mainboardService.writeReply(vo);
 
