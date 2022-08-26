@@ -29,6 +29,7 @@
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
 		 from pea_board b, pea_user u
+		 , (SELECT @rownum:=0) tmp
 		where b.uidx=u.uidx
 		</if>
 		<if test="category == 6">
@@ -39,7 +40,7 @@
 		</if>
 		 
 		and category=#{category}
-		and (@rownum:=0)=0
+		<!-- and (@rownum:=0)=0 -->
 		<if test='searchType != null and searchType.equals("title")'>
 	 		AND b.title like concat('%',#{searchValue},'%')
 	 	</if>
@@ -54,11 +55,11 @@
 	 	order by bidx desc
 	 	) 
 	 	<if test="list == 1">
-	 		A  WHERE rn LIMIT 5;
+	 		A  WHERE rn LIMIT 5
 	 	</if>
 	 	<if test="list != 1">
-	 		A  WHERE rn BETWEEN #{start} AND #{end};
-	 	</if>
+	 		A  WHERE rn BETWEEN #{start} AND #{end}
+	 	</if> 
 </select>
 
 <!-- 페이징을 위한 총 글의 개수 구하기 -->
