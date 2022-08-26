@@ -48,16 +48,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/login.do", method=RequestMethod.POST)
-	public void login(UserVo vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
-		UserVo user = userService.login(vo);
+	public void login(String pwd,UserVo vo,HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 		
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html;charset=utf-8");
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
+		UserVo id = userService.selectId(vo);
+		UserVo user = userService.login(vo);
+		System.out.println("selectId 로 들어오는 값은? : "+id.getPwd());
 		
-		
-		
-		if(user != null) {
+		if(user != null && encoder.matches(pwd, id.getPwd())) {
 			session = request.getSession();
 			
 			
@@ -76,9 +77,13 @@ public class UserController {
 			int total = miniroomBoardService.visitTotal(login.getUidx());
 			int today = miniroomBoardService.visitToday(login.getUidx());
 			
+			// 자동 로그아웃 시간 20분 
+			session.setMaxInactiveInterval(1200);
+			// 
 			session.setAttribute("total", total);
 			session.setAttribute("today", today);
 			session.setAttribute("login", login);
+			
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush();
 			/* return "redirect:/"; */
@@ -245,7 +250,9 @@ public class UserController {
 	public void changePwd(int uidx, String pwd, HttpServletResponse response) throws IOException {
 		UserVo vo = new UserVo();
 		vo.setUidx(uidx);
-		vo.setPwd(pwd);
+		
+		String encodePwd = passwordEncoder.encode(pwd);
+		vo.setPwd(encodePwd);
 		
 		int value = userService.changePwd(vo);
 		response.setContentType("text/html;charset=utf-8");
@@ -290,6 +297,7 @@ public class UserController {
 	public String modifyIdx(int uidx, String mini, Model model) {
 		UserVo vo = userService.userIdx(uidx);
 		
+		
 		int mini_ = 0;
 		if(mini != null) {
 			mini_ = Integer.parseInt(mini);
@@ -302,12 +310,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/myPage-modify.do", method=RequestMethod.POST)
-	public void modifyIdx(UserVo vo, HttpServletResponse response) throws IOException {
+	public void modifyIdx(String password,UserVo vo, HttpServletResponse response) throws IOException {
 		int result = userService.idxModify(vo);
+		
 		
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
-		if(result == 1) {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
+		UserVo pwd = userService.selectId(vo);
+		
+		
+		if(encoder.matches(password, pwd.getPwd())) {
 			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
 			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
 			pw.append("<script>"
@@ -341,13 +355,49 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/user/pwdCheck.do", produces = "application/json;charset=utf8")
+	@RequestMapping(value="/user/pwdCheck1.do", produces = "application/json;charset=utf8")
 	public int pwdCheck(int uidx, String pwd) {
+		
 		UserVo vo = new UserVo();
+		
 		vo.setUidx(uidx);
 		vo.setPwd(pwd);
 		return userService.pwdCheck(vo);
 	}
+	
+	/* 비번 체크 */
+	
+	@ResponseBody
+	@RequestMapping(value="/user/pwdCheck.do", produces = "application/json;charset=utf8")
+	public int pwdCheck(int uidx, String pwd,HttpServletResponse response) throws IOException {
+		System.out.println("비밀번호 체크 들어옴.");
+		UserVo vo = new UserVo();
+		response.setContentType("text/html;charset=utf-8");
+//		PrintWriter pw = response.getWriter();
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
+		vo.setUidx(uidx);
+		
+		UserVo pwd_ = userService.selectMy(vo);
+		System.out.println(uidx);
+		System.out.println("비밀번호 : "+pwd);
+		System.out.println("selectId 로 들어오는 값은? : "+pwd_.getPwd());
+		System.out.println("복호화 비밀번호 : "+encoder.matches(pwd, pwd_.getPwd()));
+		
+		if(encoder.matches(pwd, pwd_.getPwd())) {
+			
+			vo.setUidx(uidx);
+			vo.setPwd(pwd);
+			
+//			pw.append("<script>location.href= 'myPage-midify.do'</script>");
+//			pw.flush();
+			return 1;
+			
+		}
+		return 0;
+	}
+	
+	
 	
 	@RequestMapping(value="/user/myPage-del.do", method=RequestMethod.GET)
 	public String delIdCheck() {

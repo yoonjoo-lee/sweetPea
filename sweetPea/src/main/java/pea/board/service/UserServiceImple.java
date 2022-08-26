@@ -76,4 +76,14 @@ public class UserServiceImple implements UserService{
 		return userDao.profileUpload(vo);
 	}
 
+	@Override
+	public UserVo selectId(UserVo vo) {
+		return userDao.selectId(vo);
+	}
+
+	@Override
+	public UserVo selectMy(UserVo vo) {
+		return userDao.selectMy(vo);
+	}
+
 }

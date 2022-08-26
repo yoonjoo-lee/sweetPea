@@ -60,6 +60,7 @@
 	}
 </style>
 <script>
+var uidx = ${login.uidx};
 	$(async function(){
 		let {value:password} = await Swal.fire({
 			title: '비밀번호 확인',
@@ -74,9 +75,11 @@
 			  position: 'top'
 		});
 		let pwd = password;
+		
+		console.log("비밀번호 찾기 uidx", uidx);
 		$.ajax({
 			type : 'get',
-			url : "<%=request.getContextPath()%>/user/pwdCheck.do?uidx="+${login.uidx}+"&pwd="+pwd,
+			url : '<%=request.getContextPath()%>/user/pwdCheck.do?uidx='+uidx+'&pwd='+pwd,
 			success : async function (data) {
 				if(data==0){
 					await Swal.fire({

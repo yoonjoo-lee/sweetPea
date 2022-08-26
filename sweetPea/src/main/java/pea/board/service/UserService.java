@@ -15,4 +15,7 @@ public interface UserService {
 	int userEmailCheck(UserVo vo);
 	int idxModify(UserVo vo);
 	int profileUpload(UserVo vo);
+	
+	UserVo selectId(UserVo vo);
+	UserVo selectMy(UserVo vo);
 }

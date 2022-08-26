@@ -5,11 +5,24 @@
  
 <mapper namespace="pea.board.mapper.UserMapper">
 
+	<!-- 로그인 시 아이디에 해당하는 비밀번호 가져오기  -->
+	<select id="selectId" parameterType="userVo" resultType="userVo">
+		SELECT pwd 
+			FROM pea_user 
+			WHERE id=#{id}
+			AND delyn ='N'
+	</select>
+	<select id="selectMy" parameterType="userVo" resultType="userVo">
+		SELECT pwd 
+			FROM pea_user 
+			WHERE uidx=#{uidx}
+			AND delyn ='N'
+	</select>
+
 	<select id="login" parameterType="userVo" resultType="userVo">
 		SELECT *
 		  FROM pea_user
 		 WHERE id = #{id}
-		   AND pwd = #{pwd}
 		   AND delyn = 'N'
 	</select>
 	
