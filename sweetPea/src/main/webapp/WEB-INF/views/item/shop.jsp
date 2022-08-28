@@ -4,7 +4,8 @@
 <%@ page session="true" %>
 <html>
 <head>
-<title>SweetPea[아이템상점]</title>
+<title>아이템상점</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
