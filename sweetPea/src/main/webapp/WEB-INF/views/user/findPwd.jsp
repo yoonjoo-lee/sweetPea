@@ -10,6 +10,7 @@
 
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
 <script>
 	$(function(){
 		$("#header").load("<%= request.getContextPath()%>/resources/article/header.jsp");
@@ -110,9 +111,6 @@
 }
 .afterBox{
 	width: 90%;
-}
-.afterBox input {
-    float: right;
 }
 </style>
 

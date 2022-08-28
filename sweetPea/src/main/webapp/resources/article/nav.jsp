@@ -61,7 +61,9 @@ div.banner{
 		<div class="loginBox">
 			<!-- 로그인 상태 -->
 			<c:if test="${login != null}">
-				<img class="profile" src = "${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
+				<div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" style="background-image: url('${login.profile}');">
+				<img src="<%=request.getContextPath()%>/resources/images/setting.png" style="width: 15px; position: absolute; top: 7px; right: 7px;">
+				</div>
 				<div class="login-center">
 					<span>${login.name}님</span>
 					<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">

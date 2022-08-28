@@ -89,13 +89,20 @@ $(function(){
 }
 
 .profile {
+    width: 110px;
 	height: 110px;
     border: 0;
-    border-radius: 110px;
+    border-radius: 100%;
     width: 110px;
     margin-left: 3%;
     vertical-align: bottom;
     float: left;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
 }
 
 .login-bottom>input {
@@ -240,7 +247,9 @@ $(function(){
 				<span>${login.name}님</span> <input type="button" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
 			</div>
 			<div class="login-center">
-				<img class="profile" src="${login.profile }" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" />
+				<div class="profile" onclick="location.href='<%=request.getContextPath()%>/user/myPage.do'" style="background-image: url('${login.profile}');">
+				<img src="<%=request.getContextPath()%>/resources/images/setting.png" style="width: 15px; position: absolute; top: 7px; right: 7px;">
+				</div>
 
 				<div class="info">
 					<ul>

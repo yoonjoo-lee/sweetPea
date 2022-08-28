@@ -653,12 +653,23 @@ function addCart(uiidx){
 /* 결제/충전 홈페이지로 이동 */
 function charge(){
 	window.parent.location.href="<%=request.getContextPath()%>/user/charge.do";
-	
+}
+/* 로그인 페이지로 이동 */
+function login(){
+	window.parent.location.href="<%=request.getContextPath()%>/user/login.do";
 }
 
  /* 아이템 구매  */
  async function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
+	 if(!uidx){
+		 await Swal.fire({
+			 title: '로그인 후 이용가능합니다',
+			 icon: 'error',
+			 footer: '<a href="#" onclick="login()">로그인 하러가기</a>',
+		 });
+		 return;
+	 }
 	 var img = img.replace("*", " ");
 	 console.log(img);
 	 if ('${login.pea_amount}'<price){
@@ -721,6 +732,14 @@ function charge(){
  async function itemShoppingAdd(iidx){
 	 console.log('itemShoppgAdd');
 	 var uidx = '${login.uidx}';
+	 if(!uidx){
+		 await Swal.fire({
+			 title: '로그인 후 이용가능합니다',
+			 icon: 'error',
+			 footer: '<a href="#" onclick="login()">로그인 하러가기</a>',
+		 });
+		 return;
+	 }
 	$.ajax({
 		url:"itemShoppingAdd.do",
 		type:"get",

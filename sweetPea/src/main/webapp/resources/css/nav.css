@@ -20,6 +20,7 @@
 		border: 0;
 		background-color: #e3e3e3;
     	border-radius: 5px;
+    	position: relative;
 	}
 	div.banner{
 		width: 920px;
@@ -115,9 +116,15 @@
     width: 110px;
 	height: 110px;
     border: 0;
-    border-radius: 110px;
+    border-radius: 100%;
     margin: 10px 10px;
     float: left;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
 }
 .info{
 	width: 100%;

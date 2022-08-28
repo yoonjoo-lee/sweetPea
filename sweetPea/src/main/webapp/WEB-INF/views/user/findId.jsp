@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>SweetPea</title>
 <link href="<%=request.getContextPath()%>/resources/css/findId.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/resources/css/nav.css" rel="stylesheet"/>
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>

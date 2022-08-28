@@ -66,8 +66,16 @@
 
 <script>
 /* 아이템 구매  */
-function myItemAdd(iidx,price,name,img){
+async function myItemAdd(iidx,price,name,img){
 	 var uidx = '${login.uidx}';
+	 if(!uidx){
+		 await Swal.fire({
+			 title: '로그인 후 이용가능합니다',
+			 icon: 'error',
+			 footer: '<a href="<%=request.getContextPath()%>/user/login.do">로그인 하러가기</a>',
+		 });
+		 return;
+	 }
 	 if ('${login.pea_amount}'<price){
 		 Swal.fire({
 				text : '보유하신 완두콩 갯수가 부족합니다.',
@@ -124,6 +132,14 @@ function myItemAdd(iidx,price,name,img){
 /* 장바구니 리스트 추가  */
 async function itemShoppingAdd(iidx){
 	var uidx = '${login.uidx}';
+	if(!uidx){
+		 await Swal.fire({
+			 title: '로그인 후 이용가능합니다',
+			 icon: 'error',
+			 footer: '<a href="<%=request.getContextPath()%>/user/login.do">로그인 하러가기</a>',
+		 });
+		 return;
+	 }
 	$.ajax({
 		url:"item/itemShoppingAdd.do",
 		type:"get",
