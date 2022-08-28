@@ -55,9 +55,23 @@ public class UserController {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
 		UserVo id = userService.selectId(vo);
+		if(id == null) {
+			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
+			pw.append("<script>"
+					+ "$(async function(){"
+					+ "await Swal.fire({"
+					+ "icon: 'error',"
+					+ "title: '로그인 실패',"
+					+ "text: '아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다',"
+					+ "position: 'top'"
+					+ "});"
+					+ "location.href='login.do'})</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+			pw.flush();
+			return;
+		}
 		UserVo user = userService.login(vo);
 		System.out.println("selectId 로 들어오는 값은? : "+id.getPwd());
-		
 		if(user != null && encoder.matches(pwd, id.getPwd())) {
 			session = request.getSession();
 			
