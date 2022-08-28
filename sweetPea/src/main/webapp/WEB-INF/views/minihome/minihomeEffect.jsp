@@ -94,7 +94,12 @@ font-family: ${myMini.font};
 </style>
 </head>
 <body>
-<h3>배경</h3>
+<h3>아이템</h3>
+<c:if test="${list.size()==0 }">
+보유한 아이템이 없어요:(
+</c:if>
+
+
 <c:forEach var="item" items="${list }">
 <div style='float:left; width:210px;'>
 <b style='color:grey;'>${item.name }</b>
