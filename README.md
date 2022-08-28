@@ -37,8 +37,8 @@
 <li>CSS/HTML</li>
 <li>Javascript</li>
 <li>Java</li>
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Java-61DAFB?style=flat&logo=Java&logoColor=white"/>
+<p><img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/></p>
+<p><img src="https://img.shields.io/badge/Java-61DAFB?style=flat&logo=Java&logoColor=white"/></p>
 
 
 <h2>사용 라이브러리</h2>
