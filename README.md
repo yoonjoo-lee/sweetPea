@@ -33,10 +33,22 @@
 - 아이템 승인
 
 
-사용한 언어
+사용 언어
 - CSS/HTML
-- JAVASCRIPT
-- JAVA ![image](https://user-images.githubusercontent.com/60373051/187061680-d1232a35-4dc2-441d-8044-80e6a2fde7dc.png)
+- Javascript
+- Java
+![image](https://user-images.githubusercontent.com/60373051/187061956-3319aed9-ef44-42a4-af29-a73915719000.png)
+
+
+사용 라이브러리
+- JSTL
+- Jquery
+- Tagiry(해쉬태그)
+- Sweet Alert2(알림창)
+
+사용 오픈소스
+- Summer Note(에디터)
+- Cropper(사진 크기 조절)
 
 
 사용한 API
