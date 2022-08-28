@@ -40,9 +40,7 @@
 <p><img src="https://img.shields.io/badge/React-F05138?style=flat-square&logo=React&logoColor=white"/></p>
 <p><img src="https://img.shields.io/badge/Java-61DAFB?style=flat-square&logo=Java&logoColor=white"/></p>
 <p>
-  <img src="https://img.shields.io/badge/Swift-F05138?style=flat-square&logo=Swift&logoColor=white"/>
-</p>
-<p>
+  <img src="https://img.shields.io/badge/Css-F05138?style=flat-square&logo=css&logoColor=white"/>
   <img src="https://img.shields.io/badge/JavaScript-F05138?style=flat-square&logo=JavaScript&logoColor=white"/>
 </p>
 
