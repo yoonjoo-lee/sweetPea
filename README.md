@@ -42,6 +42,7 @@
 <p>
   <img src="https://img.shields.io/badge/Java-F05138?style=flat&logo=Java&logoColor=white"/>
   <img src="https://img.shields.io/badge/CSS-F05138?style=flat&logo=CSS&logoColor=white"/>
+  <img src="https://img.shields.io/badge/HTML-blue?style=flat&logo=HTML&logoColor=white"/>
   <img src="https://img.shields.io/badge/JavaScript-F05138?style=flat&logo=JavaScript&logoColor=white"/>
 </p>
 
