@@ -29,18 +29,19 @@
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
 		 from pea_board b, pea_user u
-		 , (SELECT @rownum:=0) tmp
+		, (SELECT @rownum:=0) tmp
 		where b.uidx=u.uidx
 		</if>
-		<if test="category == 6">
+		<if test="category == 6"> 
 		SELECT  A.bidx, A.uidx, A.title, CONVERT(A.content USING utf8) as content,A.category, A.datetime, A.hit, A.ridx, A.report, A.reply, A.troll
 		FROM (select @rownum:=@rownum+1 as rn,b.*,r.ridx, r.report,r.reply, r.troll
-		from pea_board b,pea_report r 
+		from pea_board b,pea_report r
+		, (SELECT @rownum:=0) tmp  
 		where b.bidx=r.bidx
 		</if>
 		 
 		and category=#{category}
-		<!-- and (@rownum:=0)=0 -->
+		<!--  and (@rownum:=0)=0 -->
 		<if test='searchType != null and searchType.equals("title")'>
 	 		AND b.title like concat('%',#{searchValue},'%')
 	 	</if>

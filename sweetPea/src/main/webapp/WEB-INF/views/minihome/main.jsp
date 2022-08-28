@@ -509,17 +509,15 @@ function noSpace(e){
 			<br>
 			<!-- 프로필 사진 -->
 			<c:if test="${mini.miniProfile == null}">
-
-				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
-
+				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)" style="cursor:pointer">
 			</c:if>
 			<c:if test="${mini.miniProfile != null}">
-				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)" style="cursor:pointer">
 			</c:if>
 			
 			<div id="left-boardBox">
 				<c:if test="${mini.uidx == login.uidx}">
-				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">
+				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()" style="cursor:pointer">
 				</c:if>
 				<br>
 				<div id="left-board-content">
@@ -578,8 +576,8 @@ function noSpace(e){
 
 </c:if> --%>
 <!-- 내 미니홈피 가기  -->
-<button style="top:0;right:0;margin:2vh;position:absolute" onclick="myMini(${login.uidx})">
-<img style="height:20px;width:20px;"src="<%=request.getContextPath()%>/resources/icon/home.png"></button>
+<button style="top:0;right:0;margin:2vh;position:absolute;cursor:pointer;" onclick="myMini(${login.uidx})">
+<img style="height:20px;width:20px;"src="<%=request.getContextPath()%>/resources/icon/home.png" ></button>
 <script>
 //내 미니홈피 가기 
 function myMini(writer){
