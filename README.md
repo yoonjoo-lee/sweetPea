@@ -37,13 +37,11 @@
 <li>CSS/HTML</li>
 <li>Javascript</li>
 <li>Java</li>
-<p><img src="https://img.shields.io/badge/React-F05138?style=flat-square&logo=React&logoColor=white"/></p>
-<p><img src="https://img.shields.io/badge/Java-61DAFB?style=flat-square&logo=Java&logoColor=white"/></p>
 <p>
-  <img src="https://img.shields.io/badge/Java-F05138?style=flat&logo=Java&logoColor=white"/>
   <img src="https://img.shields.io/badge/CSS3-yellow?style=flat&logo=CSS3&logoColor=white"/>
-  <img src="https://img.shields.io/badge/HTML5-blue?style=flat&logo=HTML5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/HTML5-green?style=flat&logo=HTML5&logoColor=white"/>
   <img src="https://img.shields.io/badge/JavaScript-F05138?style=flat&logo=JavaScript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Java-blue?style=flat&logo=Java&logoColor=white"/>
 </p>
 
 <h2>사용 라이브러리</h2>
