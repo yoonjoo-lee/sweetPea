@@ -21,6 +21,9 @@ font-family: MabinogiClassicR;
 .HBIOS-SYS{
 font-family: HBIOS-SYS;
 }
+.MYYeongnamnu{
+font-family: MYYeongnamnu;
+}
 div{
  float:left; 
  width:210px;
@@ -62,6 +65,11 @@ height:120px;
 HBIOS-SYS
 <textarea>내 취향을 알면 휘둘리지 않아 </textarea>
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=HBIOS-SYS&category=4'">변경</button><br> 
+</div> 
+<div class="MYYeongnamnu">
+밀양영남루체
+<textarea>월요일은 피곤할 수 밖에 </textarea>
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=MYYeongnamnu&category=4'">변경</button><br> 
 </div> 
 </body>
 </html>

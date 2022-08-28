@@ -9,6 +9,7 @@
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 	#img{
 		width: 30%;
@@ -321,5 +322,10 @@ async function change(){
 			$("#addr").val('${vo.addr}');
 		}
 	});
+	
+	/* 미니홈피에서 접근할 경우 글꼴 적용 */
+	 if (${mini}==1){
+		 $("body").css("font-family",'${myMini.font}');
+	 }
 </script>
 </html>
