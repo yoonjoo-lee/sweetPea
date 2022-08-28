@@ -49,7 +49,12 @@
 <li>Jquery</li>
 <li>Tagiry(해쉬태그)</li>
 <li>Sweet Alert2(알림창)</li>
-
+<p>
+  <img src="https://img.shields.io/badge/JSTL-red?style=flat&logo=JSTL&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Jquery-blue?style=flat&logo=Jquery&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tagiry-green?style=flat&logo=Tagiry&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SweetAlert2-skyblue?style=flat&logo=Sweet Alert2&logoColor=white"/>
+</p>
 
 <h2>사용 오픈소스</h2>
 <li>Summer Note(에디터)</li>
