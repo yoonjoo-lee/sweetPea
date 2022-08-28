@@ -42,6 +42,9 @@
 <p>
   <img src="https://img.shields.io/badge/Swift-F05138?style=flat-square&logo=Swift&logoColor=white"/>
 </p>
+<p>
+  <img src="https://img.shields.io/badge/JavaScript-F05138?style=flat-square&logo=JavaScript&logoColor=white"/>
+</p>
 
 <h2>사용 라이브러리</h2>
 <li>JSTL</li>
