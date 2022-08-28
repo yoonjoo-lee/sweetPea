@@ -59,15 +59,27 @@
 <h2>사용 오픈소스</h2>
 <li>Summer Note(에디터)</li>
 <li>Cropper(사진 크기 조절)</li>
-
+<p>
+  <img src="https://img.shields.io/badge/SummerNote-blue?style=flat&logo=SummerNote&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Cropper-green?style=flat&logo=Cropper&logoColor=white"/>
+</p>
 
 <h2>사용한 API</h2>
 <li>다음 지도 API</li>
 <li>페이</li>
-
+<p>
+  <img src="https://img.shields.io/badge/Map-red?style=flat&logo=Map&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Pay-blue?style=flat&logo=Pay&logoColor=white"/>
+</p>
 
 <h2>개발 환경</h2>
 <li>스프링 프레임워크 4</li>
 <li>MVC 방식</li>
 <li>JDK 18</li>
 <li>MySQL 8</li>
+<p>
+  <img src="https://img.shields.io/badge/Spring-green?style=flat&logo=Spring&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MVC-yellow?style=flat&logo=MVC&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JDK-red?style=flat&logo=JDK&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MySQL-blue?style=flat&logo=MySQL&logoColor=white"/>
+</p>
