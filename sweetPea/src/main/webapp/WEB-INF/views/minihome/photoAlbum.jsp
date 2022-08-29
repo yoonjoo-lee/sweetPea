@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+
 <style>
 /* 이미지 슬라이더 */
 #slider {
@@ -119,25 +120,6 @@ box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
 body{
 font-family: ${myMini.font};
 }
-</style>
-
-<c:if test="${device eq 'MOBILE'}">
-<style>
-#mainBox{
-	margin:0;
-}
-h1{
-	margin:0;
-}
-.bi-plus-square-fill{
-    font-size: 4vh;
-    float: right;
-    margin: 1vh;
-}
-img{
-	width: 100px;
-	height: 100px;
-}
 
 
 
@@ -158,6 +140,25 @@ img{
   display:inline-block;
   background:gray;
 }
+</style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#mainBox{
+	margin:0;
+}
+h1{
+	margin:0;
+}
+.bi-plus-square-fill{
+    font-size: 4vh;
+    float: right;
+    margin: 1vh;
+}
+img{
+	width: 100px;
+	height: 100px;
+}
 
 </style>
 </c:if>
@@ -168,29 +169,34 @@ img{
 <h1 class="uploadIcon" style="cursor:pointer"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
 </c:if>
 
+<!-- <div class="post-slider">
+        <h1 class="sider-title">Treding Posts</h1>
+        <div class="post-wrapper">
+          <div class="post">1</div>
+          <div class="post">2</div>
+          <div class="post">3</div>
+          <div class="post">4</div>
+          <div class="post">5</div>
+        </div>
+</div>
+<script>
+$('.post-wrapper').slick({
+	  slidesToShow: 1,
+	  slidesToScroll: 1,
+	  autoplay: true,
+	  autoplaySpeed: 2000,
+	});
+</script> -->
+
 <!-- 게시물이 없을 경우 -->
 <c:if test="${list.size() == 0}">
 <div class="eachphoto"><br><br>
 <div style="text-align:center;">등록된 게시물이 없어요:(</div>
 <br><br></div>
 </c:if>
-<div class="slider">
-  <div><img src="images/slider-1920x1080-01.png" alt=""></div>
-  <div><img src="images/slider-1920x1080-02.png" alt=""></div>
-  <div><img src="images/slider-1920x1080-03.png" alt=""></div>
-  <div><img src="images/slider-1920x1080-04.png" alt=""></div>
-  <div><img src="images/slider-1920x1080-05.png" alt=""></div>
-  <div><img src="images/slider-1920x1080-06.png" alt=""></div>
-</div>
 
-<script>
-$('.post-wrapper').slick({
-	  slidesToShow: 3,
-	  slidesToScroll: 1,
-	  autoplay: true,
-	  autoplaySpeed: 2000,
-	});
-</script>
+
+
 
 
 <c:forEach var="board" items='${list }'>
