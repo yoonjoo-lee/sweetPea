@@ -67,14 +67,14 @@ h3{
     margin: 0;
     padding: 0.2em 0.5em;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 8px;
+    font-size: 12px;
     font-weight: 400;
     text-align: center;
     text-decoration: none;
     border: none;
     display: block;
-    width: 80px;
-    height: 22px;
+    width: 90px;
+    height: 25px;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
     cursor: pointer;
     transition: 0.5s;

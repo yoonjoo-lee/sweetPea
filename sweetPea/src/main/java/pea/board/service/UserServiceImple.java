@@ -89,8 +89,8 @@ public class UserServiceImple implements UserService{
 	}
 	
 	@Override
-	public List<UserVo> randomUser(){
-		return userDao.randomUser();
+	public List<UserVo> randomUser(int uidx){
+		return userDao.randomUser(uidx);
 	}
 
 }

@@ -13,8 +13,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <%-- <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" /> --%>
-<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
-	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
 <!-- 슬릭 슬라이더 -->   
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/plugin/slick/slick/slick.css"/>
@@ -82,18 +80,22 @@
     transition: all 0.2s linear;
     overflow: hidden;
     background-color: white;
+    position: relative;
 }
 .cont:hover{
   transform: scale(1.4);
   z-index: 111;
+  box-shadow: 2px 2px 6px 1px #6c757d;
 }
 
 .slick-list{
 	width: 1240px;
     margin: 0 auto;
+    overflow: visible;
 }
 .slick-prev{
 	left: 0 !important;
+	z-index: 9999;
 }
 .slick-next {
     right: 0 !important;
@@ -218,9 +220,10 @@ $(function(){
 $('#slider-div').slick({
 	slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
 	slidesToShow : 8,		// 한 화면에 보여질 컨텐츠 개수
-	slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
-	speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-	autoplaySpeed : 2000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+	slidesToScroll : 5,		//스크롤 한번에 움직일 컨텐츠 개수
+	speed : 1000,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+	autoplay: true,
+	autoplaySpeed : 5000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
 	pauseOnHover : true,		// 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
 	vertical : false,		// 세로 방향 슬라이드 옵션
 	prevArrow : "<button type='button' class='slick-prev'></button>",		// 이전 화살표 모양 설정

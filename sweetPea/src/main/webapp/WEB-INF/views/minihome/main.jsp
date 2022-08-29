@@ -575,35 +575,12 @@ function noSpace(e){
 	</div>
 </div>
 
-<%-- <div class="box-container">
-  <div class="icon-commentary">
-    <div class="face arrow"></div>
-    <div class="face below"></div>
-    <div class="face long front"></div>
-    <div class="face long back"></div>
-    <div class="face high-top"></div>
-    <div class="face short-down"></div>
-    <div class="face high bottom"></div>
-
-    <!-- peak tip -->
-    <div class="peak">
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-</div>
-<img id="chat" src="<%=request.getContextPath()%>/resources/images/comments.png"> --%>
-<%-- </c:if> --%>
-
-<%-- <c:if test="${device eq 'MOBILE'}">
-
-모바일입니다
-
-</c:if> --%>
+<c:if test="${login ne null }">
 <iframe class="mainFrinedsList" src="mainFriendsList.do?uidx=${login.uidx}"></iframe>
 <!-- 내 미니홈피 가기  -->
 <button style="top:0;right:0;margin:10px;position:absolute;cursor:pointer;" onclick="myMini(${login.uidx})">
 <img style="height:20px;width:20px;"src="<%=request.getContextPath()%>/resources/icon/home.png" ></button>
+</c:if>
 <script>
 //내 미니홈피 가기 
 function myMini(writer){
