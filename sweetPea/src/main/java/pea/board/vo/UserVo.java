@@ -19,8 +19,23 @@ public class UserVo {
 	private String delreason;
 	private String miniProfile;
 	
+	/* 친구추천용 함수 */
+	private int visit;
+	private int today;
 	
 	
+	public int getVisit() {
+		return visit;
+	}
+	public void setVisit(int visit) {
+		this.visit = visit;
+	}
+	public int getToday() {
+		return today;
+	}
+	public void setToday(int today) {
+		this.today = today;
+	}
 	public String getMiniProfile() {
 		return miniProfile;
 	}

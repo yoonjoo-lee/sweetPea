@@ -58,6 +58,9 @@ h3{
     font-size: 1em;
     cursor: pointer;
     line-height: 4vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fname{

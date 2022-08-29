@@ -1,5 +1,7 @@
 package pea.board.service;
 
+import java.util.List;
+
 import pea.board.vo.UserVo;
 
 public interface UserService {
@@ -18,4 +20,6 @@ public interface UserService {
 	
 	UserVo selectId(UserVo vo);
 	UserVo selectMy(UserVo vo);
+	
+	List<UserVo> randomUser();
 }

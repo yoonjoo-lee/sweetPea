@@ -35,6 +35,7 @@
 	  FROM	(  SELECT @rownum:=@rownum+1 AS rn
 	  			    , b.*
 			     FROM pea_message b
+			     , (SELECT @rownum:=0) tmp
 			    WHERE b.uidx = #{uidx}
 	  			  AND (@rownum:=0) = 0
  	 			  AND b.delyn = 'N'

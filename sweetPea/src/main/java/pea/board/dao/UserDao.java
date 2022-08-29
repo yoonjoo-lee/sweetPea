@@ -1,5 +1,7 @@
 package pea.board.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -99,5 +101,9 @@ public class UserDao {
 	
 	public int profileUpload(UserVo vo) {
 		return sqlSession.update(namespace+".profileUpload", vo);
+	}
+	
+	public List<UserVo> randomUser(){
+		return sqlSession.selectList(namespace+".randomUser");
 	}
 }

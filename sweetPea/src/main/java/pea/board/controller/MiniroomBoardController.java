@@ -300,6 +300,15 @@ public class MiniroomBoardController {
 			model.addAttribute("list", list);
 		return "minihome/option-friendsList";
 	}
+	/* 미니홈피 - 메인 - 친구목록 */
+	@RequestMapping(value="/mainFriendsList.do", method=RequestMethod.GET)
+	public String mainFriendsList(int uidx, Model model) {
+		List<FriendsVo> list = miniroomBoardService.friendsAllList(uidx);
+			model.addAttribute("list", list);
+		return "minihome/main-friendsList";
+	}
+	
+	
 	
 	/* 미니홈피 - 관리 - 친구관리 - 친구목록 - 친구삭제 */
 	@ResponseBody
