@@ -12,7 +12,9 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
-
+<!--slick slider -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <style>
 /* 이미지 슬라이더 */
@@ -136,6 +138,27 @@ img{
 	width: 100px;
 	height: 100px;
 }
+
+
+
+
+
+.post-slider{
+  border:1px solid red;
+}
+.post-slider .post-wrapper{
+  width:84%;
+  height:350px;
+  margin:0px auto;
+  border:1px dashed red;
+}
+.post-slider .post-wrapper .post{
+  width:300px;
+  height:350px;
+  display:inline-block;
+  background:gray;
+}
+
 </style>
 </c:if>
 
@@ -151,6 +174,25 @@ img{
 <div style="text-align:center;">등록된 게시물이 없어요:(</div>
 <br><br></div>
 </c:if>
+<div class="slider">
+  <div><img src="images/slider-1920x1080-01.png" alt=""></div>
+  <div><img src="images/slider-1920x1080-02.png" alt=""></div>
+  <div><img src="images/slider-1920x1080-03.png" alt=""></div>
+  <div><img src="images/slider-1920x1080-04.png" alt=""></div>
+  <div><img src="images/slider-1920x1080-05.png" alt=""></div>
+  <div><img src="images/slider-1920x1080-06.png" alt=""></div>
+</div>
+
+<script>
+$('.post-wrapper').slick({
+	  slidesToShow: 3,
+	  slidesToScroll: 1,
+	  autoplay: true,
+	  autoplaySpeed: 2000,
+	});
+</script>
+
+
 <c:forEach var="board" items='${list }'>
 <div class="eachphoto">
 <br>

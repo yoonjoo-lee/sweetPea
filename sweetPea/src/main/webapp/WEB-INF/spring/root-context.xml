@@ -15,7 +15,7 @@
 		<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220315_a_d?useSSL=false&amp;serverTimezone=UTC" />
 		<property name="username" value="api_20220315_a_d" />
 		<property name="password" value="user1234!!" />
-	</bean>	
+	</bean>	 
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
