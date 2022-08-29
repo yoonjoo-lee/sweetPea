@@ -18,16 +18,16 @@
 	<c:forEach var="board" items='${list }'>
 				<c:if test="${board.category == 2}">
 					<c:if test="${board.title ==''}">
-						<li><div class='list-box' id='basic-text' onclick="switchPage(${board.category})">photo</div></li>
+						<li><div class='list-box' id='basic-text' onclick="switchPage(${board.category})"  style="cursor:pointer">photo</div></li>
 					</c:if>
 					<c:if test="${board.title !=''}">
 					<li>
-						<div class='list-box' id='basic-text' onclick="switchPage(${board.category})">${board.title }</div></li>
+						<div class='list-box' id='basic-text' onclick="switchPage(${board.category})"  style="cursor:pointer">${board.title }</div></li>
 					</c:if>
 				</c:if>
 				<c:if test="${board.category != 2}">
 
-					<li><div class='list-box' id='basic-text' onclick="switchPage(${board.category})">${board.content }</div></li>
+					<li><div class='list-box' id='basic-text' onclick="switchPage(${board.category})"  style="cursor:pointer">${board.content }</div></li>
 
 				</c:if>
 	</c:forEach>

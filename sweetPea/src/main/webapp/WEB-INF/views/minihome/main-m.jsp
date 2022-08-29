@@ -211,6 +211,28 @@ body{
 .list-box>p{
 	margin: 0;
 }
+
+#addFriendBox{
+    position: fixed;
+    bottom: 8vh;
+    right: 0;
+}
+.friendImage{
+	width: 7vw;
+	height: 7vw;
+	border-radius:100%;
+	background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    margin: 1vh;
+}
+#addingFr{
+	background-image: url("<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png");
+}
+#addFr{
+	background-image: url("<%=request.getContextPath()%>/resources/images/addFr.png");
+}
 </style>
 
 <script>
@@ -278,6 +300,72 @@ $(function(){
 	})
 })
 </script>
+
+<script>
+
+
+	$(function(){
+		$("#addFr").click(async function(){
+			const { value: formValues } = await Swal.fire({
+				  title: '친구 신청을 하시겠습니까?',
+				  html:
+					'<p>상대방 일촌명</p>' +
+				    '<input id="swal-input1" class="swal2-input" onkeyup="noSpace(this)" placeholder="상대방의 일촌명을 입력해주세요">' +
+				    '<p style="margin-top: 1em">상대방에게 나의 일촌명</p>' +
+				    '<input id="swal-input2" class="swal2-input" onkeyup="noSpace(this)" placeholder="상대방에게 표시될 나의 일촌명을 입력해주세요">',
+				  focusConfirm: false,
+				  showCancelButton: true,
+				  confirmButtonText: "신청",
+				  cancelButtonText: "취소",
+				  preConfirm: () => {
+				    return [
+				      document.getElementById('swal-input1').value,
+				      document.getElementById('swal-input2').value
+				    ]
+				  }
+				})
+				
+				if (formValues) {
+					var $fName = formValues[0];
+					var $myName = formValues[1];
+					var $arrow = '<%=request.getContextPath()%>/resources/images/rocket_filled_icon.png';
+					await Swal.fire({
+						title: '<span style="color: red">신청</span> 되었습니다.',
+						html:
+							'<div><ul style="display: inline-block; list-style: none"><li>${mini.name}</li><li>('+$fName+')</li></ul>'+
+							'<img style="margin: 0 0.5em" src='+$arrow+'>'+
+							'<ul style="display: inline-block; list-style: none"><li>${login.name}</li><li>('+$myName+')</li></ul></div>',
+						preConfirm: () => {
+							$.ajax({
+								url:"addFriends.do",
+								type:"get",
+								data:{"uname" : $myName
+									, "bfname" : $fName
+									, "uidx" : ${login.uidx}
+									, "bfidx" : ${mini.uidx}
+									},
+								success: function(data){
+									if(data==1){
+										window.location.reload();
+									}else{
+										alert("오류!");
+									}
+								}
+							});
+						}
+					})
+				}
+		})
+		
+		$("#addingFr").click(async function(){
+			Swal.fire({
+				title:'친구신청 중 입니다',
+				icon:'info'
+			})
+		})
+	})
+</script>
+
 </head>
 <body class="body">
 <div id="mainBox">
@@ -358,7 +446,21 @@ $(function(){
 		
 	</div>
 --%>
+
 </div> 
+<div id="addFriendBox">
+	<c:if test="${login != null && mini.uidx != login.uidx}">
+		<c:if test="${checkFr eq 'N'}">
+			<%-- <img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" class="addFr" id="addingFr"> --%>
+			<div class="friendImage" id="addingFr"></div>
+		</c:if>
+		<c:if test="${checkFr == null}">
+			<div class="friendImage" id="addFr"></div>
+			<%-- <img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr"> --%>
+		</c:if>
+	</c:if>
+</div>
+
 	<div id="m-buttonBox">
 		<div class="m-boardBtn act2" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${mini.uidx}'"><img src="<%=request.getContextPath()%>/resources/icon/home.png"></div>
 		<div class="m-boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis2(this)"><img src="<%=request.getContextPath()%>/resources/icon/diary.png"></div>

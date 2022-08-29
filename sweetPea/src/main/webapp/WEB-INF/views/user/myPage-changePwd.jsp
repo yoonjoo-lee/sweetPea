@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <style>
 	#img{
 		width: 60%;
@@ -151,6 +152,11 @@ function changePwd(){
 					$("#span-pwd2").text("");
 				}	
 			});
+			
+			/* 미니홈피에서 접근할 경우 글꼴 적용 */
+			 if (${mini}==1){
+				 $("body").css("font-family",'${myMini.font}');
+			 }
 		</script>
 </body>
 </html>

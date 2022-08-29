@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 	h3,h4,h5{
@@ -73,7 +74,10 @@
 		margin-inline-start: 0px;
 		margin-inline-end: 0px;
 	}
-	
+	body{
+		font-family: ${myMini.font};
+	}
+		
 </style>
 <script>
 async function addFriends(uidx){

@@ -4,15 +4,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+ <!--	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/mysql?useSSL=false&amp;serverTimezone=UTC" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/sys?useSSL=false&amp;serverTimezone=UTC" />
 		<property name="username" value="root" />
-		<property name="password" value="1234" />
+		<property name="password" value="ehfkdl1004" />
 	</bean>	 -->
- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220315_a_d?useSSL=false&amp;serverTimezone=UTC" /> 
+		<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/api_20220315_a_d?useSSL=false&amp;serverTimezone=UTC" />
 		<property name="username" value="api_20220315_a_d" />
 		<property name="password" value="user1234!!" />
 	</bean>	

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="<%= request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/minihome/font.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 h3{
@@ -125,6 +126,9 @@ button:disabled {
     height: 80vh;
     width: 35%;
     margin: 0 auto;
+}
+body{
+	font-family: ${myMini.font};
 }
 </style>
 

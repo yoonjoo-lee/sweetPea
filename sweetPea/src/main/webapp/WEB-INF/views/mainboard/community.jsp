@@ -239,6 +239,11 @@ $(document).ready(function(){
 				html+="<td>"+data[i].datetime+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 			
@@ -271,6 +276,11 @@ $(document).ready(function(){
 				html+="<td>"+data[i].datetime+"</td>";
 				html+="</tr>";
 			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
+				html+="</tr>";
+			}
 			html += "</tbody>";
 			html += "</table>";
 			
@@ -301,6 +311,11 @@ $(document).ready(function(){
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="<td>"+data[i].datetime+"</td>";
+				html+="</tr>";
+			}
+			if (data.length==0){
+				html+="<tr>";
+				html+="<td colspan=3>등록된 게시물이 없습니다.</td>";
 				html+="</tr>";
 			}
 			html += "</tbody>";

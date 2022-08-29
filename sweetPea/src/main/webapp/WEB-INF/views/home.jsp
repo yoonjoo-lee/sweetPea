@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>SweetPea</title>
+	<link rel="shortcut icon" type="image/x-icon" href="<%= request.getContextPath()%>/resources/images/camelon.png">
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){
