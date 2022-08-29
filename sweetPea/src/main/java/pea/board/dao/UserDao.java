@@ -103,7 +103,7 @@ public class UserDao {
 		return sqlSession.update(namespace+".profileUpload", vo);
 	}
 	
-	public List<UserVo> randomUser(){
-		return sqlSession.selectList(namespace+".randomUser");
+	public List<UserVo> randomUser(int uidx){
+		return sqlSession.selectList(namespace+".randomUser",uidx);
 	}
 }

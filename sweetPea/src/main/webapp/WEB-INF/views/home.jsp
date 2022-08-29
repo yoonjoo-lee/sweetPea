@@ -19,6 +19,9 @@
 	margin: 0 auto;
 	margin-bottom: 220px;
 }
+#section{
+	overflow: hidden;
+}
 </style>
 <c:if test="${device eq 'MOBILE' }">
 <style>

@@ -35,11 +35,19 @@ public class HomeController {
 	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
 		List<ItemVo> newList = itemService.itemListNewLimit();
 		List<ItemVo> mostList = itemService.mostBuyItemList();
-		List<UserVo> randomUserList = userService.randomUser();
+		
+		UserVo login = (UserVo)	session.getAttribute("login");
+		if(login != null) {
+			List<UserVo> randomUserList = userService.randomUser(login.getUidx());
+			session.setAttribute("randomUser", randomUserList);
+		}else {
+			List<UserVo> randomUserList = userService.randomUser(0);
+			session.setAttribute("randomUser", randomUserList);
+		}
 		
 		session.setAttribute("newList",newList);
 		session.setAttribute("mostList",mostList);
-		session.setAttribute("randomUser", randomUserList);
+		
 		return "home";
 		  
 	}

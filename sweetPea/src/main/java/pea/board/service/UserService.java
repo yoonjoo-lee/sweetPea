@@ -21,5 +21,5 @@ public interface UserService {
 	UserVo selectId(UserVo vo);
 	UserVo selectMy(UserVo vo);
 	
-	List<UserVo> randomUser();
+	List<UserVo> randomUser(int uidx);
 }
