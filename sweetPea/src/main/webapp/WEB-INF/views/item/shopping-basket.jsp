@@ -152,18 +152,6 @@ $(function(){
 	}
 	
 
-
-/* 아이템 구매  */
-function itemBuy(){
-	 Swal.fire({
-		icon:'info',
-		title:'아이템 구매 기능  준비중...',
-		toast:true,
-		timer: 2000,
-	    timerProgressBar: true,
-	 })
-} 
-
 /* 체크시 완두콩 총개수 표시 */
 function allPeaAmount()  {
 	/* var length = $("input[name=rowCheck]").length; */
@@ -297,7 +285,9 @@ function myItemAdd(){
 		</c:if>
 
 	</div>
-	
+	<script type="text/javascript">
+		/* $(function(){window.location.reload();}, 60*10); */
+	</script>	
 	<div class="pea-amount">
 		총 완두콩 갯수 : <span id="totalPrice"></span>개
 	</div>

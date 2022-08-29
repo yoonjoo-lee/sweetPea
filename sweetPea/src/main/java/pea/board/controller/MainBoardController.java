@@ -59,7 +59,7 @@ public class MainBoardController {
 	// 보드 리스트 이동과 불러오기
 	@RequestMapping(value = "mainboard/list.do")
 	public String list(int category, Model model, SearchVo searchVo, PagingVo vo, @RequestParam(value = "nowPage", required = false) String nowPage, @RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
-
+		
 		int total = mainboardService.countBoard(category);
 		System.out.println("tota:" + total);
 		if (nowPage == null && cntPerPage == null) {
@@ -79,9 +79,11 @@ public class MainBoardController {
 		model.addAttribute("category", category);
 		vo.setCategory(category);
 //		System.out.println("카테고리="+ category);
+		System.out.println("list: "+ vo.getList());
+		vo.setList(1);
 		List<MainBoardVo> list = mainboardService.list(vo);
 		
-//		System.out.println("카테고리="+ list.);
+		System.out.println("카테고리="+ list.size());
 		model.addAttribute("list", list);
 		model.addAttribute("searchVo", vo);
 		model.addAttribute("category", category);

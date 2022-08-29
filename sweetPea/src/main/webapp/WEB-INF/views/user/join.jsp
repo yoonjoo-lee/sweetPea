@@ -18,18 +18,19 @@
 </script>
 <script>
 	function join(){
+		let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 		let fm = document.frm;
 		if($("#id").val()== "" || $("#span-id").css("color")=="rgb(255, 0, 0)"){
 			$('#id').focus();
 			$('#id').blur();
 			$('#id').focus();
 			return;
-		} else if($('#pwd').val()=="" || $("#span-pwd").css("color")=="rgb(255, 0, 0)"){
+		} else if(!check.test($('#pwd').val())){
 			$('#pwd').focus();
 			$('#pwd').blur();
 			$('#pwd').focus();
 			return;
-		}else if($('#pwd2').val()== "" || $('#pwd').val()!=$('#pwd2').val()){
+		}else if(!check.test($('#pwd').val())||$('#pwd').val()!=$('#pwd2').val()){
 			$('#pwd2').focus();
 			$('#pwd2').blur();
 			$('#pwd2').focus();
@@ -59,13 +60,25 @@
 			$('#email').blur();
 			$('#email').focus();
 			return;
-		}else if($('#addr').val()==""){
-			$('#addr').focus();
-			$('#addr').blur();
-			$('#addr').focus();
-			return;
+		}else if($('#address').val()==""){
+			$('#address').focus();
+			$('#address').blur();
+			$('#address').focus();
+			return ;
 			
+		} else if ($('#detailAddr').val()==""){
+			$('#detailAddr').focus();
+			$('#detailAddr').blur();
+			$('#detailAddr').focus();
+			return ;
+			
+		} else {
+			var address = $("#address").val();
+			var detailAddr = $('#detailAddr').val();
+			var addr = address + ""+ detailAddr;
+			$('#addr').val(addr);
 		}
+			
 			fm.action = "<%=request.getContextPath()%>/user/join.do";
 			fm.method = "post";
 			fm.submit();
@@ -105,7 +118,7 @@
 <div id="joinBox">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<form name="frm">
-		<input type="text" name="id" id="id" placeholder="아이디"><br> <span id="span-id"></span>
+		<input type="text" name="id" id="id" placeholder="아이디" maxlength="16"><br> <span id="span-id"></span>
 		<script>
 	/* 영어랑 숫자만. */
 		$('#id').on("keyup", function() {$(this).val( $(this).val().replace(/[^0-9|a-z]/g,"") );});
@@ -134,11 +147,12 @@
 	</script>
 		<br> <input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br> <span id="span-pwd"></span><br> <input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br> <span id="span-pwd2"></span><br>
 		<script>
+			let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 		$("#pwd").blur(function(){
-			if($("#pwd").val() == ""){
-				$("#span-pwd").text("비밀번호를 입력하세요");
+			if(!check.test($('#pwd').val())||$("#pwd").val() == ""){
+				$("#span-pwd").text("8-16자,영문 소문자, 숫자, 특수문자를 사용하세요.");
 				$("#span-pwd").css("color","red");
-			}else if($("#pwd").val() != $("#pwd2").val()){
+			}else if(!check.test($('#pwd').val())||$("#pwd").val() != $("#pwd2").val()){
 				$("#span-pwd").text("비밀번호 확인필요");
 				$("#span-pwd").css("color","red");			
 			}else{
@@ -154,7 +168,7 @@
 				$("#span-pwd").text("비밀번호 확인필요");
 				$("#span-pwd").css("color","red");
 				$("#span-pwd2").text("");
-			}else if($("#pwd").val() == $("#pwd2").val()){
+			}else if(check.test($('#pwd').val())&&$("#pwd").val() == $("#pwd2").val()){
 				$("#span-pwd").text("비밀번호 일치");
 				$("#span-pwd").css("color","green");
 				$("#span-pwd2").text("");
@@ -162,7 +176,7 @@
 		});
 	</script>
 
-		<input type="text" name="name" id="name" placeholder="이름"><br> <span id="span-name"></span><br>
+		<input type="text" name="name" id="name" placeholder="이름" maxlength="6"><br> <span id="span-name"></span><br>
 		<script type="text/javascript">
 	/* 한글만  */
 		$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
@@ -194,7 +208,7 @@
 			}
 		})
 	</script>
-		<br> <input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외"><br> <span id="span-birth"></span><br>
+		<br> <input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외" maxlength="8"><br> <span id="span-birth"></span><br>
 		<script>
 		$('#birth').blur(function(){
 			if($('#birth').val()==""){
@@ -207,7 +221,7 @@
 		})
 		
 	</script>
-		<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"><br> <span id="span-phone"></span><br>
+		<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"><br> <span id="span-phone"></span><br>
 		<script>
 		$('#phone').blur(function(){
 			if($('#phone').val()==""){
@@ -237,10 +251,40 @@
 	<span></span><br> -->
 
 
-		<input type="text" id="addr" name="addr" placeholder="주소"> <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-		<br>
 		<div id="map" style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+		<input type="text" id="address" placeholder="주소" readonly>
+		<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소">
+		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+		<span id="span-address"></span>
+		<br>
+		<input type="hidden" name="addr" id="addr" >
+	<script>
+		$('#address').blur(function(){
+			if($('#address').val()==""){
+				$('#span-address').text('주소를 입력하세요');
+				$('#span-address').css('color','red');
+			}else {
+				$('#span-address').text("주소입력 확인");
+				$('#span-address').css('color','green');
+			}
+		})
+		
+		$('#detailAddr').blur(function(){
+			if($('#detailAddr').val()==""){
+				$('#span-address').text('상세주소를 입력하세요');
+				$('#span-address').css('color','red');
+			}else {
+				$('#span-address').text("상세주소입력 확인");
+				$('#span-address').css('color','green');
+			}
+		})
+		
+	</script>
 
+
+
+
+<!-- 지도 API -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3239a3373f05b6e77a023666bc916273&libraries=services"></script>
 		<script>
@@ -267,7 +311,7 @@
                 var addr = data.address; // 최종 주소 변수
 
                 // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("addr").value = addr;
+                document.getElementById("address").value = addr;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function(results, status) {
                     // 정상적으로 검색이 완료됐으면

@@ -124,4 +124,21 @@
 		 SET profile = #{profile}
 		WHERE uidx = #{uidx}
 	</update>
+	
+	<!-- 랜덤사용자 표시 -->
+	<select id="randomUser" resultType="userVo">
+		SELECT uidx
+			 , name
+			 , profile
+			 , (SELECT count(*)
+			 	  FROM pea_minihome_visit 
+		 		 WHERE uidx=a.uidx) as visit
+		 	 , (SELECT count(*)
+		 	 	  FROM pea_minihome_visit 
+				 WHERE DATE_FORMAT(visit_date, '%y-%m-%d') = DATE_FORMAT(sysdate(), '%y-%m-%d') 
+				   AND uidx=a.uidx) as today
+		  FROM pea_user a
+		 WHERE delyn='N'
+		 ORDER BY rand() limit 36;
+	</select>
 </mapper>
