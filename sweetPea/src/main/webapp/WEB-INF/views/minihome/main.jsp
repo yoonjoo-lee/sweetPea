@@ -438,7 +438,15 @@ font-family: ${myMini.font};
 <script>
 
 
-function clickBtn(link){
+function clickBtn(link,type){
+	if(type == 'profile'){
+		<c:if test="${login.uidx != mini.uidx}">
+		clickThis("#0");
+		return;
+		</c:if>
+	}
+	
+	
 	$("#miniIframe").attr("src",link);
 	$option = 'mini-option.do?uidx=${mini.uidx}';
 	if(link == $option){
@@ -524,10 +532,10 @@ function noSpace(e){
 			<br>
 			<!-- 프로필 사진 -->
 			<c:if test="${mini.miniProfile == null}">
-				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)" style="cursor:pointer">
+				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickThis('#0'), clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do','profile')" style="cursor:pointer">
 			</c:if>
 			<c:if test="${mini.miniProfile != null}">
-				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)" style="cursor:pointer">
+				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickThis('#0'), clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do','profile')" style="cursor:pointer">
 			</c:if>
 			
 			<div id="left-boardBox">
@@ -557,7 +565,7 @@ function noSpace(e){
 		<iframe id="miniIframe" src="mini-home.do?uidx=${mini.uidx}"></iframe>
 	</div>
 	<div id="buttonBox">
-		<div class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>
+		<div id="0" class="boardBtn act"  onclick='clickBtn("mini-home.do?uidx=${mini.uidx}"),clickThis(this)'><p>홈</p></div>
 		<div id="1" class="boardBtn" onclick="clickBtn('mini-diary.do?uidx=${mini.uidx}'),clickThis(this)"><p>다이어리</p></div>
 		<div id="2" class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=2'),clickThis(this)"><p>사진첩</p></div>
 		<div id="3" class="boardBtn" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/boardList.do?category=3'),clickThis(this)"><p>방명록</p></div>

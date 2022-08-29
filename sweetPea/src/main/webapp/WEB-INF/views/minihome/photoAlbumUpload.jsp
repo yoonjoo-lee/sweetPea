@@ -39,9 +39,9 @@
 
 <form action="photoAlbumUpload.do" method="post" enctype="multipart/form-data">
 <div class="photo_box">
-	<div class="upload_btn" style="cursor:pointer">
+			<input id="input_img" multiple="multiple" type="file" style="display:none;" name="file" accept="image/jpeg, image/png, image/gif"> 
+	<div class="upload_btn" id="uploadButton" style="cursor:pointer">
 		<div class="upload">
-			<input id="input_img" multiple="multiple" type="file" name="file" accept="image/jpeg, image/png, image/gif"> 
 			<label for="input_img">사진 업로드</label>
 		</div>
 	</div>
@@ -87,6 +87,9 @@
 				      reader.readAsDataURL(file);
 				    } */
 				reader.readAsDataURL(file);
+			});
+			$("#uploadButton").on("click",function(){
+				$("#input_img").click();
 			});
 		</script>
 	</form>
