@@ -467,6 +467,10 @@ function openShoppingBasket(){
 				<div class="modal-body">
 					<div class="btnBox" style="height: 750px;">
 						<!--  -->
+						<!-- <script>
+							$('.btnText').on("click",function(){window.parent.location.reload();})
+							$('.btnText2').on("click",function(){window.parent.location.reload();})
+						</script> -->
 						<c:if test="${login.uidx==null }">
 							<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=0" style="width: 100%; height: 92%;"></iframe>
 						</c:if>
@@ -742,7 +746,7 @@ function charge(){
 					timerProgressBar: true,
 					}); 
 				console.log(uidx);
-				window.location.reload();
+				/* window.location.reload(); */
 			}
 		},
 		error:function(){

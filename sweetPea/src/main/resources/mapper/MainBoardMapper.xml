@@ -28,7 +28,7 @@
 		<if test="category != 6">
 		SELECT  A.* 
 		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
-		 from pea_board b, pea_user u
+		 from pea_board b, pea_user u, (SELECT @rownum:=0) tmp
 		where b.uidx=u.uidx
 		</if>
 		<if test="category == 6">
@@ -39,7 +39,7 @@
 		</if>
 		 
 		and category=#{category}
-		and (@rownum:=0)=0
+		
 		<if test='searchType != null and searchType.equals("title")'>
 	 		AND b.title like concat('%',#{searchValue},'%')
 	 	</if>
