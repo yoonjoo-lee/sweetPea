@@ -98,9 +98,8 @@ $(function(){
     vertical-align: bottom;
     float: left;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 100%;
     background-position: center;
-    background-color: white;
     position: relative;
     cursor: pointer;
 }

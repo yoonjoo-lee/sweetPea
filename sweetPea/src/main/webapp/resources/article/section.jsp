@@ -13,6 +13,15 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <%-- <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" /> --%>
+<!-- 07.08 김연희: 폰트어썸 - 카드 별, 하트 아이콘   -->
+	<script src="https://kit.fontawesome.com/f5807db9d4.js" crossorigin="anonymous"></script>
+<!-- 슬릭 슬라이더 -->   
+
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/plugin/slick/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/plugin/slick/slick/slick-theme.css"/>
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/plugin/slick/slick/slick.js"></script>
+     
 <style type="text/css">
 .lavel{
 	width: 100%;
@@ -54,6 +63,40 @@
 }
 .mb-5{
 	margin: 10px;
+}
+.contBox{
+	text-align: center;
+}
+.contBox>img{
+    width: 110px;
+    height: 110px;
+    border-radius: 100%;
+    margin: 10px auto;
+    display: inline-block;
+}
+.cont{
+    width: 90% !important;
+    display: block !important;
+    margin: 5px auto;
+    box-shadow: 2px 2px 6px 1px #e3e3e3;
+    transition: all 0.2s linear;
+    overflow: hidden;
+    background-color: white;
+}
+.cont:hover{
+  transform: scale(1.4);
+  z-index: 111;
+}
+
+.slick-list{
+	width: 1240px;
+    margin: 0 auto;
+}
+.slick-prev{
+	left: 0 !important;
+}
+.slick-next {
+    right: 0 !important;
 }
 </style>
 <c:if test="${device eq 'MOBILE' }">
@@ -169,8 +212,45 @@ async function itemShoppingAdd(iidx){
 	})
 }
 </script>
+
+<script>
+$(function(){
+$('#slider-div').slick({
+	slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
+	slidesToShow : 8,		// 한 화면에 보여질 컨텐츠 개수
+	slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+	speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+	autoplaySpeed : 2000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+	pauseOnHover : true,		// 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+	vertical : false,		// 세로 방향 슬라이드 옵션
+	prevArrow : "<button type='button' class='slick-prev'></button>",		// 이전 화살표 모양 설정
+	nextArrow : "<button type='button' class='slick-next'></button>",		// 다음 화살표 모양 설정
+	draggable : true 
+});
+})
+</script>
 </head>
 <body>
+	<div class="lavel">친구 추천</div>
+	  	<div id="slider-div" style="display:flex;" >
+		<c:forEach items="${randomUser}" var="vo">
+		<div class="cont">
+			<div class="contBox">
+				<img src='${vo.profile}'/>
+				<div style="width:100%; position: relative;">
+					<span style=" text-align: center; display: block; margin:5px">${vo.name}님</span>
+					<div style="width: 90%; margin: 0 auto; margin-top: 10px;">
+						<ul style="list-style: none; font-size: 0.8em; margin:0; padding: 0; text-align: center">
+							<li>today <span style="color: red">${vo.today}</span></li>
+							<li>total &nbsp; ${vo.visit}</li>
+						</ul>
+						<input type="button" style="width: 100%; height: 30px; margin: 5px 0;" onclick="openMini(${vo.uidx})" value="미니홈피 가기">
+					</div>
+				</div>
+			</div>
+		</div>
+		</c:forEach>
+	  	</div>
 	<div class="lavel">신상품</div>
 	<div class="section-container">
 		<div class="container-content">

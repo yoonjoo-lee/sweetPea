@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pea.board.service.ItemService;
+import pea.board.service.UserService;
 import pea.board.vo.ItemVo;
+import pea.board.vo.UserVo;
 
 /**
  * Handles requests for the application home page.
@@ -26,14 +28,18 @@ public class HomeController {
 	 */
 	@Autowired
 	ItemService itemService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
 		List<ItemVo> newList = itemService.itemListNewLimit();
 		List<ItemVo> mostList = itemService.mostBuyItemList();
+		List<UserVo> randomUserList = userService.randomUser();
 		
 		session.setAttribute("newList",newList);
 		session.setAttribute("mostList",mostList);
+		session.setAttribute("randomUser", randomUserList);
 		return "home";
 		  
 	}
