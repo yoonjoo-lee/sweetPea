@@ -155,6 +155,7 @@
 	
 	#left-board-content{
 		height: 43vh;
+		position: relative;
 	}
 	#left-boardBox>textarea{
 		background-color: inherit;
@@ -352,6 +353,17 @@
 .body{
 font-family: ${myMini.font};
 }
+
+
+.mainFrinedsList{
+    width: 200px;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    border: 0;
+    margin: 10px;
+}
 </style>
 </c:if>
 <script>
@@ -495,6 +507,9 @@ function inputLeftBoard(){
 function noSpace(e){
 	$(e).val($(e).val().replace(/ /gi,''));
 }
+
+
+
 </script>
 </head>
 <body class="body">
@@ -531,6 +546,8 @@ function noSpace(e){
 						<img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr">
 					</c:if>
 				</c:if>
+				
+				
 			</div>
 			
 		</div>
@@ -575,8 +592,9 @@ function noSpace(e){
 모바일입니다
 
 </c:if> --%>
+<iframe class="mainFrinedsList" src="mainFriendsList.do?uidx=${login.uidx}"></iframe>
 <!-- 내 미니홈피 가기  -->
-<button style="top:0;right:0;margin:2vh;position:absolute;cursor:pointer;" onclick="myMini(${login.uidx})">
+<button style="top:0;right:0;margin:10px;position:absolute;cursor:pointer;" onclick="myMini(${login.uidx})">
 <img style="height:20px;width:20px;"src="<%=request.getContextPath()%>/resources/icon/home.png" ></button>
 <script>
 //내 미니홈피 가기 
