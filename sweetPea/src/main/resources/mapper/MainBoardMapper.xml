@@ -21,7 +21,7 @@
 		, #{ip}
 		, #{category}
 	)
-</insert>
+</insert> 
 
 <!-- 게시물 글 목록 조회-->
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
