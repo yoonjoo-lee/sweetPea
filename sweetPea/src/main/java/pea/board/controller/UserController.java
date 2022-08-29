@@ -55,6 +55,7 @@ public class UserController {
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
 		UserVo id = userService.selectId(vo);
+		System.out.println(id);
 		if(id == null) {
 			pw.append("<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
 			pw.append("<script src='../resources/js/jquery-3.6.0.min.js'></script>");
