@@ -397,6 +397,7 @@ function openShoppingBasket(){
 </head>
 <body>
 	<br>
+															
 	<h4>item shop main</h4>
 	<!-- 아이템 리스트  -->
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(2)">
@@ -435,6 +436,8 @@ function openShoppingBasket(){
 	  		<a href="#" onclick="itemSubcategoryAll(5)" >　가구　</a>
 		</div>
 	</div>
+	
+	
 <!-- 	
 <div class="nav-item nav-hover">
 	<a class="nav-link" href="#">아이템 종류</a>
@@ -444,18 +447,25 @@ function openShoppingBasket(){
 	</ul>
 </div> -->
 	<div style="float: right; width: 15%; margin-right: 5px;" class="button cartBtn" onclick="">
-		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg">장바구니</p>
+		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">장바구니</p>
 		<div class="btnTwo">
-			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg">GO!</p>
+			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">GO!</p>
 		</div>
 	</div>
+	
+	<!-- 장바구니 클릭 시 하위 프레임 reload() -->
+	<script type="text/javascript">
+	function reloadBasket2(){
+		$('#basketFrame').get(0).contentWindow.reloadBasket();
+	}
+	</script>
+	
 	<br>
 	<!-- 아이템 리스트 뿌려주는 div -->
 	<div class="container px-4 px-lg-5 mt-5" >
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="itemList" style="width: 100%"></div>
 	</div>
 	<br>
-
 	<!-- 모달 창  -->
 	<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -467,15 +477,11 @@ function openShoppingBasket(){
 				<div class="modal-body">
 					<div class="btnBox" style="height: 750px;">
 						<!--  -->
-						<!-- <script>
-							$('.btnText').on("click",function(){window.parent.location.reload();})
-							$('.btnText2').on("click",function(){window.parent.location.reload();})
-						</script> -->
 						<c:if test="${login.uidx==null }">
-							<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=0" style="width: 100%; height: 92%;"></iframe>
+							<iframe id="basketFrame" src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=0" style="width: 100%; height: 92%;"></iframe>
 						</c:if>
 						<c:if test="${login.uidx >0 }">
-							<iframe src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=${login.uidx}" style="width: 100%; height: 92%;"></iframe>
+							<iframe id="basketFrame" src="<%=request.getContextPath()%>/item/shopping-basket.do?uidx=${login.uidx}" style="width: 100%; height: 92%;"></iframe>
 						</c:if>
 
 						<div class="modal-footer">
@@ -487,7 +493,6 @@ function openShoppingBasket(){
 			</div>
 		</div>
 	</div>
-
 	<!--  -->
 	<span id="tmp"></span>
 	<script>
@@ -765,7 +770,8 @@ function login(){
 					timerProgressBar: true,
 					}); 
 				console.log(uidx);
-				/* window.location.reload(); */
+				/* window.location.reload();  */
+				/* reload11(); */
 			}
 		},
 		error:function(){
@@ -773,7 +779,9 @@ function login(){
 		}
 	})
 }
- 
+ 	function reload11() {
+	    $('.tmp').load(location.href+'.tmp');
+	}
  
 	/* tagify value key 값 가져오는 구문 */
    var test = [{'value':"banana"},{'value':"yellow"}];

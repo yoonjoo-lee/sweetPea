@@ -20,7 +20,7 @@ font-family: MabinogiClassicR;
 }
 .HBIOS-SYS{
 font-family: HBIOS-SYS;
-}
+} 
 .MYYeongnamnu{
 font-family: MYYeongnamnu;
 }

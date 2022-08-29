@@ -81,6 +81,11 @@ li {
 }
 </style>
 <script>
+/* 상위 프레임에서 불러올 reload() */
+function reloadBasket(){
+	location.reload();
+}
+
 $(function(){
 	$("#allCheck").click(function(){
 		if($("#allCheck").is(":checked"))
