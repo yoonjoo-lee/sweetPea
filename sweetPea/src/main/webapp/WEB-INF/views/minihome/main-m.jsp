@@ -79,11 +79,11 @@ body{
     margin: 0;
     padding: 0;
     position: relative;
+    font-family: ${myMini.font};
 }
 #mainBox{
 	margin: 0;
     margin-bottom: 8vh;
-    padding-top: 10vh;
 }
 /* 프로필  */
 #profile{
@@ -238,7 +238,7 @@ body{
 }
 
 .topBox{
-	position: fixed;
+	position: sticky;
     z-index: 111;
     background-color: #212529;
     width: 100%;
@@ -252,6 +252,119 @@ body{
     top: 2.5vh;
 }
 
+
+/* 친구목록 */
+h3{
+	display: inline-block;
+    text-indent: 1em;
+    margin: 0;
+}
+.searchInput{
+    width: 100%;
+    height: 5vh;
+    line-height: 5vh;
+    font-size: 5vw;
+    padding-left: 1vw;
+    font-style: oblique;
+    display: inline;
+    outline: none;
+    box-sizing: border-box;
+    color: black;
+    margin: 2.5vh 0;
+    border: 0;
+}
+
+.friendsBox{
+    border-bottom: 1px solid #e5e5e5;
+    text-indent: 3px;
+    width: 100%;
+    height: 5vh;
+    line-height: 5vh;
+    font-size: 5vw;
+    padding: 1vh 0;
+    padding-left: 1vw;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.fname{
+	color: gray;
+	font-size: 0.8em;
+}
+.listBtnBox{
+	display: none;
+	position: absolute;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+:root {
+  --button-color: #ffffff;
+  /* --button-bg-color: #0d6efd;
+  --button-hover-bg-color: #025ce2; */
+}
+
+.listBtnBox>button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: var(--button-bg-color);
+    color: var(--button-color);
+    margin: 0;
+    padding: 0.2em 0.5em;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    display: block;
+    width: 90px;
+    height: 25px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-change,.btn-mini{
+  --button-bg-color: #7dc75e;
+  --button-hover-bg-color: #218838;
+}
+.btn-delete {
+  --button-bg-color: #dc3545;
+  --button-hover-bg-color: #c82333;
+}
+button:active,
+button:hover,
+button:focus {
+  background: var(--button-hover-bg-color);
+  outline: 0;
+}
+button:disabled {
+  opacity: 0.5;
+}
+
+#listFullBox{
+	display: none;
+	overflow: scroll;
+    overflow-x: hidden;
+    max-height: 30vh;
+    width: 50vw;
+    background-color: white;
+    position: absolute;
+    top: 7.5vh;
+    left: 25vw;
+}
+.show{
+	display:block !important;
+}
+.inputBox{
+	display: inline-block;
+    position: absolute;
+    width: 50vw;
+    left: 25vw;
+}
 </style>
 
 <script>
@@ -387,21 +500,74 @@ $(function(){
 	})
 </script>
 
+<script>
+function goMini($uidx){
+	window.parent.parent.location.href="<%=request.getContextPath()%>/mini/main.do?uidx="+$uidx;
+}
+</script>
+<script>
+$(function(){
+	$(document).click(function(e){
+		if(!$(e.target).hasClass('boxOn')){
+			$(".listBtnBox").css("display","none");
+		}
+	});
+}) 
+function noSpace(e){
+	$(e).val($(e).val().replace(/ /gi,''));
+}
+</script>
+
+<script>
+$(function(){
+	$(".inputBox").click(function(){
+		$("#listFullBox").addClass('show');
+	})
+	$('html',parent.document).click(function(e) {   
+	if(!$(e.target).hasClass("searchInput") && !$(e.target).hasClass("friendsBox") && !$(e.target).hasClass("fname")) {
+		$("#listFullBox").removeClass('show');
+	}
+	});
+})
+</script>
+
+
 </head>
 <body class="body">
 <div class="topBox">
 	<img class="goHome" src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" onclick="location.href='<%=request.getContextPath()%>/home.do'">
 	<c:if test="${login == null}">
-	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">로그인</span>
+	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">login</span>
 	</c:if>
 	<c:if test="${login != null}">
-	<iframe class="mainFrinedsList" src="mainFriendsList.do?uidx=${login.uidx}"></iframe>
+	<div class="inputBox">
+	  <input type="text" placeholder="친구네 가기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
+	</div>
+	<c:if test="${list.size() == 0}">
+		<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
+	</c:if>
+	<c:if test="${list.size() > 0}">
+		<div id="listFullBox" class="">
+		<c:forEach var="vo" items="${list}">
+			<c:if test="${vo.uidx == login.uidx}">
+				<div class="friendsBox boxOn" onclick="goMini(${vo.bfidx})">
+					${vo.name}<span class="fname boxOn">[${vo.bfname}]</span>
+				</div>
+			</c:if>
+			<c:if test="${vo.bfidx == login.uidx}">
+				<div class="friendsBox boxOn" onclick="goMini(${vo.bfidx})">
+					${vo.name}<span class="fname boxOn">[${vo.uname}]</span>
+				</div>
+			</c:if>
+		</c:forEach>
+		</div>
+	</c:if>
 	</c:if>
 	<c:if test="${login != null && login.uidx != mini.uidx}">
 	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">MyHome</span>
 	</c:if>
 	<c:if test="${login != null && login.uidx == mini.uidx}">
-	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/logoutMini.do?uidx=${mini.uidx}'">로그아웃</span>
+	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/logoutMini.do?uidx=${mini.uidx}'">logout</span>
 	</c:if>
 </div>
 <div id="mainBox">
@@ -424,53 +590,6 @@ $(function(){
 		<hr>
 		<div id="homeList"></div>
 	</div>
-	<%-- <div id="h1Box">
-		<c:if test="${mini.uidx == login.uidx}">
-		<img id="h1-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">
-		</c:if>
-		<div id="left-board-content">
-			<p id="h1-board">${mini.h1}</p>
-		</div>
-		<c:if test="${login != null && mini.uidx != login.uidx}">
-			<c:if test="${checkFr eq 'N'}">
-				<img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" class="addFr" id="addingFr">
-			</c:if>
-			<c:if test="${checkFr == null}">
-				<img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr">
-			</c:if>
-		</c:if>
-	</div> --%>		
-			
-<%-- 			<div id="left-boardBox">
-				<c:if test="${mini.uidx == login.uidx}">
-				<img id="left-board-setting" src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeLeftBoard()">
-				</c:if>
-				<br>
-				<div id="left-board-content">
-					<p id="left-board">${mini.h1}</p>
-				</div>
-				<c:if test="${login != null && mini.uidx != login.uidx}">
-					<c:if test="${checkFr eq 'N'}">
-						<img src="<%=request.getContextPath()%>/resources/images/person_arrow_left_icon.png" class="addFr" id="addingFr">
-					</c:if>
-					<c:if test="${checkFr == null}">
-						<img src="<%=request.getContextPath()%>/resources/images/addFr.png" class="addFr" id="addFr">
-					</c:if>
-				</c:if>
-			</div>
-		</div>
-	<div>
-		<h3>${mini.h2}</h3>
-	</div>
-	<div id="leftBox">
-			
-	</div>
-	<div id="centerBox">
-		<iframe id="miniIframe" src="mini-home.do?uidx=${mini.uidx}"></iframe>
-		
-	</div>
---%>
-
 </div> 
 <div id="addFriendBox">
 	<c:if test="${login != null && mini.uidx != login.uidx}">

@@ -159,14 +159,27 @@ img{
 	width: 100px;
 	height: 100px;
 }
-
+#slider ul li {
+	max-width: 100%
+}
 </style>
 </c:if>
-
+<script>
+	function mobileWrite(){
+		$("#mainBox").load("<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2");
+	}
+</script>
 </head>
 <body>
+
 <c:if test="${mini.uidx==login.uidx }">
-<h1 class="uploadIcon" style="cursor:pointer"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
+	<c:if test="${device eq 'PC'}">
+		<h1 class="uploadIcon" style="cursor:pointer"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do?uidx=${login.uidx}&category=2'"></i></h1>
+		</c:if>
+		<c:if test="${device eq 'MOBILE'}">
+		<h1 class="uploadIcon" style="cursor:pointer"><i class="bi bi-plus-square-fill" style="color:grey;" onclick="mobileWrite()"></i></h1>
+		</c:if>
+
 </c:if>
 
 <!-- <div class="post-slider">
