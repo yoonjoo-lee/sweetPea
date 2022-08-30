@@ -69,9 +69,9 @@ div.banner{
 					<input type="button" style="float: right;" onclick="location.href='<%=request.getContextPath()%>/user/logout.do'" value="로그아웃">
 					<div class="info">
 						<ul>
-							<li>today <span style="color: red">${today}</span></li>
+							<li>today <span style="color: red">${mytoday}</span></li>
 							<li><a style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
-							<li>total &nbsp; ${total}</li>
+							<li>total &nbsp; ${mytotal}</li>
 							<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 						</ul>
 						<input type="button" style="width: 100%; height: 30px; margin: 5px 0;" onclick="openMini(${login.uidx})" value="미니홈피 가기">
