@@ -508,7 +508,7 @@ public class UserController {
 		
 		PrintWriter pw = response.getWriter();
 		
-		pw.append("<script>window.location.href='/controller/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		pw.append("<script>window.location.href='/sweetPea/mini/main.do?uidx="+uidx+"'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 		pw.flush();
 	}
 	

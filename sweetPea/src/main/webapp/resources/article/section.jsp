@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
@@ -105,6 +105,9 @@
 <style>
 .section-container{
 	margin: 0 auto;
+}
+.slick-list{
+	width: 100vw;
 }
 </style>
 </c:if>
@@ -217,9 +220,16 @@ async function itemShoppingAdd(iidx){
 
 <script>
 $(function(){
+if('${device}' == 'MOBILE'){
+	var $value = true;
+	var $show = 2
+}else{
+	var $value = false;
+	var $show = 8
+}
 $('#slider-div').slick({
 	slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li 
-	slidesToShow : 8,		// 한 화면에 보여질 컨텐츠 개수
+	slidesToShow : $show,		// 한 화면에 보여질 컨텐츠 개수
 	slidesToScroll : 5,		//스크롤 한번에 움직일 컨텐츠 개수
 	speed : 1000,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
 	autoplay: true,
@@ -228,8 +238,8 @@ $('#slider-div').slick({
 	vertical : false,		// 세로 방향 슬라이드 옵션
 	prevArrow : "<button type='button' class='slick-prev'></button>",		// 이전 화살표 모양 설정
 	nextArrow : "<button type='button' class='slick-next'></button>",		// 다음 화살표 모양 설정
-	draggable : true ,
-	swipeToSlide : true
+	draggable : true, 
+	swipeToSlide : $value
 });
 })
 </script>

@@ -33,7 +33,7 @@ public class PagingVo extends SearchVo{
 	// DB 쿼리에서 사용할 start, end값 계산
 	public void calcStartEnd(int nowPage, int cntPerPage) {
 		setEnd(nowPage * cntPerPage);
-		setStart(getEnd() - cntPerPage + 1);
+		setStart(getEnd() - cntPerPage);
 	}
 	
 	public int getNowPage() {

@@ -104,6 +104,7 @@ button:disabled {
     overflow-x: hidden;
     max-height: 90px;
     width: 100%;
+    background-color: white;
 }
 body{
 	font-family: ${myMini.font};
@@ -197,6 +198,27 @@ $(function(){
 	});
 })
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.inputBox{
+	font-size: 10vw;
+}
+.searchInput{
+    height: 30vh;
+    line-height: 30vh;
+}
+.friendsBox{
+    height: 30vh;
+    line-height: 30vh;
+    font-size: 7vw;
+    padding: 1vh 0;
+}
+#listFullBox{
+	max-height: 68vh;
+}
+</style>
+</c:if>
 </head>
 <body>
 <div class="inputBox">
