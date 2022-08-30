@@ -24,8 +24,15 @@ public class MainBoardVo extends UserVo  {
 	private int report;
 	private int rbidx;
 	private int rcidx;
+	private int rnum;
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getRidx() {
 		return ridx;
 	}

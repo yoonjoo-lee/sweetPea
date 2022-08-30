@@ -21,44 +21,61 @@
 		, #{ip}
 		, #{category}
 	)
-</insert>
+</insert> 
 
 <!-- 게시물 글 목록 조회-->
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
-		<if test="category != 6">
+SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
+		<if test="category != 6"> 
 		SELECT  A.* 
-		FROM (select @rownum:=@rownum+1 as rn, b.*,u.name
-		 from pea_board b, pea_user u
-		where b.uidx=u.uidx
+		  FROM (SELECT b.*
+		  			 , u.name
+		 		  FROM pea_board b
+		 		     , pea_user u					 
+				 WHERE b.uidx=u.uidx
 		</if>
-		<if test="category == 6">
-		SELECT  A.bidx, A.uidx, A.title, CONVERT(A.content USING utf8) as content,A.category, A.datetime, A.hit, A.ridx, A.report, A.reply, A.troll
-		FROM (select @rownum:=@rownum+1 as rn,b.*,r.ridx, r.report,r.reply, r.troll
-		from pea_board b,pea_report r 
-		where b.bidx=r.bidx
+		<if test="category == 6"> 
+		SELECT A.bidx
+			 , A.uidx
+			 , A.title
+			 , CONVERT(A.content USING utf8) as content
+			 , A.category
+			 , A.datetime
+			 , A.hit
+			 , A.ridx
+			 , A.report
+			 , A.reply
+			 , A.troll
+		  FROM (SELECT b.*
+				     , r.ridx
+				     , r.report
+				     , r.reply
+				     , r.troll
+				  FROM pea_board b
+				     , pea_report r
+				 WHERE b.bidx=r.bidx
 		</if>
-		 
-		and category=#{category}
-		and (@rownum:=0)=0
-		<if test='searchType != null and searchType.equals("title")'>
-	 		AND b.title like concat('%',#{searchValue},'%')
+		   		   AND category=#{category}
+				<if test='searchType != null and searchType.equals("title")'> 
+			 	   AND b.title like concat('%',#{searchValue},'%')
+			 	</if>
+			 	<if test='searchType != null and searchType.equals("contentWriter")'> 
+			 	   AND b.content like concat('%',#{searchValue},'%')
+			 		OR u.name like concat('%',#{searchValue},'%')
+			 	</if>
+	 	   		   AND b.delyn='N'
+			 	<if test="reply != 0"> 
+			 	   AND reply=#{reply}
+			 	</if>  
+			 	 ORDER BY bidx desc)A ) sub
+			 	 ORDER BY rnum DESC
+	 	<if test="list == 1"> 
+	 	 LIMIT 0,5
 	 	</if>
-	 	<if test='searchType != null and searchType.equals("contentWriter")'>
-	 		AND b.content like concat('%',#{searchValue},'%')
-	 		OR u.name like concat('%',#{searchValue},'%')
-	 	</if>
-	 	 and b.delyn='N'
-	 	 <if test="reply != 0">
-	 		AND reply=#{reply}
-	 	</if>  
-	 	order by bidx desc
-	 	) 
-	 	<if test="list == 1">
-	 		A  WHERE rn LIMIT 5;
-	 	</if>
-	 	<if test="list != 1">
-	 		A  WHERE rn BETWEEN #{start} AND #{end};
-	 	</if>
+	 	<if test="list != 1"> 
+	 	 LIMIT #{start},#{cntPerPage}
+	 	</if> 
 </select>
 
 <!-- 페이징을 위한 총 글의 개수 구하기 -->
