@@ -12,8 +12,6 @@
 <!-- slick slider -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-</head>
-
 <style>
 .body {
 	/* overflow-y: scroll; */
@@ -34,10 +32,34 @@
 #complete{display:block;margin-top:0px;padding:15px 0;width:100%;text-align:center;color:#fff;text-decoration: none;background-color: #007500;}
 </style>
 
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.photo_box{
+	width: 90%;
+    max-width: none;
+}
+.photo_them{
+	height: 30vh;
+}
+.them_img img{
+    max-width: 100%;
+}
+</style>
+</c:if>
+</head>
+
+
 <body class="body">
 <br><h3 style="text-align:center;">사진첩 등록하기</h3>
 
-<form action="photoAlbumUpload.do" method="post" enctype="multipart/form-data">
+<form 
+<c:if test="${device eq 'MOBILE'}">
+action="<%=request.getContextPath()%>/miniroomboard2/photoAlbumUpload.do"
+</c:if>
+<c:if test="${device eq 'PC'}">
+action="photoAlbumUpload.do"
+</c:if>
+ method="post" enctype="multipart/form-data">
 <div class="photo_box">
 			<input id="input_img" multiple="multiple" type="file" style="display:none;" name="file" accept="image/jpeg, image/png, image/gif"> 
 	<div class="upload_btn" id="uploadButton" style="cursor:pointer">

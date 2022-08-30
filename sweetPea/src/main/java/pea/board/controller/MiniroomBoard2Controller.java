@@ -245,7 +245,13 @@ public class MiniroomBoard2Controller {
 		miniroomboard2Service.writemini(vo);
 		
 		PrintWriter pw = response.getWriter();
-		pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		
+		String device = (String) session.getAttribute("device");
+		if(device == "MOBILE") {
+			pw.append("<script>window.location.href='"+request.getContextPath()+"/mini/main.do?uidx="+login.getUidx()+"'</script>");
+		}else {
+			pw.append("<script>location.href='boardList.do?category=2'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
+		}
 		pw.flush();
 	}
 	

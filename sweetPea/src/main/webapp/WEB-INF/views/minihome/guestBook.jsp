@@ -107,6 +107,18 @@ h1{
 table{
 	margin-top: 2vh;
 }
+thead{
+	float: none !important;
+}
+tr{
+	display: block;
+}
+th{
+	text-align: left;
+}
+td{
+    display: table-cell;
+}
 th,td{
 	font-size: 3.5vw;
 }
@@ -148,12 +160,17 @@ th,td{
 			<thead>
 				<tr>
 					<th colspan=2>
-					
 							<b>${board.name }</b>
 							<i class="bi bi-house-heart" style="cursor:pointer" onclick="openMini(${board.writer })">미니홈피</i>
 							 (${board.date })
 							 <c:if test="${login.uidx == board.writer }">
+							 	<c:if test="${device eq 'PC'}">
 								<i class="bi bi-eraser" style="cursor:pointer" onclick="modifybook(${board.mbidx},'${board.title}','${board.content}',${board.category})"></i>
+								</c:if>
+								<%-- <c:if test="${device eq 'MOBILE'}">
+								<i class="bi bi-eraser" style="cursor:pointer" onclick="mobileModifybook(${board.mbidx},'${board.content}',${board.category})"></i>
+								</c:if> --%>
+								
 								<i class="bi bi-trash" style="cursor:pointer" onclick="deletephoto(${board.mbidx})"></i>
 							 </c:if>
 					</th>
@@ -190,6 +207,12 @@ function openMini(writer){
 function modifybook(mbidx, title, content, category){
 	location.href="<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+mbidx+"&title="+title+"&content="+content+"&category="+category+"";
 }
+
+<%-- /* 모바일 게시물 수정 */
+function mobileModifybook(mbidx, content, category){
+	$("#mainBox").load('"<%=request.getContextPath()%>/miniroomboard2/modify.do?mbidx="+mbidx+"&title="+title+"&content="+content+"&category="+category');
+} --%>
+
 
 /* 게시물 삭제 */
 async function deletephoto(mbidx){
