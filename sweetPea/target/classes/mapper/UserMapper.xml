@@ -126,7 +126,7 @@
 	</update>
 	
 	<!-- 랜덤사용자 표시 -->
-	<select id="randomUser" resultType="userVo">
+	<select id="randomUser" parameterType="int" resultType="userVo">
 		SELECT uidx
 			 , name
 			 , profile
@@ -139,6 +139,11 @@
 				   AND uidx=a.uidx) as today
 		  FROM pea_user a
 		 WHERE delyn='N'
+		 <if test="value != 0">
+		   AND uidx != #{uidx}
+		   AND uidx != all(select bfidx from pea_friends where uidx=#{uidx})
+		   AND uidx != all(select uidx from pea_friends where bfidx=#{uidx})
+		 </if>
 		 ORDER BY rand() limit 36;
 	</select>
 </mapper>

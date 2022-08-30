@@ -347,7 +347,7 @@ th,h2{
 			<c:if test="${list.size() > 0 }">
 				<c:forEach var="vo" items="${list }" varStatus="status">
 					<tr onclick="location.href='view.do?bidx=${vo.bidx }&category=${vo.category }&ridx=${vo.ridx }'">
-						<td>${vo.bidx }</td>
+						<td>${vo.rnum }</td>
 						<c:if test="${searchVo.category==6 }">
 							<c:if test="${vo.report==1}">
 								<td>욕설/비방</td>
@@ -379,6 +379,7 @@ th,h2{
 						</c:if>
 						
 						<c:if test="${searchVo.category != 6 }">
+							
 							<td>${vo.title }</td>
 							<td>${vo.name }</td>
 						</c:if>

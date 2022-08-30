@@ -25,6 +25,8 @@
 
 <!-- 게시물 글 목록 조회-->
 <select id="selectAll" parameterType="SearchVo" resultType="MainBoardVo">
+SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
+		FROM (SELECT @ROWNUM := 0 )rnum, (
 		<if test="category != 6"> 
 		SELECT  A.* 
 		  FROM (SELECT b.*
@@ -66,7 +68,8 @@
 			 	<if test="reply != 0"> 
 			 	   AND reply=#{reply}
 			 	</if>  
-			 	 ORDER BY bidx desc)A 
+			 	 ORDER BY bidx desc)A ) sub
+			 	 ORDER BY rnum DESC
 	 	<if test="list == 1"> 
 	 	 LIMIT 0,5
 	 	</if>

@@ -32,21 +32,14 @@
 
 <select id="selectAll" parameterType="SearchVo" resultType="MessageVo">
 	SELECT	A.* 
-	  FROM	(  SELECT @rownum:=@rownum+1 AS rn
-	  			    , b.*
+	  FROM	(  SELECT b.*
 			     FROM pea_message b
-			     , (SELECT @rownum:=0) tmp
 			    WHERE b.uidx = #{uidx}
 	  			  AND (@rownum:=0) = 0
  	 			  AND b.delyn = 'N'
  	 		 ORDER BY b.midx desc
 		 	) A 
- 	<if test="list == 1">
- 	 WHERE rn LIMIT 5;
- 	</if>
- 	<if test="list != 1">
- 	 WHERE rn BETWEEN #{start} AND #{end};
- 	</if>
+ 	 LIMIT #{start},#{cntPerPage};
 </select>
 
 <select id="content" parameterType="int" resultType="MessageVo">
