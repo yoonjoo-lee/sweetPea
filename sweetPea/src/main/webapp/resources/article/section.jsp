@@ -228,7 +228,8 @@ $('#slider-div').slick({
 	vertical : false,		// 세로 방향 슬라이드 옵션
 	prevArrow : "<button type='button' class='slick-prev'></button>",		// 이전 화살표 모양 설정
 	nextArrow : "<button type='button' class='slick-next'></button>",		// 다음 화살표 모양 설정
-	draggable : true 
+	draggable : true ,
+	swipeToSlide : true
 });
 })
 </script>
