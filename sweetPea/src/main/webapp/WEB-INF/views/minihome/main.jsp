@@ -357,6 +357,7 @@ font-family: ${myMini.font};
 
 .mainFrinedsList{
     width: 200px;
+    height: 120px;
     display: block;
     position: absolute;
     top: 0;

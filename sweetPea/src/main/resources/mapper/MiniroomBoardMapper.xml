@@ -141,24 +141,20 @@
 	
 	<!-- 친구요청 목록 -->
 	<select id="friendsCheckList" parameterType="SearchVo" resultType="FriendsVo">
-		SELECT	A.* 
-	  	  FROM	(SELECT @rownum:=@rownum+1 AS rn
-	  	  			  , b.*
-	  	  			  , c.name
-	  	  			  , c.id
-			       FROM pea_friends b
-			       
-			       JOIN(SELECT uidx,name,id
+		SELECT A.* 
+	  	  FROM (SELECT b.*
+	  	  			 , c.name
+	  	  			 , c.id
+			      FROM pea_friends b			       
+			      JOIN (SELECT uidx,name,id
 		  		          FROM pea_user
 		  				)c
-		  		     ON b.uidx = c.uidx
-		  		     , (SELECT @rownum:=0) tmp
-			    WHERE b.bfidx = #{uidx}
-	  			  AND (@rownum:=0) = 0
- 	 			  AND b.consent = 'N'
- 	 			ORDER by fidx desc
-		 	) A 
-	 	 WHERE rn BETWEEN #{start} AND #{end};
+			  	 	ON b.uidx = c.uidx
+			     WHERE b.bfidx = #{uidx}
+	 	 		   AND b.consent = 'N'
+	 	 		 ORDER by fidx desc
+			 	) A 
+	 	 LIMIT #{start},#{cntPerPage};
 	</select>
 	
 	<!-- 친구요청 카운트 -->
@@ -204,23 +200,19 @@
 	<!-- 친구신청 목록 -->
 	<select id="friendsAcceptList" parameterType="SearchVo" resultType="FriendsVo">
 		SELECT	A.* 
-	  	  FROM	(SELECT @rownum:=@rownum+1 AS rn
-	  	  			  , b.*
+	  	  FROM	(SELECT b.*
 	  	  			  , c.name
 	  	  			  , c.id
-			       FROM pea_friends b
-			       
+			       FROM pea_friends b			       
 			       JOIN(SELECT uidx,name,id
 		  		          FROM pea_user
 		  				)c
 		  		     ON b.bfidx = c.uidx
-		  		     , (SELECT @rownum:=0) tmp
-			    WHERE b.uidx = #{uidx}
-	  			  AND (@rownum:=0) = 0
- 	 			  AND b.consent = 'N'
- 	 			ORDER by fidx desc
+			      WHERE b.uidx = #{uidx}
+ 	 			    AND b.consent = 'N'
+ 	 			  ORDER by fidx desc
 		 	) A 
-	 	 WHERE rn BETWEEN #{start} AND #{end};
+	 	 LIMIT #{start},#{cntPerPage};
 	</select>
 	
 	<!-- 친구신청 거절 -->

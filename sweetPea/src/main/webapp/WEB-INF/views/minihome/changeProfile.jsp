@@ -34,9 +34,10 @@ font-family: ${myMini.font};
 
 <br><h3 style="text-align:center;">프로필 변경하기</h3>
 
-	
-	<form action="changeProfile.do" method="post" enctype="multipart/form-data">
-	
+	<form action= 
+	<c:if test="${device eq 'PC'}">"changeProfile.do"</c:if> 
+	<c:if test="${device eq 'MOBILE'}">"<%=request.getContextPath()%>/miniroomboard2/changeProfile.do"</c:if>
+	 method="post" enctype="multipart/form-data">
 	<div class="photo_box">
 	  <div class="upload_btn">
 	    <div class="upload">
@@ -54,7 +55,6 @@ font-family: ${myMini.font};
 	   <input type="submit" class="btn btn-success"  id="complete" value="업로드" disabled="disabled">
 	   
 	</div>
-	
 
 
 	<script>

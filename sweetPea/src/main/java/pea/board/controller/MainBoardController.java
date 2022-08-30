@@ -74,13 +74,15 @@ public class MainBoardController {
 		vo = new PagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		vo.setSearchType(searchVo.getSearchType());
 		vo.setSearchValue(searchVo.getSearchValue());
-
+		
+		System.out.println("paging: "+vo.toString());
+		
 		model.addAttribute("paging", vo);
 		model.addAttribute("category", category);
 		vo.setCategory(category);
 //		System.out.println("카테고리="+ category);
 		System.out.println("list: "+ vo.getList());
-		vo.setList(1);
+		vo.setList(0);
 		List<MainBoardVo> list = mainboardService.list(vo);
 		
 		System.out.println("카테고리="+ list.size());
