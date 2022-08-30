@@ -78,10 +78,12 @@ $(function(){
 body{
     margin: 0;
     padding: 0;
+    position: relative;
 }
 #mainBox{
 	margin: 0;
     margin-bottom: 8vh;
+    padding-top: 10vh;
 }
 /* 프로필  */
 #profile{
@@ -92,6 +94,7 @@ body{
     border-radius: 36vw;
     left: 32vw;
     top: 42vw;
+    background-color: #e2e2e2;
 }
 
 /* 하단 메뉴바 */
@@ -175,9 +178,9 @@ body{
 }
 
 .goHome{
-	width: 12vw;
-    height: 6vw;
-    margin: 2vw 2vw;
+	width: 16vw;
+    height: 8vh;
+    margin: 1vh 2vw;
 }
 
 .miniRoomBox{
@@ -188,11 +191,11 @@ body{
 }
 
 .loginBox{
-	float: right;
-	font-size: 3vw;
-    line-height: 6vw;
-    margin: 2vw 2vw;
-    
+    float: right;
+    font-size: 4vw;
+    line-height: 8vh;
+    margin: 1vh 3vw;
+    color: white;
 }
 .upDateBox{
 	background-color: white;
@@ -233,11 +236,29 @@ body{
 #addFr{
 	background-image: url("<%=request.getContextPath()%>/resources/images/addFr.png");
 }
+
+.topBox{
+	position: fixed;
+    z-index: 111;
+    background-color: #212529;
+    width: 100%;
+    height: 10vh;
+}
+.mainFrinedsList{
+	position: absolute;
+    border: 0;
+    width: 50vw;
+    left: 25vw;
+    top: 2.5vh;
+}
+
 </style>
 
 <script>
 function clickBtn(link){
+	<c:if test="${mini.uidx == login.uidx}">
 	$("#mainBox").load(link);
+	</c:if>
 }
 function clickThis2(e){
 	$(".m-boardBtn").removeClass('act2');
@@ -368,30 +389,33 @@ $(function(){
 
 </head>
 <body class="body">
+<div class="topBox">
+	<img class="goHome" src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" onclick="location.href='<%=request.getContextPath()%>/home.do'">
+	<c:if test="${login == null}">
+	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">로그인</span>
+	</c:if>
+	<c:if test="${login != null}">
+	<iframe class="mainFrinedsList" src="mainFriendsList.do?uidx=${login.uidx}"></iframe>
+	</c:if>
+	<c:if test="${login != null && login.uidx != mini.uidx}">
+	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">MyHome</span>
+	</c:if>
+	<c:if test="${login != null && login.uidx == mini.uidx}">
+	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/logoutMini.do?uidx=${mini.uidx}'">로그아웃</span>
+	</c:if>
+</div>
 <div id="mainBox">
 	<div class="backBox">
-		<div class="topBox">
-			<img class="goHome" src="<%=request.getContextPath()%>/resources/images/pea-move-unscreen.gif" onclick="location.href='<%=request.getContextPath()%>/home.do'">
-			<c:if test="${login == null}">
-			<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">로그인</span>
-			</c:if>
-			<c:if test="${login != null}">
-			<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/logoutMini.do?uidx=${mini.uidx}'">로그아웃</span>
-			</c:if>
-			<c:if test="${login != null && login.uidx != mini.uidx}">
-			<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">내 미니홈피</span>
-			</c:if>
-		</div>
 		<!-- 프로필 사진 -->
 		<c:if test="${mini.miniProfile == null}">
-			<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+			<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
 		<c:if test="${mini.miniProfile != null}">
-			<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+			<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
 		<div id="visitBox">
-			<p>TODAY <span style="color: red">${mini.today}</span></p>
-			<p>TOTAL <span>${mini.total}</span></p>
+			<p>TODAY <span style="color: red">${today}</span></p>
+			<p>TOTAL <span>${total}</span></p>
 		</div>
 	</div><br>
 	<div class="miniRoomBox"></div><br>

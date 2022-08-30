@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.nio.file.Files;
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -198,9 +199,9 @@ public class ItemController {
 	// 파일 경로 찾기
 	@RequestMapping(value="/item/imageView.do", method=RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(String originFileName, HttpServletRequest request, HttpSession session){
-		
+		String origin = Normalizer.normalize(originFileName, Normalizer.Form.NFC);
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg/");
-		File file=new File(path, originFileName);
+		File file=new File(path, origin);
 		System.out.println("path + "+ path);
 	    ResponseEntity<byte[]> result=null;
 	    try {
