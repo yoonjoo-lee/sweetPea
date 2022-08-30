@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pea.board.service.ItemService;
+import pea.board.service.MiniroomBoardService;
 import pea.board.service.UserService;
 import pea.board.vo.ItemVo;
 import pea.board.vo.UserVo;
@@ -30,6 +31,8 @@ public class HomeController {
 	ItemService itemService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	MiniroomBoardService miniroomBoardService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
@@ -47,6 +50,14 @@ public class HomeController {
 		
 		session.setAttribute("newList",newList);
 		session.setAttribute("mostList",mostList);
+		
+		if (login != null) {
+			// 메인에서 띄울 today/ total	
+			int mytotal = miniroomBoardService.visitTotal(login.getUidx());
+			int mytoday = miniroomBoardService.visitToday(login.getUidx());
+			session.setAttribute("mytotal", mytotal);
+			session.setAttribute("mytoday", mytoday);
+		}
 		
 		return "home";
 		  
