@@ -176,6 +176,21 @@ async function cancelFriends(bfidx){
 }
 
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+.decalBox{
+	width: 100%;
+}
+ul{
+	font-size: 4vw;
+}
+.btn{
+    font-size: 3vw;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 <h3>친구 신청 목록</h3>

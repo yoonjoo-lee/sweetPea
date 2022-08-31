@@ -286,6 +286,34 @@ function noSpace(e){
 	$(e).val($(e).val().replace(/ /gi,''));
 }
 </script>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#listFullBox{
+	width: 80vw;
+}
+.listBtnBox>button {
+    width: 30vw;
+    height: 6vh;
+    font-size: 4vw;
+}
+.friendsBox {
+    font-size: 5vw;
+    height: 5vh;
+    line-height: 5vh;
+    padding: 2vh 0;
+}
+h3{
+    height: 6vh;
+    line-height: 6vh;
+}
+.inputBox {
+    height: 6vh;
+    font-size: 5vw;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 <h3>친구목록</h3>

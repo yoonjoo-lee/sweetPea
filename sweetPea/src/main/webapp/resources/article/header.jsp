@@ -162,6 +162,12 @@
 	margin: 1vh auto !important;
     width: 100% !important;
 }
+#list-icon::after {
+    width: 2vw;
+    height: 2vw;
+    background-size: contain;
+    top: 2vw;
+}
 </style>
 
 </c:if>
@@ -177,6 +183,7 @@ function gift(){
 		  } 
         </script>
 </head>
+
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -202,7 +209,7 @@ function gift(){
 					<div class="info">
 						<ul>
 							<li>today <span style="color: red">${today}</span></li>
-							<li><a style="cursor: pointer; text-decoration: none; color: inherit;" href="<%=request.getContextPath()%>/message/main.do?uidx=${login.uidx}">쪽지</a></li>
+							<li><a class="msgBtn" style="cursor: pointer; text-decoration: none; color: inherit;" href="<%=request.getContextPath()%>/message/main.do?uidx=${login.uidx}">쪽지</a></li>
 							<li>total &nbsp; ${total}</li>
 							<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 						</ul>

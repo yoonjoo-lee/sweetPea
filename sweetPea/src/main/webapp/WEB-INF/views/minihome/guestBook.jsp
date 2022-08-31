@@ -139,12 +139,7 @@ th,td{
 
 	<h1 style="float:right;cursor:pointer;">
 	<c:if test="${login != null}">
-		<c:if test="${device eq 'PC'}">
 		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
-		</c:if>
-		<c:if test="${device eq 'MOBILE'}">
-		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="mobileWrite()"></i>
-		</c:if>
 	</c:if>
 	</h1>
 	

@@ -54,6 +54,19 @@ div.banner{
 			} --%>
 		</c:if>
 </script>
+<c:if test="${newMsg > 0}">
+<style>
+	.msgBtn::after{
+		background-image: url('<%=request.getContextPath()%>/resources/images/n_red_alphabet_letters_icon.png');
+		background-size: 8px;
+	    width: 8px;
+	    height: 8px;
+	    content: "";
+	    background-repeat: no-repeat;
+	    position: absolute;
+	}
+</style>
+</c:if>
 
 </head>
 <body style="max-width: 700px;	max-height: 400px;">
@@ -70,7 +83,7 @@ div.banner{
 					<div class="info">
 						<ul>
 							<li>today <span style="color: red">${mytoday}</span></li>
-							<li><a style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
+							<li><a class="msgBtn" style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
 							<li>total &nbsp; ${mytotal}</li>
 							<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 						</ul>

@@ -91,7 +91,59 @@ margin:5px 10px;
 body{
 font-family: ${myMini.font};
 }
+
+.itemBox{
+	float:left;
+	width:210px;
+}
+.itemImg{
+	width:200px;
+	height:100px;
+}
 </style>
+
+<c:if test="${device eq 'MOBILE'}">
+<style>
+h3{
+	text-align: center;
+}
+.itemFullBox{
+	display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.itemBox {
+    width: 46vw;
+    margin: 1vh 1vw;
+    float: inherit;
+    border: 1px solid black;
+    padding: 2vh 3vw;
+    box-shadow: 1px 1px 5px 1px black;
+}
+b{
+    color: grey;
+    text-align: center;
+    display: block;
+    margin-bottom: 2vh;
+}
+.itemImg{
+	width: fit-content;
+    height: 15vh;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.itemBtnBox{
+	display: flex;
+}
+#changebtn {
+    float: inherit;
+    width: 100%;
+    margin: 2vh 1vw;
+}
+</style>
+</c:if>
+
 </head>
 <body>
 <h3>아이템</h3>
@@ -99,11 +151,13 @@ font-family: ${myMini.font};
 보유한 아이템이 없어요:(
 </c:if>
 
+<div class="itemFullBox">
 
 <c:forEach var="item" items="${list }">
-<div style='float:left; width:210px;'>
+<div class="itemBox">
 <b style='color:grey;'>${item.name }</b>
-<img width="200" height="100" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
+<img class="itemImg" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
+<div class="itemBtnBox">
 <c:if test="${item.subcategory==1}">
 <!-- 1.테마 2.미니룸 배경 3.캐릭터 4.글꼴 5.가구  -->
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> 
@@ -112,12 +166,14 @@ font-family: ${myMini.font};
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=2'">m변경 </button><br> 
 </c:if>
 <c:if test="${item.subcategory==3 || item.subcategory==5}"><!-- 캐릭터 --> 
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/addTominiroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">추가 </button><br> 
-<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/removeFromMiniroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">제거 </button><br> 
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/addTominiroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">추가 </button>
+<button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/removeFromMiniroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">제거 </button>
 </c:if>
+</div>
 </div>
 </c:forEach>
 
+</div>
 
 
 

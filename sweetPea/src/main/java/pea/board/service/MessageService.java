@@ -14,4 +14,5 @@ public interface MessageService {
 	int viewCheck(int midx);
 	int delMsg(int midx);
 	List<String> userCheck();
+	int newViewCheck(int uidx);
 }
