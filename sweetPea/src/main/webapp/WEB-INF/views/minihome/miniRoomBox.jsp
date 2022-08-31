@@ -53,7 +53,8 @@
 <!-- <div class="bgSizeCover">
   <p>Try resizing this element!</p>
 </div> -->
-
+<c:if test="${login!=null }">
+<c:if test="${login.uidx==mini.uidx }">
 <button class="saveBtn" onclick="saveMini()" style="vertical-align:top; cursor:pointer;">save</button>
  <c:forEach var="item" items="${miniroom}">
 <img class="draggable" id="item${item.uiidx}" alt="${item.uiidx }" style=" left:${item.mleft}px; top:${item.mtop}px; " src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }'/>
@@ -118,6 +119,8 @@ $(function() {
 }); 
 </script>
 </c:forEach>
+</c:if>
+</c:if>
 </body>
 </html>
 
