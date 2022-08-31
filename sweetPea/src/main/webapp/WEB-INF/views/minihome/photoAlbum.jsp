@@ -50,10 +50,10 @@
 
 a.control_prev, a.control_next {
   position: absolute;
-  /* top: 40%; */
+  top: 40%;
   z-index: 999;
   display: block;
-  padding: 100% 3%;
+  padding: 0 3%;
   width: auto;
   height: auto;
   /* background: #2a2a2a; */
@@ -162,6 +162,14 @@ img{
 #slider ul li {
 	max-width: 100%
 }
+.image{
+	width: 90%;
+}
+a.control_prev, a.control_next {
+	font-size: 8vw;
+    height: 3vh;
+    padding: 1vh 2vw;
+}
 </style>
 </c:if>
 <script>
@@ -241,6 +249,10 @@ $('.post-wrapper').slick({
 	<script>
 	var content = '${board.content }';
 	var files = content.split('|');
+	if(files.length-1 == 1){
+		$("#next"+${board.mbidx}).css("display","none");
+		$("#prev"+${board.mbidx}).css("display","none");
+	}
 	$(".slider"+${board.mbidx}).append('<ul class="ul${board.mbidx }">');
 	for (var i=0; i<files.length-1; i++){
 	 	$(".ul"+${board.mbidx}).append('<li class="li${board.mbidx }"><img alt="img" class="image" src="<%=request.getContextPath() %>/miniroomboard2/imageView.do?originFileName='+files[i]+'"/></li>');

@@ -385,10 +385,20 @@ window.onload=()=>{
 			}
 		}); 
 	}
+	
+	function mobileReload(){
+		$("#mainBox").load('mini-diary.do?uidx=${mini.uidx}');
+	}
 </script>
 
 <c:if test="${device eq 'MOBILE'}">
-
+<style>
+#writeDiary {
+    height: 4vh;
+    width: 15vw;
+    margin-right: 1vw;
+}
+</style>
 </c:if>
 
 </head>
@@ -439,8 +449,12 @@ function cursor(e) {
 			</c:if>
 		</div>
 	</div>
-	
+	<c:if test="${device eq 'PC'}">
 	<input type="button"  id='writeDiary' onclick="reload()" value="전체글">
+	</c:if>
+	<c:if test="${device eq 'MOBILE'}">
+	<input type="button"  id='writeDiary' onclick="mobileReload()" value="전체글">
+	</c:if>
 	<script>function reload(){location.reload();}</script>
 	<c:if test="${login != null }">
 	<c:if test="${login.uidx == mini.uidx }">

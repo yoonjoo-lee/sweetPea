@@ -369,9 +369,7 @@ button:disabled {
 
 <script>
 function clickBtn(link){
-	<c:if test="${mini.uidx == login.uidx}">
 	$("#mainBox").load(link);
-	</c:if>
 }
 function clickThis2(e){
 	$(".m-boardBtn").removeClass('act2');
@@ -539,7 +537,8 @@ $(function(){
 	<c:if test="${login == null}">
 	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">login</span>
 	</c:if>
-	<c:if test="${login != null}">
+	
+	<c:if test="${login ne null}">
 	<div class="inputBox">
 	  <input type="text" placeholder="친구네 가기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
 	</div>
@@ -555,13 +554,14 @@ $(function(){
 				</div>
 			</c:if>
 			<c:if test="${vo.bfidx == login.uidx}">
-				<div class="friendsBox boxOn" onclick="goMini(${vo.bfidx})">
+				<div class="friendsBox boxOn" onclick="goMini(${vo.uidx})">
 					${vo.name}<span class="fname boxOn">[${vo.uname}]</span>
 				</div>
 			</c:if>
 		</c:forEach>
 		</div>
 	</c:if>
+	
 	</c:if>
 	<c:if test="${login != null && login.uidx != mini.uidx}">
 	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">MyHome</span>

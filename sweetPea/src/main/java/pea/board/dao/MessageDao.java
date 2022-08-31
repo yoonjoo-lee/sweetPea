@@ -45,4 +45,8 @@ public class MessageDao {
 	public List<String> userCheck(){
 		return sqlSession.selectList(namespace+".userCheck");
 	}
+	
+	public int newViewCheck(int uidx) {
+		return sqlSession.selectOne(namespace+".newViewCheck",uidx);
+	}
 }

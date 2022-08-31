@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,10 +64,16 @@ public class messageController {
 	}
 	
 	@RequestMapping(value="/content.do", method=RequestMethod.GET)
-	public String content(int midx, Model model){
+	public String content(int midx, Model model, HttpSession session, HttpServletRequest request){
 		messageService.viewCheck(midx);
+		
+		
 		MessageVo vo = messageService.content(midx);
 		model.addAttribute("vo",vo);
+		
+		session = request.getSession();
+		int newMsg = messageService.newViewCheck(vo.getUidx());
+		session.setAttribute("newMsg", newMsg);
 		return "message/msg-content";
 	}
 	
