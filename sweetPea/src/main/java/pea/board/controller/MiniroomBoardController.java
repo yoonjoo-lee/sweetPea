@@ -72,7 +72,7 @@ public class MiniroomBoardController {
     
 		String device = (String) session.getAttribute("device");
 		if(device == "MOBILE") {
-			List<FriendsVo> list = miniroomBoardService.friendsAllList(uidx);
+			List<FriendsVo> list = miniroomBoardService.friendsAllList(login.getUidx());
 			session.setAttribute("list", list);
 			return "minihome/main-m";
 		} else {

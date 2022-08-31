@@ -236,9 +236,6 @@ a:hover {
 
 <script>
 $(function(){
-	alert(${newMsg});
-	console.log("1");
-	console.log(${newMsg});
 	$(".categoryList").insertAfter(".leftBanner");
 })
 </script>

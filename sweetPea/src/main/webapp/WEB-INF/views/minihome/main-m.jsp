@@ -543,7 +543,9 @@ $(function(){
 	  <input type="text" placeholder="친구네 가기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
 	</div>
 	<c:if test="${list.size() == 0}">
+		<div id="listFullBox" class="">
 		<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
+		</div>
 	</c:if>
 	<c:if test="${list.size() > 0}">
 		<div id="listFullBox" class="">
@@ -573,10 +575,10 @@ $(function(){
 <div id="mainBox">
 	<div class="backBox">
 		<!-- 프로필 사진 -->
-		<c:if test="${mini.miniProfile == null}">
+		<c:if test="${mini.miniProfile == null || mini.miniProfile == ''}">
 			<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
-		<c:if test="${mini.miniProfile != null}">
+		<c:if test="${mini.miniProfile != null && mini.miniProfile != ''}">
 			<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
 		<div id="visitBox">

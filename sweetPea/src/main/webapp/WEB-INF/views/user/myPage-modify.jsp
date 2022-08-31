@@ -21,7 +21,7 @@
 		text-align: center;
 	}
 	.inputBox{
-		width: 60%;
+		width: 85%;
 		margin: 0 auto;
 	}
 	.inputIdx,.inputBox>input{

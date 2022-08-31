@@ -15,7 +15,7 @@
 		/* background-color: #a0df93; */
 		background-color: white;
 		width: 22vw;
-		height: 92vh;
+		height: 95vh;
 		display: inline-block;
 		margin: 1.8% 0;
 		margin-left: 2vw;
@@ -24,7 +24,7 @@
 	#centerBox{
 		background-color: white;
 		width: 76vw;
-		height: 95%;
+		height: 95vh;
 		margin: 1.8% 0;
 		display: inline-block;
 		border-radius: 15px;
@@ -191,8 +191,10 @@ font-family: ${myMini.font};
 	$(function(){
 		$(".list").click(function(){
 			$(".list").removeClass("ck");
-			$(this).addClass("ck");
+			$(this).toggleClass("ck");
+			<c:if test="${device eq 'MOBILE'}">
 			$("#leftBox").css("height","10vh");
+			</c:if>
 		});
 	})
 </script>
@@ -262,13 +264,13 @@ font-family: ${myMini.font};
     display:none;
 }
 .listBox{
-	position: absolute;
     top: 5vh;
     margin: 0;
     font-size: 4vw;
     height: 5vh;
     line-height: 5vh;
     width:100%;
+    position: absolute;
 }
 .ck+.listBox {
     display: flex;
