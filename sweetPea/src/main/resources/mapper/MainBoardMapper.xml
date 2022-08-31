@@ -68,7 +68,7 @@ SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
 			 	<if test="reply != 0"> 
 			 	   AND reply=#{reply}
 			 	</if>  
-			 	 ORDER BY bidx desc)A ) sub
+			 	 ORDER BY bidx ASC)A ) sub
 			 	 ORDER BY rnum DESC
 	 	<if test="list == 1"> 
 	 	 LIMIT 0,5
