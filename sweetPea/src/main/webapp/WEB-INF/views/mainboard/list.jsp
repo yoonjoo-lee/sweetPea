@@ -260,7 +260,7 @@ th,h2{
 
 <!-- 페이징 옵션 선택 -->
 <div style="float: right;">
-	<select  class="form-select" id="cntPerPage" name="sel" onchange="selChange()">
+	<select  class="form-select" id="cntPerPage" name="sel" onchange="selChange()" style="cursor:pointer">
 		<option value="5"
 			<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
 		<option value="10"
@@ -278,7 +278,7 @@ th,h2{
 <!-- 검색 -->	
 <c:if test="${category ne 6 }">
 <form method="get" action="list.do">
-		<div class="searchDiv"><select  class="form-select" name="searchType">
+		<div class="searchDiv" ><select  class="form-select" name="searchType" style="cursor:pointer">
 			<option value="title" <c:if test="${!empty SearchVo.searchType and SearchVo.searchType eq 'title' }">selected</c:if>>제목</option>
 			<option value="contentWriter" <c:if test="${!empty SearchVo.searchType and SearchVo.searchType eq 'contentWriter' }">selected</c:if>>내용+작성자</option>
 		</select></div>
@@ -289,8 +289,8 @@ th,h2{
 </c:if>
 <!-- 신고내역 페이지 정렬 -->	
 <c:if test="${category eq 6 }">
-	<div style="float: left; width: 15%;" class="button" onclick="location.href='reportPage.do?category=6&reply=1'">
-	   <p class="btnText">미확인</p>
+	<div style="float: left; width: 15%;" class="button" onclick="location.href='reportPage.do?category=6&reply=1'" >
+	   <p class="btnText" >미확인</p>
 	   <div class="btnTwo">
 	     <p class="btnText2">go</p>
 	   </div>
@@ -346,7 +346,7 @@ th,h2{
 			</c:if>
 			<c:if test="${list.size() > 0 }">
 				<c:forEach var="vo" items="${list }" varStatus="status">
-					<tr onclick="location.href='view.do?bidx=${vo.bidx }&category=${vo.category }&ridx=${vo.ridx }'">
+					<tr onclick="location.href='view.do?bidx=${vo.bidx }&category=${vo.category }&ridx=${vo.ridx }'" style="cursor:pointer">
 						<td>${vo.rnum }</td>
 						<c:if test="${searchVo.category==6 }">
 							<c:if test="${vo.report==1}">
@@ -392,7 +392,7 @@ th,h2{
 </table>
 
 <!-- 공지게시판 작성은 관리자만 접근할수 있도록 함-->
-<c:if test="${(login.pea_super =='N' && searchVo.category != 1) || login.pea_super =='Y'}">
+<c:if test="${(login.pea_super =='N' && searchVo.category != 1 ) || (login.pea_super =='Y' && searchVo.category != 6)}">
 <button style="float:right" class="btn btn-secondary btn-write" onclick="location.href='write.do?category=${category }'">작성하기</button>
 </c:if>
 <br><br>

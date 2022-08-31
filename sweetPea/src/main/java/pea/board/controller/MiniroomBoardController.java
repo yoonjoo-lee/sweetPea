@@ -53,6 +53,9 @@ public class MiniroomBoardController {
 				miniroomBoardService.visitMinihome(uidx);
 			}
 		}  
+		if(login == null) {
+			miniroomBoardService.visitMinihome(uidx);
+		}
 		int total = miniroomBoardService.visitTotal(uidx);
 		int today = miniroomBoardService.visitToday(uidx);
 		session.setAttribute("total", total);
