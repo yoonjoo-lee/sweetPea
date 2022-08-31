@@ -208,7 +208,7 @@ $(function (){
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
+				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
@@ -247,7 +247,7 @@ function boardList4(){
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
+				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";
@@ -286,7 +286,7 @@ function boardList5(){
 			html += "<tbody>";
 			for(var i=0; i<data.length;i++){
 				html+="<tr>";
-				html+="<td>"+data[i].bidx+"</td>";
+				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
 				html+="</tr>";

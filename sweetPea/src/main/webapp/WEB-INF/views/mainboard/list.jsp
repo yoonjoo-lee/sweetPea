@@ -383,7 +383,7 @@ th,h2{
 							<td>${vo.title }</td>
 							<td>${vo.name }</td>
 						</c:if>
-						<td>${vo.datetime }</td>
+						<td>${vo.datetime.substring(0,10) }</td>
 						
 					</tr>
 				</c:forEach>
