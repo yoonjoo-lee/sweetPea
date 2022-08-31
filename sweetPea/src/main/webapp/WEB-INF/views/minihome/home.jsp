@@ -76,6 +76,7 @@ h3>img{
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
+ 	position: relative;   
 }
 
 
