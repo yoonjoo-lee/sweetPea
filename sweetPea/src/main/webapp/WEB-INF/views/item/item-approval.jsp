@@ -140,7 +140,7 @@ $(function itemSelectAll(){
 					
 })
 
-/*  */
+/* 아이템 승인 버튼  */
 function itemApproval(iidx, check){
 	console.log(iidx);
 	console.log(check);
