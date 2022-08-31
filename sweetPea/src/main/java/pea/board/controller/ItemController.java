@@ -164,7 +164,12 @@ public class ItemController {
 		vo.setUidx(login.getUidx());
 		vo.setImg(file.getOriginalFilename());
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/itemImg");
-
+		/*
+		String uploadPath = "/resources/images";
+		String saveFolder = "/itemImge";
+		String saveFullPath = uploadPath+saveFolder;
+		*/
+		
 		System.out.println(path);
 		System.out.println(vo.getImg());
 
@@ -178,6 +183,9 @@ public class ItemController {
 
 		if (!file.getOriginalFilename().isEmpty()) {
 			file.transferTo(new File(path, file.getOriginalFilename()));
+//			file.transferTo(new File(saveFullPath, file.getOriginalFilename()));
+			
+			
 		} else {
 
 		}

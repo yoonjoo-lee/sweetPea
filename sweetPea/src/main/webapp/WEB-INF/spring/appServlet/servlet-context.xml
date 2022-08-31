@@ -18,6 +18,7 @@
 
 	<resources mapping="/images/profile/**" location="file:///D:\openApi(A)\spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sweetPea\resources\images\profile\" /> 
 	<resources mapping="/images/itemImg/**" location="file:///Users/gimbeomjun/Documents/workspace-spring-tool-suite-4-4.14.1.RELEASE/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/sweetPea/resources/images/itemImg/" /> 
+	<resources mapping="/images/itemImge/**" location="file:///Users/gimbeomjun/Downloads/peaProject/sweetPea/sweetPea/src/main/webapp/resources/images/itemImge/" /> 
 														
 	
 

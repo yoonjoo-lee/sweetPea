@@ -302,13 +302,53 @@ td>input,td>select{
 			<!-- <input type="button" value="아이템 등록" onclick=""> -->
 		</div>
 	</form>
-	<div class="btnWrite_container" style="margin-left: 40vw;">
-		<button class="btnWrite" onclick="itemWrite()">
-			<span>아이템 등록</span>
-		</button>
-	</div>
-
+	<c:if test="${login.pea_super == 'Y'}">
+		<div class="btnWrite_container" style="margin-left: 40vw;">
+			<button class="btnWrite" onclick="iitemApproval()">
+				<span>아이템 등록</span>
+			</button>
+		</div>
+	</c:if>
+	<c:if test="${login.pea_super == 'N'}">
+		<div class="btnWrite_container" style="margin-left: 40vw;">
+			<button class="btnWrite" onclick="itemWrite()">
+				<span>아이템 등록</span>
+			</button>
+		</div>
+	</c:if>
 	<script>
+	/* 아이템 승인 버튼  */
+	function itemApproval(iidx, check){
+		console.log(iidx);
+		console.log(check);
+		$.ajax({
+			url:"approvalCheck.do",
+			type:"post",
+			data:{"iidx":iidx,"check":check},
+			success: async function(data){
+				console.log(data);
+				console.log(check);
+				if(check==1){
+				await Swal.fire({
+						text: '처리 완료',
+						icon: 'success',
+						timer: 2000,
+					    timerProgressBar: true,
+					})
+						window.location.reload();
+				}else{
+					await Swal.fire({
+					text: '보류로 이동',
+					icon: 'info',
+					timer: 2000,
+				    timerProgressBar: true,
+				})
+					window.location.reload();
+				}
+				
+			}
+		})
+	}
 	
 	
 	/* 태그 스크립트 */

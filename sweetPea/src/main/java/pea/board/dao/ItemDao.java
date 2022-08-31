@@ -99,11 +99,6 @@ public class ItemDao {
 
 		return sqlSession.update(namespace+".itemDel", iidx);
 	}
-
-	public int itemBuy() {
-
-		return sqlSession.update(namespace + ".itemBuy");
-	}
 	
 	// 장바구니 리스트 
 	public List<ItemVo> basket_selectAll(int uidx) {

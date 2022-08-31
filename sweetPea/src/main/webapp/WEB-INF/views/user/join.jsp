@@ -233,13 +233,18 @@
 			}
 		})
 	</script>
-		<input type="text" name="email" id="email" placeholder="이메일"> <input type="button" id="mailCheckBtn" value="인증번호 받기"><br> <input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br> <span id="span-email"></span><br>
+		<input type="text" name="email" id="email" placeholder="이메일"> <input type="button" id="mailCheckBtn" value="인증번호 받기" ><br> <input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br> <span id="span-email"></span><br>
 
 		<script>
 		$('#email').blur(function(){
 			if($('#email').val()==""){
 				$('#span-email').text('이메일을 입력하세요');
 				$('#span-email').css('color','red');
+				$('#mailCheckBtn').attr('disabled',true);
+			}else if($('#email').val()!=""){
+				$('#mailCheckBtn').attr('disabled',false);
+			}
+				
 			}else if($(".mail-check-input").attr('disabled')=='disabled'){
 				$('#span-email').text('이메일 인증을 진행하세요');
 				$('#span-email').css('color','red');
