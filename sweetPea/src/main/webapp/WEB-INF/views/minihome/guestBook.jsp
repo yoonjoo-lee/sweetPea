@@ -175,10 +175,10 @@ th,td{
 				<tr>
 					<td width=120>
 							<!-- 프로필 사진 -->
-							<c:if test="${board.miniProfile == null}">
+							<c:if test="${board.miniProfile == null || board.miniProfile == ''}">
 								<img class="profile" src="<%=request.getContextPath()%>/resources/upload/1.png">
 							</c:if>
-							<c:if test="${board.miniProfile != null}">
+							<c:if test="${board.miniProfile != null && board.miniProfile != ''}">
 								<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}">
 							</c:if>
 					</td>

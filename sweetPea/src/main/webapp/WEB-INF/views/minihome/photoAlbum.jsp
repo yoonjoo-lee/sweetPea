@@ -226,10 +226,10 @@ $('.post-wrapper').slick({
 
 <!-- 프로필 사진 -->
 <div class="photo-profile" id="user">
-<c:if test="${board.miniProfile == null}">
+<c:if test="${board.miniProfile == null || board.miniProfile == ''}">
 	<img class="photo-profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
 </c:if>
-<c:if test="${board.miniProfile != null}">
+<c:if test="${board.miniProfile != null && board.miniProfile != ''}">
 	<img class="photo-profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
 </c:if>
 </div>
