@@ -115,6 +115,7 @@ text-align: right;
 .eachphoto{
 border-radius: 10px;
 box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+padding: 0 2vw;
 }
 
 body{

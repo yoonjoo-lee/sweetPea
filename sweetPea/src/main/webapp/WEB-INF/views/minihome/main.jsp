@@ -456,10 +456,10 @@ function clickBtn(link,type){
 			'left': '0',
 		    'top': '0',
 		    'position': 'fixed',
-		    'width': '70vw',
+		    'width': '71vw',
 		    'height': '88vh',
-		    'margin': '6vh 2vw',
-			'border-radius': '3vh',
+		    'margin': '6.5vh 2vw',
+			'border-radius': '2vh'
 		/* width: 99vw;
 		height: 98vh;
 		margin: 1vh 1vw;

@@ -83,6 +83,7 @@ SELECT @ROWNUM := @ROWNUM + 1 AS rnum, sub.*
 	SELECT COUNT(*) 
 	 FROM pea_board
 	 WHERE category=#{category}
+	   AND delyn = 'N'
 </select>
 
 <!-- 게시물 각 글 조회-->
