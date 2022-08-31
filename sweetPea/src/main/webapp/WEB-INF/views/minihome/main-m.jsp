@@ -369,9 +369,7 @@ button:disabled {
 
 <script>
 function clickBtn(link){
-	<c:if test="${mini.uidx == login.uidx}">
 	$("#mainBox").load(link);
-	</c:if>
 }
 function clickThis2(e){
 	$(".m-boardBtn").removeClass('act2');
@@ -539,12 +537,15 @@ $(function(){
 	<c:if test="${login == null}">
 	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/user/login.do'">login</span>
 	</c:if>
-	<c:if test="${login != null}">
+	
+	<c:if test="${login ne null}">
 	<div class="inputBox">
 	  <input type="text" placeholder="친구네 가기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
 	</div>
 	<c:if test="${list.size() == 0}">
+		<div id="listFullBox" class="">
 		<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
+		</div>
 	</c:if>
 	<c:if test="${list.size() > 0}">
 		<div id="listFullBox" class="">
@@ -555,13 +556,14 @@ $(function(){
 				</div>
 			</c:if>
 			<c:if test="${vo.bfidx == login.uidx}">
-				<div class="friendsBox boxOn" onclick="goMini(${vo.bfidx})">
+				<div class="friendsBox boxOn" onclick="goMini(${vo.uidx})">
 					${vo.name}<span class="fname boxOn">[${vo.uname}]</span>
 				</div>
 			</c:if>
 		</c:forEach>
 		</div>
 	</c:if>
+	
 	</c:if>
 	<c:if test="${login != null && login.uidx != mini.uidx}">
 	<span class="loginBox" onclick="location.href='<%=request.getContextPath()%>/mini/main.do?uidx=${login.uidx}'">MyHome</span>
@@ -573,10 +575,10 @@ $(function(){
 <div id="mainBox">
 	<div class="backBox">
 		<!-- 프로필 사진 -->
-		<c:if test="${mini.miniProfile == null}">
+		<c:if test="${mini.miniProfile == null || mini.miniProfile == ''}">
 			<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
-		<c:if test="${mini.miniProfile != null}">
+		<c:if test="${mini.miniProfile != null && mini.miniProfile != ''}">
 			<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do?uidx=${login.uidx}')">
 		</c:if>
 		<div id="visitBox">

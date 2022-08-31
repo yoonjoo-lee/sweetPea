@@ -456,10 +456,10 @@ function clickBtn(link,type){
 			'left': '0',
 		    'top': '0',
 		    'position': 'fixed',
-		    'width': '70vw',
+		    'width': '71vw',
 		    'height': '88vh',
-		    'margin': '6vh 2vw',
-			'border-radius': '3vh',
+		    'margin': '6.5vh 2vw',
+			'border-radius': '2vh'
 		/* width: 99vw;
 		height: 98vh;
 		margin: 1vh 1vw;
@@ -532,10 +532,10 @@ function noSpace(e){
 		<div id="left-centerBox">
 			<br>
 			<!-- 프로필 사진 -->
-			<c:if test="${mini.miniProfile == null}">
+			<c:if test="${mini.miniProfile == null || mini.miniProfile == ''}">
 				<img src="<%=request.getContextPath()%>/resources/upload/1.png" id="profile" onclick="clickThis('#0'), clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do','profile')" style="cursor:pointer">
 			</c:if>
-			<c:if test="${mini.miniProfile != null}">
+			<c:if test="${mini.miniProfile != null && mini.miniProfile != ''}">
 				<img src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${mini.miniProfile}" id="profile" onclick="clickThis('#0'), clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do','profile')" style="cursor:pointer">
 			</c:if>
 			

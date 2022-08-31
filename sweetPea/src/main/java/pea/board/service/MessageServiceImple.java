@@ -51,6 +51,11 @@ public class MessageServiceImple implements MessageService{
 		return messageDao.userCheck();
 	}
 
+	@Override
+	public int newViewCheck(int uidx) {
+		return messageDao.newViewCheck(uidx);
+	}
+
 	
 
 }

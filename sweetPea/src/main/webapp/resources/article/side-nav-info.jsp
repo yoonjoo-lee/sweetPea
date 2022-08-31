@@ -10,6 +10,7 @@
 <meta name="author" content="" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
 <c:if test="${login != null}">
 function openMessage(){
 	var popupX = (document.body.offsetWidth / 2) - (700 / 2);
@@ -208,6 +209,20 @@ a:hover {
 </style>
 </c:if>
 
+<c:if test="${newMsg > 0}">
+<style>
+	.msgBtn::after{
+		background-image: url('<%=request.getContextPath()%>/resources/images/n_red_alphabet_letters_icon.png');
+		background-size: 8px;
+	    width: 8px;
+	    height: 8px;
+	    content: "";
+	    background-repeat: no-repeat;
+	    position: absolute;
+	}
+</style>
+</c:if>
+
 <div class="side-nav">
 	<c:if test="${device eq 'PC' }">
 	<div class="loginBox">
@@ -224,7 +239,7 @@ a:hover {
 					<ul>
 						<li>today <span style="color: red">${today}</span></li>
 						<li>total &nbsp; ${total}</li>
-						<li><a style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
+						<li><a class="msgBtn" style="cursor: pointer;" onclick="openMessage()">쪽지</a></li>
 						<li>완두콩 <a style="text-decoration: none; color: #007500; font-weight: bold;" href="<%=request.getContextPath()%>/user/charge.do">${login.pea_amount}</a>개</li>
 					</ul>
 					<input type="button" style="position: absolute; bottom: 5%; font-size: 1em;" onclick="openMini()" value="미니홈피 가기">

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pea.board.service.MessageService;
 import pea.board.service.MiniroomBoardService;
 import pea.board.service.UserService;
 import pea.board.vo.UserVo;
@@ -27,6 +28,8 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	MiniroomBoardService miniroomBoardService;
+	@Autowired
+	MessageService MessageService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
@@ -91,13 +94,14 @@ public class UserController {
 			
 			int total = miniroomBoardService.visitTotal(login.getUidx());
 			int today = miniroomBoardService.visitToday(login.getUidx());
-			
+			int newMsg = MessageService.newViewCheck(login.getUidx());
 			// 자동 로그아웃 시간 20분 
 			session.setMaxInactiveInterval(1200);
 			// 
 			session.setAttribute("total", total);
 			session.setAttribute("today", today);
 			session.setAttribute("login", login);
+			session.setAttribute("newMsg", newMsg);
 			
 			pw.append("<script>location.href='home.do'</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
 			pw.flush();

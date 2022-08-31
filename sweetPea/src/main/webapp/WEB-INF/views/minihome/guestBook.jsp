@@ -139,12 +139,7 @@ th,td{
 
 	<h1 style="float:right;cursor:pointer;">
 	<c:if test="${login != null}">
-		<c:if test="${device eq 'PC'}">
 		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/diary_write.do?uidx=${login.uidx}&category=3'"></i>
-		</c:if>
-		<c:if test="${device eq 'MOBILE'}">
-		<i class="bi bi-plus-square-fill" style="color: grey;" onclick="mobileWrite()"></i>
-		</c:if>
 	</c:if>
 	</h1>
 	
@@ -180,10 +175,10 @@ th,td{
 				<tr>
 					<td width=120>
 							<!-- 프로필 사진 -->
-							<c:if test="${board.miniProfile == null}">
+							<c:if test="${board.miniProfile == null || board.miniProfile == ''}">
 								<img class="profile" src="<%=request.getContextPath()%>/resources/upload/1.png">
 							</c:if>
-							<c:if test="${board.miniProfile != null}">
+							<c:if test="${board.miniProfile != null && board.miniProfile != ''}">
 								<img class="profile" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}">
 							</c:if>
 					</td>

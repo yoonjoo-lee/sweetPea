@@ -361,28 +361,38 @@
 	<script type="text/javascript">
 
 $('#mailCheckBtn').click(function() {
+	var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;	// 이메일 형식체크
+	
 	const email = $('#email').val(); // 이메일 주소값 얻어오기!
-	const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-	var pjtPath = '<%=request.getContextPath()%>';
-	Swal.fire({
-	      text: '인증번호 전송중...',
-	      didOpen: () => {
-	    	    Swal.showLoading()
-  	  },
-  	backdrop: false
-  	});
-	$.ajax({
-		type : 'get',
-		url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-		success : async function (data) {
-			checkInput.attr('disabled',false);
-			code =data;
-			await Swal.fire({
-			      text: '인증번호가 전송되었습니다.',
-			      icon: 'success',
-		    });
-		}			
-	}); // end ajax
+	if (!reg_email.test(email)){
+		$('#email').focus();
+		Swal.fire({
+		      text: '이메일 형식을 지켜주세요.',
+		      icon: 'error',
+	    });
+	}else{
+		const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+		var pjtPath = '<%=request.getContextPath()%>';
+		Swal.fire({
+		      text: '인증번호 전송중...',
+		      didOpen: () => {
+		    	    Swal.showLoading()
+	  	  },
+	  	backdrop: false
+	  	});
+		$.ajax({
+			type : 'get',
+			url : pjtPath + '/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+			success : async function (data) {
+				checkInput.attr('disabled',false);
+				code =data;
+				await Swal.fire({
+				      text: '인증번호가 전송되었습니다.',
+				      icon: 'success',
+			    });
+			}			
+		}); // end ajax
+	}
 }); // end send eamil
 // 인증번호 비교 
 // blur -> focus가 벗어나는 경우 발생

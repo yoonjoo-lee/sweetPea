@@ -50,10 +50,10 @@
 
 a.control_prev, a.control_next {
   position: absolute;
-  /* top: 40%; */
+  top: 40%;
   z-index: 999;
   display: block;
-  padding: 100% 3%;
+  padding: 0 3%;
   width: auto;
   height: auto;
   /* background: #2a2a2a; */
@@ -115,6 +115,7 @@ text-align: right;
 .eachphoto{
 border-radius: 10px;
 box-shadow: 2px 3px 4px 2px rgba(34, 36, 38, 0.15);
+padding: 0 2vw;
 }
 
 body{
@@ -161,6 +162,14 @@ img{
 }
 #slider ul li {
 	max-width: 100%
+}
+.image{
+	width: 90%;
+}
+a.control_prev, a.control_next {
+	font-size: 8vw;
+    height: 3vh;
+    padding: 1vh 2vw;
 }
 </style>
 </c:if>
@@ -218,10 +227,10 @@ $('.post-wrapper').slick({
 
 <!-- 프로필 사진 -->
 <div class="photo-profile" id="user">
-<c:if test="${board.miniProfile == null}">
+<c:if test="${board.miniProfile == null || board.miniProfile == ''}">
 	<img class="photo-profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
 </c:if>
-<c:if test="${board.miniProfile != null}">
+<c:if test="${board.miniProfile != null && board.miniProfile != ''}">
 	<img class="photo-profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
 </c:if>
 </div>
@@ -241,6 +250,10 @@ $('.post-wrapper').slick({
 	<script>
 	var content = '${board.content }';
 	var files = content.split('|');
+	if(files.length-1 == 1){
+		$("#next"+${board.mbidx}).css("display","none");
+		$("#prev"+${board.mbidx}).css("display","none");
+	}
 	$(".slider"+${board.mbidx}).append('<ul class="ul${board.mbidx }">');
 	for (var i=0; i<files.length-1; i++){
 	 	$(".ul"+${board.mbidx}).append('<li class="li${board.mbidx }"><img alt="img" class="image" src="<%=request.getContextPath() %>/miniroomboard2/imageView.do?originFileName='+files[i]+'"/></li>');

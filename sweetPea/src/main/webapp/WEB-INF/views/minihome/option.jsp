@@ -15,7 +15,7 @@
 		/* background-color: #a0df93; */
 		background-color: white;
 		width: 22vw;
-		height: 92vh;
+		height: 95vh;
 		display: inline-block;
 		margin: 1.8% 0;
 		margin-left: 2vw;
@@ -24,7 +24,7 @@
 	#centerBox{
 		background-color: white;
 		width: 76vw;
-		height: 95%;
+		height: 95vh;
 		margin: 1.8% 0;
 		display: inline-block;
 		border-radius: 15px;
@@ -190,7 +190,11 @@ font-family: ${myMini.font};
 <script>
 	$(function(){
 		$(".list").click(function(){
+			$(".list").removeClass("ck");
 			$(this).toggleClass("ck");
+			<c:if test="${device eq 'MOBILE'}">
+			$("#leftBox").css("height","10vh");
+			</c:if>
 		});
 	})
 </script>
@@ -228,39 +232,112 @@ font-family: ${myMini.font};
 	}
 </script>
 
+<c:if test="${device eq 'MOBILE'}">
+<style>
+#leftBox{
+    border-radius: 15px;
+    display: block;
+    height: 5vh;
+    width: 100%;
+    margin: 0;
+}
+#left-centerBox{
+	width: 100%;
+    height: 100%;
+    border-radius: 0;
+    display: flex;
+}
+.list{
+    display: inline-block;
+    width: 100%;
+    font-size: 4vw;
+    height: 5vh;
+    line-height: 5vh;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+.list::after {
+    display:none;
+}
+.listBox{
+    top: 5vh;
+    margin: 0;
+    font-size: 4vw;
+    height: 5vh;
+    line-height: 5vh;
+    width:100%;
+    position: absolute;
+}
+.ck+.listBox {
+    display: flex;
+}
+.listBox>div {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+.ck{
+	background-color: #007500;
+    color: white;
+    font-weight: bold;
+}
+.act{
+	text-decoration:none;
+	font-weight: bold;
+    background-color: #007500;
+    color: white;
+}
+#centerBox{
+    width: 100%;
+    position: relative;
+    height: 65vh;
+}
+#list-icon::after {
+    width: 2vw;
+    height: 2vw;
+    background-size: contain;
+    top: 2vw;
+}
+</style>
+</c:if>
+
 </head>
 <body>
+
 	<div id="leftBox">
+		<c:if test="${device eq 'PC'}">
 		<div id="left-topBox">
 			<p>TODAY <span style="color: red">${today}</span></p>
 			<p>TOTAL <span>${total}</span></p>
 		</div>
-		<div id="left-centerBox"><br>
-				<div class="list">내 정보 관리</div>
-				<div class="listBox">
-					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-idx.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원 정보</div>
-					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-modify.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원정보 수정</div>
-					<div onclick="optionClick('<%=request.getContextPath() %>/user/myPage-changePwd.do?uidx=${login.uidx}&mini=1'),clickThis(this)">비밀번호 수정</div>
-				</div>
-				<div class="list">친구 관리</div>
-				<div class="listBox">
-					<div class="list-option" onclick="optionClick('friendsList.do?uidx=${login.uidx}'),clickThis(this)">친구 목록</div>
-					<div id="list-icon" class="list-option" onclick="optionClick('friendsCheckList.do?uidx=${login.uidx}'),clickThis(this)">친구 신청 목록</div>
-				</div>
-				<div class="list">내 아이템 관리</div>
-				<div class="listBox">
-					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeEffect.do?uidx=${login.uidx}'),clickThis(this)">미니홈피 효과</div>
-					<div onclick="gettingReady()">음악 설정</div>
-					<div onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeFont.do?uidx=${login.uidx}'),clickThis(this)">폰트 설정</div>
-				</div>
+		</c:if>
+		<div id="left-centerBox">
+		<c:if test="${device eq 'PC'}"><br></c:if>
+			<div class="list">내 정보</div><div class="listBox">
+				<div class="list-option" onclick="optionClick('<%=request.getContextPath() %>/user/myPage-idx.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원 정보</div>
+				<div class="list-option" onclick="optionClick('<%=request.getContextPath() %>/user/myPage-modify.do?uidx=${login.uidx}&mini=1'),clickThis(this)">회원정보 수정</div>
+				<div class="list-option" onclick="optionClick('<%=request.getContextPath() %>/user/myPage-changePwd.do?uidx=${login.uidx}&mini=1'),clickThis(this)">비밀번호 수정</div>
+			</div><div class="list">친구</div><div class="listBox">
+				<div class="list-option" onclick="optionClick('friendsList.do?uidx=${login.uidx}'),clickThis(this)">친구 목록</div>
+				<div id="list-icon" class="list-option" onclick="optionClick('friendsCheckList.do?uidx=${login.uidx}'),clickThis(this)">친구 신청 목록</div>
+			</div><div class="list">내 아이템</div><div class="listBox">
+				<div class="list-option" onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeEffect.do?uidx=${login.uidx}'),clickThis(this)">미니홈피 효과</div>
+				<div class="list-option" onclick="gettingReady()">음악 설정</div>
+				<div class="list-option" onclick="optionClick('<%=request.getContextPath() %>/miniroomboard2/minihomeFont.do?uidx=${login.uidx}'),clickThis(this)">폰트 설정</div>
+			</div>
 		</div>
 		
 	</div>
 	<div id="centerBox">
 	<div id="center-centerBox">
-	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()">
-	</h3>
+	<c:if test="${device eq 'PC'}">
+	<h3>${mini.h2}<img src="<%=request.getContextPath()%>/resources/images/setting.png" onclick="changeHeader()"></h3>
 	<hr>
+	</c:if>
 	<iframe id="miniIframe" scrolling="yes" src="<%=request.getContextPath() %>/user/myPage-idx.do?uidx=${login.uidx}&mini=1"></iframe>
 	</div>
 	</div>

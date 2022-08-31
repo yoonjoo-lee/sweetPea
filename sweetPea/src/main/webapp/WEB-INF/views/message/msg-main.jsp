@@ -44,17 +44,20 @@ h3,.megBox ul {
 }
 
 .header-ul>li, .content-ul>li{
-	width: 3%;
+	width: 5%;
 	height: 2.5em;
     line-height: 2.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .header-ul>li:nth-child(2), .content-ul>li:nth-child(2) {
-	width: 15%
+	width: 20%;
 }
 
 .header-ul>li:nth-child(3), .content-ul>li:nth-child(3) {
-	width: 54%;
+	width: 50%;
 	cursor: pointer;
 }
 .content-ul>li:nth-child(3):hover {
@@ -180,6 +183,7 @@ h3{
 .megBox>ul>li{
 	font-size: 2.5vw;
     line-height: 5vh;
+    height: 5vh;
 }
 .header-ul>li>input[type="checkbox"],.content-ul>li>input[type="checkbox"]{
 	vertical-align: text-top;
@@ -209,10 +213,10 @@ h3{
 	<br>
 	<div class="megBox">
 		<ul class="header-ul">
-			<li><input type="checkbox" id="allCheck"></li>
-			<li>보낸 사람</li>
-			<li>제목</li>
-			<li>받은 날짜</li>
+			<li><input type="checkbox" id="allCheck">
+			</li><li>보낸 사람
+			</li><li>제목
+			</li><li>받은 날짜</li>
 		</ul>
 		<c:if test="${list.size() == 0}">
 			<ul class="content-ul">
@@ -223,18 +227,18 @@ h3{
 			<c:forEach var="vo" items="${list}">
 				<c:if test="${vo.view_check eq 'Y'}">
 					<ul class="content-ul" style="color: lightgray;">
-						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-						<li>${vo.writer}</li>
-						<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-						<li>${vo.datetime}</li>
+						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox">
+						</li><li>${vo.writer}
+						</li><li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}
+						</li><li>${vo.datetime}</li>
 					</ul>
 				</c:if>
 				<c:if test="${vo.view_check eq 'N'}">
 					<ul class="content-ul">
-						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox"></li>
-						<li>${vo.writer}</li>
-						<li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}</li>
-						<li>${vo.datetime}</li>
+						<li><input type="checkbox" name="rowCheck" value="${vo.midx}" class="checkBox">
+						</li><li>${vo.writer}
+						</li><li onclick="location.href='content.do?midx=${vo.midx}'">${vo.title}
+						</li><li>${vo.datetime}</li>
 					</ul>
 				</c:if>
 			</c:forEach>

@@ -222,7 +222,7 @@ $(function(){
 </head>
 <body>
 <div class="inputBox">
-  <input type="text" placeholder="친구 찾기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
+  <input type="text" placeholder="친구네 가기" class="searchInput" onkeyup="searchFriends(this,${login.uidx})">
 </div>
 <c:if test="${list.size() == 0}">
 	<div class="friendsBox" style="color: darkgray; width: 100%">친구가 없습니다</div>
