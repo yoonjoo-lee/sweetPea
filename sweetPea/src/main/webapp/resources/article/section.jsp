@@ -100,14 +100,40 @@
 .slick-next {
     right: 0 !important;
 }
+.cardImg{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 </style>
 <c:if test="${device eq 'MOBILE' }">
 <style>
 .section-container{
 	margin: 0 auto;
+	width: 100%;
 }
 .slick-list{
 	width: 100vw;
+}
+.col {
+    flex: 0 0 46vw;
+    margin: 1vh 2vw !important;
+}
+.p-4 {
+    padding: 1vh 3vw !important;
+}
+.card-img, .card-img-top, .card-img-bottom {
+    max-width: 100%;
+    max-height: 100%;
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+}
+.fw-bolder {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 39vw;
 }
 </style>
 </c:if>
@@ -271,7 +297,9 @@ $('#slider-div').slick({
 			<c:forEach items="${newList}" var="vo">
 			<div class="col mb-5">
 		        <div class="card h-100">
-		            <img class="card-img-top" style="height: 130px;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
+		        	<div class="cardImg" style="height:130px; background-image: url(<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img})">
+		            <%-- <img class="card-img-top" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/> --%>
+		            </div>
 		            <div class="card-body p-4">
 		                <div class="text-center">
 		                    <c:choose>
@@ -314,7 +342,9 @@ $('#slider-div').slick({
 			<c:forEach items="${mostList}" var="vo">
 			<div class="col mb-5">
 		        <div class="card h-100">
-		            <img class="card-img-top" style="height: 130px;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
+		            <div class="cardImg" style="height:130px; background-image: url(<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img})">
+		            <%-- <img class="card-img-top" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/> --%>
+		            </div>
 		            <div class="card-body p-4">
 		                <div class="text-center">
 		                    <c:choose>
