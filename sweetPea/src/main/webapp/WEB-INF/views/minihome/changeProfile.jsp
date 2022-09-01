@@ -39,10 +39,11 @@ font-family: ${myMini.font};
 	<c:if test="${device eq 'MOBILE'}">"<%=request.getContextPath()%>/miniroomboard2/changeProfile.do"</c:if>
 	 method="post" enctype="multipart/form-data">
 	<div class="photo_box">
-	  <div class="upload_btn">
-	    <div class="upload">
-	   		<input id="photoBtn" type="file" name="file" accept="image/jpeg, image/png, image/gif"> <label for="photoBtn">사진 업로드</label>
-	    </div>
+	   		<input id="photoBtn" type="file" name="file"  style="display:none;" accept="image/jpeg, image/png, image/gif"> 
+    	<div class="upload_btn" id="uploadButton" style="cursor:pointer">
+			<div class="upload">
+				<label for="input_img">사진 업로드</label>
+			</div>
 	  	<!-- <a href="javascript:void(0);" id="resetPhoto">다시 올리기</a> -->
 	  </div>
 	  <div class="photo_them">
@@ -66,7 +67,11 @@ font-family: ${myMini.font};
 				$('#complete').attr('disabled', false);
 			}
 			reader.readAsDataURL(file);
-		});
+			
+			});
+			$("#uploadButton").on("click",function(){
+				$("#photoBtn").click();
+			});
 		
 	</script>
 </form>
