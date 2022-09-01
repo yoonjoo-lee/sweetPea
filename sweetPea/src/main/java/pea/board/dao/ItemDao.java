@@ -81,6 +81,14 @@ public class ItemDao {
 		return sqlSession.selectList(namespace + ".postpone",vo);
 	}
 
+	/* 내가 올린 아이템 리스트 */
+	
+	public List<ItemVo> uploadMyItemList(String id){
+		
+		return sqlSession.selectList(namespace+".myUploadItemList",id);
+	}
+	
+	
 	public int postponeCheck(int iidx) {
 		return sqlSession.update(namespace + ".postponeCheck", iidx);
 	}

@@ -17,6 +17,7 @@ public interface ItemService {
 	List<ItemVo> itemListNewLimit();	// 아이템 신상품순 리스트 Limit 5개
 	List<ItemVo> itemApproval(ItemVo vo);	// 
 	List<ItemVo> postPone(ItemVo vo); // 아이템 보류 리스트 
+	List<ItemVo> uploadMyItemList(String id); // 아이템 보류 리스트 
 	
 	
 	int approvalCheck(int iidx);	//  아이템 승인하기 

@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.startup.SetAllPropertiesRule;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -177,6 +176,8 @@ public class ItemController {
 		System.out.println(vo.getImg());
 
 		session.setAttribute("login", login);
+		System.out.println("login.pea_super : "+login.getPea_super());
+		vo.setPea_super(login.getPea_super());
 
 		File dir = new File(path);
 
@@ -198,11 +199,16 @@ public class ItemController {
 		response.setContentType("text/html;charset=utf-8");
 
 		if (result <= 0) {
-			pw.append("<script>alert('아이템이 등록되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
+			pw.append("<script>alert('아이템이 등록 되지 않았습니다.');window.parent.location.href='item-write.do'</script>");
 			pw.flush();
 		} else {
-			pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do?category=4'</script>");
+			if(vo.getPea_super().equals("Y")) {
+				pw.append("<script>alert('아이템이 등록 되었습니다.');window.parent.location.href='shop.do?category=4'</script>");
+				pw.flush();	
+			}else {
+			pw.append("<script>alert('아이템이 등록 신청이 되었습니다.');window.parent.location.href='shop.do?category=4'</script>");
 			pw.flush();
+			}
 		}
 
 	}
@@ -353,9 +359,21 @@ public class ItemController {
 			model.addAttribute("ilist",list);
 			model.addAttribute("vo",vo);
 			model.addAttribute("test","ggg");
+		/*
 			System.out.println("kk"+uidx);
 			System.out.println(vo.getUidx());
+			*/
 		return "item/myItemList";
+	}
+	
+	/* 자신이 업로드한 아이템 리스트 */
+	
+	@RequestMapping(value="item/uploadMyItemList.do", method=RequestMethod.GET)
+	public String uploadMyItemList(Model model, String id) {
+		List<ItemVo> list = itemService.uploadMyItemList(id);
+		model.addAttribute("ilist",list);
+		System.out.println("업로드 하는 페이지 id값 "+id);
+		return "item/uploadMyItemList";
 	}
 	
 	/*  내 아이템 리스트 추가 */
