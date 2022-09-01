@@ -33,7 +33,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<c:if test="${device eq 'PC'}">
+<c:if test="${login.uidx==mini.uidx && device eq 'PC'}">
 <script>
 $( function() {
   $( ".draggable" ).draggable({
@@ -53,8 +53,7 @@ $( function() {
   <p>Try resizing this element!</p>
 </div> -->
 <c:if test="${login!=null }">
-<c:if test="${login.uidx==mini.uidx}">
-<c:if test="${device eq 'PC'}">
+<c:if test="${login.uidx==mini.uidx && device eq 'PC'}">
 <button class="saveBtn" onclick="saveMini()" style="vertical-align:top; cursor:pointer; ">save</button>
 </c:if>
  <c:forEach var="item" items="${miniroom}">
@@ -98,6 +97,7 @@ $(function(){
 	  overflow: auto;
   }
 </style> --%>
+<c:if test="${login.uidx==mini.uidx && device eq 'PC'}">
  <script>
 
 var $box = [];
@@ -140,9 +140,10 @@ $(function() {
    });
 }); 
 </script>
+</c:if>
 </c:forEach>
 </c:if>
-</c:if>
+
 </body>
 </html>
 
