@@ -18,7 +18,6 @@ public interface ItemService {
 	List<ItemVo> itemApproval(ItemVo vo);	// 
 	List<ItemVo> postPone(ItemVo vo); // 아이템 보류 리스트 
 	
-	List<ItemVo> subcategoryList11(ItemVo vo);
 	
 	int approvalCheck(int iidx);	//  아이템 승인하기 
 	int postponeCheck(int iidx); // 아이템 보류하기 
@@ -41,4 +40,6 @@ public interface ItemService {
 	
 	int buyBasketList(ItemVo vo);
 	int afterBuyBasketList(ItemVo vo);
+	
+	int CheckNewItem();
 }
