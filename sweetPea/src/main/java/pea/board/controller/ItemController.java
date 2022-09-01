@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.startup.SetAllPropertiesRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,8 @@ public class ItemController {
 		session.setAttribute("category", category);
 		System.out.println("컨트롤러categoty : "+category);
 		
+		int checkItem = itemService.CheckNewItem();
+		session.setAttribute("checkItem", checkItem);
 		
 		
 		return "item/shop";
@@ -386,13 +389,15 @@ public class ItemController {
 	/* 아이템 승인 확인 */
 	@ResponseBody
 	@RequestMapping(value = "item/approvalCheck.do", method = RequestMethod.POST)
-	public int approvalCheck(int iidx, int check) {
+	public int approvalCheck(int iidx, int check, HttpSession session) {
 		System.out.println(iidx);
 		System.out.println(check);
 		if (check == 1) {
-			return itemService.approvalCheck(iidx);
+			itemService.approvalCheck(iidx);
+			int value = itemService.CheckNewItem();
+			session.setAttribute("checkItem", value);
 		} else if (check == 2) {
-			return itemService.postponeCheck(iidx);
+			itemService.postponeCheck(iidx);
 		}
 		return 1;
 	}

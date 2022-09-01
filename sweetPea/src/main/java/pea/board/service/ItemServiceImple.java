@@ -144,13 +144,11 @@ public class ItemServiceImple implements ItemService {
 	public int afterBuyBasketList(ItemVo vo) {
 		return itemDao.afterBuyBasketList(vo);
 	}
-
+	
 	@Override
-	public List<ItemVo> subcategoryList11(ItemVo vo) {
-		return itemDao.subcategoryList11(vo);
+	public int CheckNewItem() {
+		return itemDao.CheckNewItem();
 	}
-
-
 
 
 }

@@ -241,9 +241,13 @@ $(function(){
 </script>
 </c:if>
 
-<c:if test="${newMsg > 0}">
+<c:if test="${checkItem > 0}">
 <style>
-	.msgBtn::after{
+	a{
+		color: inherit;
+		text-decoration: none;
+	}
+	.approval::after{
 		background-image: url('<%=request.getContextPath()%>/resources/images/n_red_alphabet_letters_icon.png');
 		background-size: 8px;
 	    width: 8px;
@@ -311,7 +315,7 @@ $(function(){
 			<h3>관리자</h3>
 			<ul>
 				<li><a onclick="info('itemFileChoice.do')">아이템 등록</a>
-				</li><li><a onclick="info('item-approval.do')">아이템 승인</a>
+				</li><li><a class="approval" onclick="info('item-approval.do')">아이템 승인</a>
 				</li><li><a onclick="info('item-postpone.do')">보류</a></li>
 			</ul>
 		</c:if>
