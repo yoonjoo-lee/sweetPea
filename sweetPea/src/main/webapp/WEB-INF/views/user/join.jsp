@@ -94,6 +94,10 @@
 	margin: 0 auto;
 	margin-bottom: 220px;
 }
+.joinClass{
+	font-size: 14px;
+    font-weight: 700;
+}
 </style>
 
 <c:if test="${device eq 'MOBILE' }">
@@ -105,6 +109,7 @@
 	width: 92% !important;
 	margin: 0 auto;
 }
+
 </style>
 
 </c:if>
@@ -118,6 +123,7 @@
 <div id="joinBox">
 	<img alt="" src="<%=request.getContextPath()%>/resources/images/camelon.png" id="img">
 	<form name="frm">
+		<span class="joinClass">아이디 </span>
 		<input type="text" name="id" id="id" placeholder="아이디" maxlength="16"><br> <span id="span-id"></span>
 		<script>
 	/* 영어랑 숫자만. */
@@ -145,11 +151,23 @@
 			}
 		});
 	</script>
-		<br> <input type="password" name="pwd" id="pwd" placeholder="비밀번호"><br> <span id="span-pwd"></span><br> <input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인"><br> <span id="span-pwd2"></span><br>
+		<br> 
+		<span class="joinClass"> 비밀번호  </span>
+		<input type="password" name="pwd" id="pwd" placeholder="비밀번호" onkeydown="checkSpacebar()"><br> <span id="span-pwd"></span><br><span class="joinClass"> 비밀번호 재확인 </span> <input type="password" name="pwd2" id="pwd2" placeholder="비밀번호 확인" onkeydown="checkSpacebar()"><br> <span id="span-pwd2"></span><br>
 		<script>
-			let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+		/* 비밀번호 스페이스바 되지 않도록 막아주는 함수  */
+		function checkSpacebar(){
+			var kcode = event.keyCode;
+			if(kcode == 32) event.returnValue = false;
+		}
+		
+			/*  let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/; */
+				let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 		$("#pwd").blur(function(){
-			if(!check.test($('#pwd').val())||$("#pwd").val() == ""){
+			if($("#pwd").val() == ""){
+				$("#span-pwd").text("8-16자,영문 소문자, 숫자, 특수문자를 사용하세요.");
+				$("#span-pwd").css("color","red");
+			}else if(!check.test($('#pwd').val())){
 				$("#span-pwd").text("8-16자,영문 소문자, 숫자, 특수문자를 사용하세요.");
 				$("#span-pwd").css("color","red");
 			}else if(!check.test($('#pwd').val())||$("#pwd").val() != $("#pwd2").val()){
@@ -175,13 +193,13 @@
 			}	
 		});
 	</script>
-
+		<span class="joinClass"> 이름  </span>
 		<input type="text" name="name" id="name" placeholder="이름" maxlength="6"><br> <span id="span-name"></span><br>
 		<script type="text/javascript">
 	/* 한글만  */
 		$('#name').on("keyup", function() {$(this).val( $(this).val().replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,"") );});
 	</script>
-
+		<span class="joinClass"> 성별 선택  </span>
 		<select name="gender" id="gender">
 			<option value="">성별</option>
 			<option value="M">남자</option>
@@ -208,7 +226,9 @@
 			}
 		})
 	</script>
-		<br> <input type="text" name="birth" id="birth" placeholder="생년월일 (-)제외" maxlength="8"><br> <span id="span-birth"></span><br>
+		<br> 
+		<span class="joinClass"> 생년월일  </span>
+		<input type="text" name="birth" id="birth" placeholder="ex)19991212" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="8"><br> <span id="span-birth"></span><br>
 		<script>
 		$('#birth').blur(function(){
 			if($('#birth').val()==""){
@@ -221,6 +241,7 @@
 		})
 		
 	</script>
+	<span class="joinClass"> 연락처  </span>
 		<input type="tel" name="phone" id="phone" placeholder="연락처 (-)제외" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"><br> <span id="span-phone"></span><br>
 		<script>
 		$('#phone').blur(function(){
@@ -233,6 +254,8 @@
 			}
 		})
 	</script>
+	<span class="joinClass"> 본인 확인 이메일  </span>
+		<br>
 		<input type="text" name="email" id="email" placeholder="이메일"> <input type="button" id="mailCheckBtn" value="인증번호 받기" ><br> <input class="mail-check-input" placeholder="인증번호를 입력하세요." disabled="disabled"><br> <span id="span-email"></span><br>
 
 		<script>
@@ -257,9 +280,9 @@
 
 
 		<div id="map" style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 		<input type="text" id="address" placeholder="주소" readonly>
 		<input type="text" id="detailAddr" name="detailAddr" placeholder="상세주소">
-		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 		<span id="span-address"></span>
 		<br>
 		<input type="hidden" name="addr" id="addr" >

@@ -207,8 +207,8 @@ ul {
 	left: -130px;
 }
 
-.button:hover .btnText { /*When hovering over .button change .btnText*/
-	margin-left: 65px;
+ .button:hover .btnText { /*When hovering over .button change .btnText*/
+	/* margin-left: 65px; */
 }
 
 .button:active { /*Clicked and held*/
@@ -402,28 +402,28 @@ function openShoppingBasket(){
 	<!-- 아이템 리스트  -->
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(2)">
 		<p class="btnText">인기상품순</p>
-		<div class="btnTwo">
+		<!-- <div class="btnTwo">
 			<p class="btnText2">GO?</p>
-		</div>
+		</div> -->
 	</div>
 
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(3)">
 		<p class="btnText">가격내림순</p>
-		<div class="btnTwo">
+		<!-- <div class="btnTwo">
 			<p class="btnText2">GO?</p>
-		</div>
+		</div> -->
 	</div>
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(4)">
 		<p class="btnText">가격오름순</p>
-		<div class="btnTwo">
+		<!-- <div class="btnTwo">
 			<p class="btnText2">GO?</p>
-		</div>
+		</div> -->
 	</div>
 	<div style="float: left; width: 15%; margin-left: 5px;" class="button" onclick="itemSelectAll(5)">
 		<p class="btnText">신상품순</p>
-		<div class="btnTwo">
+		<!-- <div class="btnTwo">
 			<p class="btnText2">GO?</p>
-		</div>
+		</div> -->
 	</div>
 	<div style="float: left; width: 15%; margin-left: 5px;" class=" dropdown">
 		<button class="dropbtn button" style="width:100%;">아이템 종류 </button>
@@ -449,7 +449,7 @@ function openShoppingBasket(){
 	<div style="float: right; width: 15%; margin-right: 5px;" class="button cartBtn" onclick="">
 		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">장바구니</p>
 		<div class="btnTwo">
-			<p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">GO!</p>
+			<!-- <p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">GO!</p> -->
 		</div>
 	</div>
 	
