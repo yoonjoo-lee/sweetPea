@@ -3,50 +3,49 @@
 <%@ page session="true" %>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Draggable - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-  <style>
-  /* .test { 
-  width: 150px; height: 150px; padding: 0.5em; 
-  
-  
-  border: 2px solid;
-  color: pink;
-  resize: both;
-  overflow: auto;
-  } */
-  .bgSizeCover {
-	  background-image: url("<%=request.getContextPath()%>/resources/images/back5.jpg");
-	  
-	  width: 60px;
-	  height: 60px;
-	  border: 2px solid;
-	  color: pink;
-	  resize: both;
-	  overflow: auto;
-  }
-  .draggable{
-  
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( ".draggable" ).draggable({
-    	containment: "parent" 
-    });
-  } );
-  
-  
-  </script>
-  <!-- <script>
-  $(function(){
-   alert('${miniroom }');
-  })
-  </script> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Draggable - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<style>
+.bgSizeCover {
+	 background-image: url("<%=request.getContextPath()%>/resources/images/back5.jpg");
+	 width: 60px;
+	 height: 60px;
+	 border: 2px solid;
+	 color: pink;
+	 resize: both;
+	 overflow: auto;
+}
+.saveBtn{
+    cursor: pointer;
+    position: absolute;
+    z-index: 9999;
+    width: 50px;
+    height: 25px;
+    margin: 5px;
+    bottom: 0;
+    right: 0;
+}
+
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<c:if test="${device eq 'PC'}">
+<script>
+$( function() {
+  $( ".draggable" ).draggable({
+  	containment: "parent" 
+  });
+} );
+</script>
+</c:if>
+
+<c:if test="${device eq 'MOBILE'}">
+</c:if>
+
 </head>
 <body>
 
@@ -54,12 +53,35 @@
   <p>Try resizing this element!</p>
 </div> -->
 <c:if test="${login!=null }">
-<c:if test="${login.uidx==mini.uidx }">
-<button class="saveBtn" onclick="saveMini()" style="vertical-align:top; cursor:pointer;">save</button>
+<c:if test="${login.uidx==mini.uidx}">
+<c:if test="${device eq 'PC'}">
+<button class="saveBtn" onclick="saveMini()" style="vertical-align:top; cursor:pointer; ">save</button>
+</c:if>
  <c:forEach var="item" items="${miniroom}">
-<img class="draggable" id="item${item.uiidx}" alt="${item.uiidx }" style=" left:${item.mleft}px; top:${item.mtop}px; position: absolute;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }'/>
 <!-- <i class="bi-file-excel"></i> -->
-
+<c:if test="${device eq 'PC'}">
+<img class="draggable" id="item${item.uiidx}" alt="${item.uiidx }" style=" left:${item.mleft}px; top:${item.mtop}px; position: absolute;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }'/>
+</c:if>
+<c:if test="${device eq 'MOBILE'}">
+<img class="draggable" id="item${item.uiidx}" alt="${item.uiidx }" style=" left:calc(${item.mleft}% / 6); top:calc(${item.mtop}% / 3); position: absolute;" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }'/>
+<script>
+	var $miniRoomWidth = $('.miniRoomBox').width() / 600;
+	var $width;
+	var $height;
+$(function(){
+	var url = '<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }';
+    $("<img/>").attr('src', url)
+    .on('load', function() {
+    	/* alert("width: "+this.naturalWidth+"height: "+this.naturalHeight); */
+    	$width = (this.naturalWidth * $miniRoomWidth)+"px";
+    	$height = (this.naturalHeight) * $miniRoomWidth+"px";
+    	/* alert($width +" "+$height); */
+    /* alert($width +" "+$height); */
+    $("#item${item.uiidx}").css({'width':$width,'height':$height});
+    });
+})
+</script>
+</c:if>
 <%-- <script>
 $(function(){
 	document.querySelector(".test").style.background-image = "url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img }")";

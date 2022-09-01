@@ -67,6 +67,15 @@
 	 WHERE delyn = 'N'
 </select>
 
+<!-- 새쪽지 있나 확인 -->
+<select id="newViewCheck" parameterType="int" resultType="int">
+	SELECT COUNT(*) 
+	  FROM pea_message
+	 WHERE uidx = #{uidx}
+	   AND delyn= 'N'
+	   AND view_check = 'N'
+</select>
+
 </mapper>
 
 
