@@ -26,6 +26,7 @@
 		, img	
 		, maker	
 		, ip
+		<if test='pea_super == "Y"'> , Approval</if>
 	) 
 	VALUES(
 		  #{price}
@@ -36,6 +37,7 @@
 		, #{img}
 		, #{maker}
 		, #{ip}
+		<if test='pea_super == "Y"'> , 'Y'</if>
 	)
 	</insert>
 		
@@ -47,6 +49,14 @@
 			<if test="subcategory!=6">AND subcategory=#{subcategory}</if>
 		ORDER BY iidx DESC
 	</select>
+		<!-- 내가 올린 아이템 리스트  -->
+	<select id="myUploadItemList" parameterType="String" resultType="ItemVo">
+		SELECT * FROM pea_item
+		WHERE maker=#{id}
+	</select>
+	
+	
+	
 	<!-- 아이템 리스트  카테고리 미니룸 (1)  -->
 <!-- 	<select id="itemListCate" parameterType="int" resultType="ItemVo">
 		select * from pea_item where delyn='N' and approval='Y' and postpone='N' and category=#{category}
@@ -129,7 +139,7 @@
 	
 	<!-- 아이템 승인 버튼 -->
 	<update id="approvalCheck" parameterType="int">
-		UPDATE pea_item SET approval='Y' WHERE iidx=#{iidx}
+		UPDATE pea_item SET approval='Y' AND postpone='N' WHERE iidx=#{iidx}
 	</update>
 	<!-- 아이템 보류 버튼  -->
 	<update id="postponeCheck" parameterType="int">
@@ -283,6 +293,8 @@
 		  FROM pea_item
 		 WHERE Approval = 'N'
 	</select>
+	
+
 </mapper>
 
 

@@ -150,5 +150,11 @@ public class ItemServiceImple implements ItemService {
 		return itemDao.CheckNewItem();
 	}
 
+	@Override
+	public List<ItemVo> uploadMyItemList(String id) {
+		return itemDao.uploadMyItemList(id);
+	}
+
+
 
 }

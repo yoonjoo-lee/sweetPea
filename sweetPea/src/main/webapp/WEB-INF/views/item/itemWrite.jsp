@@ -289,7 +289,7 @@ td>input,td>select{
 				</tr> -->
 				<tr>
 					<th>만든이</th>
-					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" placeholder="만든이" required></td>
+					<td><input type="text" name="maker" id="maker" size="23" maxlength="10" value="${login.id}" readonly ></td>
 				</tr>
 				<tr>
 					<td width="300px;"></td>
@@ -304,7 +304,7 @@ td>input,td>select{
 	</form>
 	<c:if test="${login.pea_super == 'Y'}">
 		<div class="btnWrite_container" style="margin-left: 40vw;">
-			<button class="btnWrite" onclick="iitemApproval()">
+			<button class="btnWrite" onclick="itemWrite()">
 				<span>아이템 등록</span>
 			</button>
 		</div>
@@ -312,7 +312,7 @@ td>input,td>select{
 	<c:if test="${login.pea_super == 'N'}">
 		<div class="btnWrite_container" style="margin-left: 40vw;">
 			<button class="btnWrite" onclick="itemWrite()">
-				<span>아이템 등록</span>
+				<span>아이템 등록 신청</span>
 			</button>
 		</div>
 	</c:if>
@@ -374,7 +374,7 @@ td>input,td>select{
 	})
 	
 	/* 만든이  */
-	$('#maker').blur(function(){
+	/* $('#maker').blur(function(){
 		if($('#maker').val()==""){
 			$('#span-maker').text('누가 만들었을까요?');
 			$('#span-maker').css('color','red');
@@ -382,7 +382,7 @@ td>input,td>select{
 			$('#span-maker').text('당신이군요!');
 			$('#span-maker').css('color','green');
 		}
-	})
+	}) */
 	
 		/* 사진 업로드 jQuery */
 		$("#write_file").on("change", function(event) {
@@ -446,6 +446,7 @@ td>input,td>select{
 
 		function itemWrite() {
 			let fm = document.frm;
+			
 			if ($('#name').val() == ""
 					|| $('#span-itemNameCheck').css('color') == "rgb(255,0,0)") {
 				$('#name').focus();
