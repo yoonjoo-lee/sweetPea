@@ -67,16 +67,14 @@ h3>img{
 }
 .miniRoomBox{
     background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.miniroom_background }"); 
-	width: 90vw;
-    height: 45vh;
-    margin: 2vh auto;
-    object-position: left bottom;
-    object-fit: contain;
-    /* background-color: gray; */
+    width: 600px;
+    height: 300px;
+    margin: 10px auto;
+    background-color: gray;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
- 	position: relative;   
+    position: relative;  
 }
 
 

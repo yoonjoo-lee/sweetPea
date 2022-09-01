@@ -183,13 +183,6 @@ body{
     margin: 1vh 2vw;
 }
 
-.miniRoomBox{
-    width: 100%;
-    height: 60vw;
-    margin: 2vh auto;
-    background-color: gray;
-}
-
 .loginBox{
     float: right;
     font-size: 4vw;
@@ -365,6 +358,18 @@ button:disabled {
     width: 50vw;
     left: 25vw;
 }
+
+.miniRoomBox{
+    background-image: url("<%=request.getContextPath()%>/item/imageView.do?originFileName=${myMini.miniroom_background }"); 
+    width: 100%;
+    margin: 10px auto;
+    background-color: gray;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;  
+}
+
 </style>
 
 <script>
@@ -410,7 +415,7 @@ $(function(){
 		$(".m-boardBtn").css("width","20%");
 	}
 	
-	<%-- $.ajax({
+	$.ajax({
 		url: "<%=request.getContextPath()%>/miniroomboard2/miniRoomBox.do",
 		type: "GET",
 		success: function(html){
@@ -418,7 +423,7 @@ $(function(){
 		},
 		error: function(){
 		}
-	}); --%>
+	});
 	
 	$.ajax({
 		url: "<%=request.getContextPath()%>/miniroomboard2/homeList.do",
@@ -432,11 +437,12 @@ $(function(){
 	})
 })
 </script>
-
 <script>
-
-
 	$(function(){
+		var $miniRoomWidth = $('.miniRoomBox').width() / 600;
+		var $miniRoomHeight = (300 * $miniRoomWidth)+"px";
+		$('.miniRoomBox').css('height',$miniRoomHeight);
+		
 		$("#addFr").click(async function(){
 			const { value: formValues } = await Swal.fire({
 				  title: '친구 신청을 하시겠습니까?',
