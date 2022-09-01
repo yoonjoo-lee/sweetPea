@@ -18,9 +18,6 @@
 .footer-ul>li{
 	margin-right: 8vw;
 }
-.col {
-    flex: 1 0 40%;
-}
 </style>
 </c:if>
 
