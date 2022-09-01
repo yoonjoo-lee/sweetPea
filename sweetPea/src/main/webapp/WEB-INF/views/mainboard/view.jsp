@@ -108,6 +108,9 @@
 .reply-list .comment-box{
 	width: 65.5vw !important;
 }
+.contentDiv img{
+    max-width: 100%;
+}
 </style>
 </c:if>
 

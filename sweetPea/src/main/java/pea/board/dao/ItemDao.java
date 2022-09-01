@@ -173,10 +173,8 @@ public class ItemDao {
 		return sqlSession.selectOne(namespace+".pea_amount",vo);
 	}
 	
-	public List<ItemVo> subcategoryList11(ItemVo vo){
-		
-		return sqlSession.selectList(namespace+",subcategoryList",vo);
-		
+	public int CheckNewItem() {
+		return sqlSession.selectOne(namespace+".CheckNewItem");
 	}
 	
 	// 카테고리 별 리스트

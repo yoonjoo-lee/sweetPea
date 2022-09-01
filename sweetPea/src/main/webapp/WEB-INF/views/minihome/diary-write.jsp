@@ -152,6 +152,7 @@ window.onclick= (e)=>{
   
 </script>
 </c:if>
+<c:if test="${device eq 'PC'}">
 <script>
 $(function(){
 	$('#summernote').summernote({
@@ -170,10 +171,19 @@ $(function(){
     });
 });
 </script>
-
+</c:if>
 <c:if test="${device eq 'MOBILE'}">
+<script>
+$(function(){
+	$('#summernote').summernote({
+        height: 400,
+        maxHeight: 400,    
+        placeholder: '내용을 입력하세요'
+    });
+});
+</script>
 <style>
-.topBox{
+ .topBox{
 	position: sticky;
     z-index: 111;
     background-color: #212529;
@@ -336,6 +346,9 @@ h3{
     width: 4vh;
     margin: 0 1vw;
 }
+#view{
+	width:100% !important;
+}
 
 </style>
 <script>
@@ -395,7 +408,7 @@ $(function(){
 	</c:if>
 </div>
 </c:if>
-
+<div id="view">
 <form action="<%=request.getContextPath()%>/miniroomboard2/diary_write.do" method="post">
 	<h3>글쓰기</h3>
 	<hr>
@@ -427,5 +440,6 @@ $(function(){
 	<textarea id="summernote" name="content"></textarea>
 	<input type="hidden" name="category" value=${category }>
 </form>
+</div>
 </body>
 </html>
