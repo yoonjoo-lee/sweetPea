@@ -67,13 +67,14 @@ $(function itemSelectAll(){
 				}else if(data[i].subcategory == 3){
 					html +="<span class='item-span'>[캐릭터]</span>";
 				}else if(data[i].subcategory == 4){
-					html +="<span class='item-span'>[글꼴]</span>";
+					html +="<span class='item-span'>[동물]</span>";
 				}else if(data[i].subcategory == 5){
 					html +="<span class='item-span'>[가구]</span>";
 				}
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
 			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
 			html +="</div>";
+			html +='<span style="color:gray; font-size: 12px">제작자 : '+data[i].maker+'</span>';
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
@@ -95,11 +96,31 @@ $(function itemSelectAll(){
 })
 
 function itemDel(iidx){
-	var check = confirm("정말로 삭제하시겠습니까?");	
-	if (check){
-		location.href="itemDel.do?iidx="+iidx+"";
-	} 
+	Swal.fire({
+		title:'정말로 삭제 하시겠습니까?',
+		text: '다시 되돌릴 수 없습니다.',
+		icon: 'warning',
+		
+		showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+		confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+		confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+		cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+		preConfirm: () => {
+				$.ajax({
+					url: "itemDel.do?iidx="+iidx,
+					success:async function(){
+						await Swal.fire({
+						title: '삭제완료',
+						icon: 'success',
+						});
+						window.location.reload();
+					}
+				})
+		}
+	})
 }
+	
 
 function itemApproval(iidx, check){
 	console.log(iidx);
@@ -108,10 +129,14 @@ function itemApproval(iidx, check){
 		url:"approvalCheck.do",
 		type:"post",
 		data:{"iidx":iidx,"check":check},
-		success:function(data){
-			alert('변경 되었습니다.');
-			document.location.reload();
-			
+		success:async function(data){
+			await Swal.fire({
+				text: '변경 되었습니다.',
+				icon: 'success',
+				timer: 2000,
+			    timerProgressBar: true,
+			})
+				window.location.reload();
 		}
 	})
 }

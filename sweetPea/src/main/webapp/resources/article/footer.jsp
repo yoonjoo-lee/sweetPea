@@ -15,9 +15,6 @@
 .footer{
 	min-width:100%;
 }
-.footer-ul>li{
-	margin-right: 8vw;
-}
 </style>
 </c:if>
 

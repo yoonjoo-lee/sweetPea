@@ -113,13 +113,14 @@ $(function itemSelectAll(){
 				}else if(data[i].subcategory == 3){
 					html +="<span class='item-span'>[캐릭터]</span>";
 				}else if(data[i].subcategory == 4){
-					html +="<span class='item-span'>[글꼴]</span>";
+					html +="<span class='item-span'>[동물]</span>";
 				}else if(data[i].subcategory == 5){
 					html +="<span class='item-span'>[가구]</span>";
 				}
 			html +="<h5 class='fw-bolder'>"+data[i].name+"</h5>";
 			html +="<i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>"+data[i].price;
 			html +="</div>";
+			html +='<span style="color:gray; font-size: 12px">제작자 : '+data[i].maker+'</span>';
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";

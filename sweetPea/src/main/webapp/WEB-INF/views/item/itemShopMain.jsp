@@ -228,6 +228,7 @@ ul {
 	margin-bottom: 3rem !important;
     width: 20%;
     margin: 1em;
+    flex: 0 0 20%;
 }
 .card-img-top{
     width: fit-content;
@@ -374,6 +375,7 @@ function openShoppingBasket(){
 }
 .card-img-top{
     height: 20vh;
+    width: fit-content;
 }
 .text-center{
 	font-size: 3vw;
@@ -448,9 +450,6 @@ function openShoppingBasket(){
 </div> -->
 	<div style="float: right; width: 15%; margin-right: 5px;" class="button cartBtn" onclick="">
 		<p class="btnText" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">장바구니</p>
-		<div class="btnTwo">
-			<!-- <p class="btnText2" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="reloadBasket2()">GO!</p> -->
-		</div>
 	</div>
 	
 	<!-- 장바구니 클릭 시 하위 프레임 reload() -->
@@ -532,7 +531,7 @@ function openShoppingBasket(){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"','"+data[i].maker+"')>";
 			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
@@ -587,7 +586,7 @@ function itemSelectAll(cate_){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"','"+data[i].maker+"')>";
 			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
@@ -638,7 +637,7 @@ function itemSubcategoryAll(subcategory_){
 			html +="</div>";
 			html +="<div class='card-footer p-4 pt-0 border-top-0 bg-transparent'>";
 			html +="<div class='text-center'>";
-			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"')>";
+			html +="<img class='dealImg money' src='../resources/icon/money_icon.png' onclick=myItemAdd("+data[i].iidx+","+data[i].price+",'"+data[i].name+"','"+img+"','"+data[i].maker+"')>";
 			html +="<img class='dealImg cart' src='../resources/icon/cart_icon.png'  onclick='itemShoppingAdd("+data[i].iidx+")'>";
 			html +="</div>";
 			html +="</div>";
@@ -669,7 +668,8 @@ function login(){
 }
 
  /* 아이템 구매  */
- async function myItemAdd(iidx,price,name,img){
+ async function myItemAdd(iidx,price,name,img,id){
+	 
 	 var uidx = '${login.uidx}';
 	 if(!uidx){
 		 await Swal.fire({
@@ -694,7 +694,9 @@ function login(){
 	 }else{
 		 await Swal.fire({
 			   title: '정말로 구매하시겠습니까?',
-			   html: '<b>['+name+']</b><span style="color:gray"><br><i style="color:green" class="bi-circle-fill"></i><span>&nbsp;</span>'+price+'</span>',
+			   html: '<b>['+name+']</b><br><span style="padding:10px 0;display:block;">'
+				   +'<i style="color:green" class="bi-circle-fill"></i><span>&nbsp;</span>'+price+'</span>'
+				   +'<span style="color:gray; font-size: 15px">제작자 : '+id+'</span>',
 			   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
 			   confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
 			   cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
