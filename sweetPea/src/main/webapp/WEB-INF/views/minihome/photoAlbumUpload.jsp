@@ -79,6 +79,7 @@ action="photoAlbumUpload.do"
 	<input type="submit" class="btn btn-success" id="complete" value="업로드" disabled="disabled" style="cursor:pointer">
 </div>
 <input type="hidden" name="category" value=${category }>
+<input type="hidden" name="uidx" value=${login.uidx }>
 
 
 		<script>

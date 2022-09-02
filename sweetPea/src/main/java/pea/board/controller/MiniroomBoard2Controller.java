@@ -205,7 +205,7 @@ public class MiniroomBoard2Controller {
 	
 	// 사진첩 등록 페이지 이동
 	@RequestMapping(value = "/photoAlbumUpload.do", method = RequestMethod.GET)
-	public String photoAlbumUpload(int uidx, int category, Model model) {
+	public String photoAlbumUpload(int category, Model model) {
 		model.addAttribute("category", category);
 		return "minihome/photoAlbumUpload";
 	}
@@ -287,6 +287,7 @@ public class MiniroomBoard2Controller {
 	@RequestMapping(value="/photoAlbumModify.do", method=RequestMethod.GET)
 	public String photoAlbumModify(int mbidx, Model model) {
 		model.addAttribute("mbidx", mbidx);
+		model.addAttribute("category", 2);
 		
 		MiniroomBoardVo vo= miniroomboard2Service.viewPhoto(mbidx);
 		model.addAttribute("vo", vo);
