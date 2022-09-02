@@ -52,7 +52,7 @@ article > *,#view,#nav,#section{
 }
 #section{
 	float: inherit !important;
-    height: 65vh;
+    height: 90vh;
 }
 #nav{height: auto;}
 .categoryBox,#section{
@@ -74,7 +74,7 @@ article > *,#view,#nav,#section{
     text-align: center;
 }
 .leftBanner{
-	height: 34vh !important;
+	height: 50vh !important;
 }
 #leftBanner{
 	overflow:hidden;
