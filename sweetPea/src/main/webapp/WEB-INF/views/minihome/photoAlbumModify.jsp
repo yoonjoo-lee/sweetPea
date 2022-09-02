@@ -34,7 +34,7 @@
 #complete{display:block;margin-top:0px;padding:15px 0;width:100%;text-align:center;color:#fff;text-decoration: none;background-color: steelblue;}
 </style>
 <body class="body">
-	<h3>사진첩 수</h3>
+	<h3>사진첩 수정</h3>
 	<form action="photoAlbumModify.do" method="post" enctype="multipart/form-data">
 
 	<div class="photo_box">

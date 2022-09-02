@@ -51,6 +51,9 @@
 	 <if test="category == 0"> <!-- 카테고리 0은 미니홈피 홈에서 불러오는 최신글 리스트 (사진첩 제외 5개) -->
 		 AND (a.secret is null OR a.secret='N')
 	 </if>
+	 <if test="checkHomePhoto == 'homePhoto'">
+	 	AND (a.secret is null OR a.secret='N')
+	 </if>
 	 ORDER BY a.mbidx DESC
 	 <if test="category == 0">
 	 	LIMIT 5

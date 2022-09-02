@@ -159,13 +159,13 @@ b{
 <img class="itemImg" src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${item.img}'/>
 <div class="itemBtnBox">
 <c:if test="${item.subcategory==1}">
-<!-- 1.테마 2.미니룸 배경 3.캐릭터 4.글꼴 5.가구  -->
+<!-- 1.테마 2.미니룸 배경 3.캐릭터 4.동물 5.가구  -->
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=1'">변경</button><br> 
 </c:if>
 <c:if test="${item.subcategory==2}"><!-- 미니룸 배경 --> 
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/changeMyminihome.do?uidx=${login.uidx }&item=${item.img }&category=2'">m변경 </button><br> 
 </c:if>
-<c:if test="${item.subcategory==3 || item.subcategory==5}"><!-- 캐릭터 --> 
+<c:if test="${item.subcategory==3 || item.subcategory==4 || item.subcategory==5}"><!-- 캐릭터 --> 
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/addTominiroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">추가 </button>
 <button id="changebtn" class="btn btn-secondary btn-sm" onclick="location.href='<%=request.getContextPath()%>/miniroomboard2/removeFromMiniroom.do?uidx=${login.uidx }&iidx=${item.iidx }'">제거 </button>
 </c:if>

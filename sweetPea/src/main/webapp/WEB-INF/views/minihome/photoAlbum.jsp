@@ -222,9 +222,9 @@ $('.post-wrapper').slick({
 
 
 <c:forEach var="board" items='${list }'>
+<c:if test="${board.secret=='Y' && login.uidx == mini.uidx}">
 <div class="eachphoto">
 <br>
-
 <!-- 프로필 사진 -->
 <div class="photo-profile" id="user">
 <c:if test="${board.miniProfile == null || board.miniProfile == ''}">
@@ -246,7 +246,8 @@ $('.post-wrapper').slick({
 
 <div id="slider" class="slider${board.mbidx }">
   <a class="control_next" id="next${board.mbidx }">&gt;</a>
-  <a class="control_prev" id="prev${board.mbidx }">&lt;</a>
+  <a class="control_prev" id="prev${board.mbidx }">&lt;</a>  
+  
 	<script>
 	var content = '${board.content }';
 	var files = content.split('|');
@@ -303,6 +304,110 @@ jQuery(document).ready(function ($) {
 </script> 
 <b>${board.name }</b>&nbsp;${board.title }<br>${board.date }<br><br>
 </div>
+</c:if>
+
+
+
+
+
+
+<c:if test="${board.secret!='Y'}">
+	<div class="eachphoto">
+	<br>
+	<!-- 프로필 사진 -->
+	<div class="photo-profile" id="user">
+	<c:if test="${board.miniProfile == null || board.miniProfile == ''}">
+		<img class="photo-profile-img" src="<%=request.getContextPath()%>/resources/upload/1.png">
+	</c:if>
+	<c:if test="${board.miniProfile != null && board.miniProfile != ''}">
+		<img class="photo-profile-img" src="<%=request.getContextPath() %>/miniroomboard2/getProfile.do?originFileName=${board.miniProfile}" onclick="clickBtn('<%=request.getContextPath()%>/miniroomboard2/changeProfile.do'),clickThis(this)">
+	</c:if>
+	</div>
+	
+	<div id="user"><b>${board.name }</b></div>
+	<div id="user" class="manage"  style="color:grey;">
+	<c:if test="${board.secret eq 'Y' }"><i class='bi-lock-fill'>비밀글 </i></c:if>
+	<c:if test="${login.uidx == mini.uidx }">
+	<i class="bi bi-eraser" style="cursor:pointer" onclick="location.href='<%=request.getContextPath() %>/miniroomboard2/photoAlbumModify.do?mbidx=${board.mbidx }'"></i>
+	<i class="bi bi-trash" style="cursor:pointer" onclick="deletephoto(${board.mbidx })"></i> 
+	</c:if>
+	</div>
+	
+	<div id="slider" class="slider${board.mbidx }">
+	  <a class="control_next" id="next${board.mbidx }">&gt;</a>
+	  <a class="control_prev" id="prev${board.mbidx }">&lt;</a>  
+	  
+		<script>
+		var content = '${board.content }';
+		var files = content.split('|');
+		if(files.length-1 == 1){
+			$("#next"+${board.mbidx}).css("display","none");
+			$("#prev"+${board.mbidx}).css("display","none");
+		}
+		$(".slider"+${board.mbidx}).append('<ul class="ul${board.mbidx }">');
+		for (var i=0; i<files.length-1; i++){
+		 	$(".ul"+${board.mbidx}).append('<li class="li${board.mbidx }"><img alt="img" class="image" src="<%=request.getContextPath() %>/miniroomboard2/imageView.do?originFileName='+files[i]+'"/></li>');
+		}
+		</script>  
+	</div>
+	
+	<script>
+	/* 이미지 슬라이더 */
+	jQuery(document).ready(function ($) {
+			var slideCount = $('.li${board.mbidx }').length;
+			var slideWidth = $('.li${board.mbidx }').width;
+			var slideHeight = 300;
+			var sliderUlWidth = slideCount * slideWidth;
+			
+			$('.slider${board.mbidx }').css({ width: slideWidth, height: slideHeight });
+			$('.ul${board.mbidx }').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+		    $('.li${board.mbidx }:last-child').prependTo('.ul${board.mbidx }');
+			/* 이미지 왼쪽 이동 */
+		    function moveLeft() {
+		        $('.ul${board.mbidx }').animate({
+		            left: + slideWidth
+		        }, 200, function () {
+		            $('.li${board.mbidx }:last-child').prependTo('.ul${board.mbidx }');
+		            $('.ul${board.mbidx }').css('left', '');
+		        });
+		    };
+			/* 이미지 오른쪽 이동 */
+		    function moveRight() {
+		        $('.ul${board.mbidx }').animate({
+		            left: - slideWidth
+		        }, 200, function () {
+		            $('.li${board.mbidx }:first-child').appendTo('.ul${board.mbidx }');
+		            $('.ul${board.mbidx }').css('left', '');
+		        });
+		    };
+	
+		    $('a#next${board.mbidx }').click(function () {
+		        moveLeft();
+		    });
+	
+		    $('a#prev${board.mbidx }').click(function () {
+		        moveRight();
+		    });
+	
+		});   
+	</script> 
+	<b>${board.name }</b>&nbsp;${board.title }<br>${board.date }<br><br>
+	</div>
+</c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </c:forEach>
 <script>
 /* 게시물 삭제 */
