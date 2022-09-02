@@ -177,7 +177,7 @@ tr>th:nth-child(3){
 tr>th:last-child{
 	width: 20%
 }
-a{
+section a{
 	text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
