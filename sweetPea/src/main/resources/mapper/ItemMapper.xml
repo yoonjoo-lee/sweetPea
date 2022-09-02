@@ -52,10 +52,10 @@
 		<!-- 내가 올린 아이템 리스트  -->
 	<select id="myUploadItemList" parameterType="String" resultType="ItemVo">
 		SELECT * FROM pea_item
-		WHERE maker=#{id}
+		 WHERE maker=#{id}
+		 ORDER BY iidx desc;
 	</select>
-	
-	
+
 	
 	<!-- 아이템 리스트  카테고리 미니룸 (1)  -->
 <!-- 	<select id="itemListCate" parameterType="int" resultType="ItemVo">
@@ -139,7 +139,7 @@
 	
 	<!-- 아이템 승인 버튼 -->
 	<update id="approvalCheck" parameterType="int">
-		UPDATE pea_item SET approval='Y' AND postpone='N' WHERE iidx=#{iidx}
+		UPDATE pea_item SET approval='Y',postpone='N' WHERE iidx=#{iidx}
 	</update>
 	<!-- 아이템 보류 버튼  -->
 	<update id="postponeCheck" parameterType="int">
@@ -291,7 +291,7 @@
 	<select id="CheckNewItem" resultType="int">
 		SELECT COUNT(*)
 		  FROM pea_item
-		 WHERE Approval = 'N'
+		 WHERE Approval = 'N' AND Postpone='N' AND delyn = 'N'
 	</select>
 	
 

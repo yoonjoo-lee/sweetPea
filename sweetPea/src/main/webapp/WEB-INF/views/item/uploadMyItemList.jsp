@@ -11,7 +11,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/section.css" rel="stylesheet" />
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.6.0.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 <title>MY ITEM LIST</title>
 <script type="text/javascript">
 $(function(){
@@ -30,7 +30,9 @@ $(function(){
 * {
 	box-sizing: border-box;
 }
-
+body{
+margin: 0;
+}
 h3, ul {
 	text-align: center;
 	margin-bottom: 0;
@@ -114,99 +116,131 @@ li {
 	color: gray;
 	font-size: 1em;
 }
+.list-label{
+	border-bottom: 1px solid black;
+	text-align: center;
+	font-size: 18px;
+	padding-bottom: 5px !important;
+}
+.itemList{
+	padding:0;
+}
+.list-content li{
+	float:left;
+}
+.itemList>li:first-child {
+	width:28%;
+	margin: 5px 0;
+}
+.itemList>li:nth-child(2){
+	width:29%;
+}
+.list-content>li:not(:first-child){
+	line-height: 210px;
+	font-weight: bold;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.itemList>li:nth-child(3){
+	width:17%;
+}
+.itemList>li:nth-child(4){
+	width:9%;
+}
+.itemList>li:last-child{
+	width:17%;
+}
+
+.content-img{
+    height: 200px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.list-content{
+	border-bottom: 1px solid black;
+}
 </style>
 
 <c:if test="${device eq 'MOBILE'}">
 <style>
-.row{
-   flex-wrap: nowrap !important;
-   justify-content: start !important;
-}
-.col{
-	width: 45% !important;
-}
 .container{
-	overflow-x: scroll;
-	height: 100%;
-	padding: 0 !important;
-	padding-bottom: 5vh !important;
 	width: 100% !important;
+    margin: 0;
+    padding: 0;
 }
-.mb-5{
-	margin: 1vh 5vw !important;
-}
-.p-4{
-	padding: 1rem !important;
-	height: 20vh;
-}
-.card-footer{
-	padding-top: 0 !important;
-}
-.card-img-top{
-    height: 20vh;
-}
-.text-center{
+.container *{
 	font-size: 3vw;
 }
-.text-center>h5{
-	font-size: 5vw;
-	margin: 1vh 0;
-}
-.h-100{
-	width: 45vw;
+.list-label{
+    height: 5vh;
+    line-height: 4vh;
+    position: fixed;
+    background-color: white;
 }
 </style>	
 </c:if>
 
 </head>
 <body>
+<c:if test="${device eq 'PC'}">
+<br><br>
+</c:if>
 	<div style="width:90%;margin:0 auto;" class="container row">
-		<%-- <div style="text-align:right;">
-			<c:if test="${login.uidx >0 }">
-				<!-- <input type="button" class="btn btn-secondary" onclick="myItemDel()" value="삭제"> -->
-			</c:if>
-		</div> --%>
 		<c:if test="${ilist.size() == 0 || login.uidx == null }">
 			<ul class="content-ul">
 				<li>등록한 아이템이 없습니다.</li>
 			</ul>
 		</c:if>
 		<c:if test="${ilist.size() >0 }">
+			<ul class="list-label itemList">
+				<li>이미지
+				</li><li>이름
+				</li><li>종류
+				</li><li>가격
+				</li><li>승인여부</li>
+			</ul>
 			<c:forEach var="vo" items="${ilist}">
-			
-			
-			<div class='col mb-5' style='float:left; width: 20%;margin: 1em;padding: 0;'>
-				<div class='card h-100' style='width:100%; height:100% !important;'>
-				<img class='card-img-top' src='<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}'/>
-					<div class='card-body p-4'>
-						<div class='text-center'>
-							<c:choose>
-		                    <c:when test="${vo.subcategory == 1}">
-           			        	<span class="item-span">[미니룸배경]</span>
-		                    </c:when>
-		                    <c:when test="${vo.subcategory == 3}">
-		                    	<span class="item-span">[캐릭터]</span>
-		                    </c:when>
-		                    <c:when test="${vo.subcategory == 4}">
-		                    	<span class="item-span">[글꼴]</span>
-		                    </c:when>
-		                    <c:when test="${vo.subcategory == 5}">
-		                    	<span class="item-span">[가구]</span>
-		                    </c:when>
-		                    </c:choose>
-							<h5 class='fw-bolder' style="font-size:1rem;">${vo.name }</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-				<%-- <ul class="content-ul">
-					<li><input type="checkbox" name="rowCheck" value="${vo.iidx}" class="checkBox"></li>
-					<li><img src="<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img}" style="width:100px;height:100px;"></li>
-					<li>${vo.name}</li>
-					<li>${vo.price} 개</li>
-				</ul> --%>
+				<ul class="list-content itemList">
+					<li class='content-img' style="background-image: url(<%=request.getContextPath()%>/item/imageView.do?originFileName=${vo.img})">
+					</li><li>${vo.name}
+					</li><li>
+					<c:choose>
+	                    <c:when test="${vo.subcategory == 1}">
+          			        	<span class="item-span">[테마배경]</span>
+	                    </c:when>
+	                    <c:when test="${vo.subcategory == 2}">
+          			        	<span class="item-span">[미니룸배경]</span>
+	                    </c:when>
+	                    <c:when test="${vo.subcategory == 3}">
+	                    	<span class="item-span">[캐릭터]</span>
+	                    </c:when>
+	                    <c:when test="${vo.subcategory == 4}">
+	                    	<span class="item-span">[동물]</span>
+	                    </c:when>
+	                    <c:when test="${vo.subcategory == 5}">
+	                    	<span class="item-span">[가구]</span>
+	                    </c:when>
+	                    </c:choose>
+                    </li><li><i style='color:green' class='bi-circle-fill'></i><span>&nbsp;</span>${vo.price}
+                    </li><li>
+						<c:choose>
+	                    <c:when test="${vo.approval eq 'Y' && vo.delyn eq 'N'}">
+          			        	<span style="color:#007500">[승인]</span>
+	                    </c:when>
+	                    <c:when test="${vo.postpone eq 'Y' && vo.delyn eq 'N'}">
+          			        	<span style="color:skyblue">[보류]</span>
+	                    </c:when>
+	                    <c:when test="${vo.delyn eq 'Y'}">
+          			        	<span style="color:red">[거절]</span>
+	                    </c:when>
+	                    <c:when test="${vo.approval eq 'N' && vo.postpone eq 'N' && vo.delyn eq 'N'}">
+	                    	<span style="color:gray">[승인 대기중]</span>
+	                    </c:when>
+	                    </c:choose>
+					</li>
+				</ul>
 			</c:forEach>
 		</c:if>
 	</div>

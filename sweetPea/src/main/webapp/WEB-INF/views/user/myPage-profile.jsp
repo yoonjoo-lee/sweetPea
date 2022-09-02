@@ -80,7 +80,7 @@ margin-left:20%;
 <div class="photo_box">
   <div class="upload_btn">
     <div class="upload">
-    	<input type="file" name="file" accept="image/jpeg, image/png, image/gif" capture="camera" id="photoBtn"><label for="photoBtn">사진 첨부하기</label>
+    	<input type="file" name="file" accept="image/jpeg, .png, image/gif" capture="camera" id="photoBtn"><label for="photoBtn">사진 첨부하기</label>
     </div>
   	<a href="javascript:void(0);" id="resetPhoto">다시 올리기</a>
   </div>

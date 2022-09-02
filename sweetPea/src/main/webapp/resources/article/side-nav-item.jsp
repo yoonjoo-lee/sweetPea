@@ -197,11 +197,7 @@ a:hover {
 	display: block;
 	margin: 0 auto;
 }
-.category1,.category3{
-	text-decoration:none;
-	color: inherit;
-}
-.msgBtn{
+a{
 	color: inherit;
 	text-decoration: none;
 }
@@ -309,13 +305,13 @@ $(function(){
 				<li><a onclick="info('myItemList.do?uidx=${login.uidx}')">내 아이템</a>
 				<!-- </li><li><a onclick="gift()">선물하기</a> -->
 				</li><li><a onclick="info('itemFileChoice.do')">아이템 등록 신청</a></li>
-				</li><li><a onclick="info('uploadMyItemList.do?id=${login.id}')">내 아이템 등록 과정</a></li>
+				<li><a onclick="info('uploadMyItemList.do?id=${login.id}')">아이템 등록 과정</a></li>
 			</c:if>
 		</ul>
 		<c:if test="${login.pea_super == 'Y'}">
 			<h3>관리자</h3>
 			<ul>
-				</li><li><a class="approval" onclick="info('item-approval.do')">아이템 승인</a>
+				<li><a class="approval" onclick="info('item-approval.do')">아이템 승인</a>
 				</li><li><a onclick="info('item-postpone.do')">보류</a></li>
 			</ul>
 		</c:if>

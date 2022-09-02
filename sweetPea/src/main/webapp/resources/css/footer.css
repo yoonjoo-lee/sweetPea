@@ -19,18 +19,21 @@
 		 
 	}
 	.footer-ul{
-		text-align: center;
-		width: 100%;
-		list-style: none;
-		margin: 5px 0;
+	    text-align: center;
+	    width: 100%;
+	    list-style: none;
+	    margin: 5px 0;
+	    padding: 0;
+	    display: flex;
 	}
 	.footer-ul>li{
-		margin-right: 100px;
-		display: inline-block;
+		margin: 0 2vw;
+		width: 25vw;
 	}
 	.footer-link{
 		font-size: 0.8em;
 		text-decoration: none;
+		width: auto;
 	}
 	.footer-logo{
 	    background-image: url(../images/camelon.png);

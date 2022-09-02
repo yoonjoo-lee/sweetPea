@@ -440,12 +440,10 @@ public class ItemController {
 		return "item/item-postpone";
 	}
 	/*아이템 보류페이지에서 삭제 */
-	@RequestMapping(value="item/itemDel.do")
-	public void itemDel(int iidx, HttpServletResponse response) throws IOException {
-		int result = itemService.itemDel(iidx);
-		PrintWriter pw = response.getWriter();
-		pw.append("<script>history.back();</script>"); // 다른페이지로 넘어가야하기에 redirect는 먹히지 않기에 .do로 보내라.
-		pw.flush();
+	@ResponseBody
+	@RequestMapping(value="item/itemDel.do", produces = "application/json;charset=utf8" )
+	public void itemDel(int iidx){
+		itemService.itemDel(iidx);
 	}
 	
 	/* 결제  */

@@ -158,16 +158,39 @@ a {
 }
 td{
 	font-size: 3vw;
-	text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
 }
 tr>td:not(:nth-child(2)){
 	text-align: center;
 }
 th{
 	text-align: center;
+}
+tr>th:first-child{
+	width: 15%
+}
+tr>th:nth-child(2){
+	width: 40%
+}
+tr>th:nth-child(3){
+	width: 25%
+}
+tr>th:last-child{
+	width: 20%
+}
+a{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    width: 40vw;
 }	
+tr>td:last-child>span{
+	overflow: hidden;
+    white-space: nowrap;
+    width: 16vw;
+    display: block;
+}
+}
 </style>
 </c:if>
 
@@ -236,7 +259,7 @@ $(document).ready(function(){
 				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td><span>"+data[i].datetime+"</span></td>";
 				html+="</tr>";
 			}
 			if (data.length==0){
@@ -273,7 +296,7 @@ $(document).ready(function(){
 				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td><span>"+data[i].datetime+"</span></td>";
 				html+="</tr>";
 			}
 			if (data.length==0){
@@ -310,7 +333,7 @@ $(document).ready(function(){
 				html+="<td>"+data[i].rnum+"</td>";
 				html+="<td><a href='view.do?bidx="+data[i].bidx+"&category="+data[i].category+"&ridx="+data[i].ridx+"'>"+data[i].title+"</a></td>";
 				html+="<td>"+data[i].name+"</td>";
-				html+="<td>"+data[i].datetime+"</td>";
+				html+="<td><span>"+data[i].datetime+"</span></td>";
 				html+="</tr>";
 			}
 			if (data.length==0){
