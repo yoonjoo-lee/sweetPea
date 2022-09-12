@@ -47,7 +47,7 @@
 <h2>사용 라이브러리</h2>
 <li>JSTL</li>
 <li>Jquery</li>
-<li>Tagiry(해쉬태그)</li>
+<li>Tagify(해쉬태그)</li>
 <li>Sweet Alert2(알림창)</li>
 <p>
   <img src="https://img.shields.io/badge/JSTL-red?style=flat&logo=JSTL&logoColor=white"/>
