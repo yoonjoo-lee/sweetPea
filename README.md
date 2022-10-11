@@ -64,7 +64,7 @@
 
 <h2>사용한 API</h2>
 <li>다음 지도 API</li>
-<li>페이</li>
+<li>부트 페이</li>
 <p>
   <img src="https://img.shields.io/badge/Map-red?style=flat&logo=Map&logoColor=white"/>
   <img src="https://img.shields.io/badge/Pay-blue?style=flat&logo=Pay&logoColor=white"/>
